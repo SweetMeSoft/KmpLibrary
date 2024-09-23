@@ -26,8 +26,8 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabDisposable
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-//import com.sweetmesoft.milenfinances.utils.SetStatusBarColor
 import controls.LoadingView
+import tools.SetStatusBarColor
 
 private val emptyFunction: () -> Unit = {}
 
@@ -44,7 +44,7 @@ fun BaseScreen(
 ) {
     val statusBarColor =
         if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-    //SetStatusBarColor(statusBarColor, false)
+    SetStatusBarColor(statusBarColor, false)
     if (tabs.any()) {
         TabNavigator(tabs.first(), tabDisposable = {
             TabDisposable(

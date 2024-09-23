@@ -30,6 +30,13 @@ kotlin {
             implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.composeIcons.fontAwesome)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.kotlin.serialization)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.ktor.client.negotiation)
             implementation(libs.settings)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
@@ -37,6 +44,15 @@ kotlin {
 
             api(libs.moko.permissions)
             api(libs.moko.permissions.compose)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }
@@ -58,7 +74,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.0.1"
+        version = "0.5.15"
     )
 
     // Configure POM metadata for the published artifact

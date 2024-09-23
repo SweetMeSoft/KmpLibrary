@@ -48,9 +48,9 @@ open class BaseViewModel : ViewModel() {
         return permissionState == PermissionState.Granted
     }
 
-//    fun updateTab(index: Int) {
-//        BaseDrawerScreen.currentTab.value = index
-//    }
+    fun updateTab(index: Int) {
+        BaseDrawerScreen.currentTab.value = index
+    }
 
     suspend fun openDrawer() {
         baseState.drawerState.open()
