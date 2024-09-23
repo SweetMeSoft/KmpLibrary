@@ -2,7 +2,15 @@ package tools
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import kotlinx.cinterop.ExperimentalForeignApi
+import platform.UIKit.UIApplication
+import platform.UIKit.UIColor
+import platform.UIKit.UIStatusBarStyle
+import platform.UIKit.UIView
+import platform.UIKit.setStatusBarStyle
+import platform.UIKit.statusBarManager
 
+@OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun SetStatusBarColor(color: Color, darkIcons: Boolean) {
     val uiColor = UIColor(color)
