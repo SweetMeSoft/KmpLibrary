@@ -9,12 +9,11 @@ import kotlinx.coroutines.launch
 import tools.NetworkUtils.get
 
 class CustomDropDownViewModel(
-    private val url: String,
-    private val list: List<Any>,
+    val url: String,
+    val list: List<Any>,
 ) :
     BaseViewModel() {
     var state by mutableStateOf(CommonDropDownState())
-        private set
 
     data class CommonDropDownState(
         val expanded: Boolean = false,
@@ -23,7 +22,7 @@ class CustomDropDownViewModel(
         val value: String = ""
     )
 
-    internal inline fun <reified T : Any> start() {
+    inline fun <reified T : Any> start() {
         if (list.any()) {
             state = state.copy(
                 list = list,

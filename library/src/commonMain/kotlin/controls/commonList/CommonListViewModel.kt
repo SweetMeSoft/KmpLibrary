@@ -10,12 +10,11 @@ import kotlinx.coroutines.launch
 import tools.NetworkUtils.get
 
 class CommonListViewModel(
-    private val url: String = "",
-    private val list: List<Any> = listOf()
+    val url: String = "",
+    val list: List<Any> = listOf()
 ) :
     BaseViewModel() {
     var state by mutableStateOf(CommonListState())
-        private set
 
     data class CommonListState(
         val isLoading: Boolean = true,
@@ -23,7 +22,7 @@ class CommonListViewModel(
         val animation: String = ""
     )
 
-    internal inline fun <reified T : Any> start() {
+    inline fun <reified T : Any> start() {
         if (url.isNotEmpty()) {
             viewModelScope.launch {
                 val registers = get<List<T>>(url)

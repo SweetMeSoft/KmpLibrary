@@ -30,7 +30,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Plus
 
 @Composable
-internal inline fun <reified T : Any> LocalList(
+inline fun <reified T : Any> LocalList(
     modifier: Modifier = Modifier,
     title: String = "",
     list: List<T>,

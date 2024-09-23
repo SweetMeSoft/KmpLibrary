@@ -13,14 +13,13 @@ import kotlinx.serialization.json.jsonObject
 import tools.NetworkUtils.get
 
 class CommonDropDownViewModel(
-    private val url: String,
-    private val list: List<Any>,
-    private val textProperty: String = "",
-    private val idProperty: String = ""
+    val url: String,
+    val list: List<Any>,
+    val textProperty: String = "",
+    val idProperty: String = ""
 ) :
     BaseViewModel() {
     var state by mutableStateOf(CommonDropDownState())
-        private set
 
     data class CommonDropDownState(
         val expanded: Boolean = false,
@@ -29,7 +28,7 @@ class CommonDropDownViewModel(
         val isLoading: Boolean = true
     )
 
-    internal inline fun <reified T : Any> start() {
+    inline fun <reified T : Any> start() {
         if (list.any()) {
             val registers = list.map { it as T }
             state = state.copy(
@@ -52,7 +51,7 @@ class CommonDropDownViewModel(
         }
     }
 
-    private inline fun <reified T> convertToCommonDropDownitem(registers: List<T>): List<CommonDropDownItem> {
+    inline fun <reified T> convertToCommonDropDownitem(registers: List<T>): List<CommonDropDownItem> {
         return registers.map {
             val jsonElement = Json.encodeToJsonElement(it)
 

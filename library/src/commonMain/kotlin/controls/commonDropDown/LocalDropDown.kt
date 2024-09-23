@@ -24,7 +24,7 @@ import kotlinx.serialization.json.jsonObject
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal inline fun <reified T : Any> LocalDropDown(
+inline fun <reified T : Any> LocalDropDown(
     modifier: Modifier = Modifier,
     list: List<T> = listOf(),
     title: String,

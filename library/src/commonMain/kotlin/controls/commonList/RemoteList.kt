@@ -30,7 +30,7 @@ import compose.icons.fontawesomeicons.solid.Plus
 val defaultAddClick: () -> Unit = {}
 
 @Composable
-internal inline fun <reified T : Any> RemoteList(
+inline fun <reified T : Any> RemoteList(
     modifier: Modifier = Modifier,
     url: String,
     title: String = "",

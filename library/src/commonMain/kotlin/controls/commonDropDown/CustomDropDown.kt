@@ -16,7 +16,7 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal inline fun <reified T : Any> CustomDropDown(
+inline fun <reified T : Any> CustomDropDown(
     modifier: Modifier = Modifier,
     list: List<T> = listOf(),
     url: String = "",
