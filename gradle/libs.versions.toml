@@ -1,13 +1,13 @@
 [versions]
-agp = "8.5.0"
+agp = "8.5.2"
 android-minSdk = "24"
 android-compileSdk = "34"
 androidx-lifecycle = "2.8.0"
 compose-plugin = "1.6.11"
-kotlin = "2.0.0"
+kotlin = "2.0.20"
 moko = "0.18.0"
 nexus-publish = "2.0.0"
-runtimeAndroid = "1.7.1"
+runtimeAndroid = "1.7.2"
 settings = "1.2.0"
 voyager = "1.1.0-beta02"
 

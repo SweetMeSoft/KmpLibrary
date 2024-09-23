@@ -1,3 +1,4 @@
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -6,22 +7,20 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
-    id("module.publication")
+    id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
 kotlin {
-    //jvm()
     androidTarget {
-        publishLibraryVariants("release")
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_1_8)
         }
+        publishLibraryVariants("release")
     }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-    //linuxX64()
 
     sourceSets {
         commonMain.dependencies {
@@ -48,45 +47,51 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
+mavenPublishing {
+    // Define coordinates for the published artifact
+    coordinates(
+        groupId = "com.sweetmesoft.kmplibrary",
+        artifactId = "kmplibrary",
+        version = "0.0.1"
+    )
 
-publishing {
-    publications.all {
-        this as MavenPublication
+    // Configure POM metadata for the published artifact
+    pom {
+        name.set(project.name)
+        description.set("SweetMeSoft KMP Library")
+        inceptionYear.set("2024")
+        url.set("https://github.com/erickvelasco11/Kmp_Library")
 
-        pom {
-            name.set(project.name)
-            description.set("SweetMeSoft KMP Library")
-//            url.set("https://github.com/shepeliev/webrtc-kmp")
-
-//            scm {
-//                url.set("https://github.com/shepeliev/webrtc-kmp")
-//                connection.set("scm:git:https://github.com/shepeliev/webrtc-kmp.git")
-//                developerConnection.set("scm:git:https://github.com/shepeliev/webrtc-kmp.git")
-//                tag.set("HEAD")
-//            }
-
-//            issueManagement {
-//                system.set("GitHub Issues")
-//                url.set("https://github.com/shepeliev/webrtc-kmp/issues")
-//            }
-
-            developers {
-                developer {
-                    name.set("Erick Velasco")
-                    email.set("erick.velasco@sweetmesoft.com")
-                }
-            }
-
-            licenses {
-                license {
-                    name.set("The Apache Software License, Version 2.0")
-                    url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
-                    distribution.set("repo")
-                    comments.set("A business-friendly OSS license")
-                }
+        licenses {
+            license {
+                name.set("MIT")
+                url.set("https://opensource.org/licenses/MIT")
             }
         }
+
+
+        developers {
+            developer {
+                name.set("Erick Velasco")
+                email.set("erick.velasco@sweetmesoft.com")
+            }
+        }
+
+        // Specify SCM information
+        scm {
+            url.set("https://github.com/erickvelasco11/Kmp_Library")
+        }
     }
+
+    // Configure publishing to Maven Central
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+
+    // Enable GPG signing for all publications
+    signAllPublications()
 }
