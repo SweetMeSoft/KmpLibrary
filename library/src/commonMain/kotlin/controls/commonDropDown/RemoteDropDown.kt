@@ -16,15 +16,14 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-inline fun <reified T : Any> CustomDropDown(
+inline fun <reified T : Any> RemoteDropDown(
     modifier: Modifier = Modifier,
-    list: List<T> = listOf(),
     url: String = "",
     title: String,
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
 ) {
-    val vm: CustomDropDownViewModel = remember { CustomDropDownViewModel(url, list) }
+    val vm: CustomDropDownViewModel = remember { CustomDropDownViewModel(url, emptyList()) }
 
     if (vm.state.isLoading) {
         vm.start<T>()

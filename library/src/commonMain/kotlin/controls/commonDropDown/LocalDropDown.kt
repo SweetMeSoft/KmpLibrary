@@ -1,6 +1,5 @@
 package controls.commonDropDown
 
-
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.DropdownMenuItem
@@ -29,11 +28,13 @@ inline fun <reified T : Any> LocalDropDown(
     list: List<T> = listOf(),
     title: String,
     textProperty: String,
+    indexSelected: Int = -1,
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
 ) {
     var expanded by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf("") }
+    text = getText(indexSelected, textProperty, list)
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = expanded,
@@ -71,16 +72,10 @@ inline fun <reified T : Any> LocalDropDown(
             },
             modifier = Modifier.wrapContentWidth()
         ) {
-            list.forEach {
+            list.forEachIndexed { index, it ->
                 DropdownMenuItem(onClick = {
                     selectValue(it)
-                    val jsonElement = Json.encodeToJsonElement(it)
-                    text = jsonElement.jsonObject[textProperty]?.let { jsonValue ->
-                        when {
-                            jsonValue is JsonPrimitive && jsonValue.isString -> jsonValue.content
-                            else -> jsonValue
-                        }
-                    }.toString()
+                    text = getText(index, textProperty, list)
                     expanded = false
                 }) {
                     itemContent(it)
@@ -88,4 +83,19 @@ inline fun <reified T : Any> LocalDropDown(
             }
         }
     }
+}
+
+inline fun <reified T> getText(indexSelected: Int, textProperty: String, list: List<T>): String {
+    if (indexSelected == -1 || list.isEmpty()) {
+        return ""
+    }
+
+    val it = list[indexSelected]
+    val jsonElement = Json.encodeToJsonElement(it)
+    return jsonElement.jsonObject[textProperty]?.let { jsonValue ->
+        when {
+            jsonValue is JsonPrimitive && jsonValue.isString -> jsonValue.content
+            else -> jsonValue
+        }
+    }.toString()
 }

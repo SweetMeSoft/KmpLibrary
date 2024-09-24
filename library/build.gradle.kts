@@ -71,14 +71,12 @@ android {
 }
 
 mavenPublishing {
-    // Define coordinates for the published artifact
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.5.94"
+        version = "0.6.12"
     )
 
-    // Configure POM metadata for the published artifact
     pom {
         name.set(project.name)
         description.set("SweetMeSoft KMP Library")
@@ -100,15 +98,11 @@ mavenPublishing {
             }
         }
 
-        // Specify SCM information
         scm {
             url.set("https://github.com/erickvelasco11/Kmp_Library")
         }
     }
 
-    // Configure publishing to Maven Central
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-
-    // Enable GPG signing for all publications
     signAllPublications()
 }
