@@ -4,8 +4,9 @@ android-minSdk = "24"
 android-compileSdk = "34"
 androidx-activityCompose = "1.9.1"
 androidx-lifecycle = "2.8.0"
-compose-plugin = "1.6.11"
 compose-icons = "1.1.0"
+compose-plugin = "1.6.11"
+kmpDateTimePicker = "1.0.3"
 kotlin = "2.0.20"
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization-json = "1.7.2"
@@ -21,6 +22,7 @@ androidx-activity-compose = { module = "androidx.activity:activity-compose", ver
 androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 composeIcons-fontAwesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "compose-icons" }
+kmp-date-time-picker = { module = "network.chaintech:kmp-date-time-picker", version.ref = "kmpDateTimePicker" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }

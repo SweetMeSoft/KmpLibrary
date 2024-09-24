@@ -31,6 +31,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.composeIcons.fontAwesome)
+            implementation(libs.kmp.date.time.picker)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
@@ -74,7 +75,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.5.71"
+        version = "0.5.94"
     )
 
     // Configure POM metadata for the published artifact
