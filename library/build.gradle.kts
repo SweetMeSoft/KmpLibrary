@@ -28,9 +28,11 @@ kotlin {
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
+            implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.composeIcons.fontAwesome)
+            implementation(libs.compottie)
             implementation(libs.kmp.date.time.picker)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
@@ -74,7 +76,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.6.12"
+        version = "0.6.54"
     )
 
     pom {

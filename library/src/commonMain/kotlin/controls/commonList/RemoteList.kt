@@ -2,6 +2,7 @@ package controls.commonList
 
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,24 +28,33 @@ import androidx.compose.ui.unit.sp
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Plus
+import io.github.alexzhirkevich.compottie.Compottie
+import io.github.alexzhirkevich.compottie.LottieCompositionSpec
+import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
+import io.github.alexzhirkevich.compottie.rememberLottieComposition
+import io.github.alexzhirkevich.compottie.rememberLottiePainter
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 val defaultAddClick: () -> Unit = {}
 
+@OptIn(ExperimentalResourceApi::class)
 @Composable
-inline fun <reified T : Any> RemoteList(
+fun <T : Any> RemoteList(
     modifier: Modifier = Modifier,
     url: String,
     title: String = "",
-    crossinline itemContent: (@Composable (T) -> Unit),
-    noinline addClick: (() -> Unit) = defaultAddClick
+    itemContent: (@Composable (T) -> Unit),
+    addClick: (() -> Unit) = defaultAddClick
 ) {
     val vm: CommonListViewModel = remember { CommonListViewModel(url) }
-//    val animationState by animateKottieCompositionAsState(
-//        composition = rememberKottieComposition(
-//            spec = KottieCompositionSpec.File(vm.state.animation)
-//        ),
-//        isPlaying = true
-//    )
+
+    val composition by rememberLottieComposition {
+        LottieCompositionSpec.JsonString(
+            Res.readBytes("drawable/empty.json").decodeToString()
+        )
+    }
+    val progress by animateLottieCompositionAsState(composition)
 
     Column(modifier = modifier.fillMaxSize()) {
         if (vm.state.isLoading) {
@@ -95,13 +106,13 @@ inline fun <reified T : Any> RemoteList(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-
-                    //TODO Search a better library to add lottie animations
-//                    KottieAnimation(
-//                        composition = animationState.composition,
-//                        progress = { animationState.progress },
-//                        modifier = modifier.size(300.dp)
-//                    )
+                    Image(
+                        painter = rememberLottiePainter(
+                            composition = composition,
+                            progress = { progress }
+                        ),
+                        contentDescription = "Lottie animation"
+                    )
                     Text("No hay items en la lista")
                 }
             }
