@@ -22,7 +22,7 @@ class CommonListViewModel(
         val animation: String = ""
     )
 
-    fun <T : Any> start() {
+    inline fun <reified T : Any> start() {
         if (url.isNotEmpty()) {
             viewModelScope.launch {
                 val registers = get<List<T>>(url)

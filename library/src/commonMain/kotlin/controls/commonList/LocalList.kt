@@ -39,12 +39,12 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun <T : Any> LocalList(
+inline fun <reified T : Any> LocalList(
     modifier: Modifier = Modifier,
     title: String = "",
     list: List<T>,
-    addClick: (() -> Unit) = defaultAddClick,
-    itemContent: (@Composable (Int, T) -> Unit),
+    noinline addClick: (() -> Unit) = defaultAddClick,
+    crossinline itemContent: (@Composable (Int, T) -> Unit),
 //    noinline itemClick: ((T) -> Unit) = {}
 ) {
     val vm: CommonListViewModel = remember { CommonListViewModel(list = list) }

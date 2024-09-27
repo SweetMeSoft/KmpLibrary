@@ -76,7 +76,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.6.54"
+        version = "0.6.56"
     )
 
     pom {
@@ -107,4 +107,9 @@ mavenPublishing {
 
     publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
+}
+
+compose.resources {
+    publicResClass = true
+    generateResClass = auto
 }

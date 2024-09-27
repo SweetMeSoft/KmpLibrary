@@ -38,14 +38,15 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 val defaultAddClick: () -> Unit = {}
 
+@PublishedApi
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-fun <T : Any> RemoteList(
+internal inline fun <reified T : Any> RemoteList(
     modifier: Modifier = Modifier,
     url: String,
     title: String = "",
-    itemContent: (@Composable (T) -> Unit),
-    addClick: (() -> Unit) = defaultAddClick
+    crossinline itemContent: (@Composable (T) -> Unit),
+    noinline addClick: (() -> Unit) = defaultAddClick
 ) {
     val vm: CommonListViewModel = remember { CommonListViewModel(url) }
 
