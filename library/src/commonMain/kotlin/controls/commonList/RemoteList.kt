@@ -38,10 +38,9 @@ import org.jetbrains.compose.resources.ExperimentalResourceApi
 
 val defaultAddClick: () -> Unit = {}
 
-@PublishedApi
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-internal inline fun <reified T : Any> RemoteList(
+inline fun <reified T : Any> RemoteList(
     modifier: Modifier = Modifier,
     url: String,
     title: String = "",
