@@ -19,14 +19,14 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CommonDropDown(
+fun SimpleDropDown(
     modifier: Modifier = Modifier,
-    list: List<CommonDropDownItem> = listOf(),
+    list: List<String> = listOf(),
     title: String,
-    selectValue: (CommonDropDownItem) -> Unit
+    value: String,
+    selectValue: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    var selectedOption by remember { mutableStateOf("") }
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = expanded,
@@ -36,8 +36,8 @@ fun CommonDropDown(
     ) {
         OutlinedTextField(
             modifier = modifier,
-            value = selectedOption,
-            onValueChange = { selectedOption = it },
+            value = value,
+            onValueChange = { selectValue(it) },
             label = {
                 Text(
                     text = title,
@@ -56,22 +56,24 @@ fun CommonDropDown(
             ),
             singleLine = true
         )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-            modifier = Modifier.wrapContentWidth()
-        ) {
-            list.forEach {
-                DropdownMenuItem(onClick = {
-                    selectValue(it)
-                    selectedOption = it.text
-                    expanded = false
-                }) {
-                    Text(
-                        text = it.text,
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
-                    )
+
+        if(expanded) {
+            ExposedDropdownMenu(
+                expanded = expanded,
+                onDismissRequest = { expanded = false },
+                modifier = Modifier.wrapContentWidth()
+            ) {
+                list.forEach {
+                    DropdownMenuItem(onClick = {
+                        selectValue(it)
+                        expanded = false
+                    }) {
+                        Text(
+                            text = it,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    }
                 }
             }
         }

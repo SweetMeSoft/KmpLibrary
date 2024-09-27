@@ -44,8 +44,7 @@ inline fun <reified T : Any> LocalList(
     title: String = "",
     list: List<T>,
     noinline addClick: (() -> Unit) = defaultAddClick,
-    crossinline itemContent: (@Composable (Int, T) -> Unit),
-//    noinline itemClick: ((T) -> Unit) = {}
+    crossinline itemContent: (@Composable (Int, T) -> Unit)
 ) {
     val vm: CommonListViewModel = remember { CommonListViewModel(list = list) }
 

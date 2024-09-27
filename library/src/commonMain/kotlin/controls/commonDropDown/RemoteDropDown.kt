@@ -9,10 +9,16 @@ import androidx.compose.material.ExposedDropdownMenuDefaults
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
+import kotlinx.coroutines.launch
+import tools.NetworkUtils.get
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -20,26 +26,28 @@ inline fun <reified T : Any> RemoteDropDown(
     modifier: Modifier = Modifier,
     url: String = "",
     title: String,
+    value: String,
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
 ) {
-    val vm: CustomDropDownViewModel = remember { CustomDropDownViewModel(url, emptyList()) }
-
-    if (vm.state.isLoading) {
-        vm.start<T>()
+    val scope = rememberCoroutineScope()
+    var expanded by remember { mutableStateOf(false) }
+    var list by remember { mutableStateOf<List<T>>(emptyList()) }
+    scope.launch {
+        list = get<List<T>>(url)
     }
 
     ExposedDropdownMenuBox(
         modifier = modifier,
-        expanded = vm.state.expanded,
+        expanded = expanded,
         onExpandedChange = {
-            vm.clicked()
+            expanded = true
         }
     ) {
         OutlinedTextField(
             modifier = modifier,
-            value = vm.state.value,
-            onValueChange = { vm.selectValue(it) },
+            value = value,
+            onValueChange = { },
             label = {
                 Text(
                     text = title,
@@ -49,7 +57,7 @@ inline fun <reified T : Any> RemoteDropDown(
             },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(
-                    expanded = vm.state.expanded
+                    expanded = expanded
                 )
             },
             readOnly = true,
@@ -60,16 +68,16 @@ inline fun <reified T : Any> RemoteDropDown(
         )
 
         ExposedDropdownMenu(
-            expanded = vm.state.expanded,
-            onDismissRequest = { vm.clicked() },
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
             modifier = Modifier.wrapContentWidth()
         ) {
-            vm.state.list.forEach {
+            list.forEach {
                 DropdownMenuItem(onClick = {
-                    selectValue(it as T)
-                    vm.clicked()
+                    selectValue(it)
+                    expanded = false
                 }) {
-                    itemContent(it as T)
+                    itemContent(it)
                 }
             }
         }
