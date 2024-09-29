@@ -15,21 +15,26 @@ import androidx.compose.ui.unit.dp
 fun AlertView(
     title: String,
     message: String,
-    showDialog: Boolean,
     acceptText: String = "Aceptar",
     dismiss: () -> Unit = {}
 ) {
-    if (showDialog) {
+    if (PopupHandler.alertShow) {
         AlertDialog(
             modifier = Modifier.padding(16.dp),
-            onDismissRequest = { dismiss() },
+            onDismissRequest = {
+                dismiss()
+                PopupHandler.alertShow = false
+            },
             title = { Text(title) },
             text = { Text(message) },
             shape = RoundedCornerShape(8.dp),
             confirmButton = {
                 Button(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
-                    onClick = { dismiss() },
+                    onClick = {
+                        dismiss()
+                        PopupHandler.alertShow = false
+                    },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {
                     Text(acceptText)
