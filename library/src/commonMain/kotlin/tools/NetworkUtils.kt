@@ -32,7 +32,7 @@ object NetworkUtils {
         }
     }
 
-    suspend inline fun <reified T> get(url: String): T {
+    suspend inline fun <reified T> get(url: String): Result<T> {
         val response = httpClient.get(url) {
             contentType(ContentType.Application.Json)
             headers.append(
@@ -48,16 +48,21 @@ object NetworkUtils {
         if (response.status.value != 200) {
             val error = response.body<ErrorResponse>()
             println("HTTP Error: $error")
+            return Result.failure(Exception(error.detail))
         }
 
-        return response.body<T>()
+        return Result.success(response.body<T>())
     }
 
-    suspend inline fun <reified T> post(url: String, body: Any? = null): T {
+    suspend inline fun <reified T> post(url: String, body: Any? = null): Result<T> {
         val response = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             headers.append(
                 "CurrentDate",
+                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
+            )
+            headers.append(
+                "Language",
                 Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
             )
             headers.append("Language", getCurrentLanguage())
@@ -67,9 +72,10 @@ object NetworkUtils {
         if (response.status.value != 200) {
             val error = response.body<ErrorResponse>()
             println("HTTP Error: $error")
+            return Result.failure(Exception(error.detail))
         }
 
-        return response.body<T>()
+        return Result.success(response.body<T>())
     }
 
     suspend fun downloadFile(url: String): ByteReadChannel {

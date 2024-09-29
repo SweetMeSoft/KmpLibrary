@@ -20,15 +20,19 @@ open class BaseViewModel : ViewModel() {
 
     data class BaseState(
         val isLoading: Boolean = false,
-        val drawerState: DrawerState = DrawerState(DrawerValue.Closed)
+        val drawerState: DrawerState = DrawerState(DrawerValue.Closed),
+        val alertShow: Boolean = false,
+        val alertTitle: String = "",
+        val alertMessage: String = "",
+        val alertDismiss: () -> Unit = {}
     )
 
     companion object {
         lateinit var navigator: Navigator
+        lateinit var controller: PermissionsController
+        lateinit var factory: PermissionsControllerFactory
     }
 
-    lateinit var controller: PermissionsController
-    lateinit var factory: PermissionsControllerFactory
     val settings = Settings()
 
     protected suspend fun requestPermission(permission: Permission): Boolean {
@@ -54,5 +58,26 @@ open class BaseViewModel : ViewModel() {
 
     suspend fun openDrawer() {
         baseState.drawerState.open()
+    }
+
+    suspend fun closeDrawer() {
+        baseState.drawerState.close()
+    }
+
+    fun showLoading() {
+        baseState = baseState.copy(isLoading = true)
+    }
+
+    fun hideLoading() {
+        baseState = baseState.copy(isLoading = false)
+    }
+
+    fun displayAlert(title: String, message: String, dismiss: () -> Unit = {}) {
+        baseState = baseState.copy(
+            alertTitle = title,
+            alertMessage = message,
+            alertDismiss = dismiss,
+            alertShow = true
+        )
     }
 }
