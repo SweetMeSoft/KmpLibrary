@@ -18,23 +18,24 @@ fun AlertList(
     title: String,
     message: String,
     options: List<String>,
-    onConfirm: (String) -> Unit,
     show: Boolean,
-    hide: () -> Unit = {},
+    confirmText: String = "Aceptar",
+    cancelText: String = "Cancelar",
+    dismiss: () -> Unit = {},
+    accept: (String) -> Unit,
 ) {
     var value by remember { mutableStateOf("") }
-    var showAlertList by remember { mutableStateOf(show) }
 
-    if (showAlertList) {
+    if (show) {
         AlertDialog(
             title = { Text(title) },
-            onDismissRequest = { hide() },
+            onDismissRequest = { dismiss() },
             text = {
                 Column {
                     Text(message)
                     SimpleDropDown(
                         modifier = Modifier.fillMaxWidth(),
-                        title = "Usuarios",
+                        title = title,
                         list = options,
                         selectValue = { value = it },
                         value = value
@@ -43,18 +44,16 @@ fun AlertList(
             },
             confirmButton = {
                 Button(onClick = {
-                    onConfirm(value)
-                    showAlertList = false
+                    accept(value)
                 }) {
-                    Text("Aceptar")
+                    Text(confirmText)
                 }
             },
             dismissButton = {
                 Button(onClick = {
-                    hide()
-                    showAlertList = false
+                    dismiss()
                 }) {
-                    Text("Cancelar")
+                    Text(cancelText)
                 }
             }
         )
