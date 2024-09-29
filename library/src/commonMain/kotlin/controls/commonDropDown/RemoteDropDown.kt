@@ -34,7 +34,10 @@ inline fun <reified T : Any> RemoteDropDown(
     var expanded by remember { mutableStateOf(false) }
     var list by remember { mutableStateOf<List<T>>(emptyList()) }
     scope.launch {
-        list = get<List<T>>(url)
+        val result = get<List<T>>(url)
+        result.onSuccess{
+            list = it
+        }
     }
 
     ExposedDropdownMenuBox(

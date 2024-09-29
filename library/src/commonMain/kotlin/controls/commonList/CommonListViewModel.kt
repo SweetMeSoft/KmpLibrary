@@ -25,12 +25,14 @@ class CommonListViewModel(
     inline fun <reified T : Any> start() {
         if (url.isNotEmpty()) {
             viewModelScope.launch {
-                val registers = get<List<T>>(url)
-                state = state.copy(
-                    list = registers,
-                    isLoading = false,
-                    animation = ""//Res.readBytes("drawable/empty.json").decodeToString()
-                )
+                val result = get<List<T>>(url)
+                result.onSuccess {
+                    state = state.copy(
+                        list = it,
+                        isLoading = false,
+                        animation = ""//Res.readBytes("drawable/empty.json").decodeToString()
+                    )
+                }
             }
         } else {
             viewModelScope.launch {
