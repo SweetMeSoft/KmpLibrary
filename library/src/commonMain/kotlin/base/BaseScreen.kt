@@ -146,7 +146,6 @@ private fun ScreenContent(
         AlertView(
             title = PopupHandler.alertTitle,
             message = PopupHandler.alertMessage,
-            showDialog = PopupHandler.alertShow,
             dismiss = PopupHandler.alertDismiss
         )
     }
