@@ -80,4 +80,10 @@ open class BaseViewModel : ViewModel() {
             alertShow = true
         )
     }
+
+    fun hideAlert(){
+        baseState = baseState.copy(
+            alertShow = false
+        )
+    }
 }
