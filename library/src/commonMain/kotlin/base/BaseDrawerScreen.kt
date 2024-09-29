@@ -34,6 +34,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Bars
 import compose.icons.fontawesomeicons.solid.SignOutAlt
 import controls.LoadingView
+import controls.alerts.PopupHandler
 import controls.commonList.LocalList
 import kotlinx.coroutines.launch
 import tools.SetStatusBarColor
@@ -89,7 +90,7 @@ private fun ScreenContent(
         tab.Content()
     }
 
-    LoadingView(vm.baseState.isLoading)
+    LoadingView(PopupHandler.isLoading)
 }
 
 @Composable

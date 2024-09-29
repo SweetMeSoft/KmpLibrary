@@ -33,8 +33,9 @@ inline fun <reified T : Any> RemoteDropDown(
     val scope = rememberCoroutineScope()
     var expanded by remember { mutableStateOf(false) }
     var list by remember { mutableStateOf<List<T>>(emptyList()) }
+
     scope.launch {
-        val result = get<List<T>>(url)
+        val result = get<List<T>>(url, false)
         result.onSuccess{
             list = it
         }

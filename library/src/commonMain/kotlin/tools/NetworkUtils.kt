@@ -1,5 +1,6 @@
 package tools
 
+import controls.alerts.PopupHandler
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpTimeout
@@ -32,7 +33,11 @@ object NetworkUtils {
         }
     }
 
-    suspend inline fun <reified T> get(url: String): Result<T> {
+    suspend inline fun <reified T> get(url: String, showLoading: Boolean = true): Result<T> {
+        if (showLoading) {
+            PopupHandler.isLoading = true
+        }
+
         val response = httpClient.get(url) {
             contentType(ContentType.Application.Json)
             headers.append(
@@ -45,16 +50,25 @@ object NetworkUtils {
             )
         }
 
+        if (showLoading) {
+            PopupHandler.isLoading = false
+        }
+
         if (response.status.value != 200) {
             val error = response.body<ErrorResponse>()
             println("HTTP Error: $error")
+            PopupHandler.displayAlert(error.title, error.detail)
             return Result.failure(Exception(error.detail))
         }
 
         return Result.success(response.body<T>())
     }
 
-    suspend inline fun <reified T> post(url: String, body: Any? = null): Result<T> {
+    suspend inline fun <reified T> post(url: String, body: Any? = null, showLoading: Boolean = true): Result<T> {
+        if (showLoading) {
+            PopupHandler.isLoading = true
+        }
+
         val response = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             headers.append(
@@ -69,9 +83,14 @@ object NetworkUtils {
             setBody(body)
         }
 
+        if (showLoading) {
+            PopupHandler.isLoading = false
+        }
+
         if (response.status.value != 200) {
             val error = response.body<ErrorResponse>()
             println("HTTP Error: $error")
+            PopupHandler.displayAlert(error.title, error.detail)
             return Result.failure(Exception(error.detail))
         }
 

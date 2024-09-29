@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import controls.LoadingView
 import controls.alerts.AlertView
+import controls.alerts.PopupHandler
 import objects.IconAction
 import tools.SetStatusBarColor
 
@@ -38,12 +39,17 @@ fun BaseScreen(
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
     iconActions: List<IconAction> = listOf(),
-    vm: BaseViewModel = BaseViewModel(),
+    //TODO Replace with toolbarColor for more customization
+    toolbarTransparent: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    val statusBarColor =
-        if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-    SetStatusBarColor(statusBarColor, false)
+    if (toolbarTransparent) {
+        SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
+    } else {
+        val statusBarColor =
+            if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
+        SetStatusBarColor(statusBarColor, false)
+    }
     //TODO Implement in each platform
     //SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
     ScreenContent(
@@ -52,8 +58,7 @@ fun BaseScreen(
         showTop,
         fabAction,
         fabIcon,
-        iconActions,
-        vm
+        iconActions
     ) {
         content()
     }
@@ -67,7 +72,6 @@ private fun ScreenContent(
     fabAction: () -> Unit,
     fabIcon: ImageVector,
     iconActions: List<IconAction> = listOf(),
-    vm: BaseViewModel,
     content: @Composable () -> Unit
 ) {
     Scaffold(
@@ -140,12 +144,12 @@ private fun ScreenContent(
     ) {
         content()
         AlertView(
-            title = vm.baseState.alertTitle,
-            message = vm.baseState.alertMessage,
-            showDialog = vm.baseState.alertShow,
-            dismiss = vm.baseState.alertDismiss
+            title = PopupHandler.alertTitle,
+            message = PopupHandler.alertMessage,
+            showDialog = PopupHandler.alertShow,
+            dismiss = PopupHandler.alertDismiss
         )
     }
 
-    LoadingView(vm.baseState.isLoading)
+    LoadingView(PopupHandler.isLoading)
 }

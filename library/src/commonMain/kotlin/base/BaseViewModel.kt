@@ -19,12 +19,7 @@ open class BaseViewModel : ViewModel() {
         internal set
 
     data class BaseState(
-        val isLoading: Boolean = false,
-        val drawerState: DrawerState = DrawerState(DrawerValue.Closed),
-        val alertShow: Boolean = false,
-        val alertTitle: String = "",
-        val alertMessage: String = "",
-        val alertDismiss: () -> Unit = {}
+        val drawerState: DrawerState = DrawerState(DrawerValue.Closed)
     )
 
     companion object {
@@ -62,28 +57,5 @@ open class BaseViewModel : ViewModel() {
 
     suspend fun closeDrawer() {
         baseState.drawerState.close()
-    }
-
-    fun showLoading() {
-        baseState = baseState.copy(isLoading = true)
-    }
-
-    fun hideLoading() {
-        baseState = baseState.copy(isLoading = false)
-    }
-
-    fun displayAlert(title: String, message: String, dismiss: () -> Unit = {}) {
-        baseState = baseState.copy(
-            alertTitle = title,
-            alertMessage = message,
-            alertDismiss = dismiss,
-            alertShow = true
-        )
-    }
-
-    fun hideAlert(){
-        baseState = baseState.copy(
-            alertShow = false
-        )
     }
 }

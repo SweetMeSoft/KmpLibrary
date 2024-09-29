@@ -18,19 +18,17 @@ class CommonListViewModel(
 
     data class CommonListState(
         val isLoading: Boolean = true,
-        val list: List<Any> = listOf(),
-        val animation: String = ""
+        val list: List<Any> = listOf()
     )
 
     inline fun <reified T : Any> start() {
         if (url.isNotEmpty()) {
             viewModelScope.launch {
-                val result = get<List<T>>(url)
+                val result = get<List<T>>(url, false)
                 result.onSuccess {
                     state = state.copy(
                         list = it,
-                        isLoading = false,
-                        animation = ""//Res.readBytes("drawable/empty.json").decodeToString()
+                        isLoading = false
                     )
                 }
             }
@@ -39,8 +37,7 @@ class CommonListViewModel(
                 delay(200)
                 state = state.copy(
                     list = list,
-                    isLoading = false,
-                    animation = ""//Res.readBytes("drawable/empty.json").decodeToString()
+                    isLoading = false
                 )
             }
         }
