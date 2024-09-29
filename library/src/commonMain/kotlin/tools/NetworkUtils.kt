@@ -57,7 +57,7 @@ object NetworkUtils {
         if (response.status.value != 200) {
             val error = response.body<ErrorResponse>()
             println("HTTP Error: $error")
-            PopupHandler.displayAlert(error.title, error.detail)
+            PopupHandler.displayAlert(response.status.description, error.title)
             return Result.failure(Exception(error.detail))
         }
 
@@ -90,7 +90,7 @@ object NetworkUtils {
         if (response.status.value != 200) {
             val error = response.body<ErrorResponse>()
             println("HTTP Error: $error")
-            PopupHandler.displayAlert(error.title, error.detail)
+            PopupHandler.displayAlert(response.status.description, error.title)
             return Result.failure(Exception(error.detail))
         }
 

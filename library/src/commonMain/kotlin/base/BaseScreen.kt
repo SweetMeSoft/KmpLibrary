@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import controls.LoadingView
+import controls.alerts.AlertConfirm
 import controls.alerts.AlertView
 import controls.alerts.PopupHandler
 import objects.IconAction
@@ -148,6 +149,16 @@ private fun ScreenContent(
             message = PopupHandler.alertMessage,
             dismiss = PopupHandler.alertDismiss
         )
+
+        AlertConfirm(
+            title = PopupHandler.confirmTitle,
+            message = PopupHandler.confirmMessage,
+            confirmText = PopupHandler.confirmAcceptText,
+            cancelText = PopupHandler.confirmCancelText,
+            dismiss = PopupHandler.confirmDismiss,
+        ){
+            PopupHandler.confirmAccept()
+        }
     }
 
     LoadingView(PopupHandler.isLoading)

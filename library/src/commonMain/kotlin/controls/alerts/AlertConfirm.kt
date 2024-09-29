@@ -15,13 +15,12 @@ import androidx.compose.ui.unit.dp
 fun AlertConfirm(
     title: String,
     message: String,
-    show: Boolean,
     confirmText: String = "Aceptar",
     cancelText: String = "Cancelar",
     dismiss: () -> Unit = {},
     accept: () -> Unit,
 ) {
-    if (show) {
+    if (PopupHandler.confirmShow) {
         AlertDialog(
             modifier = Modifier.padding(16.dp),
             onDismissRequest = { dismiss() },
