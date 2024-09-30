@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import controls.LoadingView
 import controls.alerts.AlertConfirm
+import controls.alerts.AlertList
 import controls.alerts.AlertView
 import controls.alerts.PopupHandler
 import objects.IconAction
@@ -156,8 +157,20 @@ private fun ScreenContent(
             confirmText = PopupHandler.confirmAcceptText,
             cancelText = PopupHandler.confirmCancelText,
             dismiss = PopupHandler.confirmDismiss,
-        ){
+        ) {
             PopupHandler.confirmAccept()
+        }
+
+        AlertList(
+            title = PopupHandler.listTitle,
+            message = PopupHandler.listMessage,
+            options = PopupHandler.listOptions,
+            show = PopupHandler.listShow,
+            confirmText = PopupHandler.confirmAcceptText,
+            cancelText = PopupHandler.confirmCancelText,
+            dismiss = PopupHandler.listDismiss
+        ) {
+            PopupHandler.listAccept(it)
         }
     }
 

@@ -18,6 +18,12 @@ class PopupHandler {
         internal var confirmCancelText by mutableStateOf("")
         internal var confirmAccept by mutableStateOf({})
         internal var confirmDismiss by mutableStateOf({})
+        internal var listShow by mutableStateOf(false)
+        internal var listTitle by mutableStateOf("")
+        internal var listMessage by mutableStateOf("")
+        internal var listOptions by mutableStateOf(listOf<String>())
+        internal var listAccept: (String) -> Unit by mutableStateOf({})
+        internal var listDismiss by mutableStateOf({})
 
         fun displayAlert(title: String, message: String, dismiss: () -> Unit = {}) {
             alertTitle = title
@@ -31,37 +37,37 @@ class PopupHandler {
             message: String,
             confirmText: String = "Confirmar",
             cancelText: String = "Cancelar",
-            onConfirm: () -> Unit,
-            hide: () -> Unit = {},
+            accept: () -> Unit,
+            dismiss: () -> Unit = {},
         ) {
             confirmTitle = title
             confirmMessage = message
             confirmAcceptText = confirmText
             confirmCancelText = cancelText
-            confirmDismiss = { hide() }
-            confirmAccept = { onConfirm() }
+            confirmDismiss = { dismiss() }
+            confirmAccept = { accept() }
             confirmShow = true
         }
-//
-//        fun displayAlertList(
-//            title: String,
-//            message: String,
-//            options: List<String> = listOf(),
-//            accept: (String) -> Unit,
-//            hide: () -> Unit = {},
-//        ) {
-//            BaseViewModel2.title = title
-//            BaseViewModel2.message = message
-//            BaseViewModel2.options = options
-//            onConfirmList = {
-//                accept(it)
-//                showAlertList = false
-//            }
-//            BaseViewModel2.hide = {
-//                hide()
-//                showAlertList = false
-//            }
-//            showAlertList = true
-//        }
+
+        fun displayAlertList(
+            title: String,
+            message: String,
+            options: List<String> = listOf(),
+            accept: (String) -> Unit,
+            dismiss: () -> Unit = {},
+        ) {
+            listTitle = title
+            listMessage = message
+            listOptions = options
+            listAccept = {
+                accept(it)
+                listShow = false
+            }
+            listDismiss = {
+                dismiss()
+                listShow = false
+            }
+            listShow = true
+        }
     }
 }
