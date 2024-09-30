@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.UIKit.UIApplication
 import platform.UIKit.UIColor
+import platform.UIKit.UINavigationBar
 import platform.UIKit.UIStatusBarStyle
 import platform.UIKit.UIView
 import platform.UIKit.setStatusBarStyle
