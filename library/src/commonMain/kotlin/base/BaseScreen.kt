@@ -26,40 +26,40 @@ import androidx.compose.ui.unit.dp
 import controls.LoadingView
 import controls.alerts.AlertConfirm
 import controls.alerts.AlertList
+import controls.alerts.AlertPrompt
 import controls.alerts.AlertView
 import controls.alerts.PopupHandler
 import objects.IconAction
+import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
-
-private val emptyFunction: () -> Unit = {}
 
 @Composable
 fun BaseScreen(
     title: String = "",
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
-    fabAction: () -> Unit = emptyFunction,
+    fabAction: () -> Unit = { },
     fabIcon: ImageVector = Icons.Default.Check,
+    infiniteStyle: Boolean = true,
     iconActions: List<IconAction> = listOf(),
-    //TODO Replace with toolbarColor for more customization
-    toolbarTransparent: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    if (toolbarTransparent) {
+    var toolbarColor = MaterialTheme.colors.background
+    if (infiniteStyle) {
         SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
+        SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
     } else {
-        val statusBarColor =
+        toolbarColor =
             if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-        SetStatusBarColor(statusBarColor, false)
+        SetStatusBarColor(toolbarColor, false)
     }
-    //TODO Implement in each platform
-    //SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
     ScreenContent(
         modifier,
         title,
         showTop,
         fabAction,
         fabIcon,
+        toolbarColor,
         iconActions
     ) {
         content()
@@ -73,6 +73,7 @@ private fun ScreenContent(
     showTop: Boolean,
     fabAction: () -> Unit,
     fabIcon: ImageVector,
+    toolbarColor: Color,
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
@@ -83,6 +84,7 @@ private fun ScreenContent(
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
+                    backgroundColor = toolbarColor,
                     elevation = 0.dp,
                     title = {
                         Row(
@@ -132,7 +134,7 @@ private fun ScreenContent(
             }
         },
         floatingActionButton = {
-            if (fabAction != emptyFunction) {
+            if (fabAction != {}) {
                 FloatingActionButton(onClick = fabAction) {
                     Icon(
                         imageVector = fabIcon,
@@ -171,6 +173,16 @@ private fun ScreenContent(
             dismiss = PopupHandler.listDismiss
         ) {
             PopupHandler.listAccept(it)
+        }
+
+        AlertPrompt(
+            title = PopupHandler.promptTitle,
+            subtitle = PopupHandler.promptSubtitle,
+            input = PopupHandler.promptInput,
+            confirmText = PopupHandler.confirmAcceptText,
+            dismiss = PopupHandler.promptDismiss
+        ) {
+            PopupHandler.promptAccept(it)
         }
     }
 

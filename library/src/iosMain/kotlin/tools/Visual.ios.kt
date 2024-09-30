@@ -31,7 +31,15 @@ actual fun SetStatusBarColor(color: Color, darkIcons: Boolean) {
     }
 }
 
-fun UIColor(color: Color): UIColor {
+@Composable
+actual fun SetNavigationBarColor(
+    color: Color,
+    darkIcons: Boolean
+) {
+    UINavigationBar.appearance().barTintColor = UIColor(color)
+}
+
+private fun UIColor(color: Color): UIColor {
     return UIColor(
         red = color.red.toDouble(),
         green = color.green.toDouble(),

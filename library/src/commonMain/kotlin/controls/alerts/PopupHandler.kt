@@ -24,6 +24,12 @@ class PopupHandler {
         internal var listOptions by mutableStateOf(listOf<String>())
         internal var listAccept: (String) -> Unit by mutableStateOf({})
         internal var listDismiss by mutableStateOf({})
+        internal var promptShow by mutableStateOf(false)
+        internal var promptTitle by mutableStateOf("")
+        internal var promptSubtitle by mutableStateOf("")
+        internal var promptInput by mutableStateOf("")
+        internal var promptAccept: (String) -> Unit by mutableStateOf({})
+        internal var promptDismiss by mutableStateOf({})
 
         fun displayAlert(title: String, message: String, dismiss: () -> Unit = {}) {
             alertTitle = title
@@ -37,8 +43,8 @@ class PopupHandler {
             message: String,
             confirmText: String = "Confirmar",
             cancelText: String = "Cancelar",
-            accept: () -> Unit,
             dismiss: () -> Unit = {},
+            accept: () -> Unit
         ) {
             confirmTitle = title
             confirmMessage = message
@@ -53,21 +59,30 @@ class PopupHandler {
             title: String,
             message: String,
             options: List<String> = listOf(),
-            accept: (String) -> Unit,
             dismiss: () -> Unit = {},
+            accept: (String) -> Unit
         ) {
             listTitle = title
             listMessage = message
             listOptions = options
-            listAccept = {
-                accept(it)
-                listShow = false
-            }
-            listDismiss = {
-                dismiss()
-                listShow = false
-            }
+            listAccept = { accept(it) }
+            listDismiss = { dismiss() }
             listShow = true
+        }
+
+        fun displayPrompt(
+            title: String,
+            subtitle: String,
+            input: String,
+            dismiss: () -> Unit = {},
+            accept: (String) -> Unit
+        ) {
+            promptTitle = title
+            promptSubtitle = subtitle
+            promptInput = input
+            promptAccept = { accept(it) }
+            promptDismiss = { dismiss() }
+            promptShow = true
         }
     }
 }

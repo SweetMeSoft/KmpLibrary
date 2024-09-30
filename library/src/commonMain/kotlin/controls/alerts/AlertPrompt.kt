@@ -29,15 +29,17 @@ fun AlertPrompt(
     title: String,
     subtitle: String,
     input: String,
-    showDialog: Boolean,
     confirmText: String = "Aceptar",
     dismiss: () -> Unit = {},
     accept: (String) -> Unit
 ) {
     var text by remember { mutableStateOf(input) }
-    if (showDialog) {
+    if (PopupHandler.promptShow) {
         Dialog(
-            onDismissRequest = { dismiss() },
+            onDismissRequest = {
+                dismiss()
+                PopupHandler.promptShow = false
+            },
             properties = DialogProperties(
                 dismissOnBackPress = true,
                 dismissOnClickOutside = true
@@ -63,6 +65,7 @@ fun AlertPrompt(
                     onClick = {
                         accept(text)
                         text = ""
+                        PopupHandler.promptShow = false
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {

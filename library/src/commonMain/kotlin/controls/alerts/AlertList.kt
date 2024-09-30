@@ -29,7 +29,10 @@ fun AlertList(
     if (show) {
         AlertDialog(
             title = { Text(title) },
-            onDismissRequest = { dismiss() },
+            onDismissRequest = {
+                dismiss()
+                PopupHandler.listShow = false
+            },
             text = {
                 Column {
                     Text(message)
@@ -45,6 +48,7 @@ fun AlertList(
             confirmButton = {
                 Button(onClick = {
                     accept(value)
+                    PopupHandler.listShow = false
                 }) {
                     Text(confirmText)
                 }
@@ -52,6 +56,7 @@ fun AlertList(
             dismissButton = {
                 Button(onClick = {
                     dismiss()
+                    PopupHandler.listShow = false
                 }) {
                     Text(cancelText)
                 }
