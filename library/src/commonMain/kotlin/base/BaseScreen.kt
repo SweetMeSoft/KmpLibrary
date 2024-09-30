@@ -32,13 +32,14 @@ import controls.alerts.PopupHandler
 import objects.IconAction
 import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
+import tools.emptyFunction
 
 @Composable
 fun BaseScreen(
     title: String = "",
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
-    fabAction: () -> Unit = { },
+    fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
     infiniteStyle: Boolean = true,
     iconActions: List<IconAction> = listOf(),
@@ -134,7 +135,7 @@ private fun ScreenContent(
             }
         },
         floatingActionButton = {
-            if (fabAction != {}) {
+            if (fabAction != emptyFunction) {
                 FloatingActionButton(onClick = fabAction) {
                     Icon(
                         imageVector = fabIcon,
