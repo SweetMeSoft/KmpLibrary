@@ -1,6 +1,6 @@
 package controls.commonDropDown
 
-import base.BaseViewModel
+import com.sweetmesoft.kmplibrary.base.BaseViewModel
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.encodeToJsonElement

@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -34,8 +35,7 @@ import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-
-val defaultAddClick: () -> Unit = {}
+import tools.emptyFunction
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -44,7 +44,7 @@ inline fun <reified T : Any> RemoteList(
     url: String,
     title: String = "",
     crossinline itemContent: (@Composable (T) -> Unit),
-    noinline addClick: (() -> Unit) = defaultAddClick
+    noinline addClick: (() -> Unit) = emptyFunction
 ) {
     val vm: CommonListViewModel = remember { CommonListViewModel(url) }
 
@@ -80,11 +80,13 @@ inline fun <reified T : Any> RemoteList(
 
                     Spacer(Modifier.weight(1f))
 
-                    if (addClick != defaultAddClick) {
-                        Icon(imageVector = FontAwesomeIcons.Solid.Plus,
-                            contentDescription = "Add list event",
-                            tint = MaterialTheme.colors.primary,
-                            modifier = Modifier.size(24.dp).clickable { addClick() })
+                    if (addClick != emptyFunction) {
+                        IconButton(onClick = { addClick() }) {
+                            Icon(imageVector = FontAwesomeIcons.Solid.Plus,
+                                contentDescription = "Add list event",
+                                tint = MaterialTheme.colors.primary,
+                                modifier = Modifier.size(24.dp))
+                        }
                     }
                 }
 

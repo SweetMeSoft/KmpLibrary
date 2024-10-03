@@ -1,4 +1,4 @@
-package base
+package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.material.DrawerState
 import androidx.compose.material.DrawerValue

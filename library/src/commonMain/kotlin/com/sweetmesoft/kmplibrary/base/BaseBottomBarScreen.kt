@@ -1,4 +1,4 @@
-package base
+package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +23,7 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabDisposable
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
 
 @Composable
@@ -30,12 +31,18 @@ fun BaseBottomBarScreen(
     title: String = "",
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
-    tabs: List<Tab>,
-    vm: BaseViewModel = BaseViewModel()
+    infiniteStyle: Boolean = true,
+    tabs: List<Tab>
 ) {
-    val statusBarColor =
-        if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-    SetStatusBarColor(statusBarColor, false)
+    var toolbarColor = MaterialTheme.colors.background
+    if (infiniteStyle) {
+        SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
+        SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
+    } else {
+        toolbarColor =
+            if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
+        SetStatusBarColor(toolbarColor, false)
+    }
     TabNavigator(tabs.first(), tabDisposable = {
         TabDisposable(
             it,
@@ -47,8 +54,8 @@ fun BaseBottomBarScreen(
             modifier,
             title,
             showTop,
-            tabs,
-            vm
+            toolbarColor,
+            tabs
         )
     }
 }
@@ -59,8 +66,8 @@ private fun ScreenContent(
     modifier: Modifier,
     title: String,
     showTop: Boolean,
-    tabs: List<Tab>,
-    vm: BaseViewModel
+    toolbarColor: Color,
+    tabs: List<Tab>
 ) {
     Scaffold(
         modifier = modifier
@@ -69,7 +76,7 @@ private fun ScreenContent(
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
-                    backgroundColor = MaterialTheme.colors.background,
+                    backgroundColor = toolbarColor,
                     elevation = 0.dp,
                     title = {
                         Text(title)

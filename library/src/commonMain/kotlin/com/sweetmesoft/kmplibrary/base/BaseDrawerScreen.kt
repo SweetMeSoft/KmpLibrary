@@ -1,4 +1,4 @@
-package base
+package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

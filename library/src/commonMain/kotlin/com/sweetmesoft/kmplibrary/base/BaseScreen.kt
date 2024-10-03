@@ -1,4 +1,4 @@
-package base
+package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -151,6 +151,7 @@ private fun ScreenContent(
         AlertView(
             title = PopupHandler.alertTitle,
             message = PopupHandler.alertMessage,
+            acceptText = PopupHandler.alertAcceptText,
             dismiss = PopupHandler.alertDismiss
         )
 
@@ -169,8 +170,8 @@ private fun ScreenContent(
             message = PopupHandler.listMessage,
             options = PopupHandler.listOptions,
             show = PopupHandler.listShow,
-            confirmText = PopupHandler.confirmAcceptText,
-            cancelText = PopupHandler.confirmCancelText,
+            confirmText = PopupHandler.listAcceptText,
+            cancelText = PopupHandler.listCancelText,
             dismiss = PopupHandler.listDismiss
         ) {
             PopupHandler.listAccept(it)
@@ -180,7 +181,7 @@ private fun ScreenContent(
             title = PopupHandler.promptTitle,
             subtitle = PopupHandler.promptSubtitle,
             input = PopupHandler.promptInput,
-            confirmText = PopupHandler.confirmAcceptText,
+            confirmText = PopupHandler.promptAcceptText,
             dismiss = PopupHandler.promptDismiss
         ) {
             PopupHandler.promptAccept(it)

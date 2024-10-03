@@ -4,7 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import base.BaseViewModel
+import com.sweetmesoft.kmplibrary.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import tools.NetworkUtils.get
