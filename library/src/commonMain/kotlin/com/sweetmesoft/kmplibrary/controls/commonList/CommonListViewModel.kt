@@ -1,4 +1,4 @@
-package controls.commonList
+package com.sweetmesoft.kmplibrary.controls.commonList
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

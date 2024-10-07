@@ -1,4 +1,4 @@
-package controls
+package com.sweetmesoft.kmplibrary.controls
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn

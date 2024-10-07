@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import controls.LoadingView
+import com.sweetmesoft.kmplibrary.controls.LoadingView
 import controls.alerts.AlertConfirm
 import controls.alerts.AlertList
 import controls.alerts.AlertPrompt

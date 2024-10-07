@@ -33,9 +33,9 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Bars
 import compose.icons.fontawesomeicons.solid.SignOutAlt
-import controls.LoadingView
+import com.sweetmesoft.kmplibrary.controls.LoadingView
 import controls.alerts.PopupHandler
-import controls.commonList.LocalList
+import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
 import kotlinx.coroutines.launch
 import tools.SetStatusBarColor
 

@@ -1,17 +1,18 @@
-package controls.commonList
+package com.sweetmesoft.kmplibrary.controls.commonList
 
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -39,14 +40,14 @@ import tools.emptyFunction
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
-inline fun <reified T : Any> RemoteList(
+inline fun <reified T : Any> LocalList(
     modifier: Modifier = Modifier,
-    url: String,
     title: String = "",
-    crossinline itemContent: (@Composable (T) -> Unit),
-    noinline addClick: (() -> Unit) = emptyFunction
+    list: List<T>,
+    noinline addClick: (() -> Unit) = emptyFunction,
+    crossinline itemContent: (@Composable (Int, T) -> Unit)
 ) {
-    val vm: CommonListViewModel = remember { CommonListViewModel(url) }
+    val vm: CommonListViewModel = remember { CommonListViewModel(list = list) }
 
     val composition by rememberLottieComposition {
         LottieCompositionSpec.JsonString(
@@ -55,7 +56,7 @@ inline fun <reified T : Any> RemoteList(
     }
     val progress by animateLottieCompositionAsState(composition)
 
-    Column(modifier = modifier.fillMaxSize()) {
+    Column(modifier = Modifier) {
         if (vm.state.isLoading) {
             vm.start<T>()
             androidx.compose.animation.AnimatedVisibility(
@@ -96,15 +97,15 @@ inline fun <reified T : Any> RemoteList(
                 )
             }
 
-            if (vm.state.list.any()) {
-                LazyColumn(modifier = Modifier.fillMaxSize()) {
-                    items(vm.state.list.size) { index ->
-                        itemContent(vm.state.list[index] as T)
+            if (list.any()) {
+                LazyColumn() {
+                    itemsIndexed(list) { index, item ->
+                        itemContent(index, item)
                     }
                 }
             } else {
                 Column(
-                    modifier.fillMaxSize(),
+                    Modifier.fillMaxWidth(),
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {

@@ -1,4 +1,4 @@
-package controls
+package com.sweetmesoft.kmplibrary.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

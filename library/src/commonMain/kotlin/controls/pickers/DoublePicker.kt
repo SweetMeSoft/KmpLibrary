@@ -15,7 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import controls.CalculatorPopup
+import com.sweetmesoft.kmplibrary.controls.CalculatorPopup
 
 @Composable
 fun DoublePicker(
