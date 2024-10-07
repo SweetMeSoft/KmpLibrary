@@ -19,7 +19,7 @@ import io.ktor.client.plugins.onDownload
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.client.statement.bodyAsText
 import io.ktor.utils.io.ByteReadChannel
-import objects.ErrorResponse
+import com.sweetmesoft.kmplibrary.objects.ErrorResponse
 
 object NetworkUtils {
     val httpClient = HttpClient {

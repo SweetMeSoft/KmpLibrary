@@ -29,7 +29,7 @@ import controls.alerts.AlertList
 import controls.alerts.AlertPrompt
 import controls.alerts.AlertView
 import controls.alerts.PopupHandler
-import objects.IconAction
+import com.sweetmesoft.kmplibrary.objects.IconAction
 import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
 import tools.emptyFunction

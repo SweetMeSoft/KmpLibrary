@@ -1,4 +1,4 @@
-package objects
+package com.sweetmesoft.kmplibrary.objects
 
 import kotlinx.serialization.Serializable
 

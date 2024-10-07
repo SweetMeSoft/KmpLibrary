@@ -74,6 +74,7 @@ inline fun <reified T : Any> RemoteList(
             if (title.isNotEmpty()) {
                 Row(modifier = Modifier.padding(bottom = 8.dp)) {
                     Text(
+                        modifier = Modifier.align(Alignment.CenterVertically),
                         text = title,
                         fontSize = 24.sp,
                     )
