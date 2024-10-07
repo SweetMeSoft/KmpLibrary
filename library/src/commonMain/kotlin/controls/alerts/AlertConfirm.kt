@@ -24,8 +24,8 @@ fun AlertConfirm(
         AlertDialog(
             modifier = Modifier.padding(16.dp),
             onDismissRequest = {
-                dismiss()
                 PopupHandler.confirmShow = false
+                dismiss()
             },
             title = { Text(title) },
             text = { Text(message) },
@@ -34,8 +34,8 @@ fun AlertConfirm(
                 Button(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
                     onClick = {
-                        accept()
                         PopupHandler.confirmShow = false
+                        accept()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {
@@ -46,8 +46,8 @@ fun AlertConfirm(
                 Button(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
                     onClick = {
-                        dismiss()
                         PopupHandler.confirmShow = false
+                        dismiss()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
                 ) {

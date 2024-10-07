@@ -37,8 +37,8 @@ fun AlertPrompt(
     if (PopupHandler.promptShow) {
         Dialog(
             onDismissRequest = {
-                dismiss()
                 PopupHandler.promptShow = false
+                dismiss()
             },
             properties = DialogProperties(
                 dismissOnBackPress = true,
@@ -63,9 +63,9 @@ fun AlertPrompt(
                 Button(
                     modifier = Modifier.align(alignment = Alignment.End),
                     onClick = {
+                        PopupHandler.promptShow = false
                         accept(text)
                         text = ""
-                        PopupHandler.promptShow = false
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {

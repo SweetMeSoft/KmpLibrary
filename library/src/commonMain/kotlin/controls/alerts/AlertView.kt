@@ -22,8 +22,8 @@ fun AlertView(
         AlertDialog(
             modifier = Modifier.padding(16.dp),
             onDismissRequest = {
-                dismiss()
                 PopupHandler.alertShow = false
+                dismiss()
             },
             title = { Text(title) },
             text = { Text(message) },
@@ -32,8 +32,8 @@ fun AlertView(
                 Button(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
                     onClick = {
-                        dismiss()
                         PopupHandler.alertShow = false
+                        dismiss()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {

@@ -32,8 +32,8 @@ fun AlertList(
         AlertDialog(
             title = { Text(title) },
             onDismissRequest = {
-                dismiss()
                 PopupHandler.listShow = false
+                dismiss()
             },
             text = {
                 Column {
@@ -49,8 +49,8 @@ fun AlertList(
             },
             confirmButton = {
                 Button(onClick = {
-                    accept(value)
                     PopupHandler.listShow = false
+                    accept(value)
                 }) {
                     Text(confirmText)
                 }
@@ -58,8 +58,8 @@ fun AlertList(
             dismissButton = {
                 Button(
                     onClick = {
-                        dismiss()
                         PopupHandler.listShow = false
+                        dismiss()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
                 ) {
