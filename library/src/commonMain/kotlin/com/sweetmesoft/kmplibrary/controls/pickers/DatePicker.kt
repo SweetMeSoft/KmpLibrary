@@ -1,4 +1,4 @@
-package controls.pickers
+package com.sweetmesoft.kmplibrary.controls.pickers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -19,15 +19,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.datetime.LocalTime
-import network.chaintech.kmp_date_time_picker.ui.timepicker.WheelTimePickerView
+import kotlinx.datetime.LocalDate
+import network.chaintech.kmp_date_time_picker.ui.datepicker.WheelDatePickerView
 import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
 
 @Composable
-fun TimePicker(
+fun DatePicker(
     modifier: Modifier = Modifier,
     value: String,
-    selectTimePicker: (LocalTime) -> Unit
+    selectDatePicker: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
@@ -53,12 +53,12 @@ fun TimePicker(
         )
     }
 
-    WheelTimePickerView(
+    WheelDatePickerView(
         modifier = Modifier.padding(top = 18.dp, bottom = 10.dp).fillMaxWidth()
             .background(MaterialTheme.colors.surface),
-        showTimePicker = showPicker,
+        showDatePicker = showPicker,
         containerColor = MaterialTheme.colors.surface,
-        textColor = MaterialTheme.colors.onSurface,
+        dateTextColor = MaterialTheme.colors.onSurface,
         titleStyle = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
@@ -70,13 +70,13 @@ fun TimePicker(
             color = MaterialTheme.colors.secondary,
         ),
         rowCount = 5,
-        textStyle = TextStyle(
+        dateTextStyle = TextStyle(
             fontWeight = FontWeight(600),
             color = MaterialTheme.colors.onSurface
         ),
         dateTimePickerView = DateTimePickerView.DIALOG_VIEW,
         onDoneClick = {
-            selectTimePicker(it)
+            selectDatePicker(it)
             showPicker = false
         },
         onDismiss = {

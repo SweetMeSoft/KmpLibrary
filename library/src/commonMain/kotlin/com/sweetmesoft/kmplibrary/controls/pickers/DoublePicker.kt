@@ -1,4 +1,4 @@
-package controls.pickers
+package com.sweetmesoft.kmplibrary.controls.pickers
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

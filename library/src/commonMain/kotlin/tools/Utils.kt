@@ -1,5 +1,8 @@
 package tools
 
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
+
 expect fun getCurrentLanguage(): String
 
 fun String.isEmail(): Boolean {
@@ -25,6 +28,16 @@ fun String.isGuid(): Boolean {
 
 fun String.isNotGuid(): Boolean {
     return !this.isGuid()
+}
+
+@OptIn(ExperimentalUuidApi::class)
+fun Uuid.isEmpty(): Boolean {
+    return this == Uuid.NIL
+}
+
+@OptIn(ExperimentalUuidApi::class)
+fun Uuid.isNotEmpty(): Boolean {
+    return this != Uuid.NIL
 }
 
 

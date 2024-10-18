@@ -37,6 +37,7 @@ import com.sweetmesoft.kmplibrary.controls.LoadingView
 import controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
 import kotlinx.coroutines.launch
+import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
 
 class BaseDrawerScreen {
@@ -50,43 +51,62 @@ fun BaseDrawerScreen(
     tabs: List<Tab>,
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
+    infiniteStyle: Boolean = true,
     logoutAction: () -> Unit = {}
 ) {
-    SetStatusBarColor(MaterialTheme.colors.primary, true)
+    var toolbarColor = MaterialTheme.colors.background
+    if (infiniteStyle) {
+        SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
+        SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
+    } else {
+        toolbarColor =
+            if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
+        SetStatusBarColor(toolbarColor, false)
+    }
+
     ModalDrawer(
         drawerBackgroundColor = Color.Transparent, drawerElevation = 0.dp, drawerContent = {
             DrawerContent(tabs, vm, logoutAction)
         }, drawerState = vm.baseState.drawerState
     ) {
         ScreenContent(
-            tabs[BaseDrawerScreen.currentTab.value], modifier, vm
+            modifier, tabs[BaseDrawerScreen.currentTab.value], toolbarColor, vm
         )
     }
 }
 
 @Composable
 private fun ScreenContent(
-    tab: Tab, modifier: Modifier, vm: BaseViewModel
+    modifier: Modifier,
+    tab: Tab,
+    toolbarColor: Color,
+    vm: BaseViewModel
 ) {
     val scope = rememberCoroutineScope()
     Scaffold(modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
         topBar = {
-            TopAppBar(elevation = 0.dp, title = {
-                Text(tab.options.title)
-            }, navigationIcon = {
-                IconButton(modifier = Modifier.padding(horizontal = 16.dp), onClick = {
-                    scope.launch {
-                        vm.openDrawer()
+            TopAppBar(
+                elevation = 0.dp,
+                backgroundColor = toolbarColor,
+                title = {
+                    Text(tab.options.title)
+                },
+                navigationIcon = {
+                    IconButton(modifier = Modifier.padding(horizontal = 16.dp), onClick = {
+                        scope.launch {
+                            vm.openDrawer()
+                        }
+                    }) {
+                        Icon(
+                            modifier = Modifier.size(24.dp),
+                            imageVector = FontAwesomeIcons.Solid.Bars,
+                            contentDescription = "List"
+                        )
                     }
-                }) {
-                    Icon(
-                        modifier = Modifier.size(24.dp),
-                        imageVector = FontAwesomeIcons.Solid.Bars,
-                        contentDescription = "List"
-                    )
                 }
-            })
-        }) {
+            )
+        }
+    ) {
         tab.Content()
     }
 
@@ -112,9 +132,7 @@ private fun DrawerContent(list: List<Tab>, vm: BaseViewModel, logoutAction: () -
             ) { index, item ->
                 Column(
                     modifier = Modifier.background(
-                        if (BaseDrawerScreen.currentTab.value == index) Color(
-                            0x442e7d32
-                        ) else Color.Transparent
+                        if (BaseDrawerScreen.currentTab.value == index) MaterialTheme.colors.secondary else Color.Transparent
                     )
                 ) {
                     ItemDrawer(
@@ -129,14 +147,12 @@ private fun DrawerContent(list: List<Tab>, vm: BaseViewModel, logoutAction: () -
                 }
             }
         }
-
         val icon = rememberVectorPainter(FontAwesomeIcons.Solid.SignOutAlt);
         ItemDrawer(
             icon = icon, title = "Salir"
         ) {
             logoutAction()
         }
-
     }
 }
 
