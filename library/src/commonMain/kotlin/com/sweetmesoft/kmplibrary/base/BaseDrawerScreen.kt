@@ -66,7 +66,7 @@ fun BaseDrawerScreen(
         }, drawerState = vm.baseState.drawerState
     ) {
         ScreenContent(
-            modifier, tabs[BaseDrawerScreen.currentTab.value], toolbarColor, vm
+            modifier, tabs[BaseDrawerScreen.currentTab.value], toolbarColor, toolbarIconsWhite, vm
         )
     }
 }
@@ -76,6 +76,7 @@ private fun ScreenContent(
     modifier: Modifier,
     tab: Tab,
     toolbarColor: Color,
+    toolbarIconsWhite: Boolean,
     vm: BaseViewModel
 ) {
     val scope = rememberCoroutineScope()
@@ -84,6 +85,7 @@ private fun ScreenContent(
             TopAppBar(
                 elevation = 0.dp,
                 backgroundColor = toolbarColor,
+                contentColor = if (toolbarIconsWhite) Color.White else Color.Black,
                 title = {
                     Text(tab.options.title)
                 },

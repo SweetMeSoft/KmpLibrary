@@ -52,6 +52,7 @@ fun BaseBottomBarScreen(
             title,
             showTop,
             toolbarColor,
+            toolbarIconsWhite,
             tabs
         )
     }
@@ -64,6 +65,7 @@ private fun ScreenContent(
     title: String,
     showTop: Boolean,
     toolbarColor: Color,
+    toolbarIconsWhite: Boolean,
     tabs: List<Tab>
 ) {
     Scaffold(
@@ -74,6 +76,7 @@ private fun ScreenContent(
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
                     backgroundColor = toolbarColor,
+                    contentColor = if (toolbarIconsWhite) Color.White else Color.Black,
                     elevation = 0.dp,
                     title = {
                         Text(title)

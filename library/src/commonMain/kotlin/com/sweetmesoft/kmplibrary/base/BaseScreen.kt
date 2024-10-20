@@ -58,6 +58,7 @@ fun BaseScreen(
         fabAction,
         fabIcon,
         toolbarColor,
+        toolbarIconsWhite,
         iconActions
     ) {
         content()
@@ -72,6 +73,7 @@ private fun ScreenContent(
     fabAction: () -> Unit,
     fabIcon: ImageVector,
     toolbarColor: Color,
+    toolbarIconsWhite: Boolean,
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
@@ -83,6 +85,7 @@ private fun ScreenContent(
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
                     backgroundColor = toolbarColor,
+                    contentColor = if (toolbarIconsWhite) Color.White else Color.Black,
                     elevation = 0.dp,
                     title = {
                         Row(
