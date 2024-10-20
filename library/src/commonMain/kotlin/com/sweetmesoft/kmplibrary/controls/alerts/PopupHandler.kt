@@ -1,4 +1,4 @@
-package controls.alerts
+package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

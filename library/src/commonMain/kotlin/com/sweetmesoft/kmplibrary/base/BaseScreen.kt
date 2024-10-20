@@ -24,11 +24,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmplibrary.controls.LoadingView
-import controls.alerts.AlertConfirm
-import controls.alerts.AlertList
-import controls.alerts.AlertPrompt
-import controls.alerts.AlertView
-import controls.alerts.PopupHandler
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertConfirm
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertList
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
+import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.objects.IconAction
 import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
@@ -41,19 +41,14 @@ fun BaseScreen(
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
-    infiniteStyle: Boolean = true,
+    toolbarColor: Color = MaterialTheme.colors.background,
+    navigationColor: Color = MaterialTheme.colors.background,
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
-    var toolbarColor = MaterialTheme.colors.background
-    if (infiniteStyle) {
-        SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
-        SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
-    } else {
-        toolbarColor =
-            if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-        SetStatusBarColor(toolbarColor, false)
-    }
+    SetStatusBarColor(toolbarColor, MaterialTheme.colors.isLight)
+    SetNavigationBarColor(navigationColor, MaterialTheme.colors.isLight)
+
     ScreenContent(
         modifier,
         title,

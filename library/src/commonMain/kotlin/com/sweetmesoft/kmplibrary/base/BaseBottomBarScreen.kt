@@ -31,18 +31,13 @@ fun BaseBottomBarScreen(
     title: String = "",
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
-    infiniteStyle: Boolean = true,
+    toolbarColor: Color = MaterialTheme.colors.background,
+    navigationColor: Color = MaterialTheme.colors.background,
     tabs: List<Tab>
 ) {
-    var toolbarColor = MaterialTheme.colors.background
-    if (infiniteStyle) {
-        SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
-        SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
-    } else {
-        toolbarColor =
-            if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-        SetStatusBarColor(toolbarColor, false)
-    }
+    SetStatusBarColor(toolbarColor, MaterialTheme.colors.isLight)
+    SetNavigationBarColor(navigationColor, MaterialTheme.colors.isLight)
+
     TabNavigator(tabs.first(), tabDisposable = {
         TabDisposable(
             it,

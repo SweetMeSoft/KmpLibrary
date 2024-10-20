@@ -1,4 +1,4 @@
-package controls.alerts
+package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth

@@ -33,8 +33,6 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Bars
 import compose.icons.fontawesomeicons.solid.SignOutAlt
-import com.sweetmesoft.kmplibrary.controls.LoadingView
-import controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
 import kotlinx.coroutines.launch
 import tools.SetNavigationBarColor
@@ -51,21 +49,17 @@ fun BaseDrawerScreen(
     tabs: List<Tab>,
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
-    infiniteStyle: Boolean = true,
+    toolbarColor: Color = MaterialTheme.colors.background,
+    navigationColor: Color = MaterialTheme.colors.background,
     logoutAction: () -> Unit = {}
 ) {
-    var toolbarColor = MaterialTheme.colors.background
-    if (infiniteStyle) {
-        SetStatusBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
-        SetNavigationBarColor(MaterialTheme.colors.background, MaterialTheme.colors.isLight)
-    } else {
-        toolbarColor =
-            if (MaterialTheme.colors.isLight) MaterialTheme.colors.primary else MaterialTheme.colors.surface
-        SetStatusBarColor(toolbarColor, false)
-    }
+    SetStatusBarColor(toolbarColor, MaterialTheme.colors.isLight)
+    SetNavigationBarColor(navigationColor, MaterialTheme.colors.isLight)
 
     ModalDrawer(
-        drawerBackgroundColor = Color.Transparent, drawerElevation = 0.dp, drawerContent = {
+        drawerBackgroundColor = Color.Transparent,
+        drawerElevation = 0.dp,
+        drawerContent = {
             DrawerContent(tabs, vm, logoutAction)
         }, drawerState = vm.baseState.drawerState
     ) {
@@ -109,8 +103,6 @@ private fun ScreenContent(
     ) {
         tab.Content()
     }
-
-    LoadingView(PopupHandler.isLoading)
 }
 
 @Composable

@@ -1,4 +1,4 @@
-package controls.alerts
+package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,19 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AlertConfirm(
+fun AlertView(
     title: String,
     message: String,
-    confirmText: String = "Aceptar",
-    cancelText: String = "Cancelar",
-    dismiss: () -> Unit = {},
-    accept: () -> Unit,
+    acceptText: String = "Aceptar",
+    dismiss: () -> Unit = {}
 ) {
-    if (PopupHandler.confirmShow) {
+    if (PopupHandler.alertShow) {
         AlertDialog(
             modifier = Modifier.padding(16.dp),
             onDismissRequest = {
-                PopupHandler.confirmShow = false
+                PopupHandler.alertShow = false
                 dismiss()
             },
             title = { Text(title) },
@@ -34,24 +32,12 @@ fun AlertConfirm(
                 Button(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
                     onClick = {
-                        PopupHandler.confirmShow = false
-                        accept()
+                        PopupHandler.alertShow = false
+                        dismiss()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {
-                    Text(confirmText)
-                }
-            },
-            dismissButton = {
-                Button(
-                    modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
-                    onClick = {
-                        PopupHandler.confirmShow = false
-                        dismiss()
-                    },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
-                ) {
-                    Text(cancelText)
+                    Text(acceptText)
                 }
             }
         )
