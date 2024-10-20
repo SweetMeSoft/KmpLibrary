@@ -42,12 +42,14 @@ fun BaseScreen(
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
     toolbarColor: Color = MaterialTheme.colors.background,
+    toolbarIconsWhite: Boolean = !MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
+    navigationIconsWhite: Boolean = MaterialTheme.colors.isLight,
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
-    SetStatusBarColor(toolbarColor, MaterialTheme.colors.isLight)
-    SetNavigationBarColor(navigationColor, MaterialTheme.colors.isLight)
+    SetStatusBarColor(toolbarColor, toolbarIconsWhite)
+    SetNavigationBarColor(navigationColor, navigationIconsWhite)
 
     ScreenContent(
         modifier,

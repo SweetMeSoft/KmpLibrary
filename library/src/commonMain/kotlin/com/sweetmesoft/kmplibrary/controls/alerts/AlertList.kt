@@ -13,7 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import controls.commonDropDown.SimpleDropDown
+import com.sweetmesoft.kmplibrary.controls.commonDropDown.SimpleDropDown
 
 @Composable
 fun AlertList(

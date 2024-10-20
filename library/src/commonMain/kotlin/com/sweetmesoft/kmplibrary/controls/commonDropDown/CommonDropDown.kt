@@ -1,4 +1,4 @@
-package controls.commonDropDown
+package com.sweetmesoft.kmplibrary.controls.commonDropDown
 
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,14 +19,14 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SimpleDropDown(
+fun CommonDropDown(
     modifier: Modifier = Modifier,
-    list: List<String> = listOf(),
+    list: List<CommonDropDownItem> = listOf(),
     title: String,
-    value: String,
-    selectValue: (String) -> Unit
+    selectValue: (CommonDropDownItem) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var selectedOption by remember { mutableStateOf("") }
     ExposedDropdownMenuBox(
         modifier = modifier,
         expanded = expanded,
@@ -36,8 +36,8 @@ fun SimpleDropDown(
     ) {
         OutlinedTextField(
             modifier = modifier,
-            value = value,
-            onValueChange = { selectValue(it) },
+            value = selectedOption,
+            onValueChange = { selectedOption = it },
             label = {
                 Text(
                     text = title,
@@ -56,24 +56,22 @@ fun SimpleDropDown(
             ),
             singleLine = true
         )
-
-        if(expanded) {
-            ExposedDropdownMenu(
-                expanded = expanded,
-                onDismissRequest = { expanded = false },
-                modifier = Modifier.wrapContentWidth()
-            ) {
-                list.forEach {
-                    DropdownMenuItem(onClick = {
-                        selectValue(it)
-                        expanded = false
-                    }) {
-                        Text(
-                            text = it,
-                            maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
-                        )
-                    }
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier.wrapContentWidth()
+        ) {
+            list.forEach {
+                DropdownMenuItem(onClick = {
+                    selectValue(it)
+                    selectedOption = it.text
+                    expanded = false
+                }) {
+                    Text(
+                        text = it.text,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
         }

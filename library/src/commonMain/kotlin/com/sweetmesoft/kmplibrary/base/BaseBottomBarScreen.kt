@@ -32,11 +32,13 @@ fun BaseBottomBarScreen(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     toolbarColor: Color = MaterialTheme.colors.background,
+    toolbarIconsWhite: Boolean = !MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
+    navigationIconsWhite: Boolean = MaterialTheme.colors.isLight,
     tabs: List<Tab>
 ) {
-    SetStatusBarColor(toolbarColor, MaterialTheme.colors.isLight)
-    SetNavigationBarColor(navigationColor, MaterialTheme.colors.isLight)
+    SetStatusBarColor(toolbarColor, toolbarIconsWhite)
+    SetNavigationBarColor(navigationColor, navigationIconsWhite)
 
     TabNavigator(tabs.first(), tabDisposable = {
         TabDisposable(

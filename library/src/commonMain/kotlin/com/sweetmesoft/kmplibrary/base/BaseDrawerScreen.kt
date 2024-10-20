@@ -50,11 +50,13 @@ fun BaseDrawerScreen(
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
     toolbarColor: Color = MaterialTheme.colors.background,
+    toolbarIconsWhite: Boolean = !MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
+    navigationIconsWhite: Boolean = MaterialTheme.colors.isLight,
     logoutAction: () -> Unit = {}
 ) {
-    SetStatusBarColor(toolbarColor, MaterialTheme.colors.isLight)
-    SetNavigationBarColor(navigationColor, MaterialTheme.colors.isLight)
+    SetStatusBarColor(toolbarColor, toolbarIconsWhite)
+    SetNavigationBarColor(navigationColor, navigationIconsWhite)
 
     ModalDrawer(
         drawerBackgroundColor = Color.Transparent,
