@@ -27,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.tab.Tab
 import compose.icons.FontAwesomeIcons
@@ -34,6 +35,7 @@ import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Bars
 import compose.icons.fontawesomeicons.solid.SignOutAlt
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
+import compose.icons.fontawesomeicons.solid.ChevronRight
 import kotlinx.coroutines.launch
 import tools.SetNavigationBarColor
 import tools.SetStatusBarColor
@@ -50,23 +52,24 @@ fun BaseDrawerScreen(
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
     toolbarColor: Color = MaterialTheme.colors.background,
-    toolbarIconsWhite: Boolean = !MaterialTheme.colors.isLight,
+    toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
-    navigationIconsWhite: Boolean = MaterialTheme.colors.isLight,
-    logoutAction: () -> Unit = {}
+    navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
+    logoutAction: () -> Unit = {},
+    headerView: @Composable () -> Unit = {}
 ) {
-    SetStatusBarColor(toolbarColor, toolbarIconsWhite)
-    SetNavigationBarColor(navigationColor, navigationIconsWhite)
+    SetStatusBarColor(toolbarColor, toolbarIconsLight)
+    SetNavigationBarColor(navigationColor, navigationIconsLight)
 
     ModalDrawer(
         drawerBackgroundColor = Color.Transparent,
         drawerElevation = 0.dp,
         drawerContent = {
-            DrawerContent(tabs, vm, logoutAction)
+            DrawerContent(tabs, vm, logoutAction, headerView)
         }, drawerState = vm.baseState.drawerState
     ) {
         ScreenContent(
-            modifier, tabs[BaseDrawerScreen.currentTab.value], toolbarColor, toolbarIconsWhite, vm
+            modifier, tabs[BaseDrawerScreen.currentTab.value], toolbarColor, toolbarIconsLight, vm
         )
     }
 }
@@ -76,7 +79,7 @@ private fun ScreenContent(
     modifier: Modifier,
     tab: Tab,
     toolbarColor: Color,
-    toolbarIconsWhite: Boolean,
+    toolbarIconsLight: Boolean,
     vm: BaseViewModel
 ) {
     val scope = rememberCoroutineScope()
@@ -85,7 +88,7 @@ private fun ScreenContent(
             TopAppBar(
                 elevation = 0.dp,
                 backgroundColor = toolbarColor,
-                contentColor = if (toolbarIconsWhite) Color.White else Color.Black,
+                contentColor = if (toolbarIconsLight) Color.Black else Color.White,
                 title = {
                     Text(tab.options.title)
                 },
@@ -110,29 +113,29 @@ private fun ScreenContent(
 }
 
 @Composable
-private fun DrawerContent(list: List<Tab>, vm: BaseViewModel, logoutAction: () -> Unit) {
+private fun DrawerContent(
+    list: List<Tab>,
+    vm: BaseViewModel,
+    logoutAction: () -> Unit,
+    headerView: @Composable () -> Unit
+) {
     val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier.fillMaxHeight().fillMaxWidth(0.75f)
             .background(MaterialTheme.colors.surface)
     ) {
-        //TODO Add parametrizable header view
-//        UserProfileView(
-//            name = vm.settings[Constants.KEY_CURRENT_USER_NAME, ""],
-//            email = vm.settings[Constants.KEY_CURRENT_USER_EMAIL, "Invitado"],
-//            photoUrl = vm.settings[Constants.KEY_CURRENT_USER_PHOTO_URL, "Ingresa con tu cuenta de Google"]
-//        )
+        headerView()
         Box(modifier = Modifier.weight(1f)) {
             LocalList(
                 list = list,
             ) { index, item ->
                 Column(
-                    modifier = Modifier.background(
-                        if (BaseDrawerScreen.currentTab.value == index) MaterialTheme.colors.secondary else Color.Transparent
-                    )
+//                    modifier = Modifier.background(
+//                        if (BaseDrawerScreen.currentTab.value == index) MaterialTheme.colors.secondary else Color.Transparent
+//                    )
                 ) {
                     ItemDrawer(
-                        icon = item.options.icon, title = item.options.title
+                        icon = item.options.icon, title = item.options.title, index = index
                     ) {
                         vm.updateTab(index)
                         scope.launch {
@@ -145,7 +148,7 @@ private fun DrawerContent(list: List<Tab>, vm: BaseViewModel, logoutAction: () -
         }
         val icon = rememberVectorPainter(FontAwesomeIcons.Solid.SignOutAlt);
         ItemDrawer(
-            icon = icon, title = "Salir"
+            icon = icon, title = "Salir", index = 9999
         ) {
             logoutAction()
         }
@@ -154,7 +157,7 @@ private fun DrawerContent(list: List<Tab>, vm: BaseViewModel, logoutAction: () -
 
 @Composable
 private fun ItemDrawer(
-    modifier: Modifier = Modifier, icon: Painter?, title: String, onClick: () -> Unit
+    modifier: Modifier = Modifier, icon: Painter?, index: Int, title: String, onClick: () -> Unit
 ) {
     Row(
         modifier = modifier.clickable {
@@ -162,14 +165,25 @@ private fun ItemDrawer(
         }.padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        if (BaseDrawerScreen.currentTab.value == index) {
+            Icon(
+                imageVector = FontAwesomeIcons.Solid.ChevronRight,
+                tint = MaterialTheme.colors.onSurface,
+                contentDescription = title,
+                modifier = Modifier.padding(end = 16.dp).size(16.dp)
+            )
+        }
         Icon(
             painter = icon!!,
             tint = MaterialTheme.colors.onSurface,
             contentDescription = title,
-            modifier = Modifier.padding(end = 16.dp).size(30.dp)
+            modifier = Modifier.padding(end = 16.dp).size(24.dp)
         )
         Text(
-            text = title, modifier = Modifier.weight(1f), color = MaterialTheme.colors.onSurface
+            text = title,
+            modifier = Modifier.weight(1f),
+            color = MaterialTheme.colors.onSurface,
+            fontWeight = if (BaseDrawerScreen.currentTab.value == index) FontWeight.Bold else FontWeight.Normal
         )
     }
 }

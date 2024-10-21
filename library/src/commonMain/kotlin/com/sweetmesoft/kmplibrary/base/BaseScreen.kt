@@ -42,14 +42,14 @@ fun BaseScreen(
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
     toolbarColor: Color = MaterialTheme.colors.background,
-    toolbarIconsWhite: Boolean = !MaterialTheme.colors.isLight,
+    toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
-    navigationIconsWhite: Boolean = MaterialTheme.colors.isLight,
+    navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
-    SetStatusBarColor(toolbarColor, toolbarIconsWhite)
-    SetNavigationBarColor(navigationColor, navigationIconsWhite)
+    SetStatusBarColor(toolbarColor, toolbarIconsLight)
+    SetNavigationBarColor(navigationColor, navigationIconsLight)
 
     ScreenContent(
         modifier,
@@ -58,7 +58,7 @@ fun BaseScreen(
         fabAction,
         fabIcon,
         toolbarColor,
-        toolbarIconsWhite,
+        toolbarIconsLight,
         iconActions
     ) {
         content()
@@ -73,7 +73,7 @@ private fun ScreenContent(
     fabAction: () -> Unit,
     fabIcon: ImageVector,
     toolbarColor: Color,
-    toolbarIconsWhite: Boolean,
+    toolbarIconsLight: Boolean,
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
@@ -85,7 +85,7 @@ private fun ScreenContent(
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
                     backgroundColor = toolbarColor,
-                    contentColor = if (toolbarIconsWhite) Color.White else Color.Black,
+                    contentColor = if (toolbarIconsLight) Color.Black else Color.White,
                     elevation = 0.dp,
                     title = {
                         Row(

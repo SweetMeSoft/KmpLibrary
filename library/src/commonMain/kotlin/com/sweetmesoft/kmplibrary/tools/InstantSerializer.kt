@@ -1,4 +1,4 @@
-package tools
+package com.sweetmesoft.kmplibrary.tools
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer

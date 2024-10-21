@@ -32,13 +32,13 @@ fun BaseBottomBarScreen(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     toolbarColor: Color = MaterialTheme.colors.background,
-    toolbarIconsWhite: Boolean = !MaterialTheme.colors.isLight,
+    toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
-    navigationIconsWhite: Boolean = MaterialTheme.colors.isLight,
+    navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
     tabs: List<Tab>
 ) {
-    SetStatusBarColor(toolbarColor, toolbarIconsWhite)
-    SetNavigationBarColor(navigationColor, navigationIconsWhite)
+    SetStatusBarColor(toolbarColor, toolbarIconsLight)
+    SetNavigationBarColor(navigationColor, navigationIconsLight)
 
     TabNavigator(tabs.first(), tabDisposable = {
         TabDisposable(
@@ -52,7 +52,7 @@ fun BaseBottomBarScreen(
             title,
             showTop,
             toolbarColor,
-            toolbarIconsWhite,
+            toolbarIconsLight,
             tabs
         )
     }
@@ -65,7 +65,7 @@ private fun ScreenContent(
     title: String,
     showTop: Boolean,
     toolbarColor: Color,
-    toolbarIconsWhite: Boolean,
+    toolbarIconsLight: Boolean,
     tabs: List<Tab>
 ) {
     Scaffold(
@@ -76,7 +76,7 @@ private fun ScreenContent(
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
                     backgroundColor = toolbarColor,
-                    contentColor = if (toolbarIconsWhite) Color.White else Color.Black,
+                    contentColor = if (toolbarIconsLight) Color.Black else Color.White,
                     elevation = 0.dp,
                     title = {
                         Text(title)
