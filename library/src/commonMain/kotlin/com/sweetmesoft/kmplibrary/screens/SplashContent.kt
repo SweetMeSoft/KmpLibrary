@@ -65,5 +65,6 @@ fun SplashContent(logo: DrawableResource, waitMillis: Int, action: () -> Unit) {
 
     LaunchedEffect(Unit) {
         delay(waitMillis.toLong())
+        action()
     }
 }
