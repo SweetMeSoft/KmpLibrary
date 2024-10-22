@@ -1,4 +1,4 @@
-package tools
+package com.sweetmesoft.kmplibrary.tools
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color

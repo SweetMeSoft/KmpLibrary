@@ -1,4 +1,4 @@
-package tools
+package com.sweetmesoft.kmplibrary.tools
 
 import android.app.Activity
 import androidx.compose.runtime.Composable

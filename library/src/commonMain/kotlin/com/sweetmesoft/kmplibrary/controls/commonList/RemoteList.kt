@@ -34,7 +34,7 @@ import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import tools.emptyFunction
+import com.sweetmesoft.kmplibrary.tools.emptyFunction
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable

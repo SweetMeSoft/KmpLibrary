@@ -30,9 +30,9 @@ import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.objects.IconAction
-import tools.SetNavigationBarColor
-import tools.SetStatusBarColor
-import tools.emptyFunction
+import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
+import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
+import com.sweetmesoft.kmplibrary.tools.emptyFunction
 
 @Composable
 fun BaseScreen(

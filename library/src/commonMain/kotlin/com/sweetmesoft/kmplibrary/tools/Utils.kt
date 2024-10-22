@@ -1,4 +1,4 @@
-package tools
+package com.sweetmesoft.kmplibrary.tools
 
 import kotlin.uuid.ExperimentalUuidApi
 import kotlin.uuid.Uuid

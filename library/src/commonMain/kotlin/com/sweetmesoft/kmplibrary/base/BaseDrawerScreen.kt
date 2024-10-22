@@ -37,8 +37,8 @@ import compose.icons.fontawesomeicons.solid.SignOutAlt
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
 import compose.icons.fontawesomeicons.solid.ChevronRight
 import kotlinx.coroutines.launch
-import tools.SetNavigationBarColor
-import tools.SetStatusBarColor
+import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
+import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 
 class BaseDrawerScreen {
     companion object {

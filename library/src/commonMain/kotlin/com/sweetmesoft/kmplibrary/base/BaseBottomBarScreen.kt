@@ -23,8 +23,8 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabDisposable
 import cafe.adriel.voyager.navigator.tab.TabNavigator
-import tools.SetNavigationBarColor
-import tools.SetStatusBarColor
+import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
+import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 
 @Composable
 fun BaseBottomBarScreen(

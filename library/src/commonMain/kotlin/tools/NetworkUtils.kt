@@ -20,6 +20,7 @@ import io.ktor.client.statement.bodyAsChannel
 import io.ktor.client.statement.bodyAsText
 import io.ktor.utils.io.ByteReadChannel
 import com.sweetmesoft.kmplibrary.objects.ErrorResponse
+import com.sweetmesoft.kmplibrary.tools.getCurrentLanguage
 
 object NetworkUtils {
     val httpClient = HttpClient {

@@ -1,4 +1,4 @@
-package tools
+package com.sweetmesoft.kmplibrary.tools
 
 import platform.Foundation.NSLocale
 import platform.Foundation.currentLocale
