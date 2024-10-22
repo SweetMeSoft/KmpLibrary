@@ -18,14 +18,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-private fun SplashContent(logo: DrawableResource, waitMillis: Int, action: () -> Unit) {
+fun SplashContent(logo: DrawableResource, waitMillis: Int, action: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()

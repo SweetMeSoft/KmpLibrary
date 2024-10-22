@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-private fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
+fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
     Column(
         modifier = Modifier
             .fillMaxSize(),
