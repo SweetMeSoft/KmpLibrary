@@ -1,5 +1,9 @@
 package com.sweetmesoft.kmplibrary.tools
 
+import platform.Foundation.NSBundle
+import platform.Foundation.NSURL
+import platform.UIKit.UIApplication
+
 actual fun getPlatform(): PlatformType {
     return PlatformType.IOS
 }
