@@ -1,5 +1,8 @@
 package com.sweetmesoft.kmplibrary.screens
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -12,9 +15,15 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -23,12 +32,27 @@ import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun SplashContent(logo: DrawableResource, waitMillis: Int, action: () -> Unit) {
+fun SplashContent(
+    logo: DrawableResource,
+    waitMillis: Int,
+    backgroundColor: Color = MaterialTheme.colors.secondary,
+    background2Color: Color = MaterialTheme.colors.secondary,
+    onBackgroundColor: Color = MaterialTheme.colors.onSecondary,
+    action: () -> Unit
+) {
+    var showLogo by remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                MaterialTheme.colors.secondary
+                Brush.radialGradient(
+                    colors = listOf(
+                        backgroundColor,
+                        background2Color
+                    ),
+                    radius = 500f,
+                    tileMode = TileMode.Clamp
+                )
             ),
         contentAlignment = Alignment.Center
     ) {
@@ -36,11 +60,16 @@ fun SplashContent(logo: DrawableResource, waitMillis: Int, action: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Image(
-                painter = painterResource(logo),
-                contentDescription = null,
-                modifier = Modifier.size(200.dp)
-            )
+            AnimatedVisibility(
+                visible = showLogo,
+                enter = fadeIn() + slideInVertically(initialOffsetY = { -it / 2 }),
+            ) {
+                Image(
+                    painter = painterResource(logo),
+                    contentDescription = null,
+                    modifier = Modifier.size(240.dp)
+                )
+            }
         }
 
         Column(
@@ -53,17 +82,19 @@ fun SplashContent(logo: DrawableResource, waitMillis: Int, action: () -> Unit) {
                 text = "By SweetMeSoft",
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = onBackgroundColor
             )
             Text(
                 text = "Hecho con amor <3",
                 fontSize = 14.sp,
-                color = Color.DarkGray
+                color = onBackgroundColor
             )
         }
     }
 
     LaunchedEffect(Unit) {
+        delay(100)
+        showLogo = true
         delay(waitMillis.toLong())
         action()
     }
