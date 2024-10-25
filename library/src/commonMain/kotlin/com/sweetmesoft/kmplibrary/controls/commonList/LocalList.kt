@@ -56,7 +56,7 @@ inline fun <reified T : Any> LocalList(
     }
     val progress by animateLottieCompositionAsState(composition)
 
-    Column(modifier = Modifier) {
+    Column(modifier = modifier) {
         if (vm.state.isLoading) {
             vm.start<T>()
             androidx.compose.animation.AnimatedVisibility(
