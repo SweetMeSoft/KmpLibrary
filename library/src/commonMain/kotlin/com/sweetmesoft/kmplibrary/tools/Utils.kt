@@ -20,16 +20,6 @@ fun isValidPassword(password: String): Boolean {
     return passwordRegex.matches(password)
 }
 
-fun String.isGuid(): Boolean {
-    val regex =
-        Regex("^[{]?[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}[}]?\$")
-    return this.matches(regex)
-}
-
-fun String.isNotGuid(): Boolean {
-    return !this.isGuid()
-}
-
 @OptIn(ExperimentalUuidApi::class)
 fun Uuid.isEmpty(): Boolean {
     return this == Uuid.NIL
@@ -40,5 +30,6 @@ fun Uuid.isNotEmpty(): Boolean {
     return this != Uuid.NIL
 }
 
+expect fun openUrl(url: String)
 
 val emptyFunction: () -> Unit = {}

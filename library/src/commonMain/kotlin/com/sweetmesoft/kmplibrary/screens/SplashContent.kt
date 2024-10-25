@@ -85,7 +85,7 @@ fun SplashContent(
                 color = onBackgroundColor
             )
             Text(
-                text = "Hecho con amor <3",
+                text = "Hecho con amor \uD83E\uDE75",
                 fontSize = 14.sp,
                 color = onBackgroundColor
             )

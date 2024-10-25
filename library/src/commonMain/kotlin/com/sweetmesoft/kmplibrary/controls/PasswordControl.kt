@@ -28,6 +28,7 @@ fun PasswordControl(
     modifier: Modifier = Modifier,
     value: String,
     label: String = "Contraseña",
+    isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
     var text by remember { mutableStateOf(value) }
@@ -64,6 +65,6 @@ fun PasswordControl(
                 )
             }
         },
-        isError = text.length < 6
+        isError = isError
     )
 }
