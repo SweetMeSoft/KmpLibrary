@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.sweetmesoft.kmplibrary.base.BaseViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import tools.NetworkUtils.get
+import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
 
 class CommonListViewModel(
     val url: String = "",

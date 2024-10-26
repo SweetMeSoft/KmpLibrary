@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.tools
+package com.sweetmesoft.kmplibrary.serializers
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 import kotlinx.coroutines.launch
-import tools.NetworkUtils.get
+import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

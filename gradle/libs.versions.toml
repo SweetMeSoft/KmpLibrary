@@ -18,7 +18,7 @@ agp = "8.7.1"
 ##⬆= "8.8.0-alpha05"
 ##⬆= "8.8.0-alpha06"
 ##⬆= "8.8.0-alpha07"
-android-minSdk = "24"
+android-minSdk = "28"
 android-compileSdk = "34"
 androidx-activityCompose = "1.9.3"
 ##                    ⬆ = "1.10.0-alpha01"
@@ -29,6 +29,7 @@ compose-plugin = "1.7.0"
 ##          ⬆ = "1.8.0-dev1873"
 ##          ⬆ = "1.8.0-dev1875"
 compottie = "2.0.0-rc01"
+kamel-image = "1.0.1"
 kmpDateTimePicker = "1.0.3"
 ##             ⬆ = "1.0.5"
 kotlin = "2.0.21"
@@ -48,6 +49,7 @@ androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", nam
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 composeIcons-fontAwesome = { module = "br.com.devsrsouza.compose.icons:font-awesome", version.ref = "compose-icons" }
 compottie = { module = "io.github.alexzhirkevich:compottie", version.ref = "compottie" }
+kamel-image-default = { module = "media.kamel:kamel-image-default", version.ref = "kamel-image" }
 kmp-date-time-picker = { module = "network.chaintech:kmp-date-time-picker", version.ref = "kmpDateTimePicker" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }

@@ -1,4 +1,4 @@
-package tools
+package com.sweetmesoft.kmplibrary.tools
 
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import io.ktor.client.HttpClient
@@ -20,7 +20,6 @@ import io.ktor.client.statement.bodyAsChannel
 import io.ktor.client.statement.bodyAsText
 import io.ktor.utils.io.ByteReadChannel
 import com.sweetmesoft.kmplibrary.objects.ErrorResponse
-import com.sweetmesoft.kmplibrary.tools.getCurrentLanguage
 
 object NetworkUtils {
     val httpClient = HttpClient {

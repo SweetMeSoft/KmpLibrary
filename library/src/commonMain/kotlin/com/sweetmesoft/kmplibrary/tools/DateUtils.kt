@@ -14,7 +14,10 @@ fun getCurrentDateTime(): LocalDateTime {
 }
 
 fun Instant.toLocalString(): String {
-    val localDateTime = this.toLocalDateTime(TimeZone.currentSystemDefault())
+    return this.toLocalDateTime(TimeZone.currentSystemDefault()).toLocalString()
+}
+
+fun LocalDateTime.toLocalString(): String {
     val dateFormat = LocalDateTime.Format {
         date(LocalDate.Formats.ISO)
         char(' ')
@@ -25,6 +28,6 @@ fun Instant.toLocalString(): String {
         second()
     }
 
-    return localDateTime.format(dateFormat)
+    return this.format(dateFormat)
 }
 

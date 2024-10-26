@@ -34,6 +34,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.composeIcons.fontAwesome)
             implementation(libs.compottie)
+            implementation(libs.kamel.image.default)
             implementation(libs.kmp.date.time.picker)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
@@ -77,7 +78,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.9.28"
+        version = "0.9.43"
     )
 
     pom {
