@@ -32,7 +32,7 @@ fun ProfilePhoto(
     modifier: Modifier = Modifier,
     urlImage: String,
     radius: Dp = 140.dp,
-    onClick: () -> Unit
+    onClick: () -> Unit = {}
 ) {
 //    val imageCropper = rememberImageCropper()
     var selectedImage by remember { mutableStateOf<ImageBitmap?>(null) }
