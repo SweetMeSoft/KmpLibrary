@@ -42,6 +42,8 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.cio)
             implementation(libs.ktor.client.negotiation)
+            implementation(libs.ktor.client.negotiation)
+            implementation(libs.ktor.client.negotiation)
             implementation(libs.settings)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
@@ -78,7 +80,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "0.9.43"
+        version = "0.9.66"
     )
 
     pom {

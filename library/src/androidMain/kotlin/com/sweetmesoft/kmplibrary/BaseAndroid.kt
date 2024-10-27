@@ -9,7 +9,7 @@ class BaseAndroid {
         @SuppressLint("StaticFieldLeak")
         private lateinit var currentActivity: ComponentActivity
 
-        fun init(context: ComponentActivity) {
+        fun initSweetMeSoft(context: ComponentActivity) {
             currentActivity = context;
         }
 
