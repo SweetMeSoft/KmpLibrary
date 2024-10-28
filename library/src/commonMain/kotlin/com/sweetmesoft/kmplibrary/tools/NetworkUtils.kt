@@ -87,7 +87,7 @@ object NetworkUtils {
     }
 
     suspend fun downloadFile(url: String): ByteReadChannel {
-        PopupHandler.displayProgress(progress = 0f)
+        PopupHandler.displayProgress()
         val response = httpClient.get(url) {
             onDownload { bytesSentTotal, contentLength ->
                 if (contentLength != null) {

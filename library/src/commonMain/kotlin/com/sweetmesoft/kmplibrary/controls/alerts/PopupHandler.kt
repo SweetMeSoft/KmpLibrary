@@ -108,6 +108,7 @@ class PopupHandler {
         ) {
             progressTitle = title
             progressCancelText = cancelText
+            progressProgress = 0f
             progressDismiss = { dismiss() }
             progressShow = true
         }
