@@ -36,6 +36,7 @@ class PopupHandler {
         internal var promptDismiss by mutableStateOf({})
         internal var progressShow by mutableStateOf(false)
         internal var progressTitle by mutableStateOf("")
+        internal var progressCancelText by mutableStateOf("")
         internal var progressProgress by mutableStateOf(0.0f)
         internal var progressDismiss by mutableStateOf({})
 
@@ -103,9 +104,11 @@ class PopupHandler {
         fun displayProgress(
             title: String = "Descargando",
             progress: Float,
+            cancelText: String = "Cancelar",
             dismiss: () -> Unit = {},
         ) {
             progressTitle = title
+            progressCancelText = cancelText
             progressProgress = progress
             progressDismiss = { dismiss() }
             progressShow = true

@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmplibrary.controls.LoadingView
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertConfirm
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertList
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertProgress
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
@@ -185,6 +186,14 @@ private fun ScreenContent(
             dismiss = PopupHandler.promptDismiss
         ) {
             PopupHandler.promptAccept(it)
+        }
+
+        AlertProgress(
+            title = PopupHandler.progressTitle,
+            progress = PopupHandler.progressProgress,
+            cancelText = PopupHandler.progressCancelText
+        ) {
+            PopupHandler.progressDismiss()
         }
     }
 
