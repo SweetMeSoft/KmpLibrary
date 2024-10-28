@@ -20,34 +20,24 @@ import io.ktor.client.statement.bodyAsChannel
 import io.ktor.client.statement.bodyAsText
 import io.ktor.utils.io.ByteReadChannel
 import com.sweetmesoft.kmplibrary.objects.ErrorResponse
+import io.ktor.client.HttpClientConfig
+
+expect fun createHttpClient(): HttpClient
 
 object NetworkUtils {
-    val httpClient = HttpClient {
-        install(ContentNegotiation) {
-            json(json = Json { ignoreUnknownKeys = true }, contentType = ContentType.Any)
-        }
-        install(HttpTimeout) {
-            requestTimeoutMillis = 60000
-            connectTimeoutMillis = 30000
-            socketTimeoutMillis = 30000
-        }
-    }
+    val httpClient = createHttpClient()
 
     suspend inline fun <reified T> get(url: String, showLoading: Boolean = true): Result<T> {
         if (showLoading) {
             PopupHandler.isLoading = true
         }
-
         val response = httpClient.get(url) {
             contentType(ContentType.Application.Json)
             headers.append(
                 "CurrentDate",
                 Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
             )
-            headers.append(
-                "Language",
-                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
-            )
+            headers.append("Language", getCurrentLanguage())
         }
 
         if (showLoading) {
@@ -64,19 +54,18 @@ object NetworkUtils {
         return Result.success(response.body<T>())
     }
 
-    suspend inline fun <reified T> post(url: String, body: Any? = null, showLoading: Boolean = true): Result<T> {
+    suspend inline fun <reified T> post(
+        url: String,
+        body: Any? = null,
+        showLoading: Boolean = true
+    ): Result<T> {
         if (showLoading) {
             PopupHandler.isLoading = true
         }
-
         val response = httpClient.post(url) {
             contentType(ContentType.Application.Json)
             headers.append(
                 "CurrentDate",
-                Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
-            )
-            headers.append(
-                "Language",
                 Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
             )
             headers.append("Language", getCurrentLanguage())
@@ -98,12 +87,17 @@ object NetworkUtils {
     }
 
     suspend fun downloadFile(url: String): ByteReadChannel {
+        PopupHandler.displayProgress(progress = 0f)
         val response = httpClient.get(url) {
             onDownload { bytesSentTotal, contentLength ->
-                println("Downloaded $bytesSentTotal of $contentLength")
+                if (contentLength != null) {
+                    PopupHandler.progressProgress =
+                        bytesSentTotal.toFloat() / contentLength.toFloat()
+                }
             }
         }.bodyAsChannel()
 
+        PopupHandler.progressShow = false
         return response
     }
 

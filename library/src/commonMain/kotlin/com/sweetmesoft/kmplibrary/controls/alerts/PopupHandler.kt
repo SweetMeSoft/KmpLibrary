@@ -34,6 +34,10 @@ class PopupHandler {
         internal var promptInput by mutableStateOf("")
         internal var promptAccept: (String) -> Unit by mutableStateOf({})
         internal var promptDismiss by mutableStateOf({})
+        internal var progressShow by mutableStateOf(false)
+        internal var progressTitle by mutableStateOf("")
+        internal var progressProgress by mutableStateOf(0.0f)
+        internal var progressDismiss by mutableStateOf({})
 
         fun displayAlert(title: String, message: String, dismiss: () -> Unit = {}) {
             alertTitle = title
@@ -89,11 +93,22 @@ class PopupHandler {
         ) {
             promptTitle = title
             promptSubtitle = subtitle
-            promptAcceptText = "Aceptar"
+            promptAcceptText = confirmText
             promptInput = input
             promptAccept = { accept(it) }
             promptDismiss = { dismiss() }
             promptShow = true
+        }
+
+        fun displayProgress(
+            title: String = "Descargando",
+            progress: Float,
+            dismiss: () -> Unit = {},
+        ) {
+            progressTitle = title
+            progressProgress = progress
+            progressDismiss = { dismiss() }
+            progressShow = true
         }
     }
 }
