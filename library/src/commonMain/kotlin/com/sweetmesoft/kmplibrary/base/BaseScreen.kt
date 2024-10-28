@@ -190,7 +190,6 @@ private fun ScreenContent(
 
         AlertProgress(
             title = PopupHandler.progressTitle,
-            progress = PopupHandler.progressProgress,
             cancelText = PopupHandler.progressCancelText
         ) {
             PopupHandler.progressDismiss()

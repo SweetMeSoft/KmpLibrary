@@ -29,11 +29,9 @@ import androidx.compose.ui.window.DialogProperties
 @Composable
 fun AlertProgress(
     title: String,
-    progress: Float,
     cancelText: String,
     dismiss: () -> Unit
 ) {
-    val value by remember { mutableStateOf(progress) }
     if (PopupHandler.progressShow) {
         Dialog(
             onDismissRequest = {
@@ -53,10 +51,10 @@ fun AlertProgress(
             ) {
                 Text(title, fontSize = 18.sp, modifier = Modifier.padding(bottom = 8.dp))
                 LinearProgressIndicator(
-                    progress = value
+                    progress = PopupHandler.progressProgress
                 )
                 Text(
-                    text = (value * 100).toInt().toString() + "/100",
+                    text = (PopupHandler.progressProgress * 100).toInt().toString() + "/100",
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
                     textAlign = TextAlign.End,
                     fontSize = 12.sp

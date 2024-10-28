@@ -103,13 +103,11 @@ class PopupHandler {
 
         fun displayProgress(
             title: String = "Descargando",
-            progress: Float,
             cancelText: String = "Cancelar",
             dismiss: () -> Unit = {},
         ) {
             progressTitle = title
             progressCancelText = cancelText
-            progressProgress = progress
             progressDismiss = { dismiss() }
             progressShow = true
         }
