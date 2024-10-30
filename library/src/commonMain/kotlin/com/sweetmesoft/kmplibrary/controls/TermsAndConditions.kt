@@ -27,11 +27,11 @@ fun TermsAndConditions(
     urlTerms: String
 ) {
     val annotatedString = buildAnnotatedString {
-        append("Para continuar debes aceptar los ")
+        append("Al continuar estás aceptando los ")
         withLink(
             LinkAnnotation.Url(
                 url = urlTerms,
-                styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colors.primary))
+                styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colors.primary, fontWeight = FontWeight.Bold))
             )
         ) {
             append("Términos y condiciones")
@@ -40,12 +40,12 @@ fun TermsAndConditions(
         withLink(
             LinkAnnotation.Url(
                 url = urlPrivacy,
-                styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colors.primary))
+                styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colors.primary, fontWeight = FontWeight.Bold))
             )
         ) {
             append("Política de privacidad")
         }
-        append(" de tus datos personales en MilenFinances")
+        append(" de tus datos personales")
     }
     Box(
         modifier = modifier.fillMaxWidth().padding(16.dp),

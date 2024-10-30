@@ -44,13 +44,14 @@ fun AlertProgress(
             )
         ) {
             Column(
-                modifier = Modifier.background(
+                modifier = Modifier.padding(16.dp).background(
                     MaterialTheme.colors.surface,
-                    shape = RoundedCornerShape(16.dp)
-                ).padding(16.dp)
+                    shape = RoundedCornerShape(8.dp)
+                )
             ) {
                 Text(title, fontSize = 18.sp, modifier = Modifier.padding(bottom = 8.dp))
                 LinearProgressIndicator(
+                    modifier = Modifier.fillMaxWidth(),
                     progress = PopupHandler.progressProgress
                 )
                 Text(
