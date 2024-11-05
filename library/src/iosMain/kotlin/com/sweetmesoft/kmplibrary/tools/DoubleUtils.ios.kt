@@ -7,12 +7,11 @@ import platform.Foundation.NSNumberFormatterCurrencyStyle
 actual fun Double.toCurrency(): String {
     val formatter = NSNumberFormatter().apply {
         numberStyle = NSNumberFormatterCurrencyStyle
-        minimumFractionDigits = 2
-        maximumFractionDigits = 2
+        minimumFractionDigits = 2u
+        maximumFractionDigits = 2u
         groupingSeparator = "."
         decimalSeparator = ","
         currencySymbol = "$ "
-        // Asegurarse de que se utilice el separador de miles
         usesGroupingSeparator = true
     }
     return formatter.stringFromNumber(NSNumber(this)) ?: "$this"
