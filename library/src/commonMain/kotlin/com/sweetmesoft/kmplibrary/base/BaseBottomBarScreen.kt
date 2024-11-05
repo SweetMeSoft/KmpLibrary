@@ -23,6 +23,13 @@ import cafe.adriel.voyager.navigator.tab.LocalTabNavigator
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabDisposable
 import cafe.adriel.voyager.navigator.tab.TabNavigator
+import com.sweetmesoft.kmplibrary.controls.LoadingView
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertConfirm
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertList
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertProgress
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
+import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 
@@ -35,7 +42,7 @@ fun BaseBottomBarScreen(
     toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,
     navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
-    tabs: List<Tab>
+    tabs: List<BaseTab>
 ) {
     SetStatusBarColor(toolbarColor, toolbarIconsLight)
     SetNavigationBarColor(navigationColor, navigationIconsLight)
@@ -47,26 +54,27 @@ fun BaseBottomBarScreen(
         )
     }) {
         ScreenContent(
-            { CurrentTab() },
             modifier,
             title,
             showTop,
             toolbarColor,
             toolbarIconsLight,
             tabs
-        )
+        ) {
+            CurrentTab()
+        }
     }
 }
 
 @Composable
 private fun ScreenContent(
-    content: @Composable () -> Unit,
     modifier: Modifier,
     title: String,
     showTop: Boolean,
     toolbarColor: Color,
     toolbarIconsLight: Boolean,
-    tabs: List<Tab>
+    tabs: List<Tab>,
+    content: @Composable () -> Unit
 ) {
     Scaffold(
         modifier = modifier
@@ -116,5 +124,53 @@ private fun ScreenContent(
         },
     ) {
         content()
+
+        AlertView(
+            title = PopupHandler.alertTitle,
+            message = PopupHandler.alertMessage,
+            acceptText = PopupHandler.alertAcceptText,
+            dismiss = PopupHandler.alertDismiss
+        )
+
+        AlertConfirm(
+            title = PopupHandler.confirmTitle,
+            message = PopupHandler.confirmMessage,
+            confirmText = PopupHandler.confirmAcceptText,
+            cancelText = PopupHandler.confirmCancelText,
+            dismiss = PopupHandler.confirmDismiss,
+        ) {
+            PopupHandler.confirmAccept()
+        }
+
+        AlertList(
+            title = PopupHandler.listTitle,
+            message = PopupHandler.listMessage,
+            options = PopupHandler.listOptions,
+            show = PopupHandler.listShow,
+            confirmText = PopupHandler.listAcceptText,
+            cancelText = PopupHandler.listCancelText,
+            dismiss = PopupHandler.listDismiss
+        ) {
+            PopupHandler.listAccept(it)
+        }
+
+        AlertPrompt(
+            title = PopupHandler.promptTitle,
+            subtitle = PopupHandler.promptSubtitle,
+            input = PopupHandler.promptInput,
+            confirmText = PopupHandler.promptAcceptText,
+            dismiss = PopupHandler.promptDismiss
+        ) {
+            PopupHandler.promptAccept(it)
+        }
+
+        AlertProgress(
+            title = PopupHandler.progressTitle,
+            cancelText = PopupHandler.progressCancelText
+        ) {
+            PopupHandler.progressDismiss()
+        }
     }
+
+    LoadingView(PopupHandler.isLoading)
 }

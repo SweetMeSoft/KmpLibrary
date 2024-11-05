@@ -2,6 +2,7 @@ package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Divider
+import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -26,19 +28,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.navigator.tab.Tab
+import com.sweetmesoft.kmplibrary.controls.LoadingView
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertConfirm
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertList
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertProgress
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
+import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
+import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.Bars
 import compose.icons.fontawesomeicons.solid.SignOutAlt
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
+import com.sweetmesoft.kmplibrary.objects.IconAction
 import compose.icons.fontawesomeicons.solid.ChevronRight
 import kotlinx.coroutines.launch
 import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
+import com.sweetmesoft.kmplibrary.tools.emptyFunction
+import compose.icons.fontawesomeicons.solid.Bars
 
 class BaseDrawerScreen {
     companion object {
@@ -48,7 +59,7 @@ class BaseDrawerScreen {
 
 @Composable
 fun BaseDrawerScreen(
-    tabs: List<Tab>,
+    tabs: List<BaseTab>,
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
     toolbarColor: Color = MaterialTheme.colors.background,
@@ -69,52 +80,82 @@ fun BaseDrawerScreen(
         }, drawerState = vm.baseState.drawerState
     ) {
         ScreenContent(
-            modifier, tabs[BaseDrawerScreen.currentTab.value], toolbarColor, toolbarIconsLight, vm
+            modifier, tabs[BaseDrawerScreen.currentTab.value], vm
         )
     }
 }
 
 @Composable
-private fun ScreenContent(
+fun ScreenContent(
     modifier: Modifier,
-    tab: Tab,
-    toolbarColor: Color,
-    toolbarIconsLight: Boolean,
+    tab: BaseTab,
     vm: BaseViewModel
 ) {
-    val scope = rememberCoroutineScope()
-    Scaffold(modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
-        topBar = {
-            TopAppBar(
-                elevation = 0.dp,
-                backgroundColor = toolbarColor,
-                contentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                title = {
-                    Text(tab.options.title)
-                },
-                navigationIcon = {
-                    IconButton(modifier = Modifier.padding(horizontal = 16.dp), onClick = {
-                        scope.launch {
-                            vm.openDrawer()
-                        }
-                    }) {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            imageVector = FontAwesomeIcons.Solid.Bars,
-                            contentDescription = "List"
-                        )
-                    }
-                }
-            )
-        }
+    TabContent(
+        modifier,
+        title = tab.baseOptions.title,
+        showTop = tab.baseOptions.showTop,
+        fabAction = tab.baseOptions.fabAction,
+        fabIcon = tab.baseOptions.fabIcon,
+        toolbarColor = tab.baseOptions.toolbarColor,
+        toolbarIconsLight = tab.baseOptions.toolbarIconsLight,
+        iconActions = tab.baseOptions.iconActions,
+        vm = vm
     ) {
         tab.Content()
+        AlertView(
+            title = PopupHandler.alertTitle,
+            message = PopupHandler.alertMessage,
+            acceptText = PopupHandler.alertAcceptText,
+            dismiss = PopupHandler.alertDismiss
+        )
+
+        AlertConfirm(
+            title = PopupHandler.confirmTitle,
+            message = PopupHandler.confirmMessage,
+            confirmText = PopupHandler.confirmAcceptText,
+            cancelText = PopupHandler.confirmCancelText,
+            dismiss = PopupHandler.confirmDismiss,
+        ) {
+            PopupHandler.confirmAccept()
+        }
+
+        AlertList(
+            title = PopupHandler.listTitle,
+            message = PopupHandler.listMessage,
+            options = PopupHandler.listOptions,
+            show = PopupHandler.listShow,
+            confirmText = PopupHandler.listAcceptText,
+            cancelText = PopupHandler.listCancelText,
+            dismiss = PopupHandler.listDismiss
+        ) {
+            PopupHandler.listAccept(it)
+        }
+
+        AlertPrompt(
+            title = PopupHandler.promptTitle,
+            subtitle = PopupHandler.promptSubtitle,
+            input = PopupHandler.promptInput,
+            confirmText = PopupHandler.promptAcceptText,
+            dismiss = PopupHandler.promptDismiss
+        ) {
+            PopupHandler.promptAccept(it)
+        }
+
+        AlertProgress(
+            title = PopupHandler.progressTitle,
+            cancelText = PopupHandler.progressCancelText
+        ) {
+            PopupHandler.progressDismiss()
+        }
     }
+
+    LoadingView(PopupHandler.isLoading)
 }
 
 @Composable
 private fun DrawerContent(
-    list: List<Tab>,
+    list: List<BaseTab>,
     vm: BaseViewModel,
     logoutAction: () -> Unit,
     headerView: @Composable () -> Unit
@@ -152,6 +193,94 @@ private fun DrawerContent(
         ) {
             logoutAction()
         }
+    }
+}
+
+@Composable
+private fun TabContent(
+    modifier: Modifier,
+    title: String,
+    showTop: Boolean,
+    fabAction: () -> Unit,
+    fabIcon: ImageVector,
+    toolbarColor: Color,
+    toolbarIconsLight: Boolean,
+    iconActions: List<IconAction> = listOf(),
+    vm: BaseViewModel,
+    content: @Composable () -> Unit
+) {
+    val scope = rememberCoroutineScope()
+    Scaffold(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colors.background),
+        topBar = {
+            if (title.isNotEmpty() || showTop) {
+                TopAppBar(
+                    backgroundColor = toolbarColor,
+                    contentColor = if (toolbarIconsLight) Color.Black else Color.White,
+                    elevation = 0.dp,
+                    title = {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Text(title)
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.padding(end = 16.dp)
+                            ) {
+                                if (iconActions.any()) {
+                                    iconActions.forEach { action ->
+                                        if (action.showIcon) {
+                                            IconButton(
+                                                onClick = action.onClick,
+                                                modifier = Modifier.padding(start = 12.dp)
+                                                    .size(28.dp)
+                                            ) {
+                                                Icon(
+                                                    imageVector = action.icon,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.padding(4.dp)
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    navigationIcon = {
+                        IconButton(modifier = Modifier.padding(horizontal = 16.dp), onClick = {
+                            scope.launch {
+                                vm.openDrawer()
+                            }
+                        }) {
+                            Icon(
+                                modifier = Modifier.size(24.dp),
+                                imageVector = FontAwesomeIcons.Solid.Bars,
+                                contentDescription = "List"
+                            )
+                        }
+                    }
+                )
+            }
+        },
+        floatingActionButton = {
+            if (fabAction != emptyFunction) {
+                FloatingActionButton(onClick = fabAction) {
+                    Icon(
+                        imageVector = fabIcon,
+                        contentDescription = "fabIcon",
+                        tint = Color.DarkGray,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
+        }
+    ) {
+        content()
     }
 }
 
