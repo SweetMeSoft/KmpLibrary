@@ -34,7 +34,7 @@ fun defaultBaseTabOptions(
     icon: Painter? = null,
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
-    fabAction: () -> Unit = {},
+    fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
     toolbarColor: Color = MaterialTheme.colors.background,
     toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
