@@ -35,6 +35,9 @@ import io.github.alexzhirkevich.compottie.rememberLottiePainter
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
+import kmp_library.library.generated.resources.EmptyList
+import kmp_library.library.generated.resources.Loading
+import org.jetbrains.compose.resources.stringResource
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -46,7 +49,6 @@ inline fun <reified T : Any> RemoteList(
     noinline addClick: (() -> Unit) = emptyFunction
 ) {
     val vm: CommonListViewModel = remember { CommonListViewModel(url) }
-
     val composition by rememberLottieComposition {
         LottieCompositionSpec.JsonString(
             Res.readBytes("drawable/empty.json").decodeToString()
@@ -66,7 +68,7 @@ inline fun <reified T : Any> RemoteList(
                     verticalArrangement = Arrangement.Center
                 ) {
                     CircularProgressIndicator()
-                    Text("Cargando...")
+                    Text(stringResource(Res.string.Loading) + "...")
                 }
             }
         } else {
@@ -82,10 +84,12 @@ inline fun <reified T : Any> RemoteList(
 
                     if (addClick != emptyFunction) {
                         IconButton(onClick = { addClick() }) {
-                            Icon(imageVector = FontAwesomeIcons.Solid.Plus,
+                            Icon(
+                                imageVector = FontAwesomeIcons.Solid.Plus,
                                 contentDescription = "Add list event",
                                 tint = MaterialTheme.colors.primary,
-                                modifier = Modifier.size(24.dp))
+                                modifier = Modifier.size(24.dp)
+                            )
                         }
                     }
                 }
@@ -114,7 +118,7 @@ inline fun <reified T : Any> RemoteList(
                         ),
                         contentDescription = "Lottie animation"
                     )
-                    Text("No hay items en la lista")
+                    Text(stringResource(Res.string.EmptyList))
                 }
             }
         }

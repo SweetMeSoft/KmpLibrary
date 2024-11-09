@@ -19,6 +19,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kmp_library.library.generated.resources.PolicyPrivacy
+import kmp_library.library.generated.resources.Res
+import kmp_library.library.generated.resources.TermsAndConditions
+import kmp_library.library.generated.resources.TermsMessage1
+import kmp_library.library.generated.resources.TermsMessage2
+import kmp_library.library.generated.resources.TermsMessage3
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TermsAndConditions(
@@ -27,25 +34,35 @@ fun TermsAndConditions(
     urlTerms: String
 ) {
     val annotatedString = buildAnnotatedString {
-        append("Al continuar estás aceptando los ")
+        append(stringResource(Res.string.TermsMessage1))
         withLink(
             LinkAnnotation.Url(
                 url = urlTerms,
-                styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colors.primary, fontWeight = FontWeight.Bold))
+                styles = TextLinkStyles(
+                    style = SpanStyle(
+                        color = MaterialTheme.colors.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
             )
         ) {
-            append("Términos y condiciones")
+            append(stringResource(Res.string.TermsAndConditions))
         }
-        append(" del servicio y la ")
+        append(stringResource(Res.string.TermsMessage2))
         withLink(
             LinkAnnotation.Url(
                 url = urlPrivacy,
-                styles = TextLinkStyles(style = SpanStyle(color = MaterialTheme.colors.primary, fontWeight = FontWeight.Bold))
+                styles = TextLinkStyles(
+                    style = SpanStyle(
+                        color = MaterialTheme.colors.primary,
+                        fontWeight = FontWeight.Bold
+                    )
+                )
             )
         ) {
-            append("Política de privacidad")
+            append(stringResource(Res.string.PolicyPrivacy))
         }
-        append(" de tus datos personales")
+        append(stringResource(Res.string.TermsMessage3))
     }
     Box(
         modifier = modifier.fillMaxWidth().padding(16.dp),

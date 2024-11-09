@@ -20,7 +20,7 @@ import com.sweetmesoft.kmplibrary.controls.CalculatorPopup
 @Composable
 fun DoublePicker(
     modifier: Modifier = Modifier,
-    title: String = "Monto",
+    title: String,
     value: String = "",
     onValueChange: (Double) -> Unit
 ) {

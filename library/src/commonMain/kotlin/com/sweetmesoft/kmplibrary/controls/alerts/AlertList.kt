@@ -20,7 +20,7 @@ import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun AlertList(
+internal fun AlertList(
     title: String,
     message: String,
     options: List<String>,

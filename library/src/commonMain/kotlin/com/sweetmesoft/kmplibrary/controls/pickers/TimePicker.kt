@@ -19,9 +19,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kmp_library.library.generated.resources.Hour
+import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalTime
 import network.chaintech.kmp_date_time_picker.ui.timepicker.WheelTimePickerView
 import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun TimePicker(
@@ -35,7 +38,7 @@ fun TimePicker(
             value = value,
             onValueChange = {},
             maxLines = 1,
-            label = { Text("Fecha") },
+            label = { Text(stringResource(Res.string.Hour)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent),

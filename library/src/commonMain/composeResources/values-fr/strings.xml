@@ -1,12 +1,23 @@
 <resources>
+    <string name="Accept">Accepter</string>
     <string name="By">Par SweetMeSoft</string>
-    <string name="Banner">Fait avec amour 🩵</string>
-    <string name="ThanksMessage">Merci d\'avoir utilisé %1$s !. Nous espérons que votre expérience a été excellente et que vous trouverez tout ce dont vous avez besoin. N\'oubliez pas de nous évaluer.</string>
+    <string name="Cancel">Annuler</string>
+    <string name="Date">Date</string>
+    <string name="Downloading">Téléchargement</string>
+    <string name="EmptyList">La liste est vide</string>
+    <string name="Hour">Heure</string>
+    <string name="Loading">Chargement</string>
+    <string name="Logout">Déconnexion</string>
+    <string name="Password">Mot de passe</string>
+    <string name="PolicyPrivacy">Politique de confidentialité</string>
     <string name="RateUs">Évaluez-nous</string>
     <string name="RateUsMessage">Si vous avez apprécié %1$s, nous serions très heureux d\'avoir de vos nouvelles.</string>
+    <string name="Search">Recherche</string>
+    <string name="Slogan">Fait avec amour 🩵</string>
+    <string name="TermsAndConditions">Termes et conditions</string>
+    <string name="TermsMessage1">En continuant, vous acceptez le </string>
+    <string name="TermsMessage2"> du service et du </string>
+    <string name="TermsMessage3"> de vos données personnelles</string>
+    <string name="ThanksMessage">Merci d\'avoir utilisé %1$s !. Nous espérons que votre expérience a été excellente et que vous trouverez tout ce dont vous avez besoin. N\'oubliez pas de nous évaluer.</string>
     <string name="Version">Version</string>
-    <string name="Logout">Déconnexion</string>
-    <string name="Accept">Accepter</string>
-    <string name="Cancel">Annuler</string>
-    <string name="Downloading">Téléchargement</string>
 </resources>

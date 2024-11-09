@@ -21,11 +21,14 @@ import androidx.compose.ui.unit.sp
 import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Solid
 import compose.icons.fontawesomeicons.solid.Search
+import kmp_library.library.generated.resources.Res
+import kmp_library.library.generated.resources.Search
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SearchControl(
     modifier: Modifier = Modifier,
-    placeholder: String = "Buscar",
+    placeholder: String = stringResource(Res.string.Search),
     value: String = "",
     onValueChange: (String) -> Unit
 ) {
@@ -56,7 +59,7 @@ fun SearchControl(
             leadingIcon = {
                 Icon(
                     imageVector = FontAwesomeIcons.Solid.Search,
-                    contentDescription = "Buscar",
+                    contentDescription = stringResource(Res.string.Search),
                     tint = Color.Gray,
                     modifier = Modifier.padding(start = 8.dp).size(16.dp)
                 )

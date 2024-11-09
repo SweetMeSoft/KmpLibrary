@@ -106,11 +106,8 @@ fun ScreenContent(
         vm = vm
     ) {
         tab.Content()
-        AlertView(
-            title = PopupHandler.alertTitle,
-            message = PopupHandler.alertMessage,
-            dismiss = PopupHandler.alertDismiss
-        )
+
+        AlertView()
 
         AlertConfirm(
             title = PopupHandler.confirmTitle,
@@ -144,12 +141,7 @@ fun ScreenContent(
             PopupHandler.promptAccept(it)
         }
 
-        AlertProgress(
-            title = PopupHandler.progressTitle,
-            cancelText = PopupHandler.progressCancelText
-        ) {
-            PopupHandler.progressDismiss()
-        }
+        AlertProgress()
     }
 
     LoadingView(PopupHandler.isLoading)

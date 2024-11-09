@@ -16,7 +16,7 @@ import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun AlertConfirm(
+internal fun AlertConfirm(
     title: String,
     message: String,
     confirmText: String = stringResource(Res.string.Accept),

@@ -22,12 +22,15 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Regular
 import compose.icons.fontawesomeicons.regular.Eye
 import compose.icons.fontawesomeicons.regular.EyeSlash
+import kmp_library.library.generated.resources.Password
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun PasswordControl(
     modifier: Modifier = Modifier,
     value: String,
-    label: String = "Contraseña",
+    label: String = stringResource(Res.string.Password),
     isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {

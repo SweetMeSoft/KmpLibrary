@@ -15,6 +15,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import kmp_library.library.generated.resources.Loading
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoadingView(isLoading: Boolean) {
@@ -30,7 +33,7 @@ fun LoadingView(isLoading: Boolean) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator()
-                Text("Cargando...", color = Color.White)
+                Text(text = stringResource(Res.string.Loading)+"...", color = Color.White)
             }
         }
     }

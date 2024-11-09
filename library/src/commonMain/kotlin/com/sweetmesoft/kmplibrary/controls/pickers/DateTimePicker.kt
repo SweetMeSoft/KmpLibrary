@@ -19,10 +19,13 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kmp_library.library.generated.resources.Date
+import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalDateTime
 import network.chaintech.kmp_date_time_picker.ui.datetimepicker.WheelDateTimePickerView
 import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
 import network.chaintech.kmp_date_time_picker.utils.dateTimeToString
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun DateTimePicker(
@@ -36,7 +39,7 @@ fun DateTimePicker(
             value = dateTimeToString(value, "yyyy-MM-dd HH:mm"),
             onValueChange = {},
             maxLines = 1,
-            label = { Text("Fecha") },
+            label = { Text(stringResource(Res.string.Date)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent),

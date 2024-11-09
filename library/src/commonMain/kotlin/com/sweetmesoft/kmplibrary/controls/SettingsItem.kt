@@ -36,7 +36,7 @@ fun SettingsItem(
                 Icon(
                     imageVector = icon,
                     contentDescription = "Settings",
-                    modifier = Modifier.padding(end = 12.dp).size(24.dp)
+                    modifier = Modifier.padding(end = 16.dp).size(24.dp)
                 )
             }
             Column {

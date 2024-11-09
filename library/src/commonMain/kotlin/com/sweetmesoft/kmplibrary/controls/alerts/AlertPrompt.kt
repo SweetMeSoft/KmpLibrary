@@ -28,7 +28,7 @@ import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun AlertPrompt(
+internal fun AlertPrompt(
     title: String,
     subtitle: String,
     input: String,

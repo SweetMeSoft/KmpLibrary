@@ -27,9 +27,9 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kmp_library.library.generated.resources.Banner
 import kmp_library.library.generated.resources.By
 import kmp_library.library.generated.resources.Res
+import kmp_library.library.generated.resources.Slogan
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
@@ -43,7 +43,7 @@ fun SplashContent(
     background2Color: Color = MaterialTheme.colors.secondary,
     onBackgroundColor: Color = MaterialTheme.colors.onSecondary,
     title: String = stringResource(Res.string.By),
-    subtitle: String = stringResource(Res.string.Banner),
+    subtitle: String = stringResource(Res.string.Slogan),
     action: () -> Unit
 ) {
     var showLogo by remember { mutableStateOf(false) }

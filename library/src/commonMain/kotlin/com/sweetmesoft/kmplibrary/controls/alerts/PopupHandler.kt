@@ -5,6 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kmp_library.library.generated.resources.Accept
 import kmp_library.library.generated.resources.Cancel
+import kmp_library.library.generated.resources.Downloading
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 import org.jetbrains.compose.resources.stringResource
@@ -45,7 +46,12 @@ class PopupHandler {
         internal var progressProgress by mutableStateOf(0.0f)
         internal var progressDismiss by mutableStateOf({})
 
-        suspend fun displayAlert(title: String, message: String, acceptText: String = "", dismiss: () -> Unit = {}) {
+        suspend fun displayAlert(
+            title: String,
+            message: String,
+            acceptText: String = "",
+            dismiss: () -> Unit = {}
+        ) {
             alertTitle = title
             alertMessage = message
             alertAcceptText = acceptText.ifEmpty { getString(Res.string.Accept) }
@@ -70,49 +76,49 @@ class PopupHandler {
             confirmShow = true
         }
 
-        fun displayAlertList(
+        suspend fun displayAlertList(
             title: String,
             message: String,
-            confirmText: String = "Aceptar",
-            cancelText: String = "Cancelar",
+            confirmText: String = "",
+            cancelText: String = "",
             options: List<String> = listOf(),
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
             listTitle = title
             listMessage = message
-            listAcceptText = confirmText
-            listCancelText = cancelText
+            listAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
+            listCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             listOptions = options
             listAccept = { accept(it) }
             listDismiss = { dismiss() }
             listShow = true
         }
 
-        fun displayPrompt(
+        suspend fun displayPrompt(
             title: String,
             subtitle: String,
-            confirmText: String = "Aceptar",
+            confirmText: String = "",
             input: String,
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
             promptTitle = title
             promptSubtitle = subtitle
-            promptAcceptText = confirmText
+            promptAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
             promptInput = input
             promptAccept = { accept(it) }
             promptDismiss = { dismiss() }
             promptShow = true
         }
 
-        fun displayProgress(
+        suspend fun displayProgress(
             title: String = "Descargando",
             cancelText: String = "Cancelar",
             dismiss: () -> Unit = {},
         ) {
-            progressTitle = title
-            progressCancelText = cancelText
+            progressTitle = title.ifEmpty { getString(Res.string.Downloading) }
+            progressCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             progressProgress = 0f
             progressDismiss = { dismiss() }
             progressShow = true
