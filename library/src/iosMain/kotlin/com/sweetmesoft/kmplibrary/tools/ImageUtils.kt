@@ -2,6 +2,13 @@ package com.sweetmesoft.kmplibrary.tools
 
 import androidx.compose.ui.graphics.ImageBitmap
 import kotlinx.cinterop.ExperimentalForeignApi
+import kotlinx.cinterop.useContents
+import platform.UIKit.UIGraphicsBeginImageContext
+import platform.UIKit.UIGraphicsEndImageContext
+import platform.UIKit.UIImage
+import platform.CoreGraphics.CGSizeMake
+import platform.CoreGraphics.CGRectMake
+import platform.UIKit.UIGraphicsGetImageFromCurrentImageContext
 
 @OptIn(ExperimentalForeignApi::class)
 actual fun resizeImage(imageBitmap: ImageBitmap, maxSize: Int): ImageBitmap {

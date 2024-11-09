@@ -5,14 +5,16 @@ import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.addressOf
 import kotlinx.cinterop.convert
 import kotlinx.cinterop.usePinned
+import platform.Foundation.NSData
 import platform.Foundation.NSLocale
 import platform.Foundation.NSURL
+import platform.Foundation.create
 import platform.Foundation.currentLocale
 import platform.Foundation.languageCode
 import platform.UIKit.UIApplication
 
 actual fun getCurrentLanguage(): String {
-    return NSLocale.currentLocale.languageCode ?: "en"
+    return NSLocale.currentLocale.languageCode
 }
 
 actual fun openUrl(url: String) {
