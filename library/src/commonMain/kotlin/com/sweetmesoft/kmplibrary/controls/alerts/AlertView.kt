@@ -7,15 +7,17 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun AlertView(
+internal fun AlertView(
     title: String,
     message: String,
-    acceptText: String = "Aceptar",
     dismiss: () -> Unit = {}
 ) {
     if (PopupHandler.alertShow) {
@@ -29,7 +31,7 @@ fun AlertView(
             text = { Text(message) },
             shape = RoundedCornerShape(8.dp),
             confirmButton = {
-                Button(
+                TextButton(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
                     onClick = {
                         PopupHandler.alertShow = false
@@ -37,7 +39,7 @@ fun AlertView(
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {
-                    Text(acceptText)
+                    Text(PopupHandler.alertAcceptText)
                 }
             }
         )

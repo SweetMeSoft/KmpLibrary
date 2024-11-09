@@ -3,6 +3,11 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kmp_library.library.generated.resources.Accept
+import kmp_library.library.generated.resources.Cancel
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.getString
+import org.jetbrains.compose.resources.stringResource
 
 class PopupHandler {
     companion object {
@@ -40,26 +45,26 @@ class PopupHandler {
         internal var progressProgress by mutableStateOf(0.0f)
         internal var progressDismiss by mutableStateOf({})
 
-        fun displayAlert(title: String, message: String, dismiss: () -> Unit = {}) {
+        suspend fun displayAlert(title: String, message: String, acceptText: String = "", dismiss: () -> Unit = {}) {
             alertTitle = title
             alertMessage = message
-            alertAcceptText = "Aceptar"
+            alertAcceptText = acceptText.ifEmpty { getString(Res.string.Accept) }
             alertDismiss = dismiss
             alertShow = true
         }
 
-        fun displayConfirm(
+        suspend fun displayConfirm(
             title: String,
             message: String,
-            confirmText: String = "Aceptar",
-            cancelText: String = "Cancelar",
+            confirmText: String = "",
+            cancelText: String = "",
             dismiss: () -> Unit = {},
             accept: () -> Unit
         ) {
             confirmTitle = title
             confirmMessage = message
-            confirmAcceptText = confirmText
-            confirmCancelText = cancelText
+            confirmAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
+            confirmCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             confirmDismiss = { dismiss() }
             confirmAccept = { accept() }
             confirmShow = true

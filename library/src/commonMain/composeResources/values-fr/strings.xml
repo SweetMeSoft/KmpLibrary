@@ -1,0 +1,12 @@
+<resources>
+    <string name="By">Par SweetMeSoft</string>
+    <string name="Banner">Fait avec amour 🩵</string>
+    <string name="ThanksMessage">Merci d\'avoir utilisé %1$s !. Nous espérons que votre expérience a été excellente et que vous trouverez tout ce dont vous avez besoin. N\'oubliez pas de nous évaluer.</string>
+    <string name="RateUs">Évaluez-nous</string>
+    <string name="RateUsMessage">Si vous avez apprécié %1$s, nous serions très heureux d\'avoir de vos nouvelles.</string>
+    <string name="Version">Version</string>
+    <string name="Logout">Déconnexion</string>
+    <string name="Accept">Accepter</string>
+    <string name="Cancel">Annuler</string>
+    <string name="Downloading">Téléchargement</string>
+</resources>

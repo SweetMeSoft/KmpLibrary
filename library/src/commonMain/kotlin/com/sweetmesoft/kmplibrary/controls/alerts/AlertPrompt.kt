@@ -23,13 +23,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import kmp_library.library.generated.resources.Accept
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AlertPrompt(
     title: String,
     subtitle: String,
     input: String,
-    confirmText: String = "Aceptar",
+    confirmText: String = stringResource(Res.string.Accept),
     dismiss: () -> Unit = {},
     accept: (String) -> Unit
 ) {

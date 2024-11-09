@@ -22,8 +22,14 @@ import compose.icons.FontAwesomeIcons
 import compose.icons.fontawesomeicons.Brands
 import compose.icons.fontawesomeicons.brands.AppStore
 import compose.icons.fontawesomeicons.brands.GooglePlay
+import kmp_library.library.generated.resources.RateUs
+import kmp_library.library.generated.resources.RateUsMessage
+import kmp_library.library.generated.resources.Res
+import kmp_library.library.generated.resources.ThanksMessage
+import kmp_library.library.generated.resources.Version
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
@@ -43,7 +49,7 @@ fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
         )
 
         Text(
-            text = "Gracias por usar $appName. Esperamos que tu experiencia sea excelente y que encuentres lo que necesitas. Recuerda calificarnos.",
+            text = stringResource(Res.string.ThanksMessage, appName),
             fontSize = 16.sp,
             lineHeight = 20.sp,
             textAlign = TextAlign.Center,
@@ -52,12 +58,12 @@ fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
 
         SettingsItem(
             icon = if(getPlatform() == PlatformType.ANDROID) FontAwesomeIcons.Brands.GooglePlay else FontAwesomeIcons.Brands.AppStore,
-            title = "Califícanos",
-            description = "Si has disfrutado de $appName nos alegraría que nos califiques"
+            title = stringResource(Res.string.RateUs),
+            description = stringResource(Res.string.RateUsMessage, appName),
         ) {
             openAppStore(appId)
         }
 
-        SettingsItem(title = "Versión", description = getAppVersion())
+        SettingsItem(title = stringResource(Res.string.Version), description = getAppVersion())
     }
 }

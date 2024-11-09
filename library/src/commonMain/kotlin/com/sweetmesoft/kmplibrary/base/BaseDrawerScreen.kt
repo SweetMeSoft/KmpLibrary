@@ -50,6 +50,9 @@ import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
 import compose.icons.fontawesomeicons.solid.Bars
+import kmp_library.library.generated.resources.Logout
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 class BaseDrawerScreen {
     companion object {
@@ -106,7 +109,6 @@ fun ScreenContent(
         AlertView(
             title = PopupHandler.alertTitle,
             message = PopupHandler.alertMessage,
-            acceptText = PopupHandler.alertAcceptText,
             dismiss = PopupHandler.alertDismiss
         )
 
@@ -189,7 +191,7 @@ private fun DrawerContent(
         }
         val icon = rememberVectorPainter(FontAwesomeIcons.Solid.SignOutAlt);
         ItemDrawer(
-            icon = icon, title = "Salir", index = 9999
+            icon = icon, title = stringResource(Res.string.Logout), index = 9999
         ) {
             logoutAction()
         }

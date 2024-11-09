@@ -10,13 +10,17 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kmp_library.library.generated.resources.Accept
+import kmp_library.library.generated.resources.Cancel
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AlertConfirm(
     title: String,
     message: String,
-    confirmText: String = "Aceptar",
-    cancelText: String = "Cancelar",
+    confirmText: String = stringResource(Res.string.Accept),
+    cancelText: String =  stringResource(Res.string.Cancel),
     dismiss: () -> Unit = {},
     accept: () -> Unit,
 ) {

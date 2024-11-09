@@ -27,9 +27,13 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kmp_library.library.generated.resources.Banner
+import kmp_library.library.generated.resources.By
+import kmp_library.library.generated.resources.Res
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SplashContent(
@@ -38,6 +42,8 @@ fun SplashContent(
     backgroundColor: Color = MaterialTheme.colors.secondary,
     background2Color: Color = MaterialTheme.colors.secondary,
     onBackgroundColor: Color = MaterialTheme.colors.onSecondary,
+    title: String = stringResource(Res.string.By),
+    subtitle: String = stringResource(Res.string.Banner),
     action: () -> Unit
 ) {
     var showLogo by remember { mutableStateOf(false) }
@@ -79,13 +85,13 @@ fun SplashContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "By SweetMeSoft",
+                text = title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = onBackgroundColor
             )
             Text(
-                text = "Hecho con amor \uD83E\uDE75",
+                text = subtitle,
                 fontSize = 14.sp,
                 color = onBackgroundColor
             )

@@ -25,11 +25,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import kmp_library.library.generated.resources.Cancel
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AlertProgress(
     title: String,
-    cancelText: String,
+    cancelText: String = stringResource(Res.string.Cancel),
     dismiss: () -> Unit
 ) {
     if (PopupHandler.progressShow) {

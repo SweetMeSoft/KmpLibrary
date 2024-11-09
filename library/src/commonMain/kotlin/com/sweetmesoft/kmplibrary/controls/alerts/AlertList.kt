@@ -14,6 +14,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.sweetmesoft.kmplibrary.controls.commonDropDown.SimpleDropDown
+import kmp_library.library.generated.resources.Accept
+import kmp_library.library.generated.resources.Cancel
+import kmp_library.library.generated.resources.Res
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun AlertList(
@@ -21,8 +25,8 @@ fun AlertList(
     message: String,
     options: List<String>,
     show: Boolean,
-    confirmText: String = "Aceptar",
-    cancelText: String = "Cancelar",
+    confirmText: String =  stringResource(Res.string.Accept),
+    cancelText: String =  stringResource(Res.string.Cancel),
     dismiss: () -> Unit = {},
     accept: (String) -> Unit,
 ) {
