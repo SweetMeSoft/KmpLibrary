@@ -10,6 +10,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,13 +54,13 @@ internal fun AlertProgress() {
                     textAlign = TextAlign.End,
                     fontSize = 12.sp
                 )
-                Button(
+                TextButton(
                     modifier = Modifier.align(alignment = Alignment.End),
                     onClick = {
                         PopupHandler.progressShow = false
                         PopupHandler.progressDismiss()
                     },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                    colors = ButtonDefaults.buttonColors(contentColor = MaterialTheme.colors.error)
                 ) {
                     Text(PopupHandler.progressCancelText)
                 }

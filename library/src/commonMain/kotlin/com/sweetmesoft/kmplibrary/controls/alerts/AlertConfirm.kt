@@ -7,6 +7,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,7 @@ internal fun AlertConfirm() {
                 PopupHandler.confirmDismiss()
             },
             title = { Text(PopupHandler.confirmTitle) },
-            text = { Text(PopupHandler.confirmTitle) },
+            text = { Text(PopupHandler.confirmMessage) },
             shape = RoundedCornerShape(8.dp),
             confirmButton = {
                 Button(
@@ -36,13 +37,13 @@ internal fun AlertConfirm() {
                 }
             },
             dismissButton = {
-                Button(
+                TextButton(
                     modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
                     onClick = {
                         PopupHandler.confirmShow = false
                         PopupHandler.confirmDismiss()
                     },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
+                    colors = ButtonDefaults.buttonColors(contentColor = MaterialTheme.colors.error)
                 ) {
                     Text(PopupHandler.confirmCancelText)
                 }
