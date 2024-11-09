@@ -1,26 +1,21 @@
 package com.sweetmesoft.kmplibrary.tools
 
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
+import com.sweetmesoft.kmplibrary.objects.ErrorResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
-import io.ktor.client.plugins.HttpTimeout
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.onDownload
 import io.ktor.client.request.get
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
+import io.ktor.client.statement.bodyAsChannel
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
-import io.ktor.serialization.kotlinx.json.json
+import io.ktor.utils.io.ByteReadChannel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import kotlinx.serialization.json.Json
-import io.ktor.client.plugins.onDownload
-import io.ktor.client.statement.bodyAsChannel
-import io.ktor.client.statement.bodyAsText
-import io.ktor.utils.io.ByteReadChannel
-import com.sweetmesoft.kmplibrary.objects.ErrorResponse
-import io.ktor.client.HttpClientConfig
 
 expect fun createHttpClient(): HttpClient
 
@@ -29,7 +24,7 @@ object NetworkUtils {
 
     suspend inline fun <reified T> get(url: String, showLoading: Boolean = true): Result<T> {
         if (showLoading) {
-            PopupHandler.isLoading = true
+            PopupHandler.showLoading()
         }
         val response = httpClient.get(url) {
             contentType(ContentType.Application.Json)
@@ -41,7 +36,7 @@ object NetworkUtils {
         }
 
         if (showLoading) {
-            PopupHandler.isLoading = false
+            PopupHandler.hideLoading()
         }
 
         if (response.status.value != 200) {
@@ -60,7 +55,7 @@ object NetworkUtils {
         showLoading: Boolean = true
     ): Result<T> {
         if (showLoading) {
-            PopupHandler.isLoading = true
+            PopupHandler.showLoading()
         }
         val response = httpClient.post(url) {
             contentType(ContentType.Application.Json)
@@ -73,7 +68,7 @@ object NetworkUtils {
         }
 
         if (showLoading) {
-            PopupHandler.isLoading = false
+            PopupHandler.hideLoading()
         }
 
         if (response.status.value != 200) {
