@@ -4,6 +4,8 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,29 +13,35 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import kmp_library.library.generated.resources.Loading
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun LoadingView(isLoading: Boolean) {
+fun LoadingView() {
     AnimatedVisibility(
-        visible = isLoading, enter = fadeIn(), exit = fadeOut()
+        visible = PopupHandler.isLoading, enter = fadeIn(), exit = fadeOut()
     ) {
         Box(
             modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.8f))
-                .padding(16.dp),
+                .padding(16.dp)
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null
+                ) { },
             contentAlignment = Alignment.Center
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 CircularProgressIndicator()
-                Text(text = stringResource(Res.string.Loading)+"...", color = Color.White)
+                Text(text = stringResource(Res.string.Loading) + "...", color = Color.White)
             }
         }
     }

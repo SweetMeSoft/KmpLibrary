@@ -28,20 +28,13 @@ import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun AlertPrompt(
-    title: String,
-    subtitle: String,
-    input: String,
-    confirmText: String = stringResource(Res.string.Accept),
-    dismiss: () -> Unit = {},
-    accept: (String) -> Unit
-) {
-    var text by remember { mutableStateOf(input) }
+internal fun AlertPrompt() {
+    var text by remember { mutableStateOf(PopupHandler.promptInput) }
     if (PopupHandler.promptShow) {
         Dialog(
             onDismissRequest = {
                 PopupHandler.promptShow = false
-                dismiss()
+                PopupHandler.promptDismiss()
             },
             properties = DialogProperties(
                 dismissOnBackPress = true,
@@ -54,11 +47,11 @@ internal fun AlertPrompt(
                     shape = RoundedCornerShape(16.dp)
                 ).padding(16.dp)
             ) {
-                Text(title, fontSize = 18.sp)
+                Text(PopupHandler.promptTitle, fontSize = 18.sp)
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     value = text,
-                    label = { Text(subtitle) },
+                    label = { Text(PopupHandler.promptSubtitle) },
                     onValueChange = { text = it },
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
@@ -67,12 +60,12 @@ internal fun AlertPrompt(
                     modifier = Modifier.align(alignment = Alignment.End),
                     onClick = {
                         PopupHandler.promptShow = false
-                        accept(text)
+                        PopupHandler.promptAccept(text)
                         text = ""
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
                 ) {
-                    Text(confirmText)
+                    Text(PopupHandler.promptAcceptText)
                 }
             }
         }

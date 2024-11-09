@@ -14,38 +14,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import com.sweetmesoft.kmplibrary.controls.commonDropDown.SimpleDropDown
-import kmp_library.library.generated.resources.Accept
-import kmp_library.library.generated.resources.Cancel
-import kmp_library.library.generated.resources.Res
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
-internal fun AlertList(
-    title: String,
-    message: String,
-    options: List<String>,
-    show: Boolean,
-    confirmText: String =  stringResource(Res.string.Accept),
-    cancelText: String =  stringResource(Res.string.Cancel),
-    dismiss: () -> Unit = {},
-    accept: (String) -> Unit,
-) {
+internal fun AlertList() {
     var value by remember { mutableStateOf("") }
 
-    if (show) {
+    if (PopupHandler.listShow) {
         AlertDialog(
-            title = { Text(title) },
+            title = { Text(PopupHandler.listTitle) },
             onDismissRequest = {
                 PopupHandler.listShow = false
-                dismiss()
+                PopupHandler.listDismiss()
             },
             text = {
                 Column {
-                    Text(message)
+                    Text(PopupHandler.listMessage)
                     SimpleDropDown(
                         modifier = Modifier.fillMaxWidth(),
-                        title = title,
-                        list = options,
+                        title = PopupHandler.listTitle,
+                        list = PopupHandler.listOptions,
                         selectValue = { value = it },
                         value = value
                     )
@@ -54,20 +41,20 @@ internal fun AlertList(
             confirmButton = {
                 Button(onClick = {
                     PopupHandler.listShow = false
-                    accept(value)
+                    PopupHandler.listAccept(value)
                 }) {
-                    Text(confirmText)
+                    Text(PopupHandler.listAcceptText)
                 }
             },
             dismissButton = {
                 Button(
                     onClick = {
                         PopupHandler.listShow = false
-                        dismiss()
+                        PopupHandler.listDismiss()
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.error)
                 ) {
-                    Text(cancelText)
+                    Text(PopupHandler.listCancelText)
                 }
             }
         )

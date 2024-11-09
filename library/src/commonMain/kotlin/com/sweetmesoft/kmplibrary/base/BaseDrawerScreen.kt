@@ -108,43 +108,13 @@ fun ScreenContent(
         tab.Content()
 
         AlertView()
-
-        AlertConfirm(
-            title = PopupHandler.confirmTitle,
-            message = PopupHandler.confirmMessage,
-            confirmText = PopupHandler.confirmAcceptText,
-            cancelText = PopupHandler.confirmCancelText,
-            dismiss = PopupHandler.confirmDismiss,
-        ) {
-            PopupHandler.confirmAccept()
-        }
-
-        AlertList(
-            title = PopupHandler.listTitle,
-            message = PopupHandler.listMessage,
-            options = PopupHandler.listOptions,
-            show = PopupHandler.listShow,
-            confirmText = PopupHandler.listAcceptText,
-            cancelText = PopupHandler.listCancelText,
-            dismiss = PopupHandler.listDismiss
-        ) {
-            PopupHandler.listAccept(it)
-        }
-
-        AlertPrompt(
-            title = PopupHandler.promptTitle,
-            subtitle = PopupHandler.promptSubtitle,
-            input = PopupHandler.promptInput,
-            confirmText = PopupHandler.promptAcceptText,
-            dismiss = PopupHandler.promptDismiss
-        ) {
-            PopupHandler.promptAccept(it)
-        }
-
+        AlertConfirm()
+        AlertList()
+        AlertPrompt()
         AlertProgress()
     }
 
-    LoadingView(PopupHandler.isLoading)
+    LoadingView()
 }
 
 @Composable

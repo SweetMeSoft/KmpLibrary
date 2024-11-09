@@ -12,7 +12,7 @@ import org.jetbrains.compose.resources.stringResource
 
 class PopupHandler {
     companion object {
-        var isLoading by mutableStateOf(false)
+        internal var isLoading by mutableStateOf(false)
         internal var alertShow by mutableStateOf(false)
         internal var alertTitle by mutableStateOf("")
         internal var alertAcceptText by mutableStateOf("")
@@ -45,6 +45,14 @@ class PopupHandler {
         internal var progressCancelText by mutableStateOf("")
         internal var progressProgress by mutableStateOf(0.0f)
         internal var progressDismiss by mutableStateOf({})
+
+        fun showLoading() {
+            isLoading = true
+        }
+
+        fun hideLoading() {
+            isLoading = false
+        }
 
         suspend fun displayAlert(
             title: String,
@@ -113,8 +121,8 @@ class PopupHandler {
         }
 
         suspend fun displayProgress(
-            title: String = "Descargando",
-            cancelText: String = "Cancelar",
+            title: String = "",
+            cancelText: String = "",
             dismiss: () -> Unit = {},
         ) {
             progressTitle = title.ifEmpty { getString(Res.string.Downloading) }

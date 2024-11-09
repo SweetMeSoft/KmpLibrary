@@ -4,11 +4,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,12 +38,11 @@ internal fun AlertView() {
                 Text(PopupHandler.alertTitle, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 Text(PopupHandler.alertMessage, fontSize = 14.sp)
                 TextButton(
-                    modifier = Modifier.padding(end = 16.dp, bottom = 16.dp),
+                    modifier = Modifier.padding(top = 16.dp).align(Alignment.End),
                     onClick = {
                         PopupHandler.alertShow = false
                         PopupHandler.alertDismiss()
-                    },
-                    colors = ButtonDefaults.buttonColors(backgroundColor = MaterialTheme.colors.primary)
+                    }
                 ) {
                     Text(PopupHandler.alertAcceptText)
                 }
