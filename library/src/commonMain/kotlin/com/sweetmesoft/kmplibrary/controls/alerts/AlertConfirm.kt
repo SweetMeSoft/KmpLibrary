@@ -47,6 +47,7 @@ internal fun AlertConfirm() {
                 Text(PopupHandler.confirmMessage, fontSize = 14.sp)
                 Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
                     TextButton(
+                        modifier = Modifier.padding(end = 8.dp),
                         onClick = {
                             PopupHandler.confirmShow = false
                             PopupHandler.confirmDismiss()
