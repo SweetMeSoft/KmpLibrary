@@ -62,7 +62,7 @@ internal fun AlertConfirm() {
                     TextButton(
                         onClick = {
                             PopupHandler.confirmShow = false
-                            PopupHandler.confirmDismiss()
+                            PopupHandler.confirmAccept()
                         }
                     ) {
                         Text(PopupHandler.confirmAcceptText)
