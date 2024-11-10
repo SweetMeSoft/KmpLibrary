@@ -35,7 +35,12 @@ internal fun AlertView() {
                     shape = RoundedCornerShape(16.dp)
                 ).padding(16.dp)
             ) {
-                Text(PopupHandler.alertTitle, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                Text(
+                    PopupHandler.alertTitle,
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
                 Text(PopupHandler.alertMessage, fontSize = 14.sp)
                 TextButton(
                     modifier = Modifier.padding(top = 16.dp).align(Alignment.End),
