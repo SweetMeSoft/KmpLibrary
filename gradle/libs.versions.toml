@@ -37,7 +37,7 @@ kotlin = "2.0.21"
 ##  ⬆ = "2.1.0-Beta2"
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization-json = "1.7.3"
-ktor = "3.0.0"
+ktor = "3.0.1"
 moko = "0.18.1"
 settings = "1.2.0"
 voyager = "1.1.0-beta03"
@@ -54,7 +54,6 @@ kmp-date-time-picker = { module = "network.chaintech:kmp-date-time-picker", vers
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
-ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
 ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }

@@ -2,6 +2,7 @@ package com.sweetmesoft.kmplibrary.tools
 
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.objects.ErrorResponse
+import com.sweetmesoft.kmplibrary.objects.GenericResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.onDownload
@@ -11,7 +12,9 @@ import io.ktor.client.request.setBody
 import io.ktor.client.statement.bodyAsChannel
 import io.ktor.client.statement.bodyAsText
 import io.ktor.http.ContentType
+import io.ktor.http.Cookie
 import io.ktor.http.contentType
+import io.ktor.http.setCookie
 import io.ktor.utils.io.ByteReadChannel
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
@@ -22,7 +25,11 @@ expect fun createHttpClient(): HttpClient
 object NetworkUtils {
     val httpClient = createHttpClient()
 
-    suspend inline fun <reified T> get(url: String, showLoading: Boolean = true): Result<T> {
+    suspend inline fun <reified T> get(
+        url: String,
+        showLoading: Boolean = true,
+        bearer: String = ""
+    ): Result<GenericResponse<T>> {
         if (showLoading) {
             PopupHandler.showLoading()
         }
@@ -33,6 +40,9 @@ object NetworkUtils {
                 Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
             )
             headers.append("Language", getCurrentLanguage())
+            if (bearer.isNotEmpty()) {
+                headers.append("Authorization", "Bearer $bearer")
+            }
         }
 
         if (showLoading) {
@@ -46,14 +56,22 @@ object NetworkUtils {
             return Result.failure(Exception(error.detail))
         }
 
-        return Result.success(response.body<T>())
+        return Result.success(GenericResponse(
+            obj = response.body<T>(),
+            cookies = response.setCookie().map { it.name + ":" + it.value },
+            status = response.status.value,
+            headers = response.headers.entries().associate { entry ->
+                entry.key to entry.value
+            }
+        ))
     }
 
     suspend inline fun <reified T> post(
         url: String,
         body: Any? = null,
-        showLoading: Boolean = true
-    ): Result<T> {
+        showLoading: Boolean = true,
+        bearer: String = ""
+    ): Result<GenericResponse<T>> {
         if (showLoading) {
             PopupHandler.showLoading()
         }
@@ -64,6 +82,9 @@ object NetworkUtils {
                 Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
             )
             headers.append("Language", getCurrentLanguage())
+            if (bearer.isNotEmpty()) {
+                headers.append("Authorization", "Bearer $bearer")
+            }
             setBody(body)
         }
 
@@ -78,7 +99,14 @@ object NetworkUtils {
             return Result.failure(Exception(error.detail))
         }
 
-        return Result.success(response.body<T>())
+        return Result.success(GenericResponse(
+            obj = response.body<T>(),
+            cookies = response.setCookie().map { it.name + ":" + it.value },
+            status = response.status.value,
+            headers = response.headers.entries().associate { entry ->
+                entry.key to entry.value
+            }
+        ))
     }
 
     suspend fun downloadFile(url: String): ByteReadChannel {

@@ -27,6 +27,7 @@ inline fun <reified T : Any> RemoteDropDown(
     url: String = "",
     title: String,
     value: String,
+    bearer: String = "",
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
 ) {
@@ -35,9 +36,9 @@ inline fun <reified T : Any> RemoteDropDown(
     var list by remember { mutableStateOf<List<T>>(emptyList()) }
 
     scope.launch {
-        val result = get<List<T>>(url, false)
+        val result = get<List<T>>(url, false, bearer)
         result.onSuccess{
-            list = it
+            list = it.obj
         }
     }
 

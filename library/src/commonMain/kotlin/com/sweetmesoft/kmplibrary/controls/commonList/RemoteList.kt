@@ -45,6 +45,7 @@ inline fun <reified T : Any> RemoteList(
     modifier: Modifier = Modifier,
     url: String,
     title: String = "",
+    bearer: String = "",
     crossinline itemContent: (@Composable (T) -> Unit),
     noinline addClick: (() -> Unit) = emptyFunction
 ) {
@@ -58,7 +59,7 @@ inline fun <reified T : Any> RemoteList(
 
     Column(modifier = modifier.fillMaxSize()) {
         if (vm.state.isLoading) {
-            vm.start<T>()
+            vm.start<T>(bearer)
             androidx.compose.animation.AnimatedVisibility(
                 visible = vm.state.isLoading, enter = fadeIn(), exit = fadeOut()
             ) {

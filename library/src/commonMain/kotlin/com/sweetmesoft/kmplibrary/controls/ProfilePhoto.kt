@@ -23,8 +23,10 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.sweetmesoft.kmplibrary.tools.createHttpClient
 import io.kamel.core.Resource
 import io.kamel.core.config.KamelConfig
+import io.kamel.core.config.httpUrlFetcher
 import io.kamel.core.config.takeFrom
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
@@ -48,8 +50,9 @@ fun ProfilePhoto(
     val customKamelConfig = KamelConfig {
         takeFrom(KamelConfig.Default)
         if (invalidateCache) {
-            imageBitmapCacheSize = 0
+            imageBitmapCacheSize = 1
         }
+        httpUrlFetcher(createHttpClient())
     }
 //    val imageCropper = rememberImageCropper()
     var selectedImage by remember { mutableStateOf<ImageBitmap?>(null) }

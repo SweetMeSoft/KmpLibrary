@@ -12,8 +12,7 @@ import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
 class CommonListViewModel(
     val url: String = "",
     val list: List<Any> = listOf()
-) :
-    BaseViewModel() {
+) : BaseViewModel() {
     var state by mutableStateOf(CommonListState())
 
     data class CommonListState(
@@ -21,13 +20,13 @@ class CommonListViewModel(
         val list: List<Any> = listOf()
     )
 
-    inline fun <reified T : Any> start() {
+    inline fun <reified T : Any> start(bearer: String = "") {
         if (url.isNotEmpty()) {
             viewModelScope.launch {
-                val result = get<List<T>>(url, false)
+                val result = get<List<T>>(url, false, bearer)
                 result.onSuccess {
                     state = state.copy(
-                        list = it,
+                        list = it.obj,
                         isLoading = false
                     )
                 }

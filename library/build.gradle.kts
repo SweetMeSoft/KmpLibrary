@@ -40,9 +40,6 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
             implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.cio)
-            implementation(libs.ktor.client.negotiation)
-            implementation(libs.ktor.client.negotiation)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.settings)
             implementation(libs.voyager.navigator)
@@ -80,7 +77,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "1.0.1"
+        version = "1.0.5"
     )
 
     pom {
