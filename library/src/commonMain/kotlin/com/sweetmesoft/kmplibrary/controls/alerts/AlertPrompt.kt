@@ -39,7 +39,7 @@ internal fun AlertPrompt() {
             )
         ) {
             Column(
-                modifier = Modifier.background(
+                modifier = Modifier.fillMaxWidth().background(
                     MaterialTheme.colors.surface,
                     shape = RoundedCornerShape(16.dp)
                 ).padding(16.dp)

@@ -46,6 +46,6 @@ inline fun <reified T : Any> LocalGridList(
             }
         }
     } else {
-        EmptyList()
+        EmptyList(modifier)
     }
 }

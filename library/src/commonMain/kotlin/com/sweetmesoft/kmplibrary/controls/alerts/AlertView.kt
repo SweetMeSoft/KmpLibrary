@@ -2,6 +2,7 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -30,7 +31,7 @@ internal fun AlertView() {
             )
         ) {
             Column(
-                modifier = Modifier.background(
+                modifier = Modifier.fillMaxWidth().background(
                     MaterialTheme.colors.surface,
                     shape = RoundedCornerShape(16.dp)
                 ).padding(16.dp)

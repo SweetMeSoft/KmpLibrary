@@ -3,6 +3,7 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
@@ -33,7 +34,7 @@ internal fun AlertConfirm() {
             )
         ) {
             Column(
-                modifier = Modifier.background(
+                modifier = Modifier.fillMaxWidth().background(
                     MaterialTheme.colors.surface,
                     shape = RoundedCornerShape(8.dp)
                 ).padding(16.dp)
