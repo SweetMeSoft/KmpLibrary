@@ -31,14 +31,6 @@ class CommonListViewModel(
                     )
                 }
             }
-        } else {
-            viewModelScope.launch {
-                delay(200)
-                state = state.copy(
-                    list = list,
-                    isLoading = false
-                )
-            }
         }
     }
 }

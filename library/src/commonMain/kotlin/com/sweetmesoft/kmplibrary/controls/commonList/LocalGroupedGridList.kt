@@ -19,35 +19,39 @@ inline fun <reified T, K : Any> LocalGroupedGridList(
     crossinline headerContent: (@Composable (T) -> Unit),
     crossinline itemContent: (@Composable (Int, K) -> Unit)
 ) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize()
-    ) {
-        list.forEach { (header, detail) ->
-            item {
-                headerContent(header)
-            }
-            val chunkedList = detail.chunked(columns)
-            items(chunkedList.size) { index ->
-                val rowItems = chunkedList[index]
-                Row(
-                    modifier = Modifier
-                        .height(IntrinsicSize.Max)
-                ) {
-                    for (item in rowItems) {
-                        Box(
-                            modifier = Modifier.weight(1f),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            itemContent(index, item)
+    if (list.any()) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize()
+        ) {
+            list.forEach { (header, detail) ->
+                item {
+                    headerContent(header)
+                }
+                val chunkedList = detail.chunked(columns)
+                items(chunkedList.size) { index ->
+                    val rowItems = chunkedList[index]
+                    Row(
+                        modifier = Modifier
+                            .height(IntrinsicSize.Max)
+                    ) {
+                        for (item in rowItems) {
+                            Box(
+                                modifier = Modifier.weight(1f),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                itemContent(index, item)
+                            }
                         }
-                    }
-                    if (rowItems.size < columns) {
-                        for (i in rowItems.size until columns) {
-                            Spacer(modifier = Modifier.weight(1f))
+                        if (rowItems.size < columns) {
+                            for (i in rowItems.size until columns) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
                         }
                     }
                 }
             }
         }
+    }else{
+        EmptyList(modifier)
     }
 }
