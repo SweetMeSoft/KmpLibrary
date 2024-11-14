@@ -30,7 +30,9 @@ import androidx.compose.ui.window.DialogProperties
 
 @Composable
 fun CalculatorPopup(
-    onDismissRequest: () -> Unit = {}, onResult: (Double) -> Unit, visible: Boolean = false
+    visible: Boolean = false,
+    onDismissRequest: () -> Unit = {},
+    onResult: (Double) -> Unit
 ) {
     var total: String by remember { mutableStateOf("0") }
     var subtotal: String by remember { mutableStateOf("0") }

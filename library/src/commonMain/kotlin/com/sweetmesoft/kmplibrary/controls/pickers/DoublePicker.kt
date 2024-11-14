@@ -25,7 +25,6 @@ fun DoublePicker(
     onValueChange: (Double) -> Unit
 ) {
     var showCalculator: Boolean by remember { mutableStateOf(false) }
-    //var text: String by remember { mutableStateOf("") }
     Box(modifier = modifier) {
         OutlinedTextField(
             value = value,
@@ -51,8 +50,11 @@ fun DoublePicker(
 
     CalculatorPopup(
         visible = showCalculator,
-        onResult = {
-            onValueChange(it)
+        onDismissRequest = {
             showCalculator = false
-        })
+        }
+    ) {
+        onValueChange(it)
+        showCalculator = false
+    }
 }
