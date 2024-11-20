@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
@@ -30,6 +31,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun TermsAndConditions(
     modifier: Modifier = Modifier,
+    color: Color = MaterialTheme.colors.primary,
     urlPrivacy: String,
     urlTerms: String
 ) {
@@ -40,7 +42,7 @@ fun TermsAndConditions(
                 url = urlTerms,
                 styles = TextLinkStyles(
                     style = SpanStyle(
-                        color = MaterialTheme.colors.primary,
+                        color = color,
                         fontWeight = FontWeight.Bold
                     )
                 )
@@ -54,7 +56,7 @@ fun TermsAndConditions(
                 url = urlPrivacy,
                 styles = TextLinkStyles(
                     style = SpanStyle(
-                        color = MaterialTheme.colors.primary,
+                        color = color,
                         fontWeight = FontWeight.Bold
                     )
                 )

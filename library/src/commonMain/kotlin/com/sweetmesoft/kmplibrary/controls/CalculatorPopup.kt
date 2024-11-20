@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 
 @Composable
 fun CalculatorPopup(
@@ -38,7 +39,10 @@ fun CalculatorPopup(
     var subtotal: String by remember { mutableStateOf("0") }
     if (visible) {
         Dialog(
-            onDismissRequest = onDismissRequest,
+            onDismissRequest = {
+                //visible = false
+                onDismissRequest()
+            },
             properties = DialogProperties(
                 dismissOnBackPress = true,
                 dismissOnClickOutside = true
@@ -194,7 +198,6 @@ fun CalculatorPopup(
                             .clip(RoundedCornerShape(bottomEnd = 16.dp))
                             .background(MaterialTheme.colors.background), '='
                     ) {
-                        onDismissRequest()
                         onResult(total.toDouble())
                     }
                 }

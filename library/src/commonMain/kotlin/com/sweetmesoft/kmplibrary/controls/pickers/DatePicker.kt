@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,6 +31,7 @@ import org.jetbrains.compose.resources.stringResource
 fun DatePicker(
     modifier: Modifier = Modifier,
     value: String,
+    color: Color = MaterialTheme.colors.primary,
     selectDatePicker: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
@@ -42,7 +44,12 @@ fun DatePicker(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent),
-            readOnly = true
+            readOnly = true,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = color,
+                cursorColor = color,
+                focusedLabelColor = color,
+            )
         )
 
         Box(

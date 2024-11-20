@@ -5,8 +5,10 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +23,7 @@ import com.sweetmesoft.kmplibrary.controls.CalculatorPopup
 fun DoublePicker(
     modifier: Modifier = Modifier,
     title: String,
+    color: Color = MaterialTheme.colors.primary,
     value: String = "",
     onValueChange: (Double) -> Unit
 ) {
@@ -34,7 +37,12 @@ fun DoublePicker(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent),
-            readOnly = true
+            readOnly = true,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = color,
+                cursorColor = color,
+                focusedLabelColor = color,
+            )
         )
 
         Box(

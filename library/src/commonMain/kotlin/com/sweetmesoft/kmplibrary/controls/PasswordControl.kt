@@ -4,24 +4,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Regular
-import compose.icons.fontawesomeicons.regular.Eye
-import compose.icons.fontawesomeicons.regular.EyeSlash
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Eye
+import compose.icons.tablericons.EyeOff
 import kmp_library.library.generated.resources.Password
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
@@ -31,6 +33,7 @@ fun PasswordControl(
     modifier: Modifier = Modifier,
     value: String,
     label: String = stringResource(Res.string.Password),
+    color: Color = MaterialTheme.colors.primary,
     isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
@@ -55,8 +58,8 @@ fun PasswordControl(
         ),
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         trailingIcon = {
-            val image = if (isPasswordVisible) FontAwesomeIcons.Regular.Eye
-            else FontAwesomeIcons.Regular.EyeSlash
+            val image = if (isPasswordVisible) TablerIcons.Eye
+            else TablerIcons.EyeOff
 
             IconButton(onClick = {
                 isPasswordVisible = !isPasswordVisible
@@ -68,6 +71,11 @@ fun PasswordControl(
                 )
             }
         },
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = color,
+            cursorColor = color,
+            focusedLabelColor = color,
+        ),
         isError = isError
     )
 }

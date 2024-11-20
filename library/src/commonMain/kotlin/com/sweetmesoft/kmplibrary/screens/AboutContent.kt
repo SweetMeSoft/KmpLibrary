@@ -18,10 +18,9 @@ import com.sweetmesoft.kmplibrary.tools.PlatformType
 import com.sweetmesoft.kmplibrary.tools.getAppVersion
 import com.sweetmesoft.kmplibrary.tools.getPlatform
 import com.sweetmesoft.kmplibrary.tools.openAppStore
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Brands
-import compose.icons.fontawesomeicons.brands.AppStore
-import compose.icons.fontawesomeicons.brands.GooglePlay
+import compose.icons.TablerIcons
+import compose.icons.tablericons.BrandAppstore
+import compose.icons.tablericons.BrandGooglePlay
 import kmp_library.library.generated.resources.RateUs
 import kmp_library.library.generated.resources.RateUsMessage
 import kmp_library.library.generated.resources.Res
@@ -57,7 +56,7 @@ fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
         )
 
         SettingsItem(
-            icon = if(getPlatform() == PlatformType.ANDROID) FontAwesomeIcons.Brands.GooglePlay else FontAwesomeIcons.Brands.AppStore,
+            icon = if(getPlatform() == PlatformType.ANDROID) TablerIcons.BrandGooglePlay else TablerIcons.BrandAppstore,
             title = stringResource(Res.string.RateUs),
             description = stringResource(Res.string.RateUsMessage, appName),
         ) {

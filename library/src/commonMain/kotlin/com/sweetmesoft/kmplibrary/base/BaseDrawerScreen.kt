@@ -38,20 +38,18 @@ import com.sweetmesoft.kmplibrary.controls.alerts.AlertList
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertProgress
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
-import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.SignOutAlt
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
 import com.sweetmesoft.kmplibrary.objects.IconAction
-import compose.icons.fontawesomeicons.solid.ChevronRight
-import kotlinx.coroutines.launch
 import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
-import compose.icons.fontawesomeicons.solid.Bars
+import compose.icons.TablerIcons
+import compose.icons.tablericons.ChevronRight
+import compose.icons.tablericons.Logout
+import compose.icons.tablericons.Menu
 import kmp_library.library.generated.resources.Logout
 import kmp_library.library.generated.resources.Res
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
 class BaseDrawerScreen {
@@ -151,7 +149,7 @@ private fun DrawerContent(
                 }
             }
         }
-        val icon = rememberVectorPainter(FontAwesomeIcons.Solid.SignOutAlt);
+        val icon = rememberVectorPainter(TablerIcons.Logout);
         ItemDrawer(
             icon = icon, title = stringResource(Res.string.Logout), index = 9999
         ) {
@@ -223,7 +221,7 @@ private fun TabContent(
                         }) {
                             Icon(
                                 modifier = Modifier.size(24.dp),
-                                imageVector = FontAwesomeIcons.Solid.Bars,
+                                imageVector = TablerIcons.Menu,
                                 contentDescription = "List"
                             )
                         }
@@ -260,7 +258,7 @@ private fun ItemDrawer(
     ) {
         if (BaseDrawerScreen.currentTab.value == index) {
             Icon(
-                imageVector = FontAwesomeIcons.Solid.ChevronRight,
+                imageVector = TablerIcons.ChevronRight,
                 tint = MaterialTheme.colors.onSurface,
                 contentDescription = title,
                 modifier = Modifier.padding(end = 16.dp).size(16.dp)

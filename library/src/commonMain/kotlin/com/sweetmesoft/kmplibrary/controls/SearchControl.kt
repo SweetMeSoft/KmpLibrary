@@ -18,9 +18,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.Search
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Search
 import kmp_library.library.generated.resources.Res
 import kmp_library.library.generated.resources.Search
 import org.jetbrains.compose.resources.stringResource
@@ -58,7 +57,7 @@ fun SearchControl(
             ),
             leadingIcon = {
                 Icon(
-                    imageVector = FontAwesomeIcons.Solid.Search,
+                    imageVector = TablerIcons.Search,
                     contentDescription = stringResource(Res.string.Search),
                     tint = Color.Gray,
                     modifier = Modifier.padding(start = 8.dp).size(16.dp)

@@ -32,7 +32,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.composeIcons.fontAwesome)
+            implementation(libs.compose.icons)
             implementation(libs.compottie)
             implementation(libs.kamel.image.default)
             implementation(libs.kmp.date.time.picker)
@@ -77,7 +77,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "1.0.9"
+        version = "1.1"
     )
 
     pom {

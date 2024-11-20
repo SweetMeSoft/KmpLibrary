@@ -24,9 +24,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
-import compose.icons.FontAwesomeIcons
-import compose.icons.fontawesomeicons.Solid
-import compose.icons.fontawesomeicons.solid.Plus
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Plus
 import kmp_library.library.generated.resources.Loading
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
@@ -71,7 +70,7 @@ inline fun <reified T : Any> RemoteList(
                     if (addClick != emptyFunction) {
                         IconButton(onClick = { addClick() }) {
                             Icon(
-                                imageVector = FontAwesomeIcons.Solid.Plus,
+                                imageVector = TablerIcons.Plus,
                                 contentDescription = "Add list event",
                                 tint = MaterialTheme.colors.primary,
                                 modifier = Modifier.size(24.dp)
