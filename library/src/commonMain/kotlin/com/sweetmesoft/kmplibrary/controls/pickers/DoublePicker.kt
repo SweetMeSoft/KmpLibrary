@@ -25,6 +25,7 @@ fun DoublePicker(
     title: String,
     color: Color = MaterialTheme.colors.primary,
     value: String = "",
+    enabled: Boolean = true,
     onValueChange: (Double) -> Unit
 ) {
     var showCalculator: Boolean by remember { mutableStateOf(false) }
@@ -34,10 +35,12 @@ fun DoublePicker(
             onValueChange = { },
             maxLines = 1,
             label = { Text(title) },
+            readOnly = true,
+            singleLine = true,
+            enabled = enabled,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent),
-            readOnly = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = color,
                 cursorColor = color,
@@ -51,7 +54,9 @@ fun DoublePicker(
                 .padding(top = 8.dp)
                 .background(Color.Transparent)
                 .clickable {
-                    showCalculator = true
+                    if (enabled) {
+                        showCalculator = true
+                    }
                 }
         )
     }

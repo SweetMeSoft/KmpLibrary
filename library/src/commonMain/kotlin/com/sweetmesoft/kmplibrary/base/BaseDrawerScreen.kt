@@ -47,6 +47,7 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.ChevronRight
 import compose.icons.tablericons.Logout
 import compose.icons.tablericons.Menu
+import compose.icons.tablericons.Menu2
 import kmp_library.library.generated.resources.Logout
 import kmp_library.library.generated.resources.Res
 import kotlinx.coroutines.launch
@@ -221,7 +222,7 @@ private fun TabContent(
                         }) {
                             Icon(
                                 modifier = Modifier.size(24.dp),
-                                imageVector = TablerIcons.Menu,
+                                imageVector = TablerIcons.Menu2,
                                 contentDescription = "List"
                             )
                         }

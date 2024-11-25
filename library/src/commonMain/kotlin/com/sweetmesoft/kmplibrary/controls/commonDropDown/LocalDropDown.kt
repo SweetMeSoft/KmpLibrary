@@ -33,6 +33,7 @@ inline fun <reified T : Any> LocalDropDown(
     textProperty: String,
     indexSelected: Int = -1,
     color: Color = MaterialTheme.colors.primary,
+    enabled: Boolean = true,
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
 ) {
@@ -43,7 +44,9 @@ inline fun <reified T : Any> LocalDropDown(
         modifier = modifier,
         expanded = expanded,
         onExpandedChange = {
-            expanded = !expanded
+            if (enabled) {
+                expanded = !expanded
+            }
         }
     ) {
         OutlinedTextField(
@@ -52,6 +55,7 @@ inline fun <reified T : Any> LocalDropDown(
             onValueChange = { text = it },
             readOnly = true,
             singleLine = true,
+            enabled = enabled,
             label = {
                 Text(
                     text = title,
@@ -98,7 +102,6 @@ inline fun <reified T> getText(indexSelected: Int, textProperty: String, list: L
     if (indexSelected == -1 || list.isEmpty()) {
         return ""
     }
-
     val it = list[indexSelected]
     val jsonElement = Json.encodeToJsonElement(it)
     return jsonElement.jsonObject[textProperty]?.let { jsonValue ->

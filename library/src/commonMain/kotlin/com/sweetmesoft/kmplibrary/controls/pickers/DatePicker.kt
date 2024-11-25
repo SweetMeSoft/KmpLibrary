@@ -32,6 +32,7 @@ fun DatePicker(
     modifier: Modifier = Modifier,
     value: String,
     color: Color = MaterialTheme.colors.primary,
+    enabled: Boolean = true,
     selectDatePicker: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
@@ -41,10 +42,12 @@ fun DatePicker(
             onValueChange = {},
             maxLines = 1,
             label = { Text(stringResource(Res.string.Date)) },
+            readOnly = true,
+            singleLine = true,
+            enabled = enabled,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(Color.Transparent),
-            readOnly = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = color,
                 cursorColor = color,
@@ -58,7 +61,9 @@ fun DatePicker(
                 .padding(top = 8.dp)
                 .background(Color.Transparent)
                 .clickable {
-                    showPicker = true
+                    if (enabled) {
+                        showPicker = true
+                    }
                 }
         )
     }
@@ -77,7 +82,7 @@ fun DatePicker(
         doneLabelStyle = TextStyle(
             fontSize = 16.sp,
             fontWeight = FontWeight(600),
-            color = MaterialTheme.colors.secondary,
+            color = color,
         ),
         rowCount = 5,
         dateTextStyle = TextStyle(
