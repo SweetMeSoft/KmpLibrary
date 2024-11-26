@@ -34,6 +34,7 @@ fun DateTimePicker(
     value: LocalDateTime,
     color: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
+    title: String = stringResource(Res.string.Date),
     selectDateTimePicker: (LocalDateTime) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
@@ -42,7 +43,7 @@ fun DateTimePicker(
             value = dateTimeToString(value, "yyyy-MM-dd HH:mm"),
             onValueChange = {},
             maxLines = 1,
-            label = { Text(stringResource(Res.string.Date)) },
+            label = { Text(title) },
             readOnly = true,
             singleLine = true,
             enabled = enabled,

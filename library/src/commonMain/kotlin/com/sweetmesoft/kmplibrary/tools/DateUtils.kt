@@ -4,6 +4,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.char
@@ -31,3 +32,32 @@ fun LocalDateTime.toLocalString(): String {
     return this.format(dateFormat)
 }
 
+fun LocalDate.toLocalString(): String {
+    val dateFormat = LocalDate.Format {
+        date(LocalDate.Formats.ISO)
+    }
+
+    return this.format(dateFormat)
+}
+
+fun LocalTime.toLocalString(showSeconds: Boolean = false): String {
+    val timeFormat = if (showSeconds) {
+        LocalTime.Format {
+            char(' ')
+            hour()
+            char(':')
+            minute()
+            char(':')
+            second()
+        }
+    } else {
+        LocalTime.Format {
+            char(' ')
+            hour()
+            char(':')
+            minute()
+        }
+    }
+
+    return this.format(timeFormat)
+}

@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kmp_library.library.generated.resources.Date
 import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalDate
@@ -30,18 +31,19 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun DatePicker(
     modifier: Modifier = Modifier,
-    value: String,
+    value: LocalDate,
     color: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
+    title: String = stringResource(Res.string.Date),
     selectDatePicker: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
         OutlinedTextField(
-            value = value,
+            value = value.toLocalString(),
             onValueChange = {},
             maxLines = 1,
-            label = { Text(stringResource(Res.string.Date)) },
+            label = { Text(title) },
             readOnly = true,
             singleLine = true,
             enabled = enabled,

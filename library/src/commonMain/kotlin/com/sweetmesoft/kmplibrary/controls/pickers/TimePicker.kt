@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kmp_library.library.generated.resources.Hour
 import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalTime
@@ -30,18 +31,19 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun TimePicker(
     modifier: Modifier = Modifier,
-    value: String,
+    value: LocalTime,
     color: Color = MaterialTheme.colors.primary,
+    title: String = stringResource(Res.string.Hour),
     enabled: Boolean = true,
     selectTimePicker: (LocalTime) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
     Box(modifier = modifier) {
         OutlinedTextField(
-            value = value,
+            value = value.toLocalString(false),
             onValueChange = {},
             maxLines = 1,
-            label = { Text(stringResource(Res.string.Hour)) },
+            label = { Text(title) },
             readOnly = true,
             singleLine = true,
             enabled = enabled,
