@@ -31,6 +31,7 @@ inline fun <reified T : Any> RemoteDropDown(
     title: String,
     value: String,
     bearer: String = "",
+    enabled: Boolean = true,
     color: Color = MaterialTheme.colors.primary,
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
@@ -50,13 +51,18 @@ inline fun <reified T : Any> RemoteDropDown(
         modifier = modifier,
         expanded = expanded,
         onExpandedChange = {
-            expanded = true
+            if (enabled) {
+                expanded = true
+            }
         }
     ) {
         OutlinedTextField(
             modifier = modifier,
             value = value,
             onValueChange = { },
+            readOnly = true,
+            singleLine = true,
+            enabled = enabled,
             label = {
                 Text(
                     text = title,
@@ -69,11 +75,9 @@ inline fun <reified T : Any> RemoteDropDown(
                     expanded = expanded
                 )
             },
-            readOnly = true,
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
-            singleLine = true,
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = color,
                 cursorColor = color,
