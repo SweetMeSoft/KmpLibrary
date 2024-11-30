@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-internal inline fun <reified T : Any> LocalDropDown(
+inline fun <reified T : Any> LocalDropDown(
     modifier: Modifier = Modifier,
     list: List<T> = listOf(),
     title: String,
