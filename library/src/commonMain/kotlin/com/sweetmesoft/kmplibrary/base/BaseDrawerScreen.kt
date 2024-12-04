@@ -64,16 +64,9 @@ fun BaseDrawerScreen(
     tabs: List<BaseTab>,
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
-    toolbarColor: Color = MaterialTheme.colors.background,
-    toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
-    navigationColor: Color = MaterialTheme.colors.background,
-    navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
     logoutAction: () -> Unit = {},
     headerView: @Composable () -> Unit = {}
 ) {
-    SetStatusBarColor(toolbarColor, toolbarIconsLight)
-    SetNavigationBarColor(navigationColor, navigationIconsLight)
-
     ModalDrawer(
         drawerBackgroundColor = Color.Transparent,
         drawerElevation = 0.dp,

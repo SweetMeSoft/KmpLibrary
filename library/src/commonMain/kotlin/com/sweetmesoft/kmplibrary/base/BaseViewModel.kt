@@ -51,6 +51,10 @@ open class BaseViewModel : ViewModel() {
         BaseDrawerScreen.currentTab.value = index
     }
 
+    fun updateBottomTab(index: Int) {
+        BaseBottomBarScreen.currentTab.value = index
+    }
+
     suspend fun openDrawer() {
         baseState.drawerState.open()
     }
