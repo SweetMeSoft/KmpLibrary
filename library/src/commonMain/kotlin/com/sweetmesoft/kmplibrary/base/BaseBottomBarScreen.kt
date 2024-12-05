@@ -72,7 +72,7 @@ private fun ScreenContent(
             .fillMaxSize()
             .background(MaterialTheme.colors.background),
         topBar = {
-            if (tab.baseOptions.title.isNotEmpty() || tab.baseOptions.showTop) {
+            if (tab.baseOptions.showTop || (tab.baseOptions.title.isNotEmpty() && tab.baseOptions.showTop)) {
                 TopAppBar(
                     backgroundColor = tab.baseOptions.toolbarColor,
                     contentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
@@ -108,16 +108,20 @@ private fun ScreenContent(
                             }
                         }
                     },
-                    navigationIcon = {
-                        if (BaseViewModel.navigator.canPop) {
-                            Icon(
-                                modifier = Modifier
-                                    .padding(start = 16.dp)
-                                    .clickable { BaseViewModel.navigator.pop() },
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back"
-                            )
+                    navigationIcon = if (BaseViewModel.navigator.canPop) {
+                        {
+                            IconButton(
+                                modifier = Modifier.padding(start = 8.dp),
+                                onClick = { BaseViewModel.navigator.pop() }
+                            ) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    contentDescription = "Back"
+                                )
+                            }
                         }
+                    } else {
+                        null
                     }
                 )
             }

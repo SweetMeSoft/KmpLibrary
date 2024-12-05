@@ -118,18 +118,20 @@ private fun ScreenContent(
                             }
                         }
                     },
-                    navigationIcon = {
-                        if (BaseViewModel.navigator.canPop) {
+                    navigationIcon = if (BaseViewModel.navigator.canPop) {
+                        {
                             IconButton(
-                                modifier = Modifier
-                                    .padding(start = 8.dp),
-                                onClick = { BaseViewModel.navigator.pop() }) {
+                                modifier = Modifier.padding(start = 8.dp),
+                                onClick = { BaseViewModel.navigator.pop() }
+                            ) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = "Back"
                                 )
                             }
                         }
+                    } else {
+                        null
                     }
                 )
             }

@@ -11,7 +11,11 @@ import kotlinx.serialization.json.Json
 actual fun createHttpClient(): HttpClient {
     return HttpClient(Darwin) {
         install(ContentNegotiation) {
-            json(json = Json { ignoreUnknownKeys = true }, contentType = ContentType.Any)
+            json(json = Json {
+                ignoreUnknownKeys = true
+                encodeDefaults = true
+                explicitNulls = false
+            }, contentType = ContentType.Any)
         }
         install(HttpTimeout) {
             requestTimeoutMillis = 60000
