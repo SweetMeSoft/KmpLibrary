@@ -59,7 +59,6 @@ fun defaultBaseTabOptions(
 interface BaseTab : Tab {
     val baseOptions: BaseTabOptions
         @Composable get
-
     override val options: TabOptions
         @Composable get() {
             return TabOptions(

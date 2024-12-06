@@ -107,7 +107,7 @@ class PopupHandler {
         suspend fun displayPrompt(
             title: String,
             subtitle: String,
-            promptPlaceholder: String,
+            placeholder: String,
             confirmText: String = "",
             cancelText: String = "",
             input: String,
@@ -116,7 +116,7 @@ class PopupHandler {
         ) {
             promptTitle = title
             promptSubtitle = subtitle
-            promptPlaceholder = promptPlaceholder
+            promptPlaceholder = placeholder
             promptAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
             promptCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             promptInput = input

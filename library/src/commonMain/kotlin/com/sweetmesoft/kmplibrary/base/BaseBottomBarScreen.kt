@@ -1,7 +1,6 @@
 package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -36,6 +35,7 @@ import com.sweetmesoft.kmplibrary.controls.alerts.AlertList
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertProgress
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
+import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 
 class BaseBottomBarScreen {
     companion object {
@@ -67,6 +67,10 @@ private fun ScreenContent(
     tabs: List<BaseTab>
 ) {
     val tab = tabs[currentTab.value]
+    SetStatusBarColor(
+        color = tab.baseOptions.toolbarColor,
+        darkIcons = tab.baseOptions.toolbarIconsLight
+    )
     Scaffold(
         modifier = modifier
             .fillMaxSize()

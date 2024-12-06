@@ -40,13 +40,11 @@ import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalList
 import com.sweetmesoft.kmplibrary.objects.IconAction
-import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
 import compose.icons.TablerIcons
 import compose.icons.tablericons.ChevronRight
 import compose.icons.tablericons.Logout
-import compose.icons.tablericons.Menu
 import compose.icons.tablericons.Menu2
 import kmp_library.library.generated.resources.Logout
 import kmp_library.library.generated.resources.Res
@@ -126,11 +124,7 @@ private fun DrawerContent(
             LocalList(
                 list = list,
             ) { index, item ->
-                Column(
-//                    modifier = Modifier.background(
-//                        if (BaseDrawerScreen.currentTab.value == index) MaterialTheme.colors.secondary else Color.Transparent
-//                    )
-                ) {
+                Column {
                     ItemDrawer(
                         icon = item.options.icon, title = item.options.title, index = index
                     ) {
@@ -143,7 +137,7 @@ private fun DrawerContent(
                 }
             }
         }
-        val icon = rememberVectorPainter(TablerIcons.Logout);
+        val icon = rememberVectorPainter(TablerIcons.Logout)
         ItemDrawer(
             icon = icon, title = stringResource(Res.string.Logout), index = 9999
         ) {
@@ -165,6 +159,7 @@ private fun TabContent(
     vm: BaseViewModel,
     content: @Composable () -> Unit
 ) {
+    SetStatusBarColor(color = toolbarColor, darkIcons = toolbarIconsLight)
     val scope = rememberCoroutineScope()
     Scaffold(
         modifier = modifier
