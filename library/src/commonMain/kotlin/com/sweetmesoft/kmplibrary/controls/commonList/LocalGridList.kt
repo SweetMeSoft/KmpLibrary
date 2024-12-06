@@ -17,7 +17,6 @@ inline fun <reified T : Any> LocalGridList(
     columns: Int = 2,
     crossinline itemContent: (@Composable (Int, T) -> Unit)
 ) {
-
     if (list.any()) {
         val chunkedList = list.chunked(columns)
         LazyColumn(

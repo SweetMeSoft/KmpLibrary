@@ -2,10 +2,12 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -17,6 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
@@ -48,25 +51,43 @@ internal fun AlertPrompt() {
                     PopupHandler.promptTitle,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
+                )
+                Text(
+                    PopupHandler.promptSubtitle,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.Light,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 OutlinedTextField(
                     modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
                     value = text,
-                    label = { Text(PopupHandler.promptSubtitle) },
+                    label = { Text(PopupHandler.promptPlaceholder) },
                     onValueChange = { text = it },
                     maxLines = 1,
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
                 )
-                TextButton(
-                    modifier = Modifier.align(alignment = Alignment.End),
-                    onClick = {
-                        PopupHandler.promptShow = false
-                        PopupHandler.promptAccept(text)
-                        text = ""
+                Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
+                    TextButton(
+                        modifier = Modifier.padding(end = 8.dp),
+                        onClick = {
+                            PopupHandler.promptShow = false
+                            PopupHandler.promptDismiss()
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = MaterialTheme.colors.error,
+                            backgroundColor = Color.Transparent
+                        )
+                    ) {
+                        Text(PopupHandler.promptCancelText)
                     }
-                ) {
-                    Text(PopupHandler.promptAcceptText)
+                    TextButton(
+                        onClick = {
+                            PopupHandler.promptShow = false
+                            PopupHandler.promptAccept(text)
+                        }
+                    ) {
+                        Text(PopupHandler.promptAcceptText)
+                    }
                 }
             }
         }

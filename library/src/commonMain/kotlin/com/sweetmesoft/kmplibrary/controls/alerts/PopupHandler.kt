@@ -8,7 +8,6 @@ import kmp_library.library.generated.resources.Cancel
 import kmp_library.library.generated.resources.Downloading
 import kmp_library.library.generated.resources.Res
 import org.jetbrains.compose.resources.getString
-import org.jetbrains.compose.resources.stringResource
 
 class PopupHandler {
     companion object {
@@ -35,8 +34,10 @@ class PopupHandler {
         internal var listDismiss by mutableStateOf({})
         internal var promptShow by mutableStateOf(false)
         internal var promptTitle by mutableStateOf("")
-        internal var promptAcceptText by mutableStateOf("")
         internal var promptSubtitle by mutableStateOf("")
+        internal var promptPlaceholder by mutableStateOf("")
+        internal var promptAcceptText by mutableStateOf("")
+        internal var promptCancelText by mutableStateOf("")
         internal var promptInput by mutableStateOf("")
         internal var promptAccept: (String) -> Unit by mutableStateOf({})
         internal var promptDismiss by mutableStateOf({})
@@ -106,14 +107,18 @@ class PopupHandler {
         suspend fun displayPrompt(
             title: String,
             subtitle: String,
+            promptPlaceholder: String,
             confirmText: String = "",
+            cancelText: String = "",
             input: String,
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
             promptTitle = title
             promptSubtitle = subtitle
+            promptPlaceholder = promptPlaceholder
             promptAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
+            promptCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             promptInput = input
             promptAccept = { accept(it) }
             promptDismiss = { dismiss() }
