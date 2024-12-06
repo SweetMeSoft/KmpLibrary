@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmplibrary.serializers
 
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -11,7 +12,7 @@ object LocalTimeSerializer : KSerializer<LocalTime> {
     override val descriptor = PrimitiveSerialDescriptor("LocalTime", PrimitiveKind.STRING)
 
     override fun serialize(encoder: Encoder, value: LocalTime) {
-        encoder.encodeString(value.toString())
+        encoder.encodeString(value.toLocalString(true))
     }
 
     override fun deserialize(decoder: Decoder): LocalTime {

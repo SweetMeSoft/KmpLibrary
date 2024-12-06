@@ -10,7 +10,7 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 
-fun getCurrentDateTime(): LocalDateTime {
+fun LocalDateTime.getCurrent(): LocalDateTime {
     return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 }
 
@@ -43,7 +43,6 @@ fun LocalDate.toLocalString(): String {
 fun LocalTime.toLocalString(showSeconds: Boolean = false): String {
     val timeFormat = if (showSeconds) {
         LocalTime.Format {
-            char(' ')
             hour()
             char(':')
             minute()
@@ -52,7 +51,6 @@ fun LocalTime.toLocalString(showSeconds: Boolean = false): String {
         }
     } else {
         LocalTime.Format {
-            char(' ')
             hour()
             char(':')
             minute()
