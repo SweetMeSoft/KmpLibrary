@@ -10,7 +10,7 @@ import kotlinx.datetime.format
 import kotlinx.datetime.format.char
 import kotlinx.datetime.toLocalDateTime
 
-fun LocalDateTime.getCurrent(): LocalDateTime {
+fun getCurrentDateTime(): LocalDateTime {
     return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
 }
 
