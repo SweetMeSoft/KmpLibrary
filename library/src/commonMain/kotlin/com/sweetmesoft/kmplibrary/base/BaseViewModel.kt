@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import cafe.adriel.voyager.navigator.Navigator
+import cafe.adriel.voyager.navigator.bottomSheet.BottomSheetNavigator
 import com.russhwolf.settings.Settings
 import dev.icerock.moko.permissions.DeniedAlwaysException
 import dev.icerock.moko.permissions.Permission
@@ -24,6 +25,7 @@ open class BaseViewModel : ViewModel() {
 
     companion object {
         lateinit var navigator: Navigator
+        lateinit var bottomSheetNavigator: BottomSheetNavigator
         lateinit var controller: PermissionsController
         lateinit var factory: PermissionsControllerFactory
     }
