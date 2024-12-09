@@ -28,7 +28,8 @@ class PopupHandler {
         internal var listAcceptText by mutableStateOf("")
         internal var listCancelText by mutableStateOf("")
         internal var listTitle by mutableStateOf("")
-        internal var listMessage by mutableStateOf("")
+        internal var listSubtitle by mutableStateOf("")
+        internal var listPlaceholder by mutableStateOf("")
         internal var listOptions by mutableStateOf(listOf<String>())
         internal var listAccept: (String) -> Unit by mutableStateOf({})
         internal var listDismiss by mutableStateOf({})
@@ -85,9 +86,10 @@ class PopupHandler {
             confirmShow = true
         }
 
-        suspend fun displayAlertList(
+        suspend fun displayList(
             title: String,
-            message: String,
+            subtitle: String,
+            placeholder: String,
             confirmText: String = "",
             cancelText: String = "",
             options: List<String> = listOf(),
@@ -95,7 +97,8 @@ class PopupHandler {
             accept: (String) -> Unit
         ) {
             listTitle = title
-            listMessage = message
+            listSubtitle = subtitle
+            listPlaceholder = subtitle
             listAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
             listCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             listOptions = options
