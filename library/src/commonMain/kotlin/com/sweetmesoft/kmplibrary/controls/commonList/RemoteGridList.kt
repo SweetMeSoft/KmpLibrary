@@ -23,7 +23,6 @@ import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
-import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -146,14 +145,15 @@ inline fun <reified T : Any> RemoteGridList(
                                 modifier = Modifier
                                     .height(IntrinsicSize.Max)
                             ) {
-                                for (item in rowItems) {
+                                rowItems.forEachIndexed { index2, item ->
                                     Box(
                                         modifier = Modifier.weight(1f),
                                         contentAlignment = Alignment.Center
                                     ) {
-                                        itemContent(index, item)
+                                        itemContent((index * 2) + index2, item)
                                     }
                                 }
+
                                 if (rowItems.size < columns) {
                                     for (i in rowItems.size until columns) {
                                         Spacer(modifier = Modifier.weight(1f))
@@ -162,6 +162,7 @@ inline fun <reified T : Any> RemoteGridList(
                             }
                         }
                     }
+
                     PullRefreshIndicator(isRefreshing, pullState, Modifier.align(TopCenter))
                 }
             } else {

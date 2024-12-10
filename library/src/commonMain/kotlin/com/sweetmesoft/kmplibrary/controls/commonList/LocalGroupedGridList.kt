@@ -34,14 +34,23 @@ inline fun <reified T, K : Any> LocalGroupedGridList(
                         modifier = Modifier
                             .height(IntrinsicSize.Max)
                     ) {
-                        for (item in rowItems) {
+                        rowItems.forEachIndexed { index2, item ->
                             Box(
                                 modifier = Modifier.weight(1f),
                                 contentAlignment = Alignment.Center
                             ) {
-                                itemContent(index, item)
+                                itemContent((index * 2) + index2, item)
                             }
                         }
+                        rowItems.forEachIndexed { index2, item ->
+                            Box(
+                                modifier = Modifier.weight(1f),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                itemContent((index * 2) + index2, item)
+                            }
+                        }
+
                         if (rowItems.size < columns) {
                             for (i in rowItems.size until columns) {
                                 Spacer(modifier = Modifier.weight(1f))
@@ -51,7 +60,7 @@ inline fun <reified T, K : Any> LocalGroupedGridList(
                 }
             }
         }
-    }else{
+    } else {
         EmptyList(modifier)
     }
 }
