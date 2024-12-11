@@ -78,7 +78,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmplibrary",
         artifactId = "kmplibrary",
-        version = "1.2.5"
+        version = "1.2.6"
     )
 
     pom {

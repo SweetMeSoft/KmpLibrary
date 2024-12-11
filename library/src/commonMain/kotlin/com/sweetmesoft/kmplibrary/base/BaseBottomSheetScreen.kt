@@ -15,7 +15,6 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,6 +32,8 @@ import com.sweetmesoft.kmplibrary.objects.IconAction
 import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
+import compose.icons.TablerIcons
+import compose.icons.tablericons.X
 
 @Composable
 fun BaseBottomSheetScreen(
@@ -118,15 +119,15 @@ private fun ScreenContent(
                             }
                         }
                     },
-                    navigationIcon = if (BaseViewModel.bottomSheetNavigator.canPop) {
+                    navigationIcon = if (BaseViewModel.bottomSheetNavigator.isVisible) {
                         {
                             IconButton(
                                 modifier = Modifier.padding(start = 8.dp),
-                                onClick = { BaseViewModel.bottomSheetNavigator.pop() }
+                                onClick = { BaseViewModel.bottomSheetNavigator.hide() }
                             ) {
                                 Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                    contentDescription = "Back"
+                                    imageVector = TablerIcons.X,
+                                    contentDescription = "Close"
                                 )
                             }
                         }
