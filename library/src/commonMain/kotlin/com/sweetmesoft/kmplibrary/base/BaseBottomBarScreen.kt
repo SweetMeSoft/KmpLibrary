@@ -77,9 +77,7 @@ private fun ScreenContent(
         darkIcons = tab.baseOptions.toolbarIconsLight
     )
     Scaffold(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+        modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
         topBar = {
             if (tab.baseOptions.showTop || (tab.baseOptions.title.isNotEmpty() && tab.baseOptions.showTop)) {
                 TopAppBar(
@@ -119,10 +117,8 @@ private fun ScreenContent(
                     },
                     navigationIcon = if (BaseViewModel.navigator.canPop) {
                         {
-                            IconButton(
-                                modifier = Modifier.padding(start = 8.dp),
-                                onClick = { BaseViewModel.navigator.pop() }
-                            ) {
+                            IconButton(modifier = Modifier.padding(start = 8.dp),
+                                onClick = { BaseViewModel.navigator.pop() }) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                     contentDescription = "Back"
@@ -131,8 +127,7 @@ private fun ScreenContent(
                         }
                     } else {
                         null
-                    }
-                )
+                    })
             }
         },
         bottomBar = {
