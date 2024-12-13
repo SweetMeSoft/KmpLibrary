@@ -20,7 +20,11 @@ actual fun getCurrentLanguage(): String {
 actual fun openUrl(url: String) {
     val nsUrl = NSURL.URLWithString(url)
     if (nsUrl != null) {
-        UIApplication.sharedApplication.openURL(nsUrl)
+        UIApplication.sharedApplication.openURL(
+            nsUrl,
+            mapOf<Any?, Any?>(),
+            null
+        )
     }
 }
 
