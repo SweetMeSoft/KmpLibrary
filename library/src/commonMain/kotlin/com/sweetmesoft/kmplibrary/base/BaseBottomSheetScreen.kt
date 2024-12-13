@@ -119,20 +119,16 @@ private fun ScreenContent(
                             }
                         }
                     },
-                    navigationIcon = if (BaseViewModel.bottomSheetNavigator.isVisible) {
-                        {
-                            IconButton(
-                                modifier = Modifier.padding(start = 8.dp),
-                                onClick = { BaseViewModel.bottomSheetNavigator.hide() }
-                            ) {
-                                Icon(
-                                    imageVector = TablerIcons.X,
-                                    contentDescription = "Close"
-                                )
-                            }
+                    navigationIcon = {
+                        IconButton(
+                            modifier = Modifier.padding(start = 8.dp),
+                            onClick = { BaseViewModel.bottomSheetNavigator.hide() }
+                        ) {
+                            Icon(
+                                imageVector = TablerIcons.X,
+                                contentDescription = "Close"
+                            )
                         }
-                    } else {
-                        null
                     }
                 )
             }

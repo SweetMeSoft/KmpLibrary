@@ -2,9 +2,12 @@ package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
@@ -20,6 +23,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -66,7 +70,7 @@ private fun ScreenContent(
     modifier: Modifier,
     tabs: List<BaseTab>
 ) {
-    val tab = tabs[currentTab.value]
+    val tab = remember { tabs[currentTab.value] }
     SetStatusBarColor(
         color = tab.baseOptions.toolbarColor,
         darkIcons = tab.baseOptions.toolbarIconsLight
@@ -133,8 +137,8 @@ private fun ScreenContent(
         bottomBar = {
             BottomNavigation {
                 val tabNavigator = LocalTabNavigator.current
-                tabs.forEach {
-                    BottomNavigationItem(selected = tabNavigator.current.key == it.key,
+                tabs.forEachIndexed { index, it ->
+                    BottomNavigationItem(selected = currentTab.value == index,
                         selectedContentColor = Color.White,
                         unselectedContentColor = MaterialTheme.colors.primaryVariant,
                         label = { Text(it.options.title) },
@@ -146,14 +150,17 @@ private fun ScreenContent(
                             )
                         },
                         onClick = {
+                            currentTab.value = index
                             tabNavigator.current = it
-                            currentTab.value = tabs.indexOf(it)
                         })
                 }
             }
         },
     ) {
-        CurrentTab()
+        Column {
+            CurrentTab()
+            Spacer(modifier = Modifier.height(40.dp))
+        }
 
         AlertView()
         AlertConfirm()
