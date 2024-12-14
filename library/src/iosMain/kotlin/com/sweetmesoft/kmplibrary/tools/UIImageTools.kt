@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.get
 import kotlinx.cinterop.refTo
+import kotlinx.cinterop.useContents
 import org.jetbrains.skia.ColorAlphaType
 import org.jetbrains.skia.ColorSpace
 import org.jetbrains.skia.ColorType
@@ -16,6 +17,8 @@ import platform.CoreFoundation.CFRelease
 import platform.CoreGraphics.CGBitmapContextCreate
 import platform.CoreGraphics.CGBitmapContextCreateImage
 import platform.CoreGraphics.CGColorSpaceCreateDeviceRGB
+import platform.CoreGraphics.CGContextRotateCTM
+import platform.CoreGraphics.CGContextTranslateCTM
 import platform.CoreGraphics.CGDataProviderCopyData
 import platform.CoreGraphics.CGImageAlphaInfo
 import platform.CoreGraphics.CGImageCreateCopyWithColorSpace
@@ -25,6 +28,12 @@ import platform.CoreGraphics.CGImageGetDataProvider
 import platform.CoreGraphics.CGImageGetHeight
 import platform.CoreGraphics.CGImageGetWidth
 import platform.CoreGraphics.CGImageRelease
+import platform.CoreGraphics.CGRectMake
+import platform.CoreGraphics.CGSizeMake
+import platform.UIKit.UIGraphicsBeginImageContextWithOptions
+import platform.UIKit.UIGraphicsEndImageContext
+import platform.UIKit.UIGraphicsGetCurrentContext
+import platform.UIKit.UIGraphicsGetImageFromCurrentImageContext
 import platform.UIKit.UIImage
 
 @OptIn(ExperimentalForeignApi::class)
@@ -101,4 +110,25 @@ fun ImageBitmap.toUIImage(): UIImage? {
 
     val cgImage = CGBitmapContextCreateImage(context)
     return cgImage?.let { UIImage.imageWithCGImage(it) }
+}
+
+@OptIn(ExperimentalForeignApi::class)
+fun UIImage.rotate(angle: Int): UIImage? {
+    val radians = angle.toDouble().toRadians()
+    val width = size.useContents { width }
+    val height = size.useContents { height }
+    val newSize = CGSizeMake(height, width)
+
+    UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
+    val context = UIGraphicsGetCurrentContext() ?: return null
+    val newWidth = newSize.useContents { width }
+    val newHeight = newSize.useContents { height }
+
+    CGContextTranslateCTM(context, newWidth / 2, newHeight / 2)
+    CGContextRotateCTM(context, radians)
+    drawInRect(CGRectMake(-width / 2, -height / 2, width, height))
+
+    val rotatedImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return rotatedImage
 }

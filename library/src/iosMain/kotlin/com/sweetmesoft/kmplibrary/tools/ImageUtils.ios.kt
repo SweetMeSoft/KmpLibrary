@@ -92,12 +92,23 @@ private fun UIImage.PNGRepresentation(): NSData? {
 }
 
 actual fun rotateImage(byteArray: ByteArray, angle: Int): ByteArray {
-    TODO("Not yet implemented")
+    val data = byteArray.toNSData()
+    val originalImage = UIImage(data = data)
+
+    val rotatedImage = originalImage.rotate(angle)
+        ?: throw IllegalStateException("Failed to rotate image")
+
+    val rotatedImageData = rotatedImage.PNGRepresentation()
+        ?: throw IllegalStateException("Failed to convert rotated image to PNG")
+    return rotatedImageData.toByteArray()
 }
 
 actual fun rotateImage(
     imageBitmap: ImageBitmap,
     angle: Int
 ): ImageBitmap {
-    TODO("Not yet implemented")
+    val uiImage = imageBitmap.toUIImage()
+    val rotatedImage = uiImage?.rotate(angle)
+        ?: throw IllegalStateException("Failed to rotate image")
+    return rotatedImage.toImageBitmap()
 }
