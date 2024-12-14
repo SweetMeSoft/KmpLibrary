@@ -24,7 +24,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -50,8 +49,7 @@ class BaseBottomBarScreen {
 
 @Composable
 fun BaseBottomBarScreen(
-    modifier: Modifier = Modifier,
-    tabs: List<BaseTab>
+    modifier: Modifier = Modifier, tabs: List<BaseTab>
 ) {
     TabNavigator(tabs.first(), tabDisposable = {
         TabDisposable(
@@ -60,18 +58,16 @@ fun BaseBottomBarScreen(
         )
     }) {
         ScreenContent(
-            modifier,
-            tabs
+            modifier, tabs
         )
     }
 }
 
 @Composable
 private fun ScreenContent(
-    modifier: Modifier,
-    tabs: List<BaseTab>
+    modifier: Modifier, tabs: List<BaseTab>
 ) {
-    val tab = remember { tabs[currentTab.value] }
+    val tab = tabs[currentTab.value]
     SetStatusBarColor(
         color = tab.baseOptions.toolbarColor,
         darkIcons = tab.baseOptions.toolbarIconsLight
@@ -80,8 +76,7 @@ private fun ScreenContent(
         modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
         topBar = {
             if (tab.baseOptions.showTop || (tab.baseOptions.title.isNotEmpty() && tab.baseOptions.showTop)) {
-                TopAppBar(
-                    backgroundColor = tab.baseOptions.toolbarColor,
+                TopAppBar(backgroundColor = tab.baseOptions.toolbarColor,
                     contentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
                     elevation = 0.dp,
                     title = {
