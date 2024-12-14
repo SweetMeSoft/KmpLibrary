@@ -25,7 +25,6 @@ actual fun imageToBase64(imageBitmap: ImageBitmap): String {
 @OptIn(ExperimentalForeignApi::class)
 actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
     require(maxSize > 0) { "maxSize must be greater than 0" }
-
     val data = bytes.toNSData()
     val originalImage = UIImage(data = data)
     val originalSize = originalImage.size.useContents {
@@ -34,7 +33,6 @@ actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
     val originalWidth = originalSize.first
     val originalHeight = originalSize.second
     val aspectRatio = originalWidth / originalHeight
-
     val newWidth: CGFloat
     val newHeight: CGFloat
     if (originalWidth > originalHeight) {
@@ -49,7 +47,6 @@ actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
     originalImage.drawInRect(CGRectMake(0.0, 0.0, newWidth, newHeight))
     val resizedImage = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
-
     val finalImage = resizedImage ?: throw IllegalStateException("Image resizing failed")
     val compressedData = finalImage.PNGRepresentation()
         ?: throw IllegalStateException("Failed to compress resized image")
@@ -63,7 +60,6 @@ actual fun resizeImage(imageBitmap: ImageBitmap, maxSize: Int): ImageBitmap {
     val originalWidth = uiImage.size.useContents { width }
     val originalHeight = uiImage.size.useContents { height }
     val aspectRatio = originalWidth / originalHeight
-
     val newWidth: Double
     val newHeight: Double
 
@@ -93,4 +89,15 @@ actual fun imageToBytes(imageBitmap: ImageBitmap): ByteArray {
 // Extensión para obtener PNG data de UIImage
 private fun UIImage.PNGRepresentation(): NSData? {
     return UIImagePNGRepresentation(this)
+}
+
+actual fun rotateImage(byteArray: ByteArray, angle: Int): ByteArray {
+    TODO("Not yet implemented")
+}
+
+actual fun rotateImage(
+    imageBitmap: ImageBitmap,
+    angle: Int
+): ImageBitmap {
+    TODO("Not yet implemented")
 }
