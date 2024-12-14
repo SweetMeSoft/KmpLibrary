@@ -26,6 +26,8 @@ import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalDate
 import network.chaintech.kmp_date_time_picker.ui.datepicker.WheelDatePickerView
 import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
+import network.chaintech.kmp_date_time_picker.utils.MAX
+import network.chaintech.kmp_date_time_picker.utils.MIN
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -35,6 +37,8 @@ fun DatePicker(
     color: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
     title: String = stringResource(Res.string.Date),
+    minDate: LocalDate = LocalDate.MIN(),
+    maxDate: LocalDate = LocalDate.MAX(),
     selectDatePicker: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
@@ -87,11 +91,13 @@ fun DatePicker(
             color = color,
         ),
         rowCount = 5,
+        minDate = minDate,
+        maxDate = maxDate,
         dateTextStyle = TextStyle(
             fontWeight = FontWeight(600),
             color = MaterialTheme.colors.onSurface
         ),
-        dateTimePickerView = DateTimePickerView.DIALOG_VIEW,
+        dateTimePickerView = DateTimePickerView.BOTTOM_SHEET_VIEW,
         onDoneClick = {
             selectDatePicker(it)
             showPicker = false

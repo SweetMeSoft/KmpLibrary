@@ -33,6 +33,7 @@ internal fun AlertPrompt() {
     if (PopupHandler.promptShow) {
         Dialog(
             onDismissRequest = {
+                text = ""
                 PopupHandler.promptShow = false
                 PopupHandler.promptDismiss()
             },
@@ -70,6 +71,7 @@ internal fun AlertPrompt() {
                     TextButton(
                         modifier = Modifier.padding(end = 8.dp),
                         onClick = {
+                            text = ""
                             PopupHandler.promptShow = false
                             PopupHandler.promptDismiss()
                         },
@@ -84,6 +86,7 @@ internal fun AlertPrompt() {
                         onClick = {
                             PopupHandler.promptShow = false
                             PopupHandler.promptAccept(text)
+                            text = ""
                         }
                     ) {
                         Text(PopupHandler.promptAcceptText)

@@ -25,6 +25,8 @@ import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalDateTime
 import network.chaintech.kmp_date_time_picker.ui.datetimepicker.WheelDateTimePickerView
 import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
+import network.chaintech.kmp_date_time_picker.utils.MAX
+import network.chaintech.kmp_date_time_picker.utils.MIN
 import network.chaintech.kmp_date_time_picker.utils.dateTimeToString
 import org.jetbrains.compose.resources.stringResource
 
@@ -35,6 +37,8 @@ fun DateTimePicker(
     color: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
     title: String = stringResource(Res.string.Date),
+    minDate: LocalDateTime = LocalDateTime.MIN(),
+    maxDate: LocalDateTime = LocalDateTime.MAX(),
     selectDateTimePicker: (LocalDateTime) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
@@ -63,14 +67,14 @@ fun DateTimePicker(
                 .padding(top = 8.dp)
                 .background(Color.Transparent)
                 .clickable {
-                    if(enabled) {
+                    if (enabled) {
                         showPicker = true
                     }
                 }
         )
     }
 
-    if(showPicker) {
+    if (showPicker) {
         WheelDateTimePickerView(
             modifier = Modifier.padding(top = 18.dp, bottom = 10.dp).fillMaxWidth()
                 .background(MaterialTheme.colors.surface),
@@ -88,11 +92,13 @@ fun DateTimePicker(
                 color = color,
             ),
             rowCount = 5,
+            minDate = minDate,
+            maxDate = maxDate,
             dateTextStyle = TextStyle(
                 fontWeight = FontWeight(600),
                 color = MaterialTheme.colors.onSurface
             ),
-            dateTimePickerView = DateTimePickerView.DIALOG_VIEW,
+            dateTimePickerView = DateTimePickerView.BOTTOM_SHEET_VIEW,
             onDoneClick = {
                 selectDateTimePicker(it)
                 showPicker = false
