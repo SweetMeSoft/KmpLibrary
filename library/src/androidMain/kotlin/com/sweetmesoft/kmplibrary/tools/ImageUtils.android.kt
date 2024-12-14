@@ -1,9 +1,11 @@
 package com.sweetmesoft.kmplibrary.tools
 
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.util.Base64
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import java.io.ByteArrayOutputStream
 
 actual fun imageToBase64(imageBitmap: ImageBitmap): String {
@@ -11,8 +13,43 @@ actual fun imageToBase64(imageBitmap: ImageBitmap): String {
     return Base64.encodeToString(byteArray, Base64.DEFAULT)
 }
 
-actual fun resizeImage(imageBitmap: ByteArray, maxSize: Int): ByteArray {
-    TODO("Not yet implemented")
+actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
+    val originalBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+
+    val aspectRatio = originalBitmap.width.toFloat() / originalBitmap.height
+    val width: Int
+    val height: Int
+    if (originalBitmap.width > originalBitmap.height) {
+        width = maxSize
+        height = (maxSize / aspectRatio).toInt()
+    } else {
+        height = maxSize
+        width = (maxSize * aspectRatio).toInt()
+    }
+
+    val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, width, height, true)
+    val outputStream = ByteArrayOutputStream()
+    resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+
+    return outputStream.toByteArray()
+}
+
+actual fun resizeImage(imageBitmap: ImageBitmap, maxSize: Int): ImageBitmap {
+    val originalBitmap = imageBitmap.asAndroidBitmap()
+    val aspectRatio = originalBitmap.width.toFloat() / originalBitmap.height
+
+    val width: Int
+    val height: Int
+    if (originalBitmap.width > originalBitmap.height) {
+        width = maxSize
+        height = (maxSize / aspectRatio).toInt()
+    } else {
+        height = maxSize
+        width = (maxSize * aspectRatio).toInt()
+    }
+
+    val resizedBitmap = Bitmap.createScaledBitmap(originalBitmap, width, height, true)
+    return resizedBitmap.asImageBitmap()
 }
 
 actual fun imageToBytes(imageBitmap: ImageBitmap): ByteArray {

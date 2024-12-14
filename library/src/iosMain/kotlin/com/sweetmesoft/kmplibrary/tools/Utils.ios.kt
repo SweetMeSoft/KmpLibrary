@@ -12,6 +12,7 @@ import platform.Foundation.create
 import platform.Foundation.currentLocale
 import platform.Foundation.languageCode
 import platform.UIKit.UIApplication
+import platform.posix.memcpy
 
 actual fun getCurrentLanguage(): String {
     return NSLocale.currentLocale.languageCode
@@ -34,4 +35,11 @@ fun ByteArray.toNSData(): NSData = usePinned { pinned ->
         bytes = pinned.addressOf(0),
         length = this.size.convert()
     )
+}
+
+@OptIn(ExperimentalForeignApi::class)
+fun NSData.toByteArray(): ByteArray = ByteArray(this.length.toInt()).apply {
+    this.usePinned {
+        memcpy(it.addressOf(0), this@toByteArray.bytes, this@toByteArray.length)
+    }
 }
