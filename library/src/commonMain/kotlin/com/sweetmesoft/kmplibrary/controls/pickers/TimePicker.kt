@@ -91,7 +91,7 @@ fun TimePicker(
             fontWeight = FontWeight(600),
             color = MaterialTheme.colors.onSurface
         ),
-        dateTimePickerView = DateTimePickerView.BOTTOM_SHEET_VIEW,
+        dateTimePickerView = DateTimePickerView.DIALOG_VIEW,
         onDoneClick = {
             selectTimePicker(it)
             showPicker = false
