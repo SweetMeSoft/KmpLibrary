@@ -8,7 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.googleServices) apply false
-    id("com.vanniktech.maven.publish") version "0.28.0"
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
 kotlin {
@@ -54,7 +54,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.sweetmesoft.kmplibrary"
+    namespace = "com.sweetmesoft.kmpmaps"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -67,14 +67,14 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "com.sweetmesoft.kmplibrary",
-        artifactId = "kmplibrary",
-        version = "1.3.4"
+        groupId = "com.sweetmesoft.kmpmaps",
+        artifactId = "kmpmaps",
+        version = "0.5.0"
     )
 
     pom {
         name.set(project.name)
-        description.set("SweetMeSoft KMP Library")
+        description.set("SweetMeSoft KMP Maps")
         inceptionYear.set("2024")
         url.set("https://github.com/erickvelasco11/Kmp_Library")
 

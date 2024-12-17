@@ -9,8 +9,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitInteropInteractionMode
 import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitView
-import ca.ctcmaintenance.ctcnetwork.models.objects.Coordinates
-import ca.ctcmaintenance.ctcnetwork.models.objects.GeoPosition
 import com.sweetmesoft.kmpmaps.objects.Coordinates
 import com.sweetmesoft.kmpmaps.objects.GeoPosition
 import kotlinx.cinterop.BetaInteropApi
