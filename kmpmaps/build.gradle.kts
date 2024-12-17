@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.googleServices) apply false
     id("com.vanniktech.maven.publish") version "0.28.0"
 }
 
@@ -30,20 +31,11 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.compose.icons)
-            implementation(libs.compottie)
-            implementation(libs.kamel.image.default)
-            implementation(libs.kmp.date.time.picker)
-            implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.negotiation)
-            implementation(libs.settings)
-            implementation(libs.voyager.bottomSheetNavigator)
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.transitions)
-            implementation(libs.voyager.tabNavigator)
+            implementation(libs.maps.compose)
 
             api(libs.moko.permissions)
             api(libs.moko.permissions.compose)
@@ -52,6 +44,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.play.services.location)
         }
 
         iosMain.dependencies {

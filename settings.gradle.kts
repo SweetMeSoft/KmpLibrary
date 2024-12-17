@@ -20,3 +20,4 @@ plugins {
 
 rootProject.name = "kmp-library"
 include(":library")
+include(":kmpmaps")

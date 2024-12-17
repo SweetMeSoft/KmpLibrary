@@ -7,6 +7,7 @@ compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 
 [versions]
 
@@ -22,10 +23,13 @@ agp = "8.7.3"
 ##⬆= "8.8.0-alpha09"
 ##⬆= "8.8.0-beta01"
 ##⬆= "8.8.0-rc01"
+##⬆= "8.8.0-rc02"
 ##⬆= "8.9.0-alpha01"
 ##⬆= "8.9.0-alpha02"
 ##⬆= "8.9.0-alpha03"
 ##⬆= "8.9.0-alpha04"
+##⬆= "8.9.0-alpha05"
+##⬆= "8.9.0-alpha06"
 android-minSdk = "28"
 android-compileSdk = "35"
 androidx-activityCompose = "1.9.3"
@@ -33,6 +37,7 @@ androidx-activityCompose = "1.9.3"
 ##                    ⬆ = "1.10.0-alpha02"
 ##                    ⬆ = "1.10.0-alpha03"
 ##                    ⬆ = "1.10.0-beta01"
+##                    ⬆ = "1.10.0-rc01"
 androidx-lifecycle = "2.8.4"
 ##              ⬆ = "2.9.0-alpha01"
 compose-icons = "1.1.1"
@@ -45,6 +50,7 @@ compose-plugin = "1.7.1"
 ##          ⬆ = "1.8.0-dev1905"
 ##          ⬆ = "1.8.0-alpha01"
 compottie = "2.0.0-rc02"
+googleServices = "4.4.2"
 kamel-image = "1.0.2"
 kmpDateTimePicker = "1.0.3"
 ##             ⬆ = "1.0.5"
@@ -52,8 +58,11 @@ kmpDateTimePicker = "1.0.3"
 kotlin = "2.1.0"
 kotlinx-datetime = "0.6.1"
 kotlinx-serialization-json = "1.7.3"
+##                      ⬆ = "1.8.0-RC"
 ktor = "3.0.2"
+mapsCompose = "6.4.0"
 moko = "0.18.1"
+playServicesLocation = "21.3.0"
 settings = "1.3.0"
 voyager = "1.1.0-beta03"
 
@@ -73,11 +82,12 @@ ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "kto
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktor" }
 ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 kotlin-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "mapsCompose" }
 moko-permissions = { module = "dev.icerock.moko:permissions", version.ref = "moko" }
 moko-permissions-compose = { module = "dev.icerock.moko:permissions-compose", version.ref = "moko" }
+play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 settings = { module = "com.russhwolf:multiplatform-settings-no-arg", version.ref = "settings" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-voyager-screenModel = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
 voyager-bottomSheetNavigator = { module = "cafe.adriel.voyager:voyager-bottom-sheet-navigator", version.ref = "voyager" }
 voyager-tabNavigator = { module = "cafe.adriel.voyager:voyager-tab-navigator", version.ref = "voyager" }
 voyager-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
