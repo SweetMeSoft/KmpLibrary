@@ -62,7 +62,8 @@ internal fun AlertList() {
                     title = PopupHandler.listPlaceholder,
                     list = PopupHandler.listOptions,
                     selectValue = { value = it },
-                    value = value
+                    value = value,
+                    color = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor
                 )
                 Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
                     TextButton(
@@ -82,7 +83,11 @@ internal fun AlertList() {
                         onClick = {
                             PopupHandler.listShow = false
                             PopupHandler.listAccept(value)
-                        }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                            backgroundColor = Color.Transparent
+                        )
                     ) {
                         Text(PopupHandler.listAcceptText)
                     }

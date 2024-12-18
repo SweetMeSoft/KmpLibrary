@@ -3,6 +3,7 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
 import kmp_library.library.generated.resources.Accept
 import kmp_library.library.generated.resources.Cancel
 import kmp_library.library.generated.resources.Downloading
@@ -16,12 +17,14 @@ class PopupHandler {
         internal var alertTitle by mutableStateOf("")
         internal var alertAcceptText by mutableStateOf("")
         internal var alertMessage by mutableStateOf("")
+        internal var alertColor by mutableStateOf(Color.Unspecified)
         internal var alertDismiss by mutableStateOf({})
         internal var confirmShow by mutableStateOf(false)
         internal var confirmTitle by mutableStateOf("")
         internal var confirmMessage by mutableStateOf("")
         internal var confirmAcceptText by mutableStateOf("")
         internal var confirmCancelText by mutableStateOf("")
+        internal var confirmColor by mutableStateOf(Color.Unspecified)
         internal var confirmAccept by mutableStateOf({})
         internal var confirmDismiss by mutableStateOf({})
         internal var listShow by mutableStateOf(false)
@@ -30,6 +33,7 @@ class PopupHandler {
         internal var listTitle by mutableStateOf("")
         internal var listSubtitle by mutableStateOf("")
         internal var listPlaceholder by mutableStateOf("")
+        internal var listColor by mutableStateOf(Color.Unspecified)
         internal var listOptions by mutableStateOf(listOf<String>())
         internal var listAccept: (String) -> Unit by mutableStateOf({})
         internal var listDismiss by mutableStateOf({})
@@ -40,12 +44,14 @@ class PopupHandler {
         internal var promptAcceptText by mutableStateOf("")
         internal var promptCancelText by mutableStateOf("")
         internal var promptInput by mutableStateOf("")
+        internal var promptColor by mutableStateOf(Color.Unspecified)
         internal var promptAccept: (String) -> Unit by mutableStateOf({})
         internal var promptDismiss by mutableStateOf({})
         internal var progressShow by mutableStateOf(false)
         internal var progressTitle by mutableStateOf("")
         internal var progressCancelText by mutableStateOf("")
         internal var progressProgress by mutableStateOf(0.0f)
+        internal var progressColor by mutableStateOf(Color.Unspecified)
         internal var progressDismiss by mutableStateOf({})
 
         fun showLoading() {
@@ -60,12 +66,14 @@ class PopupHandler {
             title: String,
             message: String,
             acceptText: String = "",
+            color: Color = Color.Unspecified,
             dismiss: () -> Unit = {}
         ) {
             alertTitle = title
             alertMessage = message
             alertAcceptText = acceptText.ifEmpty { getString(Res.string.Accept) }
             alertDismiss = dismiss
+            alertColor = color
             alertShow = true
         }
 
@@ -74,6 +82,7 @@ class PopupHandler {
             message: String,
             confirmText: String = "",
             cancelText: String = "",
+            color: Color = Color.Unspecified,
             dismiss: () -> Unit = {},
             accept: () -> Unit
         ) {
@@ -81,6 +90,7 @@ class PopupHandler {
             confirmMessage = message
             confirmAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
             confirmCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
+            confirmColor = color
             confirmDismiss = { dismiss() }
             confirmAccept = { accept() }
             confirmShow = true
@@ -89,19 +99,21 @@ class PopupHandler {
         suspend fun displayList(
             title: String,
             subtitle: String,
-            placeholder: String,
+            placeholder: String = "",
             confirmText: String = "",
             cancelText: String = "",
             options: List<String> = listOf(),
+            color: Color = Color.Unspecified,
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
             listTitle = title
             listSubtitle = subtitle
-            listPlaceholder = subtitle
+            listPlaceholder = placeholder.ifEmpty { title }
             listAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
             listCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             listOptions = options
+            listColor = color
             listAccept = { accept(it) }
             listDismiss = { dismiss() }
             listShow = true
@@ -114,6 +126,7 @@ class PopupHandler {
             confirmText: String = "",
             cancelText: String = "",
             input: String,
+            color: Color = Color.Unspecified,
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
@@ -123,6 +136,7 @@ class PopupHandler {
             promptAcceptText = confirmText.ifEmpty { getString(Res.string.Accept) }
             promptCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             promptInput = input
+            promptColor = color
             promptAccept = { accept(it) }
             promptDismiss = { dismiss() }
             promptShow = true
@@ -131,12 +145,14 @@ class PopupHandler {
         suspend fun displayProgress(
             title: String = "",
             cancelText: String = "",
+            color: Color = Color.Unspecified,
             dismiss: () -> Unit = {},
         ) {
             progressTitle = title.ifEmpty { getString(Res.string.Downloading) }
             progressCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
             progressProgress = 0f
             progressDismiss = { dismiss() }
+            progressColor = color
             progressShow = true
         }
     }

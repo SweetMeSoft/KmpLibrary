@@ -2,12 +2,12 @@ import com.vanniktech.maven.publish.SonatypeHost
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.googleServices) apply false
+    alias(libs.plugins.googleServices)
     id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
@@ -69,7 +69,7 @@ mavenPublishing {
     coordinates(
         groupId = "com.sweetmesoft.kmpmaps",
         artifactId = "kmpmaps",
-        version = "0.5.0"
+        version = "1.3.5"
     )
 
     pom {
@@ -84,7 +84,6 @@ mavenPublishing {
                 url.set("https://opensource.org/licenses/MIT")
             }
         }
-
 
         developers {
             developer {

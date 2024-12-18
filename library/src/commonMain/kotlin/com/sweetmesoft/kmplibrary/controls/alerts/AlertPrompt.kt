@@ -12,6 +12,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -64,8 +65,13 @@ internal fun AlertPrompt() {
                     value = text,
                     label = { Text(PopupHandler.promptPlaceholder) },
                     onValueChange = { text = it },
-                    maxLines = 1,
-                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences)
+                    keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                        cursorColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                        focusedLabelColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                    )
                 )
                 Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
                     TextButton(
@@ -87,7 +93,11 @@ internal fun AlertPrompt() {
                             PopupHandler.promptShow = false
                             PopupHandler.promptAccept(text)
                             text = ""
-                        }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                            backgroundColor = Color.Transparent
+                        )
                     ) {
                         Text(PopupHandler.promptAcceptText)
                     }

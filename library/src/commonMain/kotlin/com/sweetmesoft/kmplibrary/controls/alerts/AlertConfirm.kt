@@ -64,7 +64,11 @@ internal fun AlertConfirm() {
                         onClick = {
                             PopupHandler.confirmShow = false
                             PopupHandler.confirmAccept()
-                        }
+                        },
+                        colors = ButtonDefaults.buttonColors(
+                            contentColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                            backgroundColor = Color.Transparent
+                        )
                     ) {
                         Text(PopupHandler.confirmAcceptText)
                     }

@@ -71,7 +71,7 @@ fun TimePicker(
     }
 
     WheelTimePickerView(
-        modifier = Modifier.padding(top = 18.dp, bottom = 10.dp).fillMaxWidth()
+        modifier = Modifier.padding(top = 16.dp, bottom = 10.dp).fillMaxWidth()
             .background(MaterialTheme.colors.surface),
         showTimePicker = showPicker,
         containerColor = MaterialTheme.colors.surface,
