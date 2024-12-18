@@ -68,9 +68,9 @@ internal fun AlertPrompt() {
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                     singleLine = true,
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
-                        cursorColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
-                        focusedLabelColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                        focusedBorderColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
+                        cursorColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
+                        focusedLabelColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
                     )
                 )
                 Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
@@ -95,7 +95,7 @@ internal fun AlertPrompt() {
                             text = ""
                         },
                         colors = ButtonDefaults.buttonColors(
-                            contentColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                            contentColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
                             backgroundColor = Color.Transparent
                         )
                     ) {

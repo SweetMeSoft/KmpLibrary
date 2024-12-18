@@ -52,7 +52,7 @@ internal fun AlertView() {
                         PopupHandler.alertDismiss()
                     },
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = if (PopupHandler.confirmColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.confirmColor,
+                        contentColor = if (PopupHandler.alertColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.alertColor,
                         backgroundColor = Color.Transparent
                     )
                 ) {
