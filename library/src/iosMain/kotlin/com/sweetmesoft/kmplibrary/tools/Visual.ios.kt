@@ -14,12 +14,11 @@ import platform.UIKit.statusBarManager
 @OptIn(ExperimentalForeignApi::class)
 @Composable
 actual fun SetStatusBarColor(color: Color, darkIcons: Boolean) {
-    val uiColor = UIColor(color)
 
     if (UIApplication.sharedApplication.keyWindow != null) {
         val statusBar =
             UIView(frame = UIApplication.sharedApplication.keyWindow?.windowScene?.statusBarManager!!.statusBarFrame)
-        statusBar.backgroundColor = uiColor
+        statusBar.backgroundColor = color.toUIColor()
         UIApplication.sharedApplication.keyWindow!!.addSubview(statusBar)
 
         val style = if (darkIcons) {
@@ -37,14 +36,14 @@ actual fun SetNavigationBarColor(
     color: Color,
     darkIcons: Boolean
 ) {
-    UINavigationBar.appearance().barTintColor = UIColor(color)
+    UINavigationBar.appearance().barTintColor = color.toUIColor()
 }
 
-private fun UIColor(color: Color): UIColor {
+fun Color.toUIColor(): UIColor {
     return UIColor(
-        red = color.red.toDouble(),
-        green = color.green.toDouble(),
-        blue = color.blue.toDouble(),
-        alpha = color.alpha.toDouble()
+        red = this.red.toDouble(),
+        green = this.green.toDouble(),
+        blue = this.blue.toDouble(),
+        alpha = this.alpha.toDouble()
     )
 }

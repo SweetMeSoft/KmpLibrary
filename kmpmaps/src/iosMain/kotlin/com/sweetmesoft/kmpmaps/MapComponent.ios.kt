@@ -5,12 +5,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitInteropInteractionMode
 import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitView
 import com.sweetmesoft.kmpmaps.objects.Coordinates
 import com.sweetmesoft.kmpmaps.objects.GeoPosition
+import com.sweetmesoft.kmpmaps.objects.MarkerMap
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
@@ -28,6 +30,8 @@ import platform.CoreLocation.kCLAuthorizationStatusAuthorizedWhenInUse
 import platform.CoreLocation.kCLAuthorizationStatusDenied
 import platform.CoreLocation.kCLAuthorizationStatusRestricted
 import platform.Foundation.NSError
+import platform.MapKit.MKAnnotationProtocol
+import platform.MapKit.MKAnnotationView
 import platform.MapKit.MKCircle
 import platform.MapKit.MKCircleRenderer
 import platform.MapKit.MKCoordinateRegionMakeWithDistance
@@ -36,11 +40,15 @@ import platform.MapKit.MKMapView
 import platform.MapKit.MKMapViewDelegateProtocol
 import platform.MapKit.MKOverlayProtocol
 import platform.MapKit.MKOverlayRenderer
+import platform.MapKit.MKPinAnnotationView
 import platform.MapKit.MKPointAnnotation
 import platform.MapKit.addOverlay
 import platform.MapKit.overlays
 import platform.MapKit.removeOverlays
+import platform.UIKit.UIButton
+import platform.UIKit.UIButtonTypeDetailDisclosure
 import platform.UIKit.UIColor
+import platform.UIKit.UIControl
 import platform.UIKit.UIEdgeInsetsMake
 import platform.UIKit.UITapGestureRecognizer
 import platform.darwin.NSObject
@@ -70,7 +78,7 @@ actual fun MapComponent(
     val location = remember {
         CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude)
     }
-    val drawCirclesDelegate = rememberDrawCirclesDelegate()
+    val mapDelegate = rememberMapDelegate()
     val tapGestureRecognizer = tapGestureRecognizer(onMapClick)
 
     UIKitView(
@@ -88,7 +96,7 @@ actual fun MapComponent(
                 setRotateEnabled(rotateEnabled)
                 setMapType(MKMapTypeStandard)
                 setUserInteractionEnabled(true)
-                setDelegate(drawCirclesDelegate)
+                setDelegate(mapDelegate)
                 mapView = this
             }
         },
@@ -101,7 +109,8 @@ actual fun MapComponent(
             mapView.removeOverlays(mapView.overlays)
             markers.forEach {
                 if (it.markerMap.isVisible) {
-                    val annotation = MKPointAnnotation().apply {
+                    val annotation = CustomPointAnnotation(it.markerMap.iconColor.toUIColor(),
+                        it.markerMap.onClick, it.markerMap.onInfoWindowClick).apply {
                         setCoordinate(
                             CLLocationCoordinate2DMake(
                                 it.coordinates.latitude,
@@ -161,7 +170,7 @@ fun tapGestureRecognizer(onMapClick: (Coordinates) -> Unit): UITapGestureRecogni
 }
 
 @Composable
-fun rememberDrawCirclesDelegate(): MKMapViewDelegateProtocol {
+fun rememberMapDelegate(): MKMapViewDelegateProtocol {
     return remember {
         object : NSObject(), MKMapViewDelegateProtocol {
             @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
@@ -178,6 +187,50 @@ fun rememberDrawCirclesDelegate(): MKMapViewDelegateProtocol {
                     circleRenderer
                 } else {
                     MKOverlayRenderer(rendererForOverlay)
+                }
+            }
+
+            @Suppress("CONFLICTING_OVERLOADS", "PARAMETER_NAME_CHANGED_ON_OVERRIDE")
+            @ObjCSignatureOverride
+            override fun mapView(
+                mapView: MKMapView,
+                viewForAnnotation: MKAnnotationProtocol
+            ): MKAnnotationView? {
+                val identifier = "customAnnotation"
+                val annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                    ?: MKPinAnnotationView(annotation = viewForAnnotation, reuseIdentifier = identifier).apply {
+                        canShowCallout = true
+                        rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonTypeDetailDisclosure)
+                    }
+
+                if (viewForAnnotation is CustomPointAnnotation) {
+                    annotationView.setTintColor(viewForAnnotation.color)
+                }
+
+                annotationView.annotation = viewForAnnotation
+                return annotationView
+            }
+
+            @ObjCSignatureOverride
+            override fun mapView(
+                mapView: MKMapView,
+                annotationView: MKAnnotationView,
+                calloutAccessoryControlTapped: UIControl
+            ) {
+                val annotation = annotationView.annotation
+                if (annotation is CustomPointAnnotation) {
+                    annotation.onInfoWindowClick.invoke()
+                }
+            }
+
+            @ObjCSignatureOverride
+            override fun mapView(
+                mapView: MKMapView,
+                didSelectAnnotationView: MKAnnotationView
+            ) {
+                val annotation = didSelectAnnotationView.annotation
+                if (annotation is CustomPointAnnotation) {
+                    annotation.onClick.invoke(MarkerMap(isVisible = true))
                 }
             }
         }
@@ -267,4 +320,14 @@ actual suspend fun getLocation(): Coordinates = suspendCancellableCoroutine { co
     cont.invokeOnCancellation {
         locationManager.stopUpdatingLocation()
     }
+}
+
+//TODO This should be in base
+fun Color.toUIColor(): UIColor {
+    return UIColor(
+        red = this.red.toDouble(),
+        green = this.green.toDouble(),
+        blue = this.blue.toDouble(),
+        alpha = this.alpha.toDouble()
+    )
 }
