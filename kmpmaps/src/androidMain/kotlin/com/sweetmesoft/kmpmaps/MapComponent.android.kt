@@ -3,7 +3,6 @@ package com.sweetmesoft.kmpmaps
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.graphics.Color
 import android.location.Location
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -142,10 +141,7 @@ private fun createCustomMarkerIcon(
     color: Int
 ): BitmapDescriptor {
     val drawable = ContextCompat.getDrawable(getContext(), R.drawable.pin)?.mutate()
-    val alpha = (255 * 0.8f).toInt()
-    val transparentMarkerColor =
-        Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
-    drawable?.setTint(transparentMarkerColor)
+    drawable?.setTint(color)
     val bitmap = Bitmap.createBitmap(
         drawable!!.intrinsicWidth,
         drawable.intrinsicHeight,
