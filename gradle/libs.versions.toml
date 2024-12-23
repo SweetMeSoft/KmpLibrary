@@ -64,7 +64,7 @@ mapsCompose = "6.4.0"
 moko = "0.18.1"
 playServicesLocation = "21.3.0"
 settings = "1.3.0"
-sweetmesoft = "1.4.1"
+sweetmesoft = "1.4.2"
 voyager = "1.1.0-beta03"
 
 [libraries]
