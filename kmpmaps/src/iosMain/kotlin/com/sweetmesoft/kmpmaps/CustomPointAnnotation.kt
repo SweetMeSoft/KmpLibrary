@@ -1,11 +1,8 @@
 package com.sweetmesoft.kmpmaps
 
-import com.sweetmesoft.kmpmaps.objects.MarkerMap
+import com.sweetmesoft.kmpmaps.objects.GeoPosition
 import platform.MapKit.MKPointAnnotation
-import platform.UIKit.UIColor
 
 class CustomPointAnnotation(
-    val color: UIColor,
-    val onClick: (MarkerMap) -> Boolean,
-    val onInfoWindowClick: () -> Unit
+    val geoPosition: GeoPosition,
 ) : MKPointAnnotation()

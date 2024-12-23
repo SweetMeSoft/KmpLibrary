@@ -12,7 +12,6 @@ import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitView
 import com.sweetmesoft.kmpmaps.objects.Coordinates
 import com.sweetmesoft.kmpmaps.objects.GeoPosition
-import com.sweetmesoft.kmpmaps.objects.MarkerMap
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
@@ -41,7 +40,6 @@ import platform.MapKit.MKMapViewDelegateProtocol
 import platform.MapKit.MKOverlayProtocol
 import platform.MapKit.MKOverlayRenderer
 import platform.MapKit.MKPinAnnotationView
-import platform.MapKit.MKPointAnnotation
 import platform.MapKit.addOverlay
 import platform.MapKit.overlays
 import platform.MapKit.removeOverlays
@@ -109,8 +107,7 @@ actual fun MapComponent(
             mapView.removeOverlays(mapView.overlays)
             markers.forEach {
                 if (it.markerMap.isVisible) {
-                    val annotation = CustomPointAnnotation(it.markerMap.iconColor.toUIColor(),
-                        it.markerMap.onClick, it.markerMap.onInfoWindowClick).apply {
+                    val annotation = CustomPointAnnotation(it).apply {
                         setCoordinate(
                             CLLocationCoordinate2DMake(
                                 it.coordinates.latitude,
@@ -195,16 +192,20 @@ fun rememberMapDelegate(): MKMapViewDelegateProtocol {
             override fun mapView(
                 mapView: MKMapView,
                 viewForAnnotation: MKAnnotationProtocol
-            ): MKAnnotationView? {
+            ): MKAnnotationView {
                 val identifier = "customAnnotation"
                 val annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-                    ?: MKPinAnnotationView(annotation = viewForAnnotation, reuseIdentifier = identifier).apply {
+                    ?: MKPinAnnotationView(
+                        annotation = viewForAnnotation,
+                        reuseIdentifier = identifier
+                    ).apply {
                         canShowCallout = true
-                        rightCalloutAccessoryView = UIButton.buttonWithType(UIButtonTypeDetailDisclosure)
+                        rightCalloutAccessoryView =
+                            UIButton.buttonWithType(UIButtonTypeDetailDisclosure)
                     }
 
                 if (viewForAnnotation is CustomPointAnnotation) {
-                    annotationView.setTintColor(viewForAnnotation.color)
+                    annotationView.setTintColor(viewForAnnotation.geoPosition.markerMap.iconColor.toUIColor())
                 }
 
                 annotationView.annotation = viewForAnnotation
@@ -219,7 +220,7 @@ fun rememberMapDelegate(): MKMapViewDelegateProtocol {
             ) {
                 val annotation = annotationView.annotation
                 if (annotation is CustomPointAnnotation) {
-                    annotation.onInfoWindowClick.invoke()
+                    annotation.geoPosition.markerMap.onInfoWindowClick.invoke(annotation.geoPosition)
                 }
             }
 
@@ -230,7 +231,7 @@ fun rememberMapDelegate(): MKMapViewDelegateProtocol {
             ) {
                 val annotation = didSelectAnnotationView.annotation
                 if (annotation is CustomPointAnnotation) {
-                    annotation.onClick.invoke(MarkerMap(isVisible = true))
+                    annotation.geoPosition.markerMap.onClick.invoke(annotation.geoPosition)
                 }
             }
         }

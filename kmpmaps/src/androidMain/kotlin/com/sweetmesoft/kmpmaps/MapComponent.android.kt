@@ -3,6 +3,7 @@ package com.sweetmesoft.kmpmaps
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.location.Location
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -27,7 +28,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.sweetmesoft.kmpmaps.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
 import com.sweetmesoft.kmpmaps.objects.Coordinates
 import com.sweetmesoft.kmpmaps.objects.GeoPosition
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -103,8 +104,8 @@ actual fun MapComponent(
                         icon = createCustomMarkerIcon(
                             color = marker.markerMap.iconColor.toArgb()
                         ),
-                        onClick = { marker.markerMap.onClick(marker.markerMap) },
-                        onInfoWindowClick = { marker.markerMap.onInfoWindowClick() }
+                        onClick = { marker.markerMap.onClick(marker) },
+                        onInfoWindowClick = { marker.markerMap.onInfoWindowClick(marker) }
                     )
                 }
 
@@ -141,7 +142,10 @@ private fun createCustomMarkerIcon(
     color: Int
 ): BitmapDescriptor {
     val drawable = ContextCompat.getDrawable(getContext(), R.drawable.pin)?.mutate()
-    drawable?.setTint(color)
+    val alpha = (255 * 0.8f).toInt()
+    val transparentMarkerColor =
+        Color.argb(alpha, Color.red(color), Color.green(color), Color.blue(color))
+    drawable?.setTint(transparentMarkerColor)
     val bitmap = Bitmap.createBitmap(
         drawable!!.intrinsicWidth,
         drawable.intrinsicHeight,

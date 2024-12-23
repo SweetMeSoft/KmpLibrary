@@ -7,6 +7,6 @@ data class MarkerMap(
     val title: String = "",
     val snippet: String = "",
     val iconColor: Color = Color.Red,
-    val onClick: (MarkerMap) -> Boolean = { false },
-    val onInfoWindowClick: () -> Unit = {}
+    val onClick: (GeoPosition) -> Boolean = { false },
+    val onInfoWindowClick: (GeoPosition) -> Unit = {}
 )
