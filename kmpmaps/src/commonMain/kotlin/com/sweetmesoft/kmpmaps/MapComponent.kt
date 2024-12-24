@@ -7,9 +7,14 @@ import com.sweetmesoft.kmpmaps.objects.GeoPosition
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.log2
+import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.sqrt
+
+const val earthCircumferenceInMeters = 40_075_016.686
+const val tileSize = 111_319.444
+const val earthRadius = 6371.0
 
 @Composable
 expect fun MapComponent(
@@ -54,8 +59,27 @@ fun calculateDistance(from: Coordinates, to: Coordinates): Double {
     return distance * 1000
 }
 
+fun calculateZoomAndCenter(positions: List<Coordinates>): Pair<Float, Coordinates> {
+    if (positions.isEmpty()) throw IllegalArgumentException("La lista de posiciones no puede estar vacía.")
+    val minLat = positions.minOf { it.latitude }
+    val maxLat = positions.maxOf { it.latitude }
+    val minLng = positions.minOf { it.longitude }
+    val maxLng = positions.maxOf { it.longitude }
+    val centerLat = (minLat + maxLat) / 2
+    val centerLng = (minLng + maxLng) / 2
+    val center = Coordinates(centerLat, centerLng)
+    val latDiff = maxLat - minLat
+    val lngDiff = maxLng - minLng
+    val latZoom = log2(earthCircumferenceInMeters / (latDiff * tileSize))
+    val lngZoom = log2(earthCircumferenceInMeters / (lngDiff * tileSize))
+    val zoom = min(latZoom, lngZoom).toFloat()
+    val minZoom = 1f
+    val maxZoom = 18f
+    val adjustedZoom = zoom.coerceIn(minZoom, maxZoom)
+    return Pair(adjustedZoom, center)
+}
+
 private fun haversineDistance(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
-    val earthRadius = 6371.0
     val dLat = (lat2 - lat1).toRadians()
     val dLon = (lon2 - lon1).toRadians()
     val a =

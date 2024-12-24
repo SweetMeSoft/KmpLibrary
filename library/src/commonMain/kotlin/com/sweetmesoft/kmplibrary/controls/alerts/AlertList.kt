@@ -34,6 +34,7 @@ internal fun AlertList() {
             onDismissRequest = {
                 PopupHandler.listShow = false
                 PopupHandler.listDismiss()
+                value = ""
             },
             properties = DialogProperties(
                 dismissOnBackPress = true,
@@ -71,6 +72,7 @@ internal fun AlertList() {
                         onClick = {
                             PopupHandler.listShow = false
                             PopupHandler.listDismiss()
+                            value = ""
                         },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = MaterialTheme.colors.error,
@@ -83,6 +85,7 @@ internal fun AlertList() {
                         onClick = {
                             PopupHandler.listShow = false
                             PopupHandler.listAccept(value)
+                            value = ""
                         },
                         colors = ButtonDefaults.buttonColors(
                             contentColor = if (PopupHandler.listColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.listColor,
