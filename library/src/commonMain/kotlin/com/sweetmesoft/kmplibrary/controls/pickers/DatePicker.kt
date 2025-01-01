@@ -36,6 +36,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.sweetmesoft.kmplibrary.tools.DateFormats
 import com.sweetmesoft.kmplibrary.tools.daysInMonth
 import com.sweetmesoft.kmplibrary.tools.disabledColorDark
@@ -100,27 +102,27 @@ fun DatePicker(
                 .matchParentSize()
                 .padding(top = 8.dp)
                 .background(Color.Transparent)
-                .clickable {
-                    if (enabled) {
-                        showPicker = true
-                    }
+                .clickable(enabled = enabled) {
+                    showPicker = true
                 }
         )
     }
 
-    CalendarDatePicker(
-        value = value,
-        color = color,
-        minDate = minDate,
-        maxDate = maxDate,
-        acceptText = stringResource(Res.string.Accept),
-        cancelText = stringResource(Res.string.Cancel),
-        onDateSelected = { selectedDate ->
-            onSelectedDate(selectedDate)
-            showPicker = false
-        },
-        onDismiss = { showPicker = false }
-    )
+    if (showPicker) {
+        CalendarDatePicker(
+            value = value,
+            color = color,
+            minDate = minDate,
+            maxDate = maxDate,
+            acceptText = stringResource(Res.string.Accept),
+            cancelText = stringResource(Res.string.Cancel),
+            onDateSelected = { selectedDate ->
+                onSelectedDate(selectedDate)
+                showPicker = false
+            },
+            onDismiss = { showPicker = false }
+        )
+    }
 }
 
 @Composable
@@ -151,158 +153,172 @@ private fun CalendarDatePicker(
         stringResource(Res.string.SundayOneLetter)
     )
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(MaterialTheme.colors.surface, RoundedCornerShape(8.dp))
+    Dialog(
+        onDismissRequest = {
+            onDismiss()
+        },
+        properties = DialogProperties(
+            dismissOnBackPress = true,
+            dismissOnClickOutside = true
+        )
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth().background(
-                color = color,
-                shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
-            ).padding(16.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(MaterialTheme.colors.surface, RoundedCornerShape(8.dp))
         ) {
-            Text(
-                modifier = Modifier.clickable {
-                    if (!selectYear) {
-                        selectYear = true
-                    }
-                },
-                text = selectedDate.year.toString(),
-                color = MaterialTheme.colors.onSurface
-            )
-            Text(
-                text = selectedDate.toLocalString(DateFormats.WWW_MMM_DD),
-                style = MaterialTheme.typography.h4,
-                color = MaterialTheme.colors.onSurface
-            )
-        }
-
-        Row(
-            horizontalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxWidth()
-                .padding(8.dp)
-        ) {
-            IconButton(onClick = {
-                dateShown = dateShown.minus(1, MONTH)
-            }) {
-                Icon(TablerIcons.ChevronLeft, contentDescription = "Mes anterior")
-            }
-            Text(
-                text = dateShown.month.name + ", " + dateShown.year.toString(),
-                style = MaterialTheme.typography.subtitle1,
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
-            IconButton(onClick = {
-                dateShown = dateShown.plus(1, MONTH)
-            }) {
-                Icon(TablerIcons.ChevronRight, contentDescription = "Mes siguiente")
-            }
-        }
-
-        if (selectYear) {
-            LazyVerticalGrid(
-                state = scrollState,
-                modifier = Modifier.padding(horizontal = 8.dp).height(290.dp),
-                columns = GridCells.Fixed(3),
+            Column(
+                modifier = Modifier.fillMaxWidth().background(
+                    color = color,
+                    shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                ).padding(16.dp)
             ) {
-                items(300) { year ->
-                    val enabled = (year + 1900) >= minDate.year && (year + 1900) <= maxDate.year
-                    Box(
-                        modifier = Modifier
-                            .background(
-                                if (year == dateShown.year) color else MaterialTheme.colors.surface,
-                            )
-                            .clickable(enabled = enabled) {
-                                dateShown = LocalDate(
-                                    year + 1900,
-                                    selectedDate.monthNumber,
-                                    selectedDate.dayOfMonth
-                                )
-                                selectYear = false
-                            },
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(vertical = 16.dp),
-                            text = (year + 1900).toString(),
-                            style = MaterialTheme.typography.body2,
-                            color = if ((year + 1900) == dateShown.year) color else MaterialTheme.colors.onSurface
-                        )
-                    }
+                Text(
+                    modifier = Modifier.clickable {
+                        if (!selectYear) {
+                            selectYear = true
+                        }
+                    },
+                    text = selectedDate.year.toString(),
+                    color = MaterialTheme.colors.onSurface
+                )
+                Text(
+                    text = selectedDate.toLocalString(DateFormats.WWW_MMM_DD),
+                    style = MaterialTheme.typography.h4,
+                    color = MaterialTheme.colors.onSurface
+                )
+            }
+
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+                    .padding(8.dp)
+            ) {
+                IconButton(onClick = {
+                    dateShown = dateShown.minus(1, MONTH)
+                }) {
+                    Icon(TablerIcons.ChevronLeft, contentDescription = "Mes anterior")
+                }
+                Text(
+                    text = dateShown.month.name + ", " + dateShown.year.toString(),
+                    style = MaterialTheme.typography.subtitle1,
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
+                IconButton(onClick = {
+                    dateShown = dateShown.plus(1, MONTH)
+                }) {
+                    Icon(TablerIcons.ChevronRight, contentDescription = "Mes siguiente")
                 }
             }
-        } else {
-            LazyVerticalGrid(
-                modifier = Modifier.padding(horizontal = 8.dp).height(290.dp),
-                columns = GridCells.Fixed(7),
-            ) {
-                itemsIndexed(daysOneLetter) { index, day ->
-                    Text(
-                        text = day,
-                        color = if (MaterialTheme.colors.isLight) disabledColorText else disabledColorTextDark,
-                        textAlign = TextAlign.Center,
-                        fontSize = 13.sp
-                    )
-                }
 
-                items(firstDayOfMonth) {
-                    Box(modifier = Modifier.aspectRatio(1f)) {}
-                }
-                items(dateShown.daysInMonth()) { day ->
-                    val thisDate = LocalDate(dateShown.year, dateShown.monthNumber, day + 1)
-                    val enabled = thisDate in minDate..maxDate
-                    Surface(
-                        modifier = Modifier.aspectRatio(1f),
-                        color = if (thisDate == selectedDate) color else MaterialTheme.colors.surface,
-                        shape = CircleShape
-                    ) {
+            if (selectYear) {
+                LazyVerticalGrid(
+                    state = scrollState,
+                    modifier = Modifier.padding(horizontal = 8.dp).height(290.dp),
+                    columns = GridCells.Fixed(3),
+                ) {
+                    items(300) { year ->
+                        val enabled = (year + 1900) >= minDate.year && (year + 1900) <= maxDate.year
                         Box(
                             modifier = Modifier
-                                .aspectRatio(1f)
-                                .clickable(
-                                    enabled = enabled
-                                ) {
-                                    selectedDate =
-                                        LocalDate(dateShown.year, dateShown.monthNumber, day + 1)
+                                .background(
+                                    if (year == dateShown.year) color else MaterialTheme.colors.surface,
+                                )
+                                .clickable(enabled = enabled) {
+                                    dateShown = LocalDate(
+                                        year + 1900,
+                                        selectedDate.monthNumber,
+                                        selectedDate.dayOfMonth
+                                    )
+                                    selectYear = false
                                 },
                             contentAlignment = Alignment.Center
                         ) {
                             Text(
-                                text = (day + 1).toString(),
+                                modifier = Modifier.padding(vertical = 16.dp),
+                                text = (year + 1900).toString(),
                                 style = MaterialTheme.typography.body2,
-                                color = if (enabled) MaterialTheme.colors.onSurface else disabledColorDark
+                                color = if ((year + 1900) == dateShown.year) color else MaterialTheme.colors.onSurface
                             )
                         }
                     }
                 }
-            }
-        }
+            } else {
+                LazyVerticalGrid(
+                    modifier = Modifier.padding(horizontal = 8.dp).height(290.dp),
+                    columns = GridCells.Fixed(7),
+                ) {
+                    itemsIndexed(daysOneLetter) { index, day ->
+                        Text(
+                            text = day,
+                            color = if (MaterialTheme.colors.isLight) disabledColorText else disabledColorTextDark,
+                            textAlign = TextAlign.Center,
+                            fontSize = 13.sp
+                        )
+                    }
 
-        Row(modifier = Modifier.align(alignment = Alignment.End).padding(16.dp)) {
-            TextButton(
-                modifier = Modifier.padding(end = 8.dp),
-                onClick = {
-                    onDismiss()
-                },
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = MaterialTheme.colors.error,
-                    backgroundColor = Color.Transparent
-                )
-            ) {
-                Text(cancelText)
+                    items(firstDayOfMonth) {
+                        Box(modifier = Modifier.aspectRatio(1f)) {}
+                    }
+                    items(dateShown.daysInMonth()) { day ->
+                        val thisDate = LocalDate(dateShown.year, dateShown.monthNumber, day + 1)
+                        val enabled = thisDate in minDate..maxDate
+                        Surface(
+                            modifier = Modifier.aspectRatio(1f),
+                            color = if (thisDate == selectedDate) color else MaterialTheme.colors.surface,
+                            shape = CircleShape
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .aspectRatio(1f)
+                                    .clickable(
+                                        enabled = enabled
+                                    ) {
+                                        selectedDate =
+                                            LocalDate(
+                                                dateShown.year,
+                                                dateShown.monthNumber,
+                                                day + 1
+                                            )
+                                    },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = (day + 1).toString(),
+                                    style = MaterialTheme.typography.body2,
+                                    color = if (enabled) MaterialTheme.colors.onSurface else disabledColorDark
+                                )
+                            }
+                        }
+                    }
+                }
             }
 
-            TextButton(
-                onClick = {
-                    onDateSelected(selectedDate)
-                },
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = color,
-                    backgroundColor = Color.Transparent
-                )
-            ) {
-                Text(acceptText)
+            Row(modifier = Modifier.align(alignment = Alignment.End).padding(16.dp)) {
+                TextButton(
+                    modifier = Modifier.padding(end = 8.dp),
+                    onClick = {
+                        onDismiss()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = MaterialTheme.colors.error,
+                        backgroundColor = Color.Transparent
+                    )
+                ) {
+                    Text(cancelText)
+                }
+
+                TextButton(
+                    onClick = {
+                        onDateSelected(selectedDate)
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        contentColor = color,
+                        backgroundColor = Color.Transparent
+                    )
+                ) {
+                    Text(acceptText)
+                }
             }
         }
     }
