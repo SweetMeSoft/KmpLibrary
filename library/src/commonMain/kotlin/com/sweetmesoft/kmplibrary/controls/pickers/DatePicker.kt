@@ -180,12 +180,12 @@ private fun CalendarDatePicker(
                         }
                     },
                     text = selectedDate.year.toString(),
-                    color = MaterialTheme.colors.onSurface
+                    color = Color.White
                 )
                 Text(
                     text = selectedDate.toLocalString(DateFormats.WWW_MMM_DD),
                     style = MaterialTheme.typography.h4,
-                    color = MaterialTheme.colors.onSurface
+                    color = Color.White
                 )
             }
 
@@ -286,7 +286,7 @@ private fun CalendarDatePicker(
                                 Text(
                                     text = (day + 1).toString(),
                                     style = MaterialTheme.typography.body2,
-                                    color = if (enabled) MaterialTheme.colors.onSurface else disabledColorDark
+                                    color = if (!enabled) disabledColorDark else if (thisDate == selectedDate) Color.White else MaterialTheme.colors.onSurface
                                 )
                             }
                         }
