@@ -33,7 +33,6 @@ kotlin {
             implementation(libs.compose.icons)
             implementation(libs.compottie)
             implementation(libs.kamel.image.default)
-            implementation(libs.kmp.date.time.picker)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)

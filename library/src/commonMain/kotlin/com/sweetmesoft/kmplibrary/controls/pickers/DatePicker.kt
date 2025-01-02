@@ -61,8 +61,6 @@ import kotlinx.datetime.DateTimeUnit.Companion.MONTH
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
-import network.chaintech.kmp_date_time_picker.utils.MAX
-import network.chaintech.kmp_date_time_picker.utils.MIN
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -72,8 +70,8 @@ fun DatePicker(
     color: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
     title: String = stringResource(Res.string.Date),
-    minDate: LocalDate = LocalDate.MIN(),
-    maxDate: LocalDate = LocalDate.MAX(),
+    minDate: LocalDate = LocalDate(1900, 1, 1),
+    maxDate: LocalDate = LocalDate(2100, 12, 31),
     onSelectedDate: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
@@ -125,7 +123,7 @@ fun DatePicker(
 }
 
 @Composable
-private fun CalendarDatePicker(
+fun CalendarDatePicker(
     value: LocalDate,
     color: Color,
     acceptText: String,

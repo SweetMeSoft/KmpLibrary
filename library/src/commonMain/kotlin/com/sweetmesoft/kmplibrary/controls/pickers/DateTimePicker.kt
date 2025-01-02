@@ -16,18 +16,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.sweetmesoft.kmplibrary.tools.toLocalString
+import kmp_library.library.generated.resources.Accept
+import kmp_library.library.generated.resources.Cancel
 import kmp_library.library.generated.resources.Date
 import kmp_library.library.generated.resources.Res
 import kotlinx.datetime.LocalDateTime
-import network.chaintech.kmp_date_time_picker.ui.datetimepicker.WheelDateTimePickerView
-import network.chaintech.kmp_date_time_picker.utils.DateTimePickerView
-import network.chaintech.kmp_date_time_picker.utils.MAX
-import network.chaintech.kmp_date_time_picker.utils.MIN
-import network.chaintech.kmp_date_time_picker.utils.dateTimeToString
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -37,14 +32,16 @@ fun DateTimePicker(
     color: Color = MaterialTheme.colors.primary,
     enabled: Boolean = true,
     title: String = stringResource(Res.string.Date),
-    minDate: LocalDateTime = LocalDateTime.MIN(),
-    maxDate: LocalDateTime = LocalDateTime.MAX(),
-    selectDateTimePicker: (LocalDateTime) -> Unit
+    minDate: LocalDateTime = LocalDateTime(1900, 1, 1, 0, 0),
+    maxDate: LocalDateTime = LocalDateTime(2100, 12, 31, 23, 59),
+    onSelectedDateTime: (LocalDateTime) -> Unit
 ) {
-    var showPicker: Boolean by remember { mutableStateOf(false) }
+    var showDate: Boolean by remember { mutableStateOf(false) }
+    var showTime: Boolean by remember { mutableStateOf(false) }
+    var selectedDateTime by remember { mutableStateOf(value) }
     Box(modifier = modifier) {
         OutlinedTextField(
-            value = dateTimeToString(value, "yyyy-MM-dd HH:mm"),
+            value = value.toLocalString(),
             onValueChange = {},
             maxLines = 1,
             label = { Text(title) },
@@ -68,45 +65,62 @@ fun DateTimePicker(
                 .background(Color.Transparent)
                 .clickable {
                     if (enabled) {
-                        showPicker = true
+                        showDate = true
                     }
                 }
         )
     }
 
-    if (showPicker) {
-        WheelDateTimePickerView(
-            modifier = Modifier.padding(top = 18.dp, bottom = 10.dp).fillMaxWidth()
-                .background(MaterialTheme.colors.surface),
-            showDatePicker = showPicker,
-            containerColor = MaterialTheme.colors.surface,
-            dateTextColor = MaterialTheme.colors.onSurface,
-            titleStyle = TextStyle(
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colors.onSurface
-            ),
-            doneLabelStyle = TextStyle(
-                fontSize = 16.sp,
-                fontWeight = FontWeight(600),
-                color = color,
-            ),
-            rowCount = 5,
-            minDate = minDate,
-            maxDate = maxDate,
-            dateTextStyle = TextStyle(
-                fontWeight = FontWeight(600),
-                color = MaterialTheme.colors.onSurface
-            ),
-            dateTimePickerView = DateTimePickerView.DIALOG_VIEW,
-            onDoneClick = {
-                selectDateTimePicker(it)
-                showPicker = false
+    if (showDate) {
+        CalendarDatePicker(
+            value = value.date,
+            color = color,
+            minDate = minDate.date,
+            maxDate = maxDate.date,
+            acceptText = stringResource(Res.string.Accept),
+            cancelText = stringResource(Res.string.Cancel),
+            onDateSelected = { selectedDate ->
+                selectedDateTime = LocalDateTime(
+                    selectedDate.year,
+                    selectedDate.monthNumber,
+                    selectedDate.dayOfMonth,
+                    value.hour,
+                    value.minute
+                )
+                showDate = false
+                showTime = true
             },
             onDismiss = {
-                showPicker = false
+                showDate = false
+                showTime = false
+                selectedDateTime = value
+            }
+        )
+    }
+
+    if (showTime) {
+        ClockTimePicker(
+            value = value.time,
+            color = color,
+            acceptText = stringResource(Res.string.Accept),
+            cancelText = stringResource(Res.string.Cancel),
+            onTimeSelected = { selectedTime ->
+                selectedDateTime = LocalDateTime(
+                    selectedDateTime.year,
+                    selectedDateTime.monthNumber,
+                    selectedDateTime.dayOfMonth,
+                    selectedTime.hour,
+                    selectedTime.minute
+                )
+                showTime = false
+                showDate = false
+                onSelectedDateTime(selectedDateTime)
             },
-            height = 170.dp
+            onDismiss = {
+                showTime = false
+                showDate = false
+                selectedDateTime = value
+            }
         )
     }
 }
