@@ -169,7 +169,7 @@ private fun CalendarDatePicker(
             Column(
                 modifier = Modifier.fillMaxWidth().background(
                     color = color,
-                    shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                 ).padding(16.dp)
             ) {
                 Text(

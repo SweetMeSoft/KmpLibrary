@@ -38,6 +38,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.sweetmesoft.kmplibrary.controls.DialogFooter
 import com.sweetmesoft.kmplibrary.tools.disabledColor
+import com.sweetmesoft.kmplibrary.tools.disabledColorDark
 import com.sweetmesoft.kmplibrary.tools.disabledColorText
 import com.sweetmesoft.kmplibrary.tools.disabledColorTextDark
 import com.sweetmesoft.kmplibrary.tools.toDegrees
@@ -141,7 +142,7 @@ fun ClockTimePicker(
             TimeDisplay(
                 modifier = Modifier.fillMaxWidth().background(
                     color = color,
-                    shape = RoundedCornerShape(topStart = 8.dp, topEnd = 8.dp)
+                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                 ).padding(16.dp),
                 hour = selectedHour,
                 minute = selectedMinute,
@@ -161,7 +162,6 @@ fun ClockTimePicker(
                 ) { value ->
                     if (isHourSelection) {
                         selectedHour = value
-                        isHourSelection = false
                     } else {
                         selectedMinute = value
                     }
@@ -244,7 +244,7 @@ private fun TimeSelector(
             modifier = modifier
                 .size(radiusExternal * 2.5f)
                 .clip(CircleShape)
-                .background(disabledColor)
+                .background(if (MaterialTheme.colors.isLight) disabledColor else disabledColorDark)
                 .pointerInput(isHour) {
                     detectDragGestures { change, dragAmount ->
                         val x = change.position.x - radiusPxExternalExtended
@@ -287,7 +287,7 @@ private fun TimeSelector(
                             .padStart(2, '0') else "",
                         style = TextStyle(
                             fontSize = 16.sp,
-                            color = if (value == selectedValue) Color.White else Color.Black
+                            color = if (value == selectedValue) Color.White else MaterialTheme.colors.onBackground
                         )
                     )
                 }
