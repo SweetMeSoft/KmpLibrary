@@ -2,14 +2,11 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -23,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.sweetmesoft.kmplibrary.controls.DialogFooter
 import com.sweetmesoft.kmplibrary.controls.commonDropDown.SimpleDropDown
 
 @Composable
@@ -66,34 +64,21 @@ internal fun AlertList() {
                     value = value,
                     color = if (PopupHandler.listColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.listColor
                 )
-                Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
-                    TextButton(
-                        modifier = Modifier.padding(end = 8.dp),
-                        onClick = {
-                            PopupHandler.listShow = false
-                            PopupHandler.listDismiss()
-                            value = ""
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = MaterialTheme.colors.error,
-                            backgroundColor = Color.Transparent
-                        )
-                    ) {
-                        Text(PopupHandler.listCancelText)
+
+                DialogFooter(
+                    modifier = Modifier.align(alignment = Alignment.End),
+                    acceptText = PopupHandler.listAcceptText,
+                    cancelText = PopupHandler.listCancelText,
+                    color = PopupHandler.listColor,
+                    onAccept = {
+                        PopupHandler.listShow = false
+                        PopupHandler.listAccept(value)
+                        value = ""
                     }
-                    TextButton(
-                        onClick = {
-                            PopupHandler.listShow = false
-                            PopupHandler.listAccept(value)
-                            value = ""
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = if (PopupHandler.listColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.listColor,
-                            backgroundColor = Color.Transparent
-                        )
-                    ) {
-                        Text(PopupHandler.listAcceptText)
-                    }
+                ) {
+                    PopupHandler.listShow = false
+                    PopupHandler.listDismiss()
+                    value = ""
                 }
             }
         }

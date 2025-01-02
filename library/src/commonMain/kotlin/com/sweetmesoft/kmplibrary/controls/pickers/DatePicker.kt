@@ -16,14 +16,11 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,12 +29,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.sweetmesoft.kmplibrary.controls.DialogFooter
 import com.sweetmesoft.kmplibrary.tools.DateFormats
 import com.sweetmesoft.kmplibrary.tools.daysInMonth
 import com.sweetmesoft.kmplibrary.tools.disabledColorDark
@@ -165,7 +164,7 @@ private fun CalendarDatePicker(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colors.surface, RoundedCornerShape(8.dp))
+                .background(MaterialTheme.colors.surface, RoundedCornerShape(16.dp))
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().background(
@@ -263,62 +262,41 @@ private fun CalendarDatePicker(
                     items(dateShown.daysInMonth()) { day ->
                         val thisDate = LocalDate(dateShown.year, dateShown.monthNumber, day + 1)
                         val enabled = thisDate in minDate..maxDate
-                        Surface(
-                            modifier = Modifier.aspectRatio(1f),
-                            color = if (thisDate == selectedDate) color else MaterialTheme.colors.surface,
-                            shape = CircleShape
+                        Box(
+                            modifier = Modifier
+                                .aspectRatio(1f)
+                                .clip(CircleShape)
+                                .background(if (thisDate == selectedDate) color else MaterialTheme.colors.surface)
+                                .clickable(enabled = enabled) {
+                                    selectedDate =
+                                        LocalDate(
+                                            dateShown.year,
+                                            dateShown.monthNumber,
+                                            day + 1
+                                        )
+                                },
+                            contentAlignment = Alignment.Center
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .aspectRatio(1f)
-                                    .clickable(
-                                        enabled = enabled
-                                    ) {
-                                        selectedDate =
-                                            LocalDate(
-                                                dateShown.year,
-                                                dateShown.monthNumber,
-                                                day + 1
-                                            )
-                                    },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = (day + 1).toString(),
-                                    style = MaterialTheme.typography.body2,
-                                    color = if (!enabled) disabledColorDark else if (thisDate == selectedDate) Color.White else MaterialTheme.colors.onSurface
-                                )
-                            }
+                            Text(
+                                text = (day + 1).toString(),
+                                style = MaterialTheme.typography.body2,
+                                color = if (!enabled) disabledColorDark else if (thisDate == selectedDate) Color.White else MaterialTheme.colors.onSurface
+                            )
                         }
                     }
                 }
             }
 
-            Row(modifier = Modifier.align(alignment = Alignment.End).padding(16.dp)) {
-                TextButton(
-                    modifier = Modifier.padding(end = 8.dp),
-                    onClick = {
-                        onDismiss()
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        contentColor = MaterialTheme.colors.error,
-                        backgroundColor = Color.Transparent
-                    )
-                ) {
-                    Text(cancelText)
+            DialogFooter(
+                modifier = Modifier.align(alignment = Alignment.End),
+                acceptText = acceptText,
+                cancelText = cancelText,
+                color = color,
+                onAccept = {
+                    onDateSelected(selectedDate)
                 }
-
-                TextButton(
-                    onClick = {
-                        onDateSelected(selectedDate)
-                    },
-                    colors = ButtonDefaults.buttonColors(
-                        contentColor = color,
-                        backgroundColor = Color.Transparent
-                    )
-                ) {
-                    Text(acceptText)
-                }
+            ) {
+                onDismiss()
             }
         }
     }

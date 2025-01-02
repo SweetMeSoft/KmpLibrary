@@ -37,7 +37,7 @@ internal fun AlertProgress() {
             Column(
                 modifier = Modifier.fillMaxWidth().background(
                     MaterialTheme.colors.surface,
-                    shape = RoundedCornerShape(8.dp)
+                    shape = RoundedCornerShape(16.dp)
                 ).padding(16.dp)
             ) {
                 Text(

@@ -2,16 +2,13 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.sweetmesoft.kmplibrary.controls.DialogFooter
 
 @Composable
 internal fun AlertPrompt() {
@@ -73,34 +71,21 @@ internal fun AlertPrompt() {
                         focusedLabelColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
                     )
                 )
-                Row(modifier = Modifier.align(alignment = Alignment.End).padding(top = 8.dp)) {
-                    TextButton(
-                        modifier = Modifier.padding(end = 8.dp),
-                        onClick = {
-                            text = ""
-                            PopupHandler.promptShow = false
-                            PopupHandler.promptDismiss()
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = MaterialTheme.colors.error,
-                            backgroundColor = Color.Transparent
-                        )
-                    ) {
-                        Text(PopupHandler.promptCancelText)
+
+                DialogFooter(
+                    modifier = Modifier.align(alignment = Alignment.End),
+                    acceptText = PopupHandler.promptAcceptText,
+                    cancelText = PopupHandler.promptCancelText,
+                    color = PopupHandler.promptColor,
+                    onAccept = {
+                        PopupHandler.promptShow = false
+                        PopupHandler.promptAccept(text)
+                        text = ""
                     }
-                    TextButton(
-                        onClick = {
-                            PopupHandler.promptShow = false
-                            PopupHandler.promptAccept(text)
-                            text = ""
-                        },
-                        colors = ButtonDefaults.buttonColors(
-                            contentColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
-                            backgroundColor = Color.Transparent
-                        )
-                    ) {
-                        Text(PopupHandler.promptAcceptText)
-                    }
+                ) {
+                    PopupHandler.promptShow = false
+                    PopupHandler.promptDismiss()
+                    text = ""
                 }
             }
         }
