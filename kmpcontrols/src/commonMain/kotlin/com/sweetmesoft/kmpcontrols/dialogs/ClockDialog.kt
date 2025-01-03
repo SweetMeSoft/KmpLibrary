@@ -38,21 +38,25 @@ import com.sweetmesoft.kmpcontrols.objetcs.disabledColorText
 import com.sweetmesoft.kmpcontrols.objetcs.disabledColorTextDark
 import com.sweetmesoft.kmpcontrols.utils.toDegrees
 import com.sweetmesoft.kmpcontrols.utils.toRadians
+import kmplibrary.kmpcontrols.generated.resources.Accept
+import kmplibrary.kmpcontrols.generated.resources.Cancel
+import kmplibrary.kmpcontrols.generated.resources.Res
 import kotlinx.datetime.LocalTime
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.absoluteValue
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
 @Composable
-fun ClockPicker(
+fun ClockDialog(
     isVisible: Boolean,
     value: LocalTime,
-    color: Color,
-    acceptText: String,
-    cancelText: String,
-    onTimeSelected: (LocalTime) -> Unit,
-    onDismiss: () -> Unit
+    color: Color = MaterialTheme.colors.primary,
+    acceptText: String = stringResource(Res.string.Accept),
+    cancelText: String = stringResource(Res.string.Cancel),
+    onDismiss: () -> Unit,
+    onTimeSelected: (LocalTime) -> Unit
 ) {
     if (isVisible) {
         var selectedHour by remember { mutableStateOf(value.hour) }
@@ -73,7 +77,7 @@ fun ClockPicker(
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
-                TimeDisplay(
+                TimeDialogHeader(
                     modifier = Modifier.fillMaxWidth().background(
                         color = color,
                         shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
@@ -107,7 +111,7 @@ fun ClockPicker(
 }
 
 @Composable
-private fun TimeDisplay(
+private fun TimeDialogHeader(
     modifier: Modifier = Modifier,
     hour: Int,
     minute: Int,

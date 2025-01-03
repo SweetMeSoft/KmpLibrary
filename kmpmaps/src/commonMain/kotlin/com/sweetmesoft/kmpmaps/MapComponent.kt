@@ -1,9 +1,9 @@
-package com.sweetmesoft.kmpcontrols
+package com.sweetmesoft.kmpmaps
 
 import androidx.compose.runtime.Composable
-import com.sweetmesoft.kmpcontrols.controls.Coordinates
-import com.sweetmesoft.kmpcontrols.controls.GeoPosition
 import com.sweetmesoft.kmpcontrols.utils.toRadians
+import com.sweetmesoft.kmpmaps.controls.Coordinates
+import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.log2

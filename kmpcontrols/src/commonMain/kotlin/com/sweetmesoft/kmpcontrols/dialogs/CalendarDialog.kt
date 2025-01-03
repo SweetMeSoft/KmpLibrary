@@ -41,6 +41,8 @@ import com.sweetmesoft.kmpcontrols.utils.toLocalString
 import compose.icons.TablerIcons
 import compose.icons.tablericons.ChevronLeft
 import compose.icons.tablericons.ChevronRight
+import kmplibrary.kmpcontrols.generated.resources.Accept
+import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.FridayOneLetter
 import kmplibrary.kmpcontrols.generated.resources.MondayOneLetter
 import kmplibrary.kmpcontrols.generated.resources.Res
@@ -56,16 +58,16 @@ import kotlinx.datetime.plus
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun CalendarPicker(
+fun CalendarDialog(
     isVisible: Boolean,
     value: LocalDate,
-    color: Color,
-    acceptText: String,
-    cancelText: String,
-    minDate: LocalDate,
-    maxDate: LocalDate,
-    onDateSelected: (LocalDate) -> Unit,
-    onDismiss: () -> Unit
+    color: Color = MaterialTheme.colors.primary,
+    acceptText: String = stringResource(Res.string.Accept),
+    cancelText: String = stringResource(Res.string.Cancel),
+    minDate: LocalDate = LocalDate(1900, 1, 1),
+    maxDate: LocalDate = LocalDate(2100, 12, 31),
+    onDismiss: () -> Unit = {},
+    onDateSelected: (LocalDate) -> Unit
 ) {
     if (isVisible) {
         var selectedDate by remember { mutableStateOf(value) }

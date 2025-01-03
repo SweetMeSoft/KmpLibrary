@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpcontrols
+package com.sweetmesoft.kmpmaps
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -10,8 +10,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.UIKitInteropInteractionMode
 import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitView
-import com.sweetmesoft.kmpcontrols.controls.Coordinates
-import com.sweetmesoft.kmpcontrols.controls.GeoPosition
+import com.sweetmesoft.kmpmaps.controls.Coordinates
+import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction

@@ -9,7 +9,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
-import com.sweetmesoft.kmpcontrols.dialogs.ClockPicker
+import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
 import com.sweetmesoft.kmpcontrols.utils.toLocalString
 import kmplibrary.kmpcontrols.generated.resources.Accept
 import kmplibrary.kmpcontrols.generated.resources.Cancel
@@ -38,16 +38,15 @@ fun TimePicker(
         }
     )
 
-    ClockPicker(
+    ClockDialog(
         isVisible = showPicker,
         value = value,
         color = color,
         acceptText = stringResource(Res.string.Accept),
         cancelText = stringResource(Res.string.Cancel),
-        onTimeSelected = { selectedDate ->
-            onSelectedTime(selectedDate)
-            showPicker = false
-        },
         onDismiss = { showPicker = false }
-    )
+    ) { selectedDate ->
+        onSelectedTime(selectedDate)
+        showPicker = false
+    }
 }

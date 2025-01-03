@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpcontrols
+package com.sweetmesoft.kmpmaps
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
@@ -27,9 +27,9 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.sweetmesoft.kmpcontrols.controls.Coordinates
-import com.sweetmesoft.kmpcontrols.controls.GeoPosition
 import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmpmaps.controls.Coordinates
+import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -141,7 +141,7 @@ private fun createCustomMarkerIcon(
     color: Int
 ): BitmapDescriptor {
     val drawable =
-        ContextCompat.getDrawable(getContext(), com.sweetmesoft.kmpmaps.R.drawable.pin)?.mutate()
+        ContextCompat.getDrawable(getContext(), R.drawable.pin)?.mutate()
     drawable?.setTint(color)
     val bitmap = Bitmap.createBitmap(
         drawable!!.intrinsicWidth,

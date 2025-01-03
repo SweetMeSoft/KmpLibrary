@@ -16,6 +16,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
+import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
+import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
 import com.sweetmesoft.kmpcontrols.pickers.DatePicker
 import com.sweetmesoft.kmpcontrols.pickers.DateTimePicker
 import com.sweetmesoft.kmpcontrols.pickers.TimePicker
@@ -41,6 +43,8 @@ class MainScreen : Screen {
             var date: LocalDate by remember { mutableStateOf(getCurrentDateTime().date) }
             var time: LocalTime by remember { mutableStateOf(getCurrentDateTime().time) }
             var dateTime: LocalDateTime by remember { mutableStateOf(getCurrentDateTime()) }
+            var showDatePicker by remember { mutableStateOf(false) }
+            var showTimePicker by remember { mutableStateOf(false) }
             var promptInput by remember { mutableStateOf("") }
 
             Column(
@@ -67,6 +71,27 @@ class MainScreen : Screen {
                     Button(
                         modifier = Modifier.weight(1f),
                         content = {
+                            Text("Show Date")
+                        },
+                        onClick = {
+                            showDatePicker = true
+                        }
+                    )
+                    Button(
+                        modifier = Modifier.weight(1f),
+                        content = {
+                            Text("Show Time")
+                        },
+                        onClick = {
+                            showTimePicker = true
+                        }
+                    )
+                }
+
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(
+                        modifier = Modifier.weight(1f),
+                        content = {
                             Text("Alert")
                         },
                         onClick = {
@@ -78,6 +103,7 @@ class MainScreen : Screen {
                             }
                         }
                     )
+
                     Button(
                         modifier = Modifier.weight(1f),
                         content = {
@@ -154,6 +180,25 @@ class MainScreen : Screen {
                             }
                         }
                     )
+                }
+
+
+                CalendarDialog(
+                    isVisible = showDatePicker,
+                    value = date,
+                    onDismiss = { showDatePicker = false }
+                ) { selectedDate ->
+                    date = selectedDate
+                    showDatePicker = false
+                }
+
+                ClockDialog(
+                    isVisible = showTimePicker,
+                    value = time,
+                    onDismiss = { showTimePicker = false }
+                ) { selectedTime ->
+                    time = selectedTime
+                    showTimePicker = false
                 }
             }
         }
