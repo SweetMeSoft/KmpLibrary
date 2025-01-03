@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.controls.pickers
+package com.sweetmesoft.kmpcontrols.pickers
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -8,14 +8,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.sweetmesoft.kmplibrary.controls.CalendarPicker
-import com.sweetmesoft.kmplibrary.controls.ClickableOutlinedTextField
-import com.sweetmesoft.kmplibrary.controls.ClockPicker
-import com.sweetmesoft.kmplibrary.tools.toLocalString
-import kmp_library.library.generated.resources.Accept
-import kmp_library.library.generated.resources.Cancel
-import kmp_library.library.generated.resources.Date
-import kmp_library.library.generated.resources.Res
+import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
+import com.sweetmesoft.kmpcontrols.dialogs.CalendarPicker
+import com.sweetmesoft.kmpcontrols.dialogs.ClockPicker
+import com.sweetmesoft.kmpcontrols.utils.toLocalString
+import kmplibrary.kmpcontrols.generated.resources.Accept
+import kmplibrary.kmpcontrols.generated.resources.Cancel
+import kmplibrary.kmpcontrols.generated.resources.Date
+import kmplibrary.kmpcontrols.generated.resources.Res
 import kotlinx.datetime.LocalDateTime
 import org.jetbrains.compose.resources.stringResource
 

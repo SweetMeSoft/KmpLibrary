@@ -27,9 +27,9 @@ import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kmp_library.library.generated.resources.By
-import kmp_library.library.generated.resources.Res
-import kmp_library.library.generated.resources.Slogan
+import kmplibrary.library.generated.resources.By
+import kmplibrary.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Slogan
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource

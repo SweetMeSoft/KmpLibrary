@@ -38,6 +38,7 @@ kotlin {
             implementation(libs.ktor.client.negotiation)
             implementation(libs.maps.compose)
             implementation(project(":library"))
+            implementation(project(":kmpcontrols"))
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)

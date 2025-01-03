@@ -4,10 +4,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
-import kmp_library.library.generated.resources.Accept
-import kmp_library.library.generated.resources.Cancel
-import kmp_library.library.generated.resources.Downloading
-import kmp_library.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Accept
+import kmplibrary.library.generated.resources.Cancel
+import kmplibrary.library.generated.resources.Downloading
+import kmplibrary.library.generated.resources.Res
 import org.jetbrains.compose.resources.getString
 
 class PopupHandler {

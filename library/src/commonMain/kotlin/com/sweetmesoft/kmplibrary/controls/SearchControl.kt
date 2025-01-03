@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Search
-import kmp_library.library.generated.resources.Res
-import kmp_library.library.generated.resources.Search
+import kmplibrary.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Search
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

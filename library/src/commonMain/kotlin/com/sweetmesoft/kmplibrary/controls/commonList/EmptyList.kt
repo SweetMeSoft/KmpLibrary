@@ -12,8 +12,8 @@ import io.github.alexzhirkevich.compottie.LottieCompositionSpec
 import io.github.alexzhirkevich.compottie.animateLottieCompositionAsState
 import io.github.alexzhirkevich.compottie.rememberLottieComposition
 import io.github.alexzhirkevich.compottie.rememberLottiePainter
-import kmp_library.library.generated.resources.EmptyList
-import kmp_library.library.generated.resources.Res
+import kmplibrary.library.generated.resources.EmptyList
+import kmplibrary.library.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.stringResource
 

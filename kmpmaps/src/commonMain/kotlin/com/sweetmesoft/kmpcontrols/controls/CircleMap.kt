@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpmaps.objects
+package com.sweetmesoft.kmpcontrols.controls
 
 import androidx.compose.ui.graphics.Color
 

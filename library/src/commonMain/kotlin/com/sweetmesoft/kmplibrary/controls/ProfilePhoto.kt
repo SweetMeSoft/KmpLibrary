@@ -1,10 +1,11 @@
 package com.sweetmesoft.kmplibrary.controls
 
+//import network.chaintech.cmpimagepickncrop.CMPImagePickNCropDialog
+//import network.chaintech.cmpimagepickncrop.imagecropper.rememberImageCropper
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.CircularProgressIndicator
@@ -24,7 +25,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmplibrary.tools.createHttpClient
-import io.kamel.core.Resource
 import io.kamel.core.config.KamelConfig
 import io.kamel.core.config.httpUrlFetcher
 import io.kamel.core.config.takeFrom
@@ -32,10 +32,8 @@ import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
 import io.kamel.image.config.Default
 import io.kamel.image.config.LocalKamelConfig
-import kmp_library.library.generated.resources.Res
-import kmp_library.library.generated.resources.default_profile
-//import network.chaintech.cmpimagepickncrop.CMPImagePickNCropDialog
-//import network.chaintech.cmpimagepickncrop.imagecropper.rememberImageCropper
+import kmplibrary.library.generated.resources.Res
+import kmplibrary.library.generated.resources.default_profile
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
@@ -94,7 +92,6 @@ fun ProfilePhoto(
             }
         )
     }
-
 //    CMPImagePickNCropDialog(
 //        imageCropper = imageCropper,
 //        openImagePicker = openImagePicker,

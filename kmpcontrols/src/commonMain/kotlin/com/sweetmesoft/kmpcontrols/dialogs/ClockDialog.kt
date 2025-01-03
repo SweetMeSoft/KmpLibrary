@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.controls
+package com.sweetmesoft.kmpcontrols.dialogs
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -32,12 +32,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmplibrary.tools.disabledColor
-import com.sweetmesoft.kmplibrary.tools.disabledColorDark
-import com.sweetmesoft.kmplibrary.tools.disabledColorText
-import com.sweetmesoft.kmplibrary.tools.disabledColorTextDark
-import com.sweetmesoft.kmplibrary.tools.toDegrees
-import com.sweetmesoft.kmplibrary.tools.toRadians
+import com.sweetmesoft.kmpcontrols.objetcs.disabledColor
+import com.sweetmesoft.kmpcontrols.objetcs.disabledColorDark
+import com.sweetmesoft.kmpcontrols.objetcs.disabledColorText
+import com.sweetmesoft.kmpcontrols.objetcs.disabledColorTextDark
+import com.sweetmesoft.kmpcontrols.utils.toDegrees
+import com.sweetmesoft.kmpcontrols.utils.toRadians
 import kotlinx.datetime.LocalTime
 import kotlin.math.absoluteValue
 import kotlin.math.atan2

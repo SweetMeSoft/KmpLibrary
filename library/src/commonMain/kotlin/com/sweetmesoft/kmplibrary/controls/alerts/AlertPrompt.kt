@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmplibrary.controls.BaseDialog
+import com.sweetmesoft.kmpcontrols.dialogs.BaseDialog
 
 @Composable
 internal fun AlertPrompt() {

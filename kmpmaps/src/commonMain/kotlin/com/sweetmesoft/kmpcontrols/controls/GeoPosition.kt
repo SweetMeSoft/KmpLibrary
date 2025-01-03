@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpmaps.objects
+package com.sweetmesoft.kmpcontrols.controls
 
 data class GeoPosition(
     val coordinates: Coordinates = Coordinates(),

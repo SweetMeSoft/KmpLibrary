@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpmaps.objects
+package com.sweetmesoft.kmpcontrols.controls
 
 data class Coordinates(
     val latitude: Double = 0.0,

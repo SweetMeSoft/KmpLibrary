@@ -23,45 +23,30 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
+            implementation(compose.components.resources)
             implementation(compose.foundation)
             implementation(compose.material)
+            implementation(compose.runtime)
             implementation(compose.ui)
-            implementation(compose.components.resources)
+            implementation(libs.compose.icons)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
-            implementation(libs.compose.icons)
-            implementation(libs.compottie)
-            implementation(libs.kamel.image.default)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.negotiation)
-            implementation(libs.settings)
-            implementation(libs.voyager.bottomSheetNavigator)
-            implementation(libs.voyager.navigator)
-            implementation(libs.voyager.transitions)
-            implementation(libs.voyager.tabNavigator)
-            implementation(project(":kmpcontrols"))
-
-            api(libs.moko.permissions)
-            api(libs.moko.permissions.compose)
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
-            implementation(libs.ktor.client.okhttp)
         }
 
         iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
         }
     }
 }
 
 android {
-    namespace = "com.sweetmesoft.kmplibrary"
+    namespace = "com.sweetmesoft.kmpcontrols"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -74,14 +59,14 @@ android {
 
 mavenPublishing {
     coordinates(
-        groupId = "com.sweetmesoft.kmplibrary",
-        artifactId = "kmplibrary",
+        groupId = "com.sweetmesoft.kmpcontrols",
+        artifactId = "kmpcontrols",
         version = libs.versions.sweetmesoft.get()
     )
 
     pom {
         name.set(project.name)
-        description.set("SweetMeSoft KMP Library")
+        description.set("SweetMeSoft KMP Controls")
         inceptionYear.set("2024")
         url.set("https://github.com/erickvelasco11/KmpLibrary")
 
@@ -91,7 +76,6 @@ mavenPublishing {
                 url.set("https://opensource.org/licenses/MIT")
             }
         }
-
 
         developers {
             developer {

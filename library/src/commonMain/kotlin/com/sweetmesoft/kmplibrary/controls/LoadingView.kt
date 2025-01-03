@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
-import kmp_library.library.generated.resources.Loading
-import kmp_library.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Loading
+import kmplibrary.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

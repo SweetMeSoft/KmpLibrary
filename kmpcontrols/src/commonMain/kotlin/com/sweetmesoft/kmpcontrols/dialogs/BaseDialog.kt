@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.controls
+package com.sweetmesoft.kmpcontrols.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -20,12 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kmp_library.library.generated.resources.PolicyPrivacy
-import kmp_library.library.generated.resources.Res
-import kmp_library.library.generated.resources.TermsAndConditions
-import kmp_library.library.generated.resources.TermsMessage1
-import kmp_library.library.generated.resources.TermsMessage2
-import kmp_library.library.generated.resources.TermsMessage3
+import kmplibrary.library.generated.resources.PolicyPrivacy
+import kmplibrary.library.generated.resources.Res
+import kmplibrary.library.generated.resources.TermsAndConditions
+import kmplibrary.library.generated.resources.TermsMessage1
+import kmplibrary.library.generated.resources.TermsMessage2
+import kmplibrary.library.generated.resources.TermsMessage3
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

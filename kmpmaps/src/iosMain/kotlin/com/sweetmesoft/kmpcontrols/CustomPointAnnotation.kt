@@ -1,6 +1,6 @@
-package com.sweetmesoft.kmpmaps
+package com.sweetmesoft.kmpcontrols
 
-import com.sweetmesoft.kmpmaps.objects.GeoPosition
+import com.sweetmesoft.kmpcontrols.controls.GeoPosition
 import platform.MapKit.MKPointAnnotation
 
 class CustomPointAnnotation(

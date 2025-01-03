@@ -40,8 +40,8 @@ import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Plus
-import kmp_library.library.generated.resources.Loading
-import kmp_library.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Loading
+import kmplibrary.library.generated.resources.Res
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 

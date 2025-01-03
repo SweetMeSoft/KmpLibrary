@@ -24,8 +24,8 @@ import androidx.compose.ui.unit.dp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
-import kmp_library.library.generated.resources.Password
-import kmp_library.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Password
+import kmplibrary.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

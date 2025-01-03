@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.controls.pickers
+package com.sweetmesoft.kmpcontrols.pickers
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -8,26 +8,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.sweetmesoft.kmplibrary.controls.CalendarPicker
-import com.sweetmesoft.kmplibrary.controls.ClickableOutlinedTextField
-import com.sweetmesoft.kmplibrary.tools.toLocalString
-import kmp_library.library.generated.resources.Accept
-import kmp_library.library.generated.resources.Cancel
-import kmp_library.library.generated.resources.Date
-import kmp_library.library.generated.resources.Res
-import kotlinx.datetime.LocalDate
+import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
+import com.sweetmesoft.kmpcontrols.dialogs.ClockPicker
+import com.sweetmesoft.kmpcontrols.utils.toLocalString
+import kmplibrary.kmpcontrols.generated.resources.Accept
+import kmplibrary.kmpcontrols.generated.resources.Cancel
+import kmplibrary.kmpcontrols.generated.resources.Hour
+import kmplibrary.kmpcontrols.generated.resources.Res
+import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun DatePicker(
+fun TimePicker(
     modifier: Modifier = Modifier,
-    value: LocalDate,
+    value: LocalTime,
     color: Color = MaterialTheme.colors.primary,
+    title: String = stringResource(Res.string.Hour),
     enabled: Boolean = true,
-    title: String = stringResource(Res.string.Date),
-    minDate: LocalDate = LocalDate(1900, 1, 1),
-    maxDate: LocalDate = LocalDate(2100, 12, 31),
-    onSelectedDate: (LocalDate) -> Unit
+    onSelectedTime: (LocalTime) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
     ClickableOutlinedTextField(modifier = modifier,
@@ -40,16 +38,14 @@ fun DatePicker(
         }
     )
 
-    CalendarPicker(
+    ClockPicker(
         isVisible = showPicker,
         value = value,
         color = color,
-        minDate = minDate,
-        maxDate = maxDate,
         acceptText = stringResource(Res.string.Accept),
         cancelText = stringResource(Res.string.Cancel),
-        onDateSelected = { selectedDate ->
-            onSelectedDate(selectedDate)
+        onTimeSelected = { selectedDate ->
+            onSelectedTime(selectedDate)
             showPicker = false
         },
         onDismiss = { showPicker = false }

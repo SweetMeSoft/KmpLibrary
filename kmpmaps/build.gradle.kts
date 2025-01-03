@@ -37,6 +37,7 @@ kotlin {
             implementation(libs.ktor.client.negotiation)
             implementation(libs.maps.compose)
             implementation(project(":library"))
+            implementation(project(":kmpcontrols"))
 
             api(libs.moko.permissions)
             api(libs.moko.permissions.compose)
@@ -77,7 +78,7 @@ mavenPublishing {
         name.set(project.name)
         description.set("SweetMeSoft KMP Maps")
         inceptionYear.set("2024")
-        url.set("https://github.com/erickvelasco11/Kmp_Library")
+        url.set("https://github.com/erickvelasco11/KmpLibrary")
 
         licenses {
             license {
@@ -94,7 +95,7 @@ mavenPublishing {
         }
 
         scm {
-            url.set("https://github.com/erickvelasco11/Kmp_Library")
+            url.set("https://github.com/erickvelasco11/KmpLibrary")
         }
     }
 

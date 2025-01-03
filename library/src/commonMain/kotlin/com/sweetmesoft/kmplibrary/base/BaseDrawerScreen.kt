@@ -46,8 +46,8 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.ChevronRight
 import compose.icons.tablericons.Logout
 import compose.icons.tablericons.Menu2
-import kmp_library.library.generated.resources.Logout
-import kmp_library.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Logout
+import kmplibrary.library.generated.resources.Res
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
 
