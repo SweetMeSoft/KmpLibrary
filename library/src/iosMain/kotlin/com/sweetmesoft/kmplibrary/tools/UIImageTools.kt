@@ -2,6 +2,7 @@ package com.sweetmesoft.kmplibrary.tools
 
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
+import com.sweetmesoft.kmpcontrols.utils.toRadians
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.get
 import kotlinx.cinterop.refTo
