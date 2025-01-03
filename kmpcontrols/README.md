@@ -18,7 +18,7 @@ Update your `libs.versions.toml` and `build.gradle.kts` files with the required 
 
 ```toml
 [versions]
-sweetmesoft = "1.5.0"
+sweetmesoft = "{version-sweetmesoft}"
 
 [libraries]
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
@@ -53,7 +53,7 @@ This library requires the official `kotlinx-datetime` library. Add the following
 
 ```toml
 [versions]
-kotlinx-datetime = "0.6.1"
+kotlinx-datetime = "{version-datetime}"
 
 [libraries]
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
