@@ -21,7 +21,10 @@ fun DialogFooter(
     onAccept: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    Row(modifier = modifier.padding(16.dp), horizontalArrangement = Arrangement.End) {
+    Row(
+        modifier = modifier.padding(bottom = 16.dp, end = 16.dp),
+        horizontalArrangement = Arrangement.End
+    ) {
         if (cancelText.isNotEmpty()) {
             TextButton(
                 modifier = Modifier.padding(end = 8.dp),

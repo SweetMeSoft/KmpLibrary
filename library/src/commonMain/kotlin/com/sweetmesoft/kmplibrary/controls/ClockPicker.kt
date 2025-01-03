@@ -101,18 +101,6 @@ fun ClockPicker(
                         }
                     }
                 }
-
-                DialogFooter(
-                    modifier = Modifier.align(alignment = Alignment.End),
-                    acceptText = acceptText,
-                    cancelText = cancelText,
-                    color = color,
-                    onAccept = {
-                        onTimeSelected(LocalTime(selectedHour, selectedMinute))
-                    }
-                ) {
-                    onDismiss()
-                }
             }
         }
     }

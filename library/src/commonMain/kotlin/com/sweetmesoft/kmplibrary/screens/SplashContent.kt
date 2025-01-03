@@ -38,7 +38,7 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun SplashContent(
     logo: DrawableResource,
-    waitMillis: Int,
+    waitMillis: Int = 1500,
     backgroundColor: Color = MaterialTheme.colors.secondary,
     background2Color: Color = MaterialTheme.colors.secondary,
     onBackgroundColor: Color = MaterialTheme.colors.onSecondary,

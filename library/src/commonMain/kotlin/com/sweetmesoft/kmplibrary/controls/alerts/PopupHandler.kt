@@ -122,7 +122,7 @@ class PopupHandler {
         suspend fun displayPrompt(
             title: String,
             subtitle: String,
-            placeholder: String,
+            placeholder: String = "",
             confirmText: String = "",
             cancelText: String = "",
             input: String,
