@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmplibrary.controls
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ButtonDefaults
@@ -20,30 +21,34 @@ fun DialogFooter(
     onAccept: () -> Unit,
     onDismiss: () -> Unit
 ) {
-    Row(modifier = modifier.padding(16.dp)) {
-        TextButton(
-            modifier = Modifier.padding(end = 8.dp),
-            onClick = {
-                onDismiss()
-            },
-            colors = ButtonDefaults.buttonColors(
-                contentColor = MaterialTheme.colors.error,
-                backgroundColor = Color.Transparent
-            )
-        ) {
-            Text(cancelText)
+    Row(modifier = modifier.padding(16.dp), horizontalArrangement = Arrangement.End) {
+        if (cancelText.isNotEmpty()) {
+            TextButton(
+                modifier = Modifier.padding(end = 8.dp),
+                onClick = {
+                    onDismiss()
+                },
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = MaterialTheme.colors.error,
+                    backgroundColor = Color.Transparent
+                )
+            ) {
+                Text(cancelText)
+            }
         }
 
-        TextButton(
-            onClick = {
-                onAccept()
-            },
-            colors = ButtonDefaults.buttonColors(
-                contentColor = if (color == Color.Unspecified) MaterialTheme.colors.primary else color,
-                backgroundColor = Color.Transparent
-            )
-        ) {
-            Text(acceptText)
+        if (acceptText.isNotEmpty()) {
+            TextButton(
+                onClick = {
+                    onAccept()
+                },
+                colors = ButtonDefaults.buttonColors(
+                    contentColor = if (color == Color.Unspecified) MaterialTheme.colors.primary else color,
+                    backgroundColor = Color.Transparent
+                )
+            ) {
+                Text(acceptText)
+            }
         }
     }
 }

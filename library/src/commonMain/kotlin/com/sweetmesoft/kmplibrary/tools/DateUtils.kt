@@ -55,15 +55,17 @@ fun Instant.toLocalString(): String {
     return this.toLocalDateTime(TimeZone.currentSystemDefault()).toLocalString()
 }
 
-fun LocalDateTime.toLocalString(): String {
+fun LocalDateTime.toLocalString(showSeconds: Boolean = false): String {
     val dateFormat = LocalDateTime.Format {
         date(LocalDate.Formats.ISO)
         char(' ')
         hour()
         char(':')
         minute()
-        char(':')
-        second()
+        if (showSeconds) {
+            char(':')
+            second()
+        }
     }
 
     return this.format(dateFormat)
@@ -130,19 +132,13 @@ fun LocalDate.daysInMonth(): Int {
 }
 
 fun LocalTime.toLocalString(showSeconds: Boolean = false): String {
-    val timeFormat = if (showSeconds) {
-        LocalTime.Format {
-            hour()
-            char(':')
-            minute()
+    val timeFormat = LocalTime.Format {
+        hour()
+        char(':')
+        minute()
+        if (showSeconds) {
             char(':')
             second()
-        }
-    } else {
-        LocalTime.Format {
-            hour()
-            char(':')
-            minute()
         }
     }
 
