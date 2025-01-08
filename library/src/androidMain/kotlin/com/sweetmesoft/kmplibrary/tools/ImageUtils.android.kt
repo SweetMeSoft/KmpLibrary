@@ -9,13 +9,13 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import java.io.ByteArrayOutputStream
 
-actual fun imageToBase64(imageBitmap: ImageBitmap): String {
-    val byteArray = imageToBytes(imageBitmap)
+actual fun ImageBitmap.toBase64(): String {
+    val byteArray = this.toByteArray()
     return Base64.encodeToString(byteArray, Base64.DEFAULT)
 }
 
-actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
-    val originalBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+actual fun resizeImage(byteArray: ByteArray, maxSize: Int): ByteArray {
+    val originalBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     val aspectRatio = originalBitmap.width.toFloat() / originalBitmap.height
     val width: Int
     val height: Int
@@ -49,8 +49,8 @@ actual fun resizeImage(imageBitmap: ImageBitmap, maxSize: Int): ImageBitmap {
     return resizedBitmap.asImageBitmap()
 }
 
-actual fun imageToBytes(imageBitmap: ImageBitmap): ByteArray {
-    val bitmap: Bitmap = imageBitmap.asAndroidBitmap()
+actual fun ImageBitmap.toByteArray(): ByteArray {
+    val bitmap: Bitmap = this.asAndroidBitmap()
     val outputStream = ByteArrayOutputStream()
     bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
     return outputStream.toByteArray()
@@ -73,10 +73,7 @@ actual fun rotateImage(byteArray: ByteArray, angle: Int): ByteArray {
     return outputStream.toByteArray()
 }
 
-actual fun rotateImage(
-    imageBitmap: ImageBitmap,
-    angle: Int
-): ImageBitmap {
+actual fun rotateImage(imageBitmap: ImageBitmap, angle: Int): ImageBitmap {
     val originalBitmap: Bitmap = imageBitmap.asAndroidBitmap()
     val matrix = Matrix().apply {
         postRotate(angle.toFloat())

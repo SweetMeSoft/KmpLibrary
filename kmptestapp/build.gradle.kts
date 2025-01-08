@@ -39,6 +39,7 @@ kotlin {
             implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.cmp.image.pick.n.crop)
             implementation(libs.kotlin.serialization)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)

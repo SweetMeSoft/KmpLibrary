@@ -5,7 +5,6 @@ import androidx.compose.ui.graphics.toComposeImageBitmap
 import com.sweetmesoft.kmpcontrols.utils.toRadians
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.get
-import kotlinx.cinterop.refTo
 import kotlinx.cinterop.useContents
 import org.jetbrains.skia.ColorAlphaType
 import org.jetbrains.skia.ColorSpace
@@ -15,8 +14,6 @@ import org.jetbrains.skia.ImageInfo
 import platform.CoreFoundation.CFDataGetBytePtr
 import platform.CoreFoundation.CFDataGetLength
 import platform.CoreFoundation.CFRelease
-import platform.CoreGraphics.CGBitmapContextCreate
-import platform.CoreGraphics.CGBitmapContextCreateImage
 import platform.CoreGraphics.CGColorSpaceCreateDeviceRGB
 import platform.CoreGraphics.CGContextRotateCTM
 import platform.CoreGraphics.CGContextTranslateCTM
@@ -90,27 +87,9 @@ fun UIImage.toImageBitmap(): ImageBitmap {
     return skiaImage.toComposeImageBitmap()
 }
 
-@OptIn(ExperimentalForeignApi::class)
 fun ImageBitmap.toUIImage(): UIImage? {
-    val width = this.width
-    val height = this.height
-    val buffer = IntArray(width * height)
-
-    this.readPixels(buffer)
-
-    val colorSpace = CGColorSpaceCreateDeviceRGB()
-    val context = CGBitmapContextCreate(
-        data = buffer.refTo(0),
-        width = width.toULong(),
-        height = height.toULong(),
-        bitsPerComponent = 8u,
-        bytesPerRow = (4 * width).toULong(),
-        space = colorSpace,
-        bitmapInfo = CGImageAlphaInfo.kCGImageAlphaPremultipliedLast.value
-    )
-
-    val cgImage = CGBitmapContextCreateImage(context)
-    return cgImage?.let { UIImage.imageWithCGImage(it) }
+    val data = this.toByteArray().toNSData()
+    return data.let { UIImage.imageWithData(it) }
 }
 
 @OptIn(ExperimentalForeignApi::class)

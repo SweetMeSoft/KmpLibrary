@@ -1,31 +1,33 @@
 package com.sweetmesoft.kmplibrary.tools
 
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asSkiaBitmap
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.useContents
+import org.jetbrains.skia.EncodedImageFormat
+import org.jetbrains.skia.Image
 import platform.CoreGraphics.CGFloat
 import platform.CoreGraphics.CGRectMake
 import platform.CoreGraphics.CGSizeMake
 import platform.Foundation.NSData
 import platform.Foundation.base64EncodedStringWithOptions
-import platform.UIKit.UIGraphicsBeginImageContext
 import platform.UIKit.UIGraphicsBeginImageContextWithOptions
 import platform.UIKit.UIGraphicsEndImageContext
 import platform.UIKit.UIGraphicsGetImageFromCurrentImageContext
 import platform.UIKit.UIImage
 import platform.UIKit.UIImagePNGRepresentation
 
-actual fun imageToBase64(imageBitmap: ImageBitmap): String {
-    val uiImage = imageBitmap.toUIImage()
+actual fun ImageBitmap.toBase64(): String {
+    val uiImage = this.toUIImage()
     val imageData = uiImage?.PNGRepresentation()
         ?: throw IllegalArgumentException("Failed to encode image to PNG")
     return imageData.base64EncodedStringWithOptions(0u)
 }
 
 @OptIn(ExperimentalForeignApi::class)
-actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
+actual fun resizeImage(byteArray: ByteArray, maxSize: Int): ByteArray {
     require(maxSize > 0) { "maxSize must be greater than 0" }
-    val data = bytes.toNSData()
+    val data = byteArray.toNSData()
     val originalImage = UIImage(data = data)
     val originalSize = originalImage.size.useContents {
         Pair(width, height)
@@ -54,36 +56,11 @@ actual fun resizeImage(bytes: ByteArray, maxSize: Int): ByteArray {
     return compressedData.toByteArray()
 }
 
-@OptIn(ExperimentalForeignApi::class)
 actual fun resizeImage(imageBitmap: ImageBitmap, maxSize: Int): ImageBitmap {
-    val uiImage: UIImage = imageBitmap.toUIImage() ?: return imageBitmap
-    val originalWidth = uiImage.size.useContents { width }
-    val originalHeight = uiImage.size.useContents { height }
-    val aspectRatio = originalWidth / originalHeight
-    val newWidth: Double
-    val newHeight: Double
-
-    if (originalWidth > originalHeight) {
-        newWidth = maxSize.toDouble()
-        newHeight = newWidth / aspectRatio
-    } else {
-        newHeight = maxSize.toDouble()
-        newWidth = newHeight * aspectRatio
-    }
-
-    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight))
-    uiImage.drawInRect(CGRectMake(0.0, 0.0, newWidth, newHeight))
-    val resizedUIImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    return resizedUIImage?.toImageBitmap() ?: imageBitmap
-}
-
-actual fun imageToBytes(imageBitmap: ImageBitmap): ByteArray {
-    val uiImage = imageBitmap.toUIImage()
-    val imageData = uiImage?.PNGRepresentation()
-        ?: throw IllegalArgumentException("Failed to encode image to PNG")
-
-    return imageData.toByteArray()
+    val bytes = imageBitmap.toByteArray()
+    val resizedBytes = resizeImage(bytes, maxSize)
+    val resizedData = resizedBytes.toNSData()
+    return UIImage(data = resizedData).toImageBitmap()
 }
 
 // Extensión para obtener PNG data de UIImage
@@ -111,4 +88,9 @@ actual fun rotateImage(
     val rotatedImage = uiImage?.rotate(angle)
         ?: throw IllegalStateException("Failed to rotate image")
     return rotatedImage.toImageBitmap()
+}
+
+actual fun ImageBitmap.toByteArray(): ByteArray {
+    return Image.makeFromBitmap(bitmap = this.asSkiaBitmap())
+        .encodeToData(EncodedImageFormat.PNG, 100)?.bytes ?: byteArrayOf()
 }
