@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.location.Location
+import android.os.Looper
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
@@ -13,7 +14,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationAvailability
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
@@ -123,19 +129,51 @@ actual fun MapComponent(
 }
 
 @SuppressLint("MissingPermission")
-actual suspend fun getLocation(): Coordinates = suspendCancellableCoroutine { cont ->
-    val fusedLocationClient: FusedLocationProviderClient =
-        LocationServices.getFusedLocationProviderClient(getContext())
-    fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-        if (location != null) {
-            cont.resume(Coordinates(location.latitude, location.longitude))
+actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
+    suspendCancellableCoroutine { cont ->
+        if (updateLocation) {
+            val fusedLocationClient: FusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(getContext())
+            val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
+                .setMaxUpdates(1)
+                .build()
+            val locationCallback = object : LocationCallback() {
+                override fun onLocationResult(locationResult: LocationResult) {
+                    val location = locationResult.lastLocation
+                    if (location != null) {
+                        cont.resume(Coordinates(location.latitude, location.longitude))
+                    } else {
+                        cont.resumeWithException(Exception("Unable to get location"))
+                    }
+                    fusedLocationClient.removeLocationUpdates(this) // Limpia después de obtener la ubicación
+                }
+
+                override fun onLocationAvailability(locationAvailability: LocationAvailability) {
+                    if (!locationAvailability.isLocationAvailable) {
+                        cont.resumeWithException(Exception("Location not available"))
+                    }
+                }
+            }
+
+            fusedLocationClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.getMainLooper()
+            )
         } else {
-            cont.resumeWithException(Exception("Unable to get location"))
+            val fusedLocationClient: FusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(getContext())
+            fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    cont.resume(Coordinates(location.latitude, location.longitude))
+                } else {
+                    cont.resumeWithException(Exception("Unable to get location"))
+                }
+            }.addOnFailureListener { exception ->
+                cont.resumeWithException(exception)
+            }
         }
-    }.addOnFailureListener { exception ->
-        cont.resumeWithException(exception)
     }
-}
 
 private fun createCustomMarkerIcon(
     color: Int

@@ -33,7 +33,7 @@ expect fun MapComponent(
     onMapLongClick: (Coordinates) -> Unit = {}
 )
 
-expect suspend fun getLocation(): Coordinates
+expect suspend fun getLocation(updateLocation: Boolean = false): Coordinates
 
 fun calculateZoomByRadius(radiusInMeters: Double): Float {
     val earthCircumferenceInMeters = 40_075_000.0

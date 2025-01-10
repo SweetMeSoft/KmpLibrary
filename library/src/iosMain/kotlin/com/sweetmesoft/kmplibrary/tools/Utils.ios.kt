@@ -8,8 +8,10 @@ import kotlinx.cinterop.usePinned
 import platform.Foundation.NSData
 import platform.Foundation.NSLocale
 import platform.Foundation.NSURL
+import platform.Foundation.base64EncodedStringWithOptions
 import platform.Foundation.create
 import platform.Foundation.currentLocale
+import platform.Foundation.dataWithBytes
 import platform.Foundation.languageCode
 import platform.UIKit.UIApplication
 import platform.posix.memcpy
@@ -41,5 +43,13 @@ fun ByteArray.toNSData(): NSData = usePinned { pinned ->
 fun NSData.toByteArray(): ByteArray = ByteArray(this.length.toInt()).apply {
     this.usePinned {
         memcpy(it.addressOf(0), this@toByteArray.bytes, this@toByteArray.length)
+    }
+}
+
+@OptIn(ExperimentalForeignApi::class)
+actual fun ByteArray.toBase64(): String {
+    return this.usePinned { pinned ->
+        val nsData = NSData.dataWithBytes(pinned.addressOf(0), this.size.toULong())
+        nsData.base64EncodedStringWithOptions(0u)
     }
 }

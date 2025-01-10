@@ -264,64 +264,65 @@ private fun calculateRadiusForZoomLevel(shortestSideInPixels: Double, zoomLevel:
 }
 
 @OptIn(ExperimentalForeignApi::class)
-actual suspend fun getLocation(): Coordinates = suspendCancellableCoroutine { cont ->
-    val locationManager = CLLocationManager()
-    val delegate = object : NSObject(), CLLocationManagerDelegateProtocol {
-        override fun locationManager(manager: CLLocationManager, didUpdateLocations: List<*>) {
-            val location = (didUpdateLocations.firstOrNull() as? CLLocation)
-            if (cont.isActive) {
-                if (location != null) {
-                    location.coordinate().useContents {
-                        cont.resume(Coordinates(latitude, longitude))
+actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
+    suspendCancellableCoroutine { cont ->
+        val locationManager = CLLocationManager()
+        val delegate = object : NSObject(), CLLocationManagerDelegateProtocol {
+            override fun locationManager(manager: CLLocationManager, didUpdateLocations: List<*>) {
+                val location = (didUpdateLocations.firstOrNull() as? CLLocation)
+                if (cont.isActive) {
+                    if (location != null) {
+                        location.coordinate().useContents {
+                            cont.resume(Coordinates(latitude, longitude))
+                        }
+                    } else {
+                        cont.resumeWithException(Exception("Unable to get location"))
                     }
-                } else {
-                    cont.resumeWithException(Exception("Unable to get location"))
+                    manager.stopUpdatingLocation()
                 }
-                manager.stopUpdatingLocation()
             }
-        }
 
-        override fun locationManager(manager: CLLocationManager, didFailWithError: NSError) {
-            if (cont.isActive) {
-                cont.resumeWithException(Exception("Location error: ${didFailWithError.localizedDescription}"))
-                manager.stopUpdatingLocation()
+            override fun locationManager(manager: CLLocationManager, didFailWithError: NSError) {
+                if (cont.isActive) {
+                    cont.resumeWithException(Exception("Location error: ${didFailWithError.localizedDescription}"))
+                    manager.stopUpdatingLocation()
+                }
             }
-        }
 
-        override fun locationManagerDidChangeAuthorization(manager: CLLocationManager) {
-            when (CLLocationManager.authorizationStatus()) {
-                kCLAuthorizationStatusDenied, kCLAuthorizationStatusRestricted -> {
-                    if (cont.isActive) {
-                        cont.resumeWithException(Exception("Location permissions denied or restricted"))
+            override fun locationManagerDidChangeAuthorization(manager: CLLocationManager) {
+                when (CLLocationManager.authorizationStatus()) {
+                    kCLAuthorizationStatusDenied, kCLAuthorizationStatusRestricted -> {
+                        if (cont.isActive) {
+                            cont.resumeWithException(Exception("Location permissions denied or restricted"))
+                        }
+                    }
+
+                    kCLAuthorizationStatusAuthorizedWhenInUse, kCLAuthorizationStatusAuthorizedAlways -> {
+                        manager.startUpdatingLocation()
+                    }
+
+                    else -> {
                     }
                 }
-
-                kCLAuthorizationStatusAuthorizedWhenInUse, kCLAuthorizationStatusAuthorizedAlways -> {
-                    manager.startUpdatingLocation()
-                }
-
-                else -> {
-                }
             }
         }
-    }
 
-    locationManager.delegate = delegate
-    locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = delegate
+        locationManager.requestWhenInUseAuthorization()
 
-    when (CLLocationManager.authorizationStatus()) {
-        kCLAuthorizationStatusAuthorizedWhenInUse, kCLAuthorizationStatusAuthorizedAlways -> {
-            locationManager.startUpdatingLocation()
+        when (CLLocationManager.authorizationStatus()) {
+            kCLAuthorizationStatusAuthorizedWhenInUse, kCLAuthorizationStatusAuthorizedAlways -> {
+                locationManager.startUpdatingLocation()
+            }
+
+            else -> {
+            }
         }
 
-        else -> {
+        cont.invokeOnCancellation {
+            locationManager.stopUpdatingLocation()
         }
     }
-
-    cont.invokeOnCancellation {
-        locationManager.stopUpdatingLocation()
-    }
-}
 
 //TODO This should be in base
 fun Color.toUIColor(): UIColor {

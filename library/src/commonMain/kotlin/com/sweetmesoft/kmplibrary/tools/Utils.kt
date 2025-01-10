@@ -30,6 +30,8 @@ fun Uuid.isNotEmpty(): Boolean {
     return this != Uuid.NIL
 }
 
+expect fun ByteArray.toBase64(): String
+
 expect fun openUrl(url: String)
 
 val emptyFunction: () -> Unit = {}
