@@ -8,7 +8,7 @@ import io.ktor.http.ContentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
-actual fun createHttpClient(): HttpClient {
+actual fun createHttpClient(timeout: Long): HttpClient {
     return HttpClient(Darwin) {
         install(ContentNegotiation) {
             json(json = Json {
@@ -18,9 +18,9 @@ actual fun createHttpClient(): HttpClient {
             }, contentType = ContentType.Any)
         }
         install(HttpTimeout) {
-            requestTimeoutMillis = 60000
-            connectTimeoutMillis = 30000
-            socketTimeoutMillis = 30000
+            requestTimeoutMillis = timeout
+            connectTimeoutMillis = timeout
+            socketTimeoutMillis = timeout
         }
     }
 }

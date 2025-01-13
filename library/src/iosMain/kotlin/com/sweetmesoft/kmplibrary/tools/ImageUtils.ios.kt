@@ -63,11 +63,6 @@ actual fun resizeImage(imageBitmap: ImageBitmap, maxSize: Int): ImageBitmap {
     return UIImage(data = resizedData).toImageBitmap()
 }
 
-// Extensión para obtener PNG data de UIImage
-private fun UIImage.PNGRepresentation(): NSData? {
-    return UIImagePNGRepresentation(this)
-}
-
 actual fun rotateImage(byteArray: ByteArray, angle: Int): ByteArray {
     val data = byteArray.toNSData()
     val originalImage = UIImage(data = data)
@@ -80,10 +75,7 @@ actual fun rotateImage(byteArray: ByteArray, angle: Int): ByteArray {
     return rotatedImageData.toByteArray()
 }
 
-actual fun rotateImage(
-    imageBitmap: ImageBitmap,
-    angle: Int
-): ImageBitmap {
+actual fun rotateImage(imageBitmap: ImageBitmap, angle: Int): ImageBitmap {
     val uiImage = imageBitmap.toUIImage()
     val rotatedImage = uiImage?.rotate(angle)
         ?: throw IllegalStateException("Failed to rotate image")
@@ -93,4 +85,8 @@ actual fun rotateImage(
 actual fun ImageBitmap.toByteArray(): ByteArray {
     return Image.makeFromBitmap(bitmap = this.asSkiaBitmap())
         .encodeToData(EncodedImageFormat.PNG, 100)?.bytes ?: byteArrayOf()
+}
+
+private fun UIImage.PNGRepresentation(): NSData? {
+    return UIImagePNGRepresentation(this)
 }
