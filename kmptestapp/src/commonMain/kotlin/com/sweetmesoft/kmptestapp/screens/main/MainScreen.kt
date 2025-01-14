@@ -185,7 +185,6 @@ class MainScreen : Screen {
                         }
                     )
                 }
-
                 val imageCropper = rememberImageCropper()
                 var selectedImage by remember { mutableStateOf<ImageBitmap?>(null) }
                 var openImagePicker by remember { mutableStateOf(value = false) }
@@ -194,7 +193,7 @@ class MainScreen : Screen {
                 ) {
                     openImagePicker = true
                 }
-                
+
                 CMPImagePickNCropDialog(
                     imageCropper = imageCropper,
                     openImagePicker = openImagePicker,

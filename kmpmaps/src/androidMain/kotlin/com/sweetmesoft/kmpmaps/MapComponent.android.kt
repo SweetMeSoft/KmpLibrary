@@ -33,7 +33,7 @@ import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import kotlinx.coroutines.suspendCancellableCoroutine

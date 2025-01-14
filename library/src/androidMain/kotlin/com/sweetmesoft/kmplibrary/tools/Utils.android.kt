@@ -3,7 +3,7 @@ package com.sweetmesoft.kmplibrary.tools
 import android.content.Intent
 import android.net.Uri
 import android.util.Base64
-import com.sweetmesoft.kmplibrary.BaseAndroid
+import com.sweetmesoft.kmpcontrols.tools.BaseAndroid
 import java.util.Locale
 
 actual fun getCurrentLanguage(): String {

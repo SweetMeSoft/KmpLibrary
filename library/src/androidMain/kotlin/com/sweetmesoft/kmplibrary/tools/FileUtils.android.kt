@@ -2,7 +2,7 @@ package com.sweetmesoft.kmplibrary.tools
 
 import android.content.Intent
 import androidx.core.content.FileProvider
-import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
 import java.io.File
 import java.io.FileOutputStream
 
@@ -11,7 +11,8 @@ actual fun shareFile(bytes: ByteArray, fileName: String) {
     FileOutputStream(file).use {
         it.write(bytes)
     }
-    val uri = FileProvider.getUriForFile(getContext(), "${getContext().packageName}.fileprovider", file)
+    val uri =
+        FileProvider.getUriForFile(getContext(), "${getContext().packageName}.fileprovider", file)
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "image/png"
         putExtra(Intent.EXTRA_STREAM, uri)

@@ -36,6 +36,7 @@ import com.sweetmesoft.kmpcontrols.objetcs.disabledColor
 import com.sweetmesoft.kmpcontrols.objetcs.disabledColorDark
 import com.sweetmesoft.kmpcontrols.objetcs.disabledColorText
 import com.sweetmesoft.kmpcontrols.objetcs.disabledColorTextDark
+import com.sweetmesoft.kmpcontrols.tools.Vibrator
 import com.sweetmesoft.kmpcontrols.utils.toDegrees
 import com.sweetmesoft.kmpcontrols.utils.toRadians
 import kmplibrary.kmpcontrols.generated.resources.Accept
@@ -160,12 +161,13 @@ private fun TimeSelector(
     with(LocalDensity.current) {
         val valuesExternal = if (isHour) (0..11).toList() else (0..59).toList()
         val valuesInternal = if (isHour) (12..23).toList() else emptyList()
-        val radiusExternal = 90.dp
-        val radiusInternal = 55.dp
-        val radiusPxExternal = radiusExternal.toPx()
-        val radiusPxInternal = radiusInternal.toPx()
-        val radiusPxExternalExtended = radiusPxExternal * 1.25f
-        val radiusPxInternalExtended = radiusPxInternal * 1.25f
+        val radiusExternal = remember { 90.dp }
+        val radiusInternal = remember { 55.dp }
+        val radiusPxExternal = remember { radiusExternal.toPx() }
+        val radiusPxInternal = remember { radiusInternal.toPx() }
+        val radiusPxExternalExtended = remember { radiusPxExternal * 1.25f }
+        val radiusPxInternalExtended = remember { radiusPxInternal * 1.25f }
+        var previousValue = remember { 0 }
 
         Box(
             modifier = modifier
@@ -182,6 +184,10 @@ private fun TimeSelector(
                             value += 12
                         }
                         onValueChange(value)
+                        if (previousValue != value) {
+                            previousValue = value
+                            Vibrator.vibrate()
+                        }
                     }
                 },
             contentAlignment = Alignment.Center
