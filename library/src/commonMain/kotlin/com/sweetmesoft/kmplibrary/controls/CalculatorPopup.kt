@@ -27,7 +27,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 
 @Composable
 fun CalculatorPopup(
@@ -223,9 +222,9 @@ private fun parseExpression(tokens: List<String>): Double {
     var index = 0
 
     fun applyOperator() {
-        val right = stack.removeLast()
-        val left = stack.removeLast()
-        val operator = operators.removeLast()
+        val right = stack.removeAt(stack.lastIndex)
+        val left = stack.removeAt(stack.lastIndex)
+        val operator = operators.removeAt(operators.lastIndex)
         stack.add(
             when (operator) {
                 '+' -> left + right

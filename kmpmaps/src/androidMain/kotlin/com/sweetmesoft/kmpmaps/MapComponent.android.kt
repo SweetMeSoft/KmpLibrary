@@ -134,7 +134,8 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
         if (updateLocation) {
             val fusedLocationClient: FusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(getContext())
-            val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
+            val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 15000)
+                .setWaitForAccurateLocation(true)
                 .setMaxUpdates(1)
                 .build()
             val locationCallback = object : LocationCallback() {
@@ -145,13 +146,13 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
                     } else {
                         cont.resumeWithException(Exception("Unable to get location"))
                     }
-                    fusedLocationClient.removeLocationUpdates(this) // Limpia después de obtener la ubicación
+                    fusedLocationClient.removeLocationUpdates(this)
                 }
 
                 override fun onLocationAvailability(locationAvailability: LocationAvailability) {
-                    if (!locationAvailability.isLocationAvailable) {
-                        cont.resumeWithException(Exception("Location not available"))
-                    }
+//                    if (!locationAvailability.isLocationAvailable) {
+//                        cont.resumeWithException(Exception("Location not available"))
+//                    }
                 }
             }
 
@@ -167,7 +168,7 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
                 if (location != null) {
                     cont.resume(Coordinates(location.latitude, location.longitude))
                 } else {
-                    cont.resumeWithException(Exception("Unable to get location"))
+                    cont.resumeWithException(Exception("Unable to get location stored"))
                 }
             }.addOnFailureListener { exception ->
                 cont.resumeWithException(exception)
