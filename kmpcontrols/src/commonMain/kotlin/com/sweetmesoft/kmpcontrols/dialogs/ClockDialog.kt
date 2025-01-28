@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmpcontrols.dialogs
 
+import androidx.annotation.RequiresFeature
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -49,6 +50,7 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
+@RequiresFeature(name = "VIBRATE Android Permission", enforcement = "")
 @Composable
 fun ClockDialog(
     isVisible: Boolean,

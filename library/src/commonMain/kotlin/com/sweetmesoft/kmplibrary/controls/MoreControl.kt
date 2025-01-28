@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
@@ -30,7 +29,7 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
     Box(modifier) {
         IconButton(
             onClick = { showMenu = true },
-            modifier = Modifier.size(20.dp)
+            modifier = modifier.size(20.dp)
         ) {
             Icon(
                 Icons.Default.MoreVert,
