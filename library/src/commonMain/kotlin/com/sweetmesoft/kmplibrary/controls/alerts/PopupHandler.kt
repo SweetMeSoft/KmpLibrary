@@ -12,6 +12,7 @@ import org.jetbrains.compose.resources.getString
 
 class PopupHandler {
     companion object {
+        var accentColor: Color = Color.Unspecified
         internal var isLoading by mutableStateOf(false)
         internal var alertShow by mutableStateOf(false)
         internal var alertTitle by mutableStateOf("")
@@ -66,7 +67,7 @@ class PopupHandler {
             title: String,
             message: String,
             acceptText: String = "",
-            color: Color = Color.Unspecified,
+            color: Color = accentColor,
             dismiss: () -> Unit = {}
         ) {
             alertTitle = title
@@ -82,7 +83,7 @@ class PopupHandler {
             message: String,
             confirmText: String = "",
             cancelText: String = "",
-            color: Color = Color.Unspecified,
+            color: Color = accentColor,
             dismiss: () -> Unit = {},
             accept: () -> Unit
         ) {
@@ -103,7 +104,7 @@ class PopupHandler {
             confirmText: String = "",
             cancelText: String = "",
             options: List<String> = listOf(),
-            color: Color = Color.Unspecified,
+            color: Color = accentColor,
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
@@ -126,7 +127,7 @@ class PopupHandler {
             confirmText: String = "",
             cancelText: String = "",
             input: String,
-            color: Color = Color.Unspecified,
+            color: Color = accentColor,
             dismiss: () -> Unit = {},
             accept: (String) -> Unit
         ) {
@@ -145,7 +146,7 @@ class PopupHandler {
         suspend fun displayProgress(
             title: String = "",
             cancelText: String = "",
-            color: Color = Color.Unspecified,
+            color: Color = accentColor,
             dismiss: () -> Unit = {},
         ) {
             progressTitle = title.ifEmpty { getString(Res.string.Downloading) }

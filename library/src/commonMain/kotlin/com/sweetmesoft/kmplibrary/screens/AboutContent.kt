@@ -1,7 +1,9 @@
 package com.sweetmesoft.kmplibrary.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sweetmesoft.kmplibrary.controls.SettingsItem
@@ -18,12 +22,16 @@ import com.sweetmesoft.kmplibrary.tools.PlatformType
 import com.sweetmesoft.kmplibrary.tools.getAppVersion
 import com.sweetmesoft.kmplibrary.tools.getPlatform
 import com.sweetmesoft.kmplibrary.tools.openAppStore
+import com.sweetmesoft.kmplibrary.tools.openUrl
 import compose.icons.TablerIcons
 import compose.icons.tablericons.BrandAppstore
 import compose.icons.tablericons.BrandGooglePlay
+import compose.icons.tablericons.Versions
+import kmplibrary.library.generated.resources.By
 import kmplibrary.library.generated.resources.RateUs
 import kmplibrary.library.generated.resources.RateUsMessage
 import kmplibrary.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Slogan
 import kmplibrary.library.generated.resources.ThanksMessage
 import kmplibrary.library.generated.resources.Version
 import org.jetbrains.compose.resources.DrawableResource
@@ -63,6 +71,28 @@ fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
             openAppStore(appId)
         }
 
-        SettingsItem(title = stringResource(Res.string.Version), description = getAppVersion())
+        SettingsItem(
+            title = stringResource(Res.string.Version),
+            description = getAppVersion(),
+            icon = TablerIcons.Versions
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+
+        Text(
+            modifier = Modifier.clickable {
+                openUrl("https://www.sweetmesoft.com")
+            },
+            text = stringResource(Res.string.By),
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textDecoration = TextDecoration.Underline
+        )
+        Text(
+            modifier = Modifier.padding(bottom = 32.dp),
+            text = stringResource(Res.string.Slogan),
+            fontSize = 14.sp
+        )
     }
 }

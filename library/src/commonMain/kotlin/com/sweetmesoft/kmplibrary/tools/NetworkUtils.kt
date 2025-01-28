@@ -23,7 +23,6 @@ import kotlinx.datetime.toLocalDateTime
 expect fun createHttpClient(timeout: Long = 30000): HttpClient
 
 object NetworkUtils {
-
     suspend inline fun <reified T> get(
         url: String,
         showLoading: Boolean = true,
@@ -52,8 +51,8 @@ object NetworkUtils {
             }
 
             if (response.status.value != 200) {
+                println("HTTP Error: ${response.bodyAsText()}")
                 val error = response.body<ErrorResponse>()
-                println("HTTP Error: $error")
                 PopupHandler.displayAlert(response.status.description, error.title)
                 return Result.failure(Exception(error.detail))
             }
@@ -106,8 +105,8 @@ object NetworkUtils {
             }
 
             if (response.status.value != 200) {
+                println("HTTP Error: ${response.bodyAsText()}")
                 val error = response.body<ErrorResponse>()
-                println("HTTP Error: $error")
                 PopupHandler.displayAlert(response.status.description, error.title)
                 return Result.failure(Exception(error.detail))
             }

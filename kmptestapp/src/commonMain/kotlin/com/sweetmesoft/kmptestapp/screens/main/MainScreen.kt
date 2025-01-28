@@ -25,8 +25,13 @@ import com.sweetmesoft.kmpcontrols.pickers.TimePicker
 import com.sweetmesoft.kmpcontrols.utils.getCurrentDateTime
 import com.sweetmesoft.kmpcontrols.utils.toLocalString
 import com.sweetmesoft.kmplibrary.base.BaseScreen
+import com.sweetmesoft.kmplibrary.base.BaseViewModel.Companion.navigator
 import com.sweetmesoft.kmplibrary.controls.ProfilePhoto
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
+import com.sweetmesoft.kmplibrary.objects.IconAction
+import com.sweetmesoft.kmptestapp.screens.about.AboutScreen
+import compose.icons.TablerIcons
+import compose.icons.tablericons.DotsVertical
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -41,7 +46,12 @@ class MainScreen : Screen {
         BaseScreen(
             toolbarColor = MaterialTheme.colors.primary,
             toolbarIconsLight = false,
-            title = "KMP TestApp"
+            title = "KMP TestApp",
+            iconActions = listOf(
+                IconAction(TablerIcons.DotsVertical, true) {
+                    navigator.push(AboutScreen())
+                }
+            )
         ) {
             val scope = rememberCoroutineScope()
             var date: LocalDate by remember { mutableStateOf(getCurrentDateTime().date) }
