@@ -11,16 +11,15 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
-import kotlinx.coroutines.launch
 import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -36,13 +35,11 @@ inline fun <reified T : Any> RemoteDropDown(
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
 ) {
-    val scope = rememberCoroutineScope()
     var expanded by remember { mutableStateOf(false) }
     var list by remember { mutableStateOf<List<T>>(emptyList()) }
-
-    scope.launch {
+    LaunchedEffect(url, bearer) {
         val result = get<List<T>>(url, false, bearer)
-        result.onSuccess{
+        result.onSuccess {
             list = it.obj
         }
     }
