@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
@@ -75,8 +77,11 @@ private fun ScreenContent(
         darkIcons = tab.baseOptions.toolbarIconsLight
     )
     Scaffold(
-        contentWindowInsets = WindowInsets.safeContent,
-        modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
+        contentWindowInsets = WindowInsets.systemBars,
+        modifier = modifier
+            .fillMaxSize()
+            .background(tab.baseOptions.toolbarColor)
+            .windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
             if (tab.baseOptions.showTop || (tab.baseOptions.title.isNotEmpty() && tab.baseOptions.showTop)) {
                 TopAppBar(

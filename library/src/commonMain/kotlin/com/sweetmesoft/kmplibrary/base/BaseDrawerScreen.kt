@@ -12,8 +12,10 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeContent
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.Divider
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -165,10 +167,11 @@ private fun TabContent(
     SetStatusBarColor(color = toolbarColor, darkIcons = toolbarIconsLight)
     val scope = rememberCoroutineScope()
     Scaffold(
-        contentWindowInsets = WindowInsets.safeContent,
+        contentWindowInsets = WindowInsets.systemBars,
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(toolbarColor)
+            .windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
