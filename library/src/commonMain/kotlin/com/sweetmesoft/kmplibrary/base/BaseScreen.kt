@@ -2,10 +2,13 @@ package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
@@ -46,7 +49,7 @@ fun BaseScreen(
     navigationColor: Color = MaterialTheme.colors.background,
     navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
     iconActions: List<IconAction> = listOf(),
-    content: @Composable () -> Unit
+    content: @Composable (PaddingValues) -> Unit
 ) {
     SetStatusBarColor(toolbarColor, toolbarIconsLight)
     SetNavigationBarColor(navigationColor, navigationIconsLight)
@@ -61,7 +64,7 @@ fun BaseScreen(
         toolbarIconsLight,
         iconActions
     ) {
-        content()
+        content(it)
     }
 }
 
@@ -75,9 +78,10 @@ private fun ScreenContent(
     toolbarColor: Color,
     toolbarIconsLight: Boolean,
     iconActions: List<IconAction> = listOf(),
-    content: @Composable () -> Unit
+    content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
+        contentWindowInsets = WindowInsets.safeContent,
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colors.background),
@@ -149,7 +153,7 @@ private fun ScreenContent(
             }
         }
     ) {
-        content()
+        content(it)
 
         AlertView()
         AlertConfirm()

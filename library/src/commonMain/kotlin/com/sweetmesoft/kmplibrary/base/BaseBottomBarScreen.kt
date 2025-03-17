@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeContent
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -73,10 +75,12 @@ private fun ScreenContent(
         darkIcons = tab.baseOptions.toolbarIconsLight
     )
     Scaffold(
+        contentWindowInsets = WindowInsets.safeContent,
         modifier = modifier.fillMaxSize().background(MaterialTheme.colors.background),
         topBar = {
             if (tab.baseOptions.showTop || (tab.baseOptions.title.isNotEmpty() && tab.baseOptions.showTop)) {
-                TopAppBar(backgroundColor = tab.baseOptions.toolbarColor,
+                TopAppBar(
+                    backgroundColor = tab.baseOptions.toolbarColor,
                     contentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
                     elevation = 0.dp,
                     title = {
@@ -112,7 +116,8 @@ private fun ScreenContent(
                     },
                     navigationIcon = if (BaseViewModel.navigator.canPop) {
                         {
-                            IconButton(modifier = Modifier.padding(start = 8.dp),
+                            IconButton(
+                                modifier = Modifier.padding(start = 8.dp),
                                 onClick = { BaseViewModel.navigator.pop() }) {
                                 Icon(
                                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -129,7 +134,8 @@ private fun ScreenContent(
             BottomNavigation {
                 val tabNavigator = LocalTabNavigator.current
                 tabs.forEachIndexed { index, it ->
-                    BottomNavigationItem(selected = currentTab.value == index,
+                    BottomNavigationItem(
+                        selected = currentTab.value == index,
                         selectedContentColor = Color.White,
                         unselectedContentColor = MaterialTheme.colors.primaryVariant,
                         label = { Text(it.options.title) },
