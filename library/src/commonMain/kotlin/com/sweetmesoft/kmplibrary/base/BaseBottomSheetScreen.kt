@@ -3,10 +3,14 @@ package com.sweetmesoft.kmplibrary.base
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -79,9 +83,11 @@ private fun ScreenContent(
     content: @Composable () -> Unit
 ) {
     Scaffold(
+        contentWindowInsets = WindowInsets.systemBars,
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colors.background),
+            .background(toolbarColor)
+            .windowInsetsPadding(WindowInsets.safeDrawing),
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
