@@ -25,6 +25,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.UrlTileProvider
 import com.google.maps.android.compose.Circle
 import com.google.maps.android.compose.ComposeMapColorScheme
 import com.google.maps.android.compose.GoogleMap
@@ -32,11 +33,13 @@ import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.TileOverlay
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import kotlinx.coroutines.suspendCancellableCoroutine
+import java.net.URL
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -96,6 +99,21 @@ actual fun MapComponent(
                 onMapLongClick(Coordinates(latLng.latitude, latLng.longitude))
             }
         ) {
+            val tileProvider = object : UrlTileProvider(256, 256) {
+                override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
+                    return try {
+                        URL("https://mi-servidor-de-tiles/$zoom/$x/$y.png")
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+            }
+            TileOverlay(
+                tileProvider = tileProvider,
+                fadeIn = true,
+                transparency = 0.5f
+            )
+
             markers.forEach { marker ->
                 val markerCoordinate =
                     LatLng(marker.coordinates.latitude, marker.coordinates.longitude)

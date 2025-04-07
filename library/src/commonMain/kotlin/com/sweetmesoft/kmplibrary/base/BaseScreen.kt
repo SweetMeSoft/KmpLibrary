@@ -43,6 +43,7 @@ import com.sweetmesoft.kmplibrary.tools.emptyFunction
 fun BaseScreen(
     title: String = "",
     showTop: Boolean = false,
+    edgeToEdge: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = Icons.Default.Check,
@@ -60,6 +61,7 @@ fun BaseScreen(
         modifier,
         title,
         showTop,
+        edgeToEdge,
         fabAction,
         fabIcon,
         toolbarColor,
@@ -75,6 +77,7 @@ private fun ScreenContent(
     modifier: Modifier,
     title: String,
     showTop: Boolean,
+    edgeToEdge: Boolean,
     fabAction: () -> Unit,
     fabIcon: ImageVector,
     toolbarColor: Color,
@@ -83,11 +86,18 @@ private fun ScreenContent(
     content: @Composable (PaddingValues) -> Unit
 ) {
     Scaffold(
-        contentWindowInsets = WindowInsets.systemBars,
+        contentWindowInsets = if (edgeToEdge) WindowInsets(0, 0, 0, 0) else WindowInsets.systemBars,
         modifier = modifier
             .fillMaxSize()
             .background(toolbarColor)
-            .windowInsetsPadding(WindowInsets.safeDrawing),
+            .windowInsetsPadding(
+                if (edgeToEdge) WindowInsets(
+                    0,
+                    0,
+                    0,
+                    0
+                ) else WindowInsets.safeDrawing
+            ),
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(

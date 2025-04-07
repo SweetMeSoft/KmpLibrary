@@ -123,6 +123,7 @@ private fun DrawerContent(
     Column(
         modifier = Modifier.fillMaxHeight().fillMaxWidth(0.75f)
             .background(MaterialTheme.colors.surface)
+            .windowInsetsPadding(WindowInsets.safeDrawing),
     ) {
         headerView()
         Box(modifier = Modifier.weight(1f)) {
