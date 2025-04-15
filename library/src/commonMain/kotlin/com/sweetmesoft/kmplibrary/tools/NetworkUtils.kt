@@ -50,21 +50,25 @@ object NetworkUtils {
                 PopupHandler.hideLoading()
             }
 
-            if (response.status.value != 200) {
-                println("HTTP Error: ${response.bodyAsText()}")
-                val error = response.body<ErrorResponse>()
-                PopupHandler.displayAlert(response.status.description, error.title)
-                return Result.failure(Exception(error.detail))
+            if (response.status.value == 200) {
+                return Result.success(
+                    GenericResponse(
+                        obj = response.body<T>(),
+                        cookies = response.setCookie().map { it.name + ":" + it.value },
+                        status = response.status.value,
+                        headers = response.headers.entries().associate { entry ->
+                            entry.key to entry.value
+                        }
+                    ))
             }
 
-            return Result.success(GenericResponse(
-                obj = response.body<T>(),
-                cookies = response.setCookie().map { it.name + ":" + it.value },
-                status = response.status.value,
-                headers = response.headers.entries().associate { entry ->
-                    entry.key to entry.value
-                }
-            ))
+            println("HTTP Error: ${response.bodyAsText()}")
+            if (response.status.value == 204) {
+                return Result.failure(Exception("204 Not Content"))
+            }
+            val error = response.body<ErrorResponse>()
+            PopupHandler.displayAlert(response.status.description, error.title)
+            return Result.failure(Exception(error.detail))
         } catch (e: HttpRequestTimeoutException) {
             e.printStackTrace()
             return Result.failure(e)
@@ -111,14 +115,15 @@ object NetworkUtils {
                 return Result.failure(Exception(error.detail))
             }
 
-            return Result.success(GenericResponse(
-                obj = response.body<T>(),
-                cookies = response.setCookie().map { it.name + ":" + it.value },
-                status = response.status.value,
-                headers = response.headers.entries().associate { entry ->
-                    entry.key to entry.value
-                }
-            ))
+            return Result.success(
+                GenericResponse(
+                    obj = response.body<T>(),
+                    cookies = response.setCookie().map { it.name + ":" + it.value },
+                    status = response.status.value,
+                    headers = response.headers.entries().associate { entry ->
+                        entry.key to entry.value
+                    }
+                ))
         } catch (e: Exception) {
             e.printStackTrace()
             return Result.failure(e)
