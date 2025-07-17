@@ -1,8 +1,6 @@
 package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -12,6 +10,8 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import com.sweetmesoft.kmplibrary.objects.IconAction
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
+import compose.icons.TablerIcons
+import compose.icons.tablericons.Check
 
 data class BaseTabOptions(
     val title: String,
@@ -19,7 +19,7 @@ data class BaseTabOptions(
     val showTop: Boolean = false,
     val modifier: Modifier = Modifier,
     var fabAction: () -> Unit = emptyFunction,
-    val fabIcon: ImageVector = Icons.Default.Check,
+    val fabIcon: ImageVector = TablerIcons.Check,
     val toolbarColor: Color,
     val toolbarIconsLight: Boolean,
     val navigationColor: Color,
@@ -34,7 +34,7 @@ fun defaultBaseTabOptions(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
-    fabIcon: ImageVector = Icons.Default.Check,
+    fabIcon: ImageVector = TablerIcons.Check,
     toolbarColor: Color = MaterialTheme.colors.background,
     toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,

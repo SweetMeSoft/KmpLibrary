@@ -10,8 +10,6 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -21,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import compose.icons.TablerIcons
+import compose.icons.tablericons.DotsVertical
 
 @Composable
 fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
@@ -32,7 +32,7 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
             modifier = modifier.size(20.dp)
         ) {
             Icon(
-                Icons.Default.MoreVert,
+                TablerIcons.DotsVertical,
                 contentDescription = "Options Icon"
             )
         }

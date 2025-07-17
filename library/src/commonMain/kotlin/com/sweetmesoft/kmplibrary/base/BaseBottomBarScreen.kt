@@ -23,8 +23,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -44,6 +42,8 @@ import com.sweetmesoft.kmplibrary.controls.alerts.AlertProgress
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmplibrary.controls.alerts.AlertView
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
+import compose.icons.TablerIcons
+import compose.icons.tablericons.ArrowBack
 
 class BaseBottomBarScreen {
     companion object {
@@ -125,7 +125,7 @@ private fun ScreenContent(
                                 modifier = Modifier.padding(start = 8.dp),
                                 onClick = { BaseViewModel.navigator.pop() }) {
                                 Icon(
-                                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                    imageVector = TablerIcons.ArrowBack,
                                     contentDescription = "Back"
                                 )
                             }

@@ -18,8 +18,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +35,7 @@ import com.sweetmesoft.kmplibrary.tools.SetNavigationBarColor
 import com.sweetmesoft.kmplibrary.tools.SetStatusBarColor
 import com.sweetmesoft.kmplibrary.tools.emptyFunction
 import compose.icons.TablerIcons
+import compose.icons.tablericons.Check
 import compose.icons.tablericons.X
 
 @Composable
@@ -45,7 +44,7 @@ fun BaseBottomSheetScreen(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
-    fabIcon: ImageVector = Icons.Default.Check,
+    fabIcon: ImageVector = TablerIcons.Check,
     toolbarColor: Color = MaterialTheme.colors.background,
     toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
     navigationColor: Color = MaterialTheme.colors.background,

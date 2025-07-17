@@ -213,6 +213,8 @@ class MainScreen : Screen {
                     selectedImageCallback = {
                         vm.updatePhoto(it)
                         selectedImage = it
+                    },
+                    selectedImageFileCallback = {
                     }
                 )
 

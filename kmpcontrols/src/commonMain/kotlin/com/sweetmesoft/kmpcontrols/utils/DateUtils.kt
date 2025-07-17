@@ -21,9 +21,7 @@ import kmplibrary.kmpcontrols.generated.resources.Sun
 import kmplibrary.kmpcontrols.generated.resources.Thu
 import kmplibrary.kmpcontrols.generated.resources.Tue
 import kmplibrary.kmpcontrols.generated.resources.Wed
-import kotlinx.datetime.Clock
 import kotlinx.datetime.DateTimeUnit.Companion.DAY
-import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -36,6 +34,8 @@ import kotlinx.datetime.minus
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 import org.jetbrains.compose.resources.stringResource
+import kotlin.time.Clock
+import kotlin.time.Instant
 
 fun getCurrentDateTime(): LocalDateTime {
     return Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())
@@ -48,7 +48,7 @@ fun daysInMonth(year: Int, month: Int): Int {
         LocalDate(year, month + 1, 1)
     }
 
-    return nextMonth.minus(1, DAY).dayOfMonth
+    return nextMonth.minus(1, DAY).day
 }
 
 fun Instant.toLocalString(): String {
@@ -123,12 +123,12 @@ fun LocalDate.toLocalString(format: DateFormats = DateFormats.YYYY_MM_DD): Strin
 }
 
 fun LocalDate.daysInMonth(): Int {
-    val nextMonth = if (this.monthNumber == 12) {
+    val nextMonth = if (this.month.ordinal == 12) {
         LocalDate(year + 1, 1, 1)
     } else {
-        LocalDate(year, this.monthNumber + 1, 1)
+        LocalDate(year, this.month.ordinal + 1, 1)
     }
-    return nextMonth.minus(1, DAY).dayOfMonth
+    return nextMonth.minus(1, DAY).day
 }
 
 fun LocalTime.toLocalString(showSeconds: Boolean = false): String {
@@ -153,8 +153,8 @@ fun LocalDateTime.plus(
     date = date.plus(quantity, unit)
     return LocalDateTime(
         date.year,
-        date.monthNumber,
-        date.dayOfMonth,
+        date.month,
+        date.day,
         this.hour,
         this.minute,
         this.second,
@@ -170,8 +170,8 @@ fun LocalDateTime.minus(
     date = date.minus(quantity, unit)
     return LocalDateTime(
         date.year,
-        date.monthNumber,
-        date.dayOfMonth,
+        date.month,
+        date.day,
         this.hour,
         this.minute,
         this.second,

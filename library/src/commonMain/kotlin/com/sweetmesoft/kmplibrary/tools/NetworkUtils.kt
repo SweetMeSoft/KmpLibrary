@@ -16,9 +16,9 @@ import io.ktor.http.ContentType
 import io.ktor.http.contentType
 import io.ktor.http.setCookie
 import io.ktor.utils.io.ByteReadChannel
-import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlin.time.Clock
 
 expect fun createHttpClient(timeout: Long = 30000): HttpClient
 
