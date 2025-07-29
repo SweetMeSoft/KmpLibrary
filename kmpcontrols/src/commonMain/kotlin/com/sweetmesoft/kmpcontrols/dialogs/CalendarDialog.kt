@@ -54,6 +54,7 @@ import kmplibrary.kmpcontrols.generated.resources.WednesdayOneLetter
 import kotlinx.datetime.DateTimeUnit.Companion.MONTH
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.minus
+import kotlinx.datetime.number
 import kotlinx.datetime.plus
 import org.jetbrains.compose.resources.stringResource
 
@@ -73,8 +74,8 @@ fun CalendarDialog(
         var selectedDate by remember { mutableStateOf(value) }
         var dateShown by remember { mutableStateOf(value) }
         var selectYear by remember { mutableStateOf(false) }
-        val firstDayOfMonth = remember(dateShown.year, dateShown.monthNumber) {
-            LocalDate(dateShown.year, dateShown.monthNumber, 1).dayOfWeek.ordinal % 7
+        val firstDayOfMonth = remember(dateShown.year, dateShown.month.number) {
+            LocalDate(dateShown.year, dateShown.month.number, 1).dayOfWeek.ordinal % 7
         }
         val scrollState = rememberLazyGridState(dateShown.year - 1900)
         val daysOneLetter = listOf(
@@ -157,8 +158,8 @@ fun CalendarDialog(
                                 .clickable(enabled = enabled) {
                                     dateShown = LocalDate(
                                         year + 1900,
-                                        selectedDate.monthNumber,
-                                        selectedDate.dayOfMonth
+                                        selectedDate.month.number,
+                                        selectedDate.day
                                     )
                                     selectYear = false
                                 },
@@ -191,7 +192,7 @@ fun CalendarDialog(
                         Box(modifier = Modifier.aspectRatio(1f)) {}
                     }
                     items(dateShown.daysInMonth()) { day ->
-                        val thisDate = LocalDate(dateShown.year, dateShown.monthNumber, day + 1)
+                        val thisDate = LocalDate(dateShown.year, dateShown.month.number, day + 1)
                         val enabled = thisDate in minDate..maxDate
                         Box(
                             modifier = Modifier
@@ -202,7 +203,7 @@ fun CalendarDialog(
                                     selectedDate =
                                         LocalDate(
                                             dateShown.year,
-                                            dateShown.monthNumber,
+                                            dateShown.month.number,
                                             day + 1
                                         )
                                 },

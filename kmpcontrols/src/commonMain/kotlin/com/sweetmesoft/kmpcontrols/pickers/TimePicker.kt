@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmpcontrols.pickers
 
+import androidx.annotation.RequiresFeature
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -18,6 +19,7 @@ import kmplibrary.kmpcontrols.generated.resources.Res
 import kotlinx.datetime.LocalTime
 import org.jetbrains.compose.resources.stringResource
 
+@RequiresFeature(name = "VIBRATE Android Permission", enforcement = "")
 @Composable
 fun TimePicker(
     modifier: Modifier = Modifier,
@@ -28,7 +30,8 @@ fun TimePicker(
     onSelectedTime: (LocalTime) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
-    ClickableOutlinedTextField(modifier = modifier,
+    ClickableOutlinedTextField(
+        modifier = modifier,
         value = value.toLocalString(),
         title = title,
         color = color,
@@ -38,6 +41,7 @@ fun TimePicker(
         }
     )
 
+    @Suppress("RequiresFeature")
     ClockDialog(
         isVisible = showPicker,
         value = value,

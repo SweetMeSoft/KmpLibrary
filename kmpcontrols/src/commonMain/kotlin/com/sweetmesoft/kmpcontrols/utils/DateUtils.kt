@@ -29,6 +29,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.format
 import kotlinx.datetime.format.DayOfWeekNames
 import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.Padding
 import kotlinx.datetime.format.char
 import kotlinx.datetime.minus
 import kotlinx.datetime.plus
@@ -115,7 +116,7 @@ fun LocalDate.toLocalString(format: DateFormats = DateFormats.YYYY_MM_DD): Strin
             char(' ')
             monthName(MonthNames(monthsAbbreviated))
             char(' ')
-            dayOfMonth()
+            day(padding = Padding.ZERO)
         }
     }
 
@@ -123,10 +124,10 @@ fun LocalDate.toLocalString(format: DateFormats = DateFormats.YYYY_MM_DD): Strin
 }
 
 fun LocalDate.daysInMonth(): Int {
-    val nextMonth = if (this.month.ordinal == 12) {
+    val nextMonth = if (this.month.ordinal == 11) {
         LocalDate(year + 1, 1, 1)
     } else {
-        LocalDate(year, this.month.ordinal + 1, 1)
+        LocalDate(year, this.month.ordinal + 2, 1)
     }
     return nextMonth.minus(1, DAY).day
 }

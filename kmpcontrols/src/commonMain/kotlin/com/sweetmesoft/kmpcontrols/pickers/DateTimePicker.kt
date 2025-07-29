@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmpcontrols.pickers
 
+import androidx.annotation.RequiresFeature
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,9 +18,11 @@ import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.Date
 import kmplibrary.kmpcontrols.generated.resources.Res
 import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.number
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
+@RequiresFeature(name = "VIBRATE Android Permission", enforcement = "")
 fun DateTimePicker(
     modifier: Modifier = Modifier,
     value: LocalDateTime,
@@ -33,7 +36,8 @@ fun DateTimePicker(
     var showDate: Boolean by remember { mutableStateOf(false) }
     var showTime: Boolean by remember { mutableStateOf(false) }
     var selectedDateTime by remember { mutableStateOf(value) }
-    ClickableOutlinedTextField(modifier = modifier,
+    ClickableOutlinedTextField(
+        modifier = modifier,
         value = value.toLocalString(),
         title = title,
         color = color,
@@ -59,8 +63,8 @@ fun DateTimePicker(
     ) { selectedDate ->
         selectedDateTime = LocalDateTime(
             selectedDate.year,
-            selectedDate.monthNumber,
-            selectedDate.dayOfMonth,
+            selectedDate.month.number,
+            selectedDate.day,
             value.hour,
             value.minute
         )
@@ -68,6 +72,7 @@ fun DateTimePicker(
         showTime = true
     }
 
+    @Suppress("RequiresFeature")
     ClockDialog(
         isVisible = showTime,
         value = value.time,
@@ -82,8 +87,8 @@ fun DateTimePicker(
     ) { selectedTime ->
         selectedDateTime = LocalDateTime(
             selectedDateTime.year,
-            selectedDateTime.monthNumber,
-            selectedDateTime.dayOfMonth,
+            selectedDateTime.month.number,
+            selectedDateTime.day,
             selectedTime.hour,
             selectedTime.minute
         )
