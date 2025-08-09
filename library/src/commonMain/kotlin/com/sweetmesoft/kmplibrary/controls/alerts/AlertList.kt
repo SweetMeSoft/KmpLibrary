@@ -3,8 +3,8 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -56,7 +56,7 @@ internal fun AlertList() {
                     list = PopupHandler.listOptions,
                     selectValue = { value = it },
                     value = value,
-                    color = if (PopupHandler.listColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.listColor
+                    color = if (PopupHandler.listColor == Color.Unspecified) MaterialTheme.colorScheme.primary else PopupHandler.listColor
                 )
             }
         }

@@ -5,6 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,8 +16,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +56,7 @@ import kotlin.math.sin
 fun ClockDialog(
     isVisible: Boolean,
     value: LocalTime,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     acceptText: String = stringResource(Res.string.Accept),
     cancelText: String = stringResource(Res.string.Cancel),
     onDismiss: () -> Unit,
@@ -123,7 +124,7 @@ private fun TimeDialogHeader(
     onMinuteClick: () -> Unit
 ) {
     val disabledColor =
-        if (MaterialTheme.colors.isLight) disabledColorText else disabledColorTextDark
+        if (!isSystemInDarkTheme()) disabledColorText else disabledColorTextDark
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -175,7 +176,7 @@ private fun TimeSelector(
             modifier = modifier
                 .size(radiusExternal * 2.5f)
                 .clip(CircleShape)
-                .background(if (MaterialTheme.colors.isLight) disabledColor else disabledColorDark)
+                .background(if (!isSystemInDarkTheme()) disabledColor else disabledColorDark)
                 .pointerInput(isHour) {
                     detectDragGestures { change, dragAmount ->
                         val x = change.position.x - radiusPxExternalExtended
@@ -222,7 +223,7 @@ private fun TimeSelector(
                             .padStart(2, '0') else "",
                         style = TextStyle(
                             fontSize = 16.sp,
-                            color = if (value == selectedValue) Color.White else MaterialTheme.colors.onBackground
+                            color = if (value == selectedValue) Color.White else MaterialTheme.colorScheme.onBackground
                         )
                     )
                 }

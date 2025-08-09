@@ -7,7 +7,6 @@ import android.location.Location
 import android.os.Looper
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -91,7 +90,7 @@ actual fun MapComponent(
                 isBuildingEnabled = showBuildings,
                 isTrafficEnabled = showTraffic
             ),
-            mapColorScheme = if (MaterialTheme.colors.isLight) ComposeMapColorScheme.LIGHT else ComposeMapColorScheme.DARK,
+            mapColorScheme = if (!isSystemInDarkTheme()) ComposeMapColorScheme.LIGHT else ComposeMapColorScheme.DARK,
             onMapClick = { latLng ->
                 onMapClick(Coordinates(latLng.latitude, latLng.longitude))
             },

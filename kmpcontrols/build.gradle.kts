@@ -29,7 +29,7 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.components.resources)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.runtime)
             implementation(compose.ui)
             implementation(libs.compose.icons)

@@ -1,7 +1,7 @@
 package com.sweetmesoft.kmpcontrols.pickers
 
 import androidx.annotation.RequiresFeature
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,7 +26,7 @@ import org.jetbrains.compose.resources.stringResource
 fun DateTimePicker(
     modifier: Modifier = Modifier,
     value: LocalDateTime,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true,
     title: String = stringResource(Res.string.Date),
     minDate: LocalDateTime = LocalDateTime(1900, 1, 1, 0, 0),

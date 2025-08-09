@@ -4,9 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,13 +40,15 @@ import network.chaintech.cmpimagepickncrop.CMPImagePickNCropDialog
 import network.chaintech.cmpimagepickncrop.imagecropper.rememberImageCropper
 
 class MainScreen : Screen {
+    @Suppress("RequiresFeature")
     @Composable
     override fun Content() {
         val vm = remember { MainViewModel() }
         BaseScreen(
-            toolbarColor = MaterialTheme.colors.primary,
+            toolbarColor = MaterialTheme.colorScheme.primary,
             toolbarIconsLight = false,
             title = "KMP TestApp",
+            edgeToEdge = false,
             iconActions = listOf(
                 IconAction(TablerIcons.DotsVertical, true) {
                     navigator.push(AboutScreen())

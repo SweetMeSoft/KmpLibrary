@@ -1,7 +1,7 @@
 package com.sweetmesoft.kmpcontrols.pickers
 
 import androidx.annotation.RequiresFeature
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +24,7 @@ import org.jetbrains.compose.resources.stringResource
 fun TimePicker(
     modifier: Modifier = Modifier,
     value: LocalTime,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     title: String = stringResource(Res.string.Hour),
     enabled: Boolean = true,
     onSelectedTime: (LocalTime) -> Unit

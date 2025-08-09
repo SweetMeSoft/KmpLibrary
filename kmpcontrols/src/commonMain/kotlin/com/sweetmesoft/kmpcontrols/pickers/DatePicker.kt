@@ -1,6 +1,6 @@
 package com.sweetmesoft.kmpcontrols.pickers
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,7 +22,7 @@ import org.jetbrains.compose.resources.stringResource
 fun DatePicker(
     modifier: Modifier = Modifier,
     value: LocalDate,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true,
     title: String = stringResource(Res.string.Date),
     minDate: LocalDate = LocalDate(1900, 1, 1),
@@ -30,7 +30,8 @@ fun DatePicker(
     onSelectedDate: (LocalDate) -> Unit
 ) {
     var showPicker: Boolean by remember { mutableStateOf(false) }
-    ClickableOutlinedTextField(modifier = modifier,
+    ClickableOutlinedTextField(
+        modifier = modifier,
         value = value.toLocalString(),
         title = title,
         color = color,

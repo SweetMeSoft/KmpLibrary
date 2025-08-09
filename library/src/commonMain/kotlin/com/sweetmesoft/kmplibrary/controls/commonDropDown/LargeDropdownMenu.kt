@@ -12,14 +12,14 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,7 +32,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun <T> LargeDropdownMenu(
     modifier: Modifier = Modifier,
@@ -43,7 +43,7 @@ fun <T> LargeDropdownMenu(
     onItemSelected: (index: Int, item: T) -> Unit,
     selectedItemToString: (T) -> String = { it.toString() },
     itemContent: (@Composable (T) -> Unit),
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     drawItem: @Composable (T, Boolean, Boolean, () -> Unit) -> Unit = { item, selected, itemEnabled, onClick ->
         LargeDropdownMenuItem(
             text = item.toString(),
@@ -73,8 +73,8 @@ fun <T> LargeDropdownMenu(
             },
             onValueChange = { },
             readOnly = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = color,
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
             )
@@ -135,10 +135,11 @@ fun LargeDropdownMenuItem(
     enabled: Boolean,
     onClick: () -> Unit,
 ) {
-    Box(modifier = Modifier
-        .clickable(enabled) { onClick() }
-        .fillMaxWidth()
-        .padding(16.dp)) {
+    Box(
+        modifier = Modifier
+            .clickable(enabled) { onClick() }
+            .fillMaxWidth()
+            .padding(16.dp)) {
         Text(
             text = text,
         )

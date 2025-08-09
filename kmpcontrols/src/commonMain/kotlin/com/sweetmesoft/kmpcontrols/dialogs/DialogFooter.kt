@@ -3,10 +3,10 @@ package com.sweetmesoft.kmpcontrols.dialogs
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,9 +31,9 @@ fun DialogFooter(
                 onClick = {
                     onDismiss()
                 },
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = MaterialTheme.colors.error,
-                    backgroundColor = Color.Transparent
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = MaterialTheme.colorScheme.error,
+                    containerColor = Color.Transparent
                 )
             ) {
                 Text(cancelText)
@@ -45,9 +45,9 @@ fun DialogFooter(
                 onClick = {
                     onAccept()
                 },
-                colors = ButtonDefaults.buttonColors(
-                    contentColor = if (color == Color.Unspecified) MaterialTheme.colors.primary else color,
-                    backgroundColor = Color.Transparent
+                colors = ButtonDefaults.textButtonColors(
+                    contentColor = if (color == Color.Unspecified) MaterialTheme.colorScheme.primary else color,
+                    containerColor = Color.Transparent
                 )
             ) {
                 Text(acceptText)

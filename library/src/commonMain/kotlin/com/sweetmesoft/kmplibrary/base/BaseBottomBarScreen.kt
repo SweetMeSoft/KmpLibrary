@@ -1,32 +1,31 @@
 package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -67,6 +66,7 @@ fun BaseBottomBarScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ScreenContent(
     modifier: Modifier, tabs: List<BaseTab>
@@ -85,64 +85,59 @@ private fun ScreenContent(
         topBar = {
             if (tab.baseOptions.showTop || (tab.baseOptions.title.isNotEmpty() && tab.baseOptions.showTop)) {
                 TopAppBar(
-                    backgroundColor = tab.baseOptions.toolbarColor,
-                    contentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
-                    elevation = 0.dp,
                     title = {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Text(tab.baseOptions.title)
-                            Row(
-                                horizontalArrangement = Arrangement.SpaceBetween,
-                                modifier = Modifier.padding(end = 16.dp)
-                            ) {
-                                if (tab.baseOptions.iconActions.any()) {
-                                    tab.baseOptions.iconActions.forEach { action ->
-                                        if (action.showIcon) {
-                                            IconButton(
-                                                onClick = action.onClick,
-                                                modifier = Modifier.padding(start = 12.dp)
-                                                    .size(28.dp)
-                                            ) {
-                                                Icon(
-                                                    imageVector = action.icon,
-                                                    contentDescription = null,
-                                                    modifier = Modifier.padding(4.dp)
-                                                )
-                                            }
-                                        }
+                        Text(tab.baseOptions.title)
+                    },
+                    navigationIcon = {
+                        if (BaseViewModel.navigator.canPop) {
+                            @Composable {
+                                IconButton(
+                                    modifier = Modifier.padding(start = 8.dp),
+                                    onClick = { BaseViewModel.navigator.pop() }) {
+                                    Icon(
+                                        imageVector = TablerIcons.ArrowBack,
+                                        contentDescription = "Back"
+                                    )
+                                }
+                            }
+                        } else {
+                            null
+                        }
+                    },
+                    actions = {
+                        if (tab.baseOptions.iconActions.any()) {
+                            tab.baseOptions.iconActions.forEach { action ->
+                                if (action.showIcon) {
+                                    IconButton(
+                                        onClick = action.onClick,
+                                        modifier = Modifier.padding(start = 12.dp)
+                                            .size(28.dp)
+                                    ) {
+                                        Icon(
+                                            imageVector = action.icon,
+                                            contentDescription = null,
+                                            modifier = Modifier.padding(4.dp)
+                                        )
                                     }
                                 }
                             }
                         }
                     },
-                    navigationIcon = if (BaseViewModel.navigator.canPop) {
-                        {
-                            IconButton(
-                                modifier = Modifier.padding(start = 8.dp),
-                                onClick = { BaseViewModel.navigator.pop() }) {
-                                Icon(
-                                    imageVector = TablerIcons.ArrowBack,
-                                    contentDescription = "Back"
-                                )
-                            }
-                        }
-                    } else {
-                        null
-                    })
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = tab.baseOptions.toolbarColor,
+                        titleContentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
+                        navigationIconContentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
+                        actionIconContentColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White
+                    )
+                )
             }
         },
         bottomBar = {
-            BottomNavigation {
+            NavigationBar {
                 val tabNavigator = LocalTabNavigator.current
                 tabs.forEachIndexed { index, it ->
-                    BottomNavigationItem(
+                    NavigationBarItem(
                         selected = currentTab.value == index,
-                        selectedContentColor = Color.White,
-                        unselectedContentColor = MaterialTheme.colors.primaryVariant,
                         label = { Text(it.options.title) },
                         icon = {
                             Icon(
@@ -154,7 +149,15 @@ private fun ScreenContent(
                         onClick = {
                             currentTab.value = index
                             tabNavigator.current = it
-                        })
+                        },
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = Color.White,
+                            selectedTextColor = Color.White,
+                            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+                            indicatorColor = MaterialTheme.colorScheme.primary
+                        )
+                    )
                 }
             }
         },

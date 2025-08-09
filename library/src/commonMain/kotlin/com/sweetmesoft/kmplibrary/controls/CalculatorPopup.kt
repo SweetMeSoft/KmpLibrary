@@ -9,9 +9,9 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -49,7 +49,7 @@ fun CalculatorPopup(
         ) {
             Column(
                 modifier = Modifier.background(
-                    MaterialTheme.colors.surface,
+                    MaterialTheme.colorScheme.surface,
                     shape = RoundedCornerShape(16.dp)
                 )
             ) {
@@ -112,7 +112,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colors.background), '/'
+                            .background(MaterialTheme.colorScheme.background), '/'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -133,7 +133,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colors.background), '*'
+                            .background(MaterialTheme.colorScheme.background), '*'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -154,7 +154,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colors.background), '-'
+                            .background(MaterialTheme.colorScheme.background), '-'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -175,7 +175,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colors.background), '+'
+                            .background(MaterialTheme.colorScheme.background), '+'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -195,7 +195,7 @@ fun CalculatorPopup(
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
                             .clip(RoundedCornerShape(bottomEnd = 16.dp))
-                            .background(MaterialTheme.colors.background), '='
+                            .background(MaterialTheme.colorScheme.background), '='
                     ) {
                         onResult(total.toDouble())
                     }
@@ -275,7 +275,7 @@ private fun CalculatorButton(
         Text(
             text = text.toString(),
             fontSize = 28.sp,
-            color = if (text.isDigit()) MaterialTheme.colors.onBackground else MaterialTheme.colors.primary
+            color = if (text.isDigit()) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.primary
         )
     }
 }

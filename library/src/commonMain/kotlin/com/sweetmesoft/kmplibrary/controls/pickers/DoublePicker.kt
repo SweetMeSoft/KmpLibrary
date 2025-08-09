@@ -1,6 +1,6 @@
 package com.sweetmesoft.kmplibrary.controls.pickers
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,13 +15,14 @@ import com.sweetmesoft.kmplibrary.controls.CalculatorPopup
 fun DoublePicker(
     modifier: Modifier = Modifier,
     title: String,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     value: String = "",
     enabled: Boolean = true,
     onValueChange: (Double) -> Unit
 ) {
     var showCalculator: Boolean by remember { mutableStateOf(false) }
-    ClickableOutlinedTextField(modifier = modifier,
+    ClickableOutlinedTextField(
+        modifier = modifier,
         value = value,
         title = title,
         color = color,

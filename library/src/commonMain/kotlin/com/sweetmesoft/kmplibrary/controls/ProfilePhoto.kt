@@ -1,5 +1,4 @@
 package com.sweetmesoft.kmplibrary.controls
-
 //import network.chaintech.cmpimagepickncrop.CMPImagePickNCropDialog
 //import network.chaintech.cmpimagepickncrop.imagecropper.rememberImageCropper
 import androidx.compose.animation.core.tween
@@ -8,8 +7,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.getValue
@@ -42,7 +41,7 @@ fun ProfilePhoto(
     urlImage: String,
     radius: Dp = 140.dp,
     invalidateCache: Boolean = false,
-    loaderColor: Color = MaterialTheme.colors.primary,
+    loaderColor: Color = MaterialTheme.colorScheme.primary,
     onClick: () -> Unit = {}
 ) {
     val customKamelConfig = KamelConfig {
@@ -53,9 +52,6 @@ fun ProfilePhoto(
         httpUrlFetcher(createHttpClient())
     }
 //    val imageCropper = rememberImageCropper()
-    var selectedImage by remember { mutableStateOf<ImageBitmap?>(null) }
-    var openImagePicker by remember { mutableStateOf(value = false) }
-
     CompositionLocalProvider(LocalKamelConfig provides customKamelConfig) {
         KamelImage(
             {

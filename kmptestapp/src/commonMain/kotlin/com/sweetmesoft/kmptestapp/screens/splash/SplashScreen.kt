@@ -1,6 +1,6 @@
 package com.sweetmesoft.kmptestapp.screens.splash
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
 import com.sweetmesoft.kmplibrary.base.BaseScreen
@@ -14,13 +14,13 @@ class SplashScreen : Screen {
     @Composable
     override fun Content() {
         BaseScreen(
-            toolbarColor = MaterialTheme.colors.primary,
+            toolbarColor = MaterialTheme.colorScheme.primary,
             toolbarIconsLight = false
         ) {
             SplashContent(
                 logo = Res.drawable.sweetmesoft_logo_sq_transparent,
-                backgroundColor = MaterialTheme.colors.primaryVariant,
-                background2Color = MaterialTheme.colors.primary,
+                backgroundColor = MaterialTheme.colorScheme.secondary,
+                background2Color = MaterialTheme.colorScheme.primary,
                 action = { navigator.replace(MainScreen()) }
             )
         }

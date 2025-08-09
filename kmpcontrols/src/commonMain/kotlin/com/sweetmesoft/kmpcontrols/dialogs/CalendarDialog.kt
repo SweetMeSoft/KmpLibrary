@@ -2,6 +2,7 @@ package com.sweetmesoft.kmpcontrols.dialogs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,10 +17,10 @@ import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -62,7 +63,7 @@ import org.jetbrains.compose.resources.stringResource
 fun CalendarDialog(
     isVisible: Boolean,
     value: LocalDate,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     acceptText: String = stringResource(Res.string.Accept),
     cancelText: String = stringResource(Res.string.Cancel),
     minDate: LocalDate = LocalDate(1900, 1, 1),
@@ -114,7 +115,7 @@ fun CalendarDialog(
                 )
                 Text(
                     text = selectedDate.toLocalString(DateFormats.WWW_MMM_DD),
-                    style = MaterialTheme.typography.h4,
+                    style = MaterialTheme.typography.bodySmall,
                     color = Color.White
                 )
             }
@@ -131,7 +132,7 @@ fun CalendarDialog(
                 }
                 Text(
                     text = dateShown.month.name + ", " + dateShown.year.toString(),
-                    style = MaterialTheme.typography.subtitle1,
+                    style = MaterialTheme.typography.bodyMedium,
                     modifier = Modifier.align(Alignment.CenterVertically)
                 )
                 IconButton(onClick = {
@@ -153,7 +154,7 @@ fun CalendarDialog(
                         Box(
                             modifier = Modifier
                                 .background(
-                                    if (year == dateShown.year) color else MaterialTheme.colors.surface,
+                                    if (year == dateShown.year) color else MaterialTheme.colorScheme.surface,
                                 )
                                 .clickable(enabled = enabled) {
                                     dateShown = LocalDate(
@@ -168,8 +169,8 @@ fun CalendarDialog(
                             Text(
                                 modifier = Modifier.padding(vertical = 16.dp),
                                 text = (year + 1900).toString(),
-                                style = MaterialTheme.typography.body2,
-                                color = if ((year + 1900) == dateShown.year) color else MaterialTheme.colors.onSurface
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = if ((year + 1900) == dateShown.year) color else MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }
@@ -182,7 +183,7 @@ fun CalendarDialog(
                     itemsIndexed(daysOneLetter) { index, day ->
                         Text(
                             text = day,
-                            color = if (MaterialTheme.colors.isLight) disabledColorText else disabledColorTextDark,
+                            color = if (!isSystemInDarkTheme()) disabledColorText else disabledColorTextDark,
                             textAlign = TextAlign.Center,
                             fontSize = 13.sp
                         )
@@ -198,7 +199,7 @@ fun CalendarDialog(
                             modifier = Modifier
                                 .aspectRatio(1f)
                                 .clip(CircleShape)
-                                .background(if (thisDate == selectedDate) color else MaterialTheme.colors.surface)
+                                .background(if (thisDate == selectedDate) color else MaterialTheme.colorScheme.surface)
                                 .clickable(enabled = enabled) {
                                     selectedDate =
                                         LocalDate(
@@ -211,8 +212,8 @@ fun CalendarDialog(
                         ) {
                             Text(
                                 text = (day + 1).toString(),
-                                style = MaterialTheme.typography.body2,
-                                color = if (!enabled) disabledColorDark else if (thisDate == selectedDate) Color.White else MaterialTheme.colors.onSurface
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = if (!enabled) disabledColorDark else if (thisDate == selectedDate) Color.White else MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }

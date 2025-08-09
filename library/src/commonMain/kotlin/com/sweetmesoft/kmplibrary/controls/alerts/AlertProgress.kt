@@ -3,9 +3,9 @@ package com.sweetmesoft.kmplibrary.controls.alerts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.LinearProgressIndicator
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -40,7 +40,7 @@ internal fun AlertProgress() {
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxWidth(),
                     progress = PopupHandler.progressProgress,
-                    color = if (PopupHandler.progressColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.progressColor
+                    color = if (PopupHandler.progressColor == Color.Unspecified) MaterialTheme.colorScheme.primary else PopupHandler.progressColor
                 )
                 Text(
                     text = (PopupHandler.progressProgress * 100).toInt().toString() + "/100",

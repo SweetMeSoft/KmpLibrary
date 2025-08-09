@@ -1,6 +1,7 @@
 package com.sweetmesoft.kmplibrary.base
 
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,10 +36,10 @@ fun defaultBaseTabOptions(
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = TablerIcons.Check,
-    toolbarColor: Color = MaterialTheme.colors.background,
-    toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
-    navigationColor: Color = MaterialTheme.colors.background,
-    navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
+    toolbarColor: Color = MaterialTheme.colorScheme.background,
+    toolbarIconsLight: Boolean = !isSystemInDarkTheme(),
+    navigationColor: Color = MaterialTheme.colorScheme.background,
+    navigationIconsLight: Boolean = !isSystemInDarkTheme(),
     iconActions: List<IconAction> = listOf()
 ): BaseTabOptions {
     return BaseTabOptions(

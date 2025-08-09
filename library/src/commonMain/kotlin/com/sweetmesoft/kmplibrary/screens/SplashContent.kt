@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -39,9 +39,9 @@ import org.jetbrains.compose.resources.stringResource
 fun SplashContent(
     logo: DrawableResource,
     waitMillis: Int = 1500,
-    backgroundColor: Color = MaterialTheme.colors.secondary,
-    background2Color: Color = MaterialTheme.colors.secondary,
-    onBackgroundColor: Color = MaterialTheme.colors.onSecondary,
+    backgroundColor: Color = MaterialTheme.colorScheme.secondary,
+    background2Color: Color = MaterialTheme.colorScheme.secondary,
+    onBackgroundColor: Color = MaterialTheme.colorScheme.onSecondary,
     title: String = stringResource(Res.string.By),
     subtitle: String = stringResource(Res.string.Slogan),
     action: () -> Unit

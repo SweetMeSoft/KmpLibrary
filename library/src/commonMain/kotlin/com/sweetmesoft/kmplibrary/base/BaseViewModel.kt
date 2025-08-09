@@ -1,7 +1,7 @@
 package com.sweetmesoft.kmplibrary.base
 
-import androidx.compose.material.DrawerState
-import androidx.compose.material.DrawerValue
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue

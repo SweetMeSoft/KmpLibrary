@@ -5,11 +5,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -46,7 +46,7 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
                 DropdownMenuItem(onClick = {
                     item.onClick()
                     showMenu = false
-                }) {
+                }, text = {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         if (item.icon != null) {
                             Icon(
@@ -58,7 +58,7 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
                         }
                         Text(item.text)
                     }
-                }
+                })
             }
         }
     }

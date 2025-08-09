@@ -1,6 +1,7 @@
 package com.sweetmesoft.kmplibrary.base
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
@@ -11,13 +12,15 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -45,10 +48,10 @@ fun BaseBottomSheetScreen(
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = TablerIcons.Check,
-    toolbarColor: Color = MaterialTheme.colors.background,
-    toolbarIconsLight: Boolean = MaterialTheme.colors.isLight,
-    navigationColor: Color = MaterialTheme.colors.background,
-    navigationIconsLight: Boolean = MaterialTheme.colors.isLight,
+    toolbarColor: Color = MaterialTheme.colorScheme.background,
+    toolbarIconsLight: Boolean = !isSystemInDarkTheme(),
+    navigationColor: Color = MaterialTheme.colorScheme.background,
+    navigationIconsLight: Boolean = !isSystemInDarkTheme(),
     iconActions: List<IconAction> = listOf(),
     content: @Composable () -> Unit
 ) {
@@ -69,6 +72,7 @@ fun BaseBottomSheetScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ScreenContent(
     modifier: Modifier,
@@ -90,9 +94,6 @@ private fun ScreenContent(
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
-                    backgroundColor = toolbarColor,
-                    contentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                    elevation = 0.dp,
                     title = {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -134,7 +135,13 @@ private fun ScreenContent(
                                 contentDescription = "Close"
                             )
                         }
-                    }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = toolbarColor,
+                        titleContentColor = if (toolbarIconsLight) Color.Black else Color.White,
+                        navigationIconContentColor = if (toolbarIconsLight) Color.Black else Color.White,
+                        actionIconContentColor = if (toolbarIconsLight) Color.Black else Color.White
+                    )
                 )
             }
         },

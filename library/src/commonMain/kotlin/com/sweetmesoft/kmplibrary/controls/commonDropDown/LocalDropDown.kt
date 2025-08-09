@@ -2,14 +2,14 @@ package com.sweetmesoft.kmplibrary.controls.commonDropDown
 
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,14 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 inline fun <reified T : Any> LocalDropDown(
     modifier: Modifier = Modifier,
     list: List<T> = listOf(),
     title: String,
     value: String,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     enabled: Boolean = true,
     crossinline selectValue: (T) -> Unit,
     crossinline itemContent: (@Composable (T) -> Unit)
@@ -65,8 +65,8 @@ inline fun <reified T : Any> LocalDropDown(
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = color,
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
             )
@@ -81,9 +81,9 @@ inline fun <reified T : Any> LocalDropDown(
                 DropdownMenuItem(onClick = {
                     selectValue(it)
                     expanded = false
-                }) {
+                }, text = {
                     itemContent(it)
-                }
+                })
             }
         }
     }

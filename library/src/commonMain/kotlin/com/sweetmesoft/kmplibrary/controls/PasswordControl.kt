@@ -2,12 +2,12 @@ package com.sweetmesoft.kmplibrary.controls
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +33,7 @@ fun PasswordControl(
     modifier: Modifier = Modifier,
     value: String,
     label: String = stringResource(Res.string.Password),
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
@@ -71,8 +71,8 @@ fun PasswordControl(
                 )
             }
         },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = color,
+        colors = TextFieldDefaults.colors(
+            focusedIndicatorColor = color,
             cursorColor = color,
             focusedLabelColor = color,
         ),

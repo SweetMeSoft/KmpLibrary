@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -59,10 +59,10 @@ internal fun AlertPrompt() {
                     onValueChange = { text = it },
                     keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Sentences),
                     singleLine = true,
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
-                        cursorColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
-                        focusedLabelColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colors.primary else PopupHandler.promptColor,
+                    colors = TextFieldDefaults.colors(
+                        focusedIndicatorColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colorScheme.primary else PopupHandler.promptColor,
+                        cursorColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colorScheme.primary else PopupHandler.promptColor,
+                        focusedLabelColor = if (PopupHandler.promptColor == Color.Unspecified) MaterialTheme.colorScheme.primary else PopupHandler.promptColor,
                     )
                 )
             }

@@ -2,14 +2,14 @@ package com.sweetmesoft.kmplibrary.controls.commonDropDown
 
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.DropdownMenuItem
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.ExposedDropdownMenuBox
-import androidx.compose.material.ExposedDropdownMenuDefaults
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,13 +20,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextOverflow
 
-@OptIn(ExperimentalMaterialApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CommonDropDown(
     modifier: Modifier = Modifier,
     list: List<CommonDropDownItem> = listOf(),
     title: String,
-    color: Color = MaterialTheme.colors.primary,
+    color: Color = MaterialTheme.colorScheme.primary,
     selectValue: (CommonDropDownItem) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -59,8 +59,8 @@ fun CommonDropDown(
             keyboardOptions = KeyboardOptions.Default.copy(
                 imeAction = ImeAction.Done
             ),
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = color,
+            colors = TextFieldDefaults.colors(
+                focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
             )
@@ -75,13 +75,13 @@ fun CommonDropDown(
                     selectValue(it)
                     selectedOption = it.text
                     expanded = false
-                }) {
+                }, text = {
                     Text(
                         text = it.text,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                }
+                })
             }
         }
     }

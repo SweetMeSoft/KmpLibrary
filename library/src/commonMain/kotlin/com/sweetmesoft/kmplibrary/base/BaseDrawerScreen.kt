@@ -16,15 +16,18 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
-import androidx.compose.material.Divider
-import androidx.compose.material.FloatingActionButton
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.ModalDrawer
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material3.Divider
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -70,17 +73,22 @@ fun BaseDrawerScreen(
     logoutAction: () -> Unit = {},
     headerView: @Composable () -> Unit = {}
 ) {
-    ModalDrawer(
-        drawerBackgroundColor = Color.Transparent,
-        drawerElevation = 0.dp,
+    ModalNavigationDrawer(
+        drawerState = vm.baseState.drawerState,
         drawerContent = {
-            DrawerContent(tabs, vm, logoutAction, headerView)
-        }, drawerState = vm.baseState.drawerState
-    ) {
-        ScreenContent(
-            modifier, tabs[BaseDrawerScreen.currentTab.value], vm
-        )
-    }
+            ModalDrawerSheet(
+                drawerContainerColor = Color.Transparent,
+                drawerTonalElevation = 0.dp
+            ) {
+                DrawerContent(tabs, vm, logoutAction, headerView)
+            }
+        },
+        content = {
+            ScreenContent(
+                modifier, tabs[BaseDrawerScreen.currentTab.value], vm
+            )
+        }
+    )
 }
 
 @Composable
@@ -122,7 +130,7 @@ private fun DrawerContent(
     val scope = rememberCoroutineScope()
     Column(
         modifier = Modifier.fillMaxHeight().fillMaxWidth(0.75f)
-            .background(MaterialTheme.colors.surface)
+            .background(MaterialTheme.colorScheme.surface)
             .windowInsetsPadding(WindowInsets.safeDrawing),
     ) {
         headerView()
@@ -152,6 +160,7 @@ private fun DrawerContent(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun TabContent(
     modifier: Modifier,
@@ -176,9 +185,6 @@ private fun TabContent(
         topBar = {
             if (title.isNotEmpty() || showTop) {
                 TopAppBar(
-                    backgroundColor = toolbarColor,
-                    contentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                    elevation = 0.dp,
                     title = {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -222,7 +228,13 @@ private fun TabContent(
                                 contentDescription = "List"
                             )
                         }
-                    }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = toolbarColor,
+                        titleContentColor = if (toolbarIconsLight) Color.Black else Color.White,
+                        navigationIconContentColor = if (toolbarIconsLight) Color.Black else Color.White,
+                        actionIconContentColor = if (toolbarIconsLight) Color.Black else Color.White
+                    )
                 )
             }
         },
@@ -256,21 +268,21 @@ private fun ItemDrawer(
         if (BaseDrawerScreen.currentTab.value == index) {
             Icon(
                 imageVector = TablerIcons.ChevronRight,
-                tint = MaterialTheme.colors.onSurface,
+                tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = title,
                 modifier = Modifier.padding(end = 16.dp).size(16.dp)
             )
         }
         Icon(
             painter = icon!!,
-            tint = MaterialTheme.colors.onSurface,
+            tint = MaterialTheme.colorScheme.onSurface,
             contentDescription = title,
             modifier = Modifier.padding(end = 16.dp).size(24.dp)
         )
         Text(
             text = title,
             modifier = Modifier.weight(1f),
-            color = MaterialTheme.colors.onSurface,
+            color = MaterialTheme.colorScheme.onSurface,
             fontWeight = if (BaseDrawerScreen.currentTab.value == index) FontWeight.Bold else FontWeight.Normal
         )
     }
