@@ -1,27 +1,27 @@
 # 📙 Library Documentation
 
-Library es el módulo principal de la librería SweetMeSoft KMP que proporciona componentes UI avanzados, herramientas de navegación, utilidades de red y funcionalidades completas para el desarrollo de aplicaciones multiplataforma.
+Library is the main module of the SweetMeSoft KMP library that provides advanced UI components, navigation tools, network utilities and complete functionalities for cross-platform application development.
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [Instalación](#instalación)
-- [Arquitectura Base](#arquitectura-base)
-- [Componentes UI](#componentes-ui)
-- [Controles Avanzados](#controles-avanzados)
-- [Alertas y Diálogos](#alertas-y-diálogos)
-- [Listas y Grids](#listas-y-grids)
-- [Utilidades](#utilidades)
-- [Navegación](#navegación)
-- [Ejemplos de Uso](#ejemplos-de-uso)
+- [Installation](#installation)
+- [Base Architecture](#base-architecture)
+- [UI Components](#ui-components)
+- [Advanced Controls](#advanced-controls)
+- [Alerts and Dialogs](#alerts-and-dialogs)
+- [Lists and Grids](#lists-and-grids)
+- [Utilities](#utilities)
+- [Navigation](#navigation)
+- [Usage Examples](#usage-examples)
 
-## 🚀 Instalación
+## 🚀 Installation
 
 ```kotlin
 commonMain.dependencies {
     implementation("com.sweetmesoft.kmplibrary:kmplibrary:1.6.6")
     implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
     
-    // Dependencias requeridas
+    // Required dependencies
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
     implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta03")
@@ -34,10 +34,10 @@ commonMain.dependencies {
 }
 ```
 
-## 🏗️ Arquitectura Base
+## 🏗️ Base Architecture
 
 ### BaseViewModel
-Clase base para ViewModels con funcionalidades comunes.
+Base class for ViewModels with common functionalities.
 
 ```kotlin
 abstract class BaseViewModel : ViewModel() {
@@ -70,7 +70,7 @@ abstract class BaseViewModel : ViewModel() {
 ```
 
 ### BaseScreen
-Pantalla base con funcionalidades comunes.
+Base screen with common functionalities.
 
 ```kotlin
 abstract class BaseScreen : Screen {
@@ -85,7 +85,7 @@ abstract class BaseScreen : Screen {
 ```
 
 ### BaseBottomBarScreen
-Pantalla base con barra de navegación inferior.
+Base screen with bottom navigation bar.
 
 ```kotlin
 abstract class BaseBottomBarScreen : Screen {
@@ -108,10 +108,10 @@ abstract class BaseBottomBarScreen : Screen {
 }
 ```
 
-## 🎨 Componentes UI
+## 🎨 UI Components
 
 ### PasswordControl
-Control de contraseña con visibilidad toggleable.
+Password control with toggleable visibility.
 
 ```kotlin
 @Composable
@@ -119,7 +119,7 @@ fun PasswordControl(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: String = "Contraseña",
+    label: String = "Password",
     placeholder: String = "",
     enabled: Boolean = true,
     isError: Boolean = false,
@@ -128,7 +128,7 @@ fun PasswordControl(
 ```
 
 ### SearchControl
-Control de búsqueda con funcionalidades avanzadas.
+Search control with advanced functionalities.
 
 ```kotlin
 @Composable
@@ -137,7 +137,7 @@ fun SearchControl(
     onQueryChange: (String) -> Unit,
     onSearch: (String) -> Unit,
     modifier: Modifier = Modifier,
-    placeholder: String = "Buscar...",
+    placeholder: String = "Search...",
     enabled: Boolean = true,
     suggestions: List<String> = emptyList(),
     onSuggestionClick: (String) -> Unit = {}
@@ -145,7 +145,7 @@ fun SearchControl(
 ```
 
 ### ProfilePhoto
-Componente para mostrar y editar fotos de perfil.
+Component for displaying and editing profile photos.
 
 ```kotlin
 @Composable
@@ -160,20 +160,20 @@ fun ProfilePhoto(
 ```
 
 ### LoadingView
-Indicador de carga personalizable.
+Customizable loading indicator.
 
 ```kotlin
 @Composable
 fun LoadingView(
     modifier: Modifier = Modifier,
-    message: String = "Cargando...",
+    message: String = "Loading...",
     showMessage: Boolean = true,
     color: Color = MaterialTheme.colorScheme.primary
 )
 ```
 
 ### MoreControl
-Control de menú de opciones (tres puntos).
+Options menu control (three dots).
 
 ```kotlin
 @Composable
@@ -191,10 +191,10 @@ data class IconAction(
 )
 ```
 
-## 🚨 Alertas y Diálogos
+## 🚨 Alerts and Dialogs
 
 ### PopupHandler
-Manejador global de popups y alertas.
+Global handler for popups and alerts.
 
 ```kotlin
 object PopupHandler {
@@ -227,7 +227,7 @@ object PopupHandler {
 ```
 
 ### AlertConfirm
-Diálogo de confirmación.
+Confirmation dialog.
 
 ```kotlin
 @Composable
@@ -236,28 +236,28 @@ fun AlertConfirm(
     message: String,
     onConfirm: () -> Unit,
     onCancel: () -> Unit,
-    confirmText: String = "Aceptar",
-    cancelText: String = "Cancelar",
+    confirmText: String = "Accept",
+    cancelText: String = "Cancel",
     showDialog: Boolean = true
 )
 ```
 
 ### AlertProgress
-Diálogo de progreso.
+Progress dialog.
 
 ```kotlin
 @Composable
 fun AlertProgress(
     title: String,
     message: String,
-    progress: Float? = null, // null para progreso indeterminado
+    progress: Float? = null, // null for indeterminate progress
     showDialog: Boolean = true,
     onCancel: (() -> Unit)? = null
 )
 ```
 
 ### AlertPrompt
-Diálogo de entrada de texto.
+Text input dialog.
 
 ```kotlin
 @Composable
@@ -272,10 +272,10 @@ fun AlertPrompt(
 )
 ```
 
-## 📋 Listas y Grids
+## 📋 Lists and Grids
 
 ### LocalList
-Lista local con datos estáticos.
+Local list with static data.
 
 ```kotlin
 @Composable
@@ -289,7 +289,7 @@ fun <T> LocalList(
 ```
 
 ### RemoteList
-Lista con datos remotos y paginación.
+List with remote data and pagination.
 
 ```kotlin
 @Composable
@@ -306,7 +306,7 @@ fun <T> RemoteList(
 ```
 
 ### LocalGridList
-Grid local con datos estáticos.
+Local grid with static data.
 
 ```kotlin
 @Composable
@@ -320,7 +320,7 @@ fun <T> LocalGridList(
 ```
 
 ### RemoteGridList
-Grid con datos remotos.
+Grid with remote data.
 
 ```kotlin
 @Composable
@@ -338,7 +338,7 @@ fun <T> RemoteGridList(
 ## 🔽 Dropdowns
 
 ### CommonDropDown
-Dropdown básico con elementos locales.
+Basic dropdown with local elements.
 
 ```kotlin
 @Composable
@@ -354,7 +354,7 @@ fun <T> CommonDropDown(
 ```
 
 ### RemoteDropDown
-Dropdown con datos remotos.
+Dropdown with remote data.
 
 ```kotlin
 @Composable
@@ -369,10 +369,10 @@ fun <T> RemoteDropDown(
 )
 ```
 
-## 🛠️ Utilidades
+## 🛠️ Utilities
 
 ### NetworkUtils
-Utilidades para operaciones de red.
+Utilities for network operations.
 
 ```kotlin
 object NetworkUtils {
@@ -387,7 +387,7 @@ object NetworkUtils {
 ```
 
 ### ImageUtils
-Utilidades para manejo de imágenes.
+Utilities for image handling.
 
 ```kotlin
 object ImageUtils {
@@ -400,7 +400,7 @@ object ImageUtils {
 ```
 
 ### StringUtils
-Utilidades para manejo de strings.
+Utilities for string handling.
 
 ```kotlin
 object StringUtils {
@@ -414,7 +414,7 @@ object StringUtils {
 ```
 
 ### FileUtils
-Utilidades para manejo de archivos.
+Utilities for file handling.
 
 ```kotlin
 object FileUtils {
@@ -427,10 +427,10 @@ object FileUtils {
 }
 ```
 
-## 📱 Pantallas Predefinidas
+## 📱 Predefined Screens
 
 ### SplashContent
-Pantalla de splash personalizable.
+Customizable splash screen.
 
 ```kotlin
 @Composable
@@ -444,7 +444,7 @@ fun SplashContent(
 ```
 
 ### AboutContent
-Pantalla de información de la app.
+App information screen.
 
 ```kotlin
 @Composable
@@ -458,9 +458,9 @@ fun AboutContent(
 )
 ```
 
-## 📝 Ejemplos de Uso
+## 📝 Usage Examples
 
-### Ejemplo 1: Aplicación Completa con Navegación
+### Example 1: Complete Application with Navigation
 
 ```kotlin
 @Composable
@@ -477,8 +477,8 @@ class SplashScreen : BaseScreen() {
     @Composable
     override fun ScreenContent() {
         SplashContent(
-            title = "Mi App",
-            subtitle = "Bienvenido",
+            title = "My App",
+            subtitle = "Welcome",
             onSplashComplete = {
                 navigateTo(MainScreen())
             }
@@ -497,7 +497,7 @@ class MainScreen : BaseBottomBarScreen() {
                 query = searchQuery,
                 onQueryChange = { searchQuery = it },
                 onSearch = { query ->
-                    // Realizar búsqueda
+                    // Perform search
                     items = performSearch(query)
                 }
             )
@@ -520,14 +520,14 @@ class MainScreen : BaseBottomBarScreen() {
                 selected = true,
                 onClick = { },
                 icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                label = { Text("Inicio") }
+                label = { Text("Home") }
             )
         }
     }
 }
 ```
 
-### Ejemplo 2: Formulario con Validación
+### Example 2: Form with Validation
 
 ```kotlin
 @Composable
@@ -552,7 +552,7 @@ fun UserFormExample() {
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Nombre") },
+            label = { Text("Name") },
             modifier = Modifier.fillMaxWidth()
         )
         
@@ -567,9 +567,9 @@ fun UserFormExample() {
         PasswordControl(
             value = password,
             onValueChange = { password = it },
-            label = "Contraseña",
+            label = "Password",
             supportingText = if (password.isNotBlank() && password.length < 6) {
-                "La contraseña debe tener al menos 6 caracteres"
+                "Password must be at least 6 characters"
             } else null
         )
         
@@ -577,7 +577,7 @@ fun UserFormExample() {
             url = "https://api.example.com/countries",
             selectedItem = selectedCountry,
             onItemSelected = { selectedCountry = it },
-            label = "País",
+            label = "Country",
             parser = { json -> parseCountries(json) },
             itemText = { it.name }
         )
@@ -591,13 +591,13 @@ fun UserFormExample() {
             enabled = isFormValid,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Registrarse")
+            Text("Register")
         }
     }
 }
 ```
 
-### Ejemplo 3: Lista con Datos Remotos
+### Example 3: List with Remote Data
 
 ```kotlin
 @Composable
@@ -624,7 +624,7 @@ fun ProductListExample() {
             ProductItem(
                 product = product,
                 onClick = {
-                    // Navegar a detalles del producto
+                    // Navigate to product details
                 }
             )
         }
@@ -674,8 +674,8 @@ fun ProductItem(
             
             MoreControl(
                 options = listOf(
-                    IconAction("edit", "Editar", Icons.Default.Edit),
-                    IconAction("delete", "Eliminar", Icons.Default.Delete)
+                    IconAction("edit", "Edit", Icons.Default.Edit),
+                    IconAction("delete", "Delete", Icons.Default.Delete)
                 ),
                 onOptionSelected = { action ->
                     when (action.id) {
@@ -689,9 +689,9 @@ fun ProductItem(
 }
 ```
 
-## 🎨 Personalización Avanzada
+## 🎨 Advanced Customization
 
-### Temas Personalizados
+### Custom Themes
 
 ```kotlin
 @Composable
@@ -727,20 +727,20 @@ fun MyAppTheme(
 }
 ```
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
 - [Voyager Navigation](https://github.com/adrielcafe/voyager)
 - [Ktor Client](https://ktor.io/docs/client.html)
 - [Kamel Image Loading](https://github.com/Kamel-Media/Kamel)
 - [Compottie Animations](https://github.com/alexzhirkevich/compottie)
-- [Ejemplos Completos](../kmptestapp/)
-- [Reportar Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
+- [Complete Examples](../kmptestapp/)
+- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
 
 ---
 
-**Próximas Características:**
-- Más componentes UI
-- Integración con bases de datos locales
-- Soporte para notificaciones push
-- Herramientas de analytics
-- Más utilidades de red
+**Upcoming Features:**
+- More UI components
+- Local database integration
+- Push notification support
+- Analytics tools
+- More network utilities

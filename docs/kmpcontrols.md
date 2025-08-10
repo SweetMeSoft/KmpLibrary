@@ -1,35 +1,35 @@
 # 📘 KMPControls Documentation
 
-KMPControls es el módulo fundamental de la librería SweetMeSoft KMP que proporciona componentes UI básicos y utilidades esenciales para el desarrollo multiplataforma.
+KMPControls is the fundamental module of the SweetMeSoft KMP library that provides basic UI components and essential utilities for multiplatform development.
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [Instalación](#instalación)
-- [Componentes Disponibles](#componentes-disponibles)
-- [Controles](#controles)
-- [Diálogos](#diálogos)
-- [Selectores](#selectores)
-- [Utilidades](#utilidades)
-- [Ejemplos de Uso](#ejemplos-de-uso)
+- [Installation](#installation)
+- [Available Components](#available-components)
+- [Controls](#controls)
+- [Dialogs](#dialogs)
+- [Selectors](#selectors)
+- [Utilities](#utilities)
+- [Usage Examples](#usage-examples)
 
-## 🚀 Instalación
+## 🚀 Installation
 
 ```kotlin
 commonMain.dependencies {
     implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
     
-    // Dependencias requeridas
+    // Required dependencies
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
 }
 ```
 
-## 🎛️ Componentes Disponibles
+## 🎛️ Available Components
 
-### Controles
+### Controls
 
 #### ClickableOutlinedTextField
-Campo de texto que actúa como botón, ideal para selectores y navegación.
+Text field that acts as a button, ideal for selectors and navigation.
 
 ```kotlin
 @Composable
@@ -43,20 +43,20 @@ fun ClickableOutlinedTextField(
 )
 ```
 
-**Ejemplo de uso:**
+**Usage example:**
 ```kotlin
 ClickableOutlinedTextField(
     value = selectedDate,
-    title = "Seleccionar Fecha",
+    title = "Select Date",
     color = MaterialTheme.colorScheme.primary,
     onClick = { showDatePicker = true }
 )
 ```
 
-### 🗨️ Diálogos
+### 🗨️ Dialogs
 
 #### BaseDialog
-Diálogo base personalizable para crear modales consistentes.
+Customizable base dialog for creating consistent modals.
 
 ```kotlin
 @Composable
@@ -69,7 +69,7 @@ fun BaseDialog(
 ```
 
 #### CalendarDialog
-Diálogo con calendario integrado para selección de fechas.
+Dialog with integrated calendar for date selection.
 
 ```kotlin
 @Composable
@@ -82,7 +82,7 @@ fun CalendarDialog(
 ```
 
 #### ClockDialog
-Diálogo para selección de hora con interfaz intuitiva.
+Dialog for time selection with intuitive interface.
 
 ```kotlin
 @Composable
@@ -95,23 +95,23 @@ fun ClockDialog(
 ```
 
 #### DialogFooter
-Pie de diálogo estandarizado con botones de acción.
+Standardized dialog footer with action buttons.
 
 ```kotlin
 @Composable
 fun DialogFooter(
     onCancel: () -> Unit,
     onAccept: () -> Unit,
-    cancelText: String = "Cancelar",
-    acceptText: String = "Aceptar",
+    cancelText: String = "Cancel",
+    acceptText: String = "Accept",
     acceptEnabled: Boolean = true
 )
 ```
 
-### 📅 Selectores (Pickers)
+### 📅 Selectors (Pickers)
 
 #### DatePicker
-Selector de fecha con interfaz Material Design.
+Date selector with Material Design interface.
 
 ```kotlin
 @Composable
@@ -119,14 +119,14 @@ fun DatePicker(
     modifier: Modifier = Modifier,
     selectedDate: String,
     onDateSelected: (String) -> Unit,
-    label: String = "Fecha",
+    label: String = "Date",
     format: String = "dd/MM/yyyy",
     enabled: Boolean = true
 )
 ```
 
 #### TimePicker
-Selector de hora con formato personalizable.
+Time selector with customizable format.
 
 ```kotlin
 @Composable
@@ -134,14 +134,14 @@ fun TimePicker(
     modifier: Modifier = Modifier,
     selectedTime: String,
     onTimeSelected: (String) -> Unit,
-    label: String = "Hora",
+    label: String = "Time",
     format: String = "HH:mm",
     enabled: Boolean = true
 )
 ```
 
 #### DateTimePicker
-Selector combinado de fecha y hora.
+Combined date and time selector.
 
 ```kotlin
 @Composable
@@ -149,17 +149,17 @@ fun DateTimePicker(
     modifier: Modifier = Modifier,
     selectedDateTime: String,
     onDateTimeSelected: (String) -> Unit,
-    label: String = "Fecha y Hora",
+    label: String = "Date and Time",
     dateFormat: String = "dd/MM/yyyy",
     timeFormat: String = "HH:mm",
     enabled: Boolean = true
 )
 ```
 
-### 🔧 Utilidades
+### 🔧 Utilities
 
 #### DateUtils
-Utilidades para manejo y formateo de fechas.
+Utilities for date handling and formatting.
 
 ```kotlin
 object DateUtils {
@@ -173,7 +173,7 @@ object DateUtils {
 ```
 
 #### NumberUtils
-Utilidades para validación y formateo de números.
+Utilities for number validation and formatting.
 
 ```kotlin
 object NumberUtils {
@@ -186,7 +186,7 @@ object NumberUtils {
 ```
 
 #### Vibrator
-Utilidad para feedback háptico multiplataforma.
+Utility for multiplatform haptic feedback.
 
 ```kotlin
 object Vibrator {
@@ -196,10 +196,10 @@ object Vibrator {
 }
 ```
 
-### 🎨 Objetos de Estilo
+### 🎨 Style Objects
 
 #### Colors
-Paleta de colores predefinida para la librería.
+Predefined color palette for the library.
 
 ```kotlin
 object Colors {
@@ -217,9 +217,9 @@ object Colors {
 }
 ```
 
-## 📝 Ejemplos de Uso
+## 📝 Usage Examples
 
-### Ejemplo Completo: Formulario con Validación
+### Complete Example: Form with Validation
 
 ```kotlin
 @Composable
@@ -236,29 +236,29 @@ fun UserFormScreen() {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Campo de nombre
+        // Name field
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Nombre") },
+            label = { Text("Name") },
             modifier = Modifier.fillMaxWidth()
         )
         
-        // Selector de fecha
+        // Date selector
         DatePicker(
             selectedDate = birthDate,
             onDateSelected = { birthDate = it },
-            label = "Fecha de Nacimiento"
+            label = "Birth Date"
         )
         
-        // Selector de hora
+        // Time selector
         TimePicker(
             selectedTime = selectedTime,
             onTimeSelected = { selectedTime = it },
-            label = "Hora de Cita"
+            label = "Appointment Time"
         )
         
-        // Botón de envío
+        // Submit button
         Button(
             onClick = {
                 if (validateForm(name, birthDate, selectedTime)) {
@@ -267,7 +267,7 @@ fun UserFormScreen() {
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Enviar")
+            Text("Submit")
         }
     }
 }
@@ -277,7 +277,7 @@ fun validateForm(name: String, date: String, time: String): Boolean {
 }
 ```
 
-### Ejemplo: Diálogo Personalizado
+### Example: Custom Dialog
 
 ```kotlin
 @Composable
@@ -288,7 +288,7 @@ fun CustomAlertExample() {
     Button(
         onClick = { showDialog = true }
     ) {
-        Text("Mostrar Calendario")
+        Text("Show Calendar")
     }
     
     if (showDialog) {
@@ -304,14 +304,14 @@ fun CustomAlertExample() {
     
     selectedDate?.let { date ->
         Text(
-            text = "Fecha seleccionada: ${DateUtils.formatDate(date, "dd/MM/yyyy")}",
+            text = "Selected date: ${DateUtils.formatDate(date, "dd/MM/yyyy")}",
             style = MaterialTheme.typography.bodyLarge
         )
     }
 }
 ```
 
-### Ejemplo: Uso de Utilidades
+### Example: Using Utilities
 
 ```kotlin
 @Composable
@@ -325,25 +325,25 @@ fun UtilitiesExample() {
     val formattedPercentage = NumberUtils.formatPercentage(0.1234)
     
     Column {
-        Text("Fecha actual: $formattedDate")
-        Text("Día de la semana: $dayOfWeek")
-        Text("Cantidad: $formattedCurrency")
-        Text("Porcentaje: $formattedPercentage")
+        Text("Current date: $formattedDate")
+        Text("Day of week: $dayOfWeek")
+        Text("Amount: $formattedCurrency")
+        Text("Percentage: $formattedPercentage")
         
         Button(
             onClick = {
                 Vibrator.vibrate(200)
             }
         ) {
-            Text("Vibrar")
+            Text("Vibrate")
         }
     }
 }
 ```
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### Temas Personalizados
+### Custom Themes
 
 ```kotlin
 @Composable
@@ -372,60 +372,60 @@ fun MyAppTheme(
 }
 ```
 
-## 🔧 Configuración Avanzada
+## 🔧 Advanced Configuration
 
-### Localización
+### Localization
 
-Los componentes soportan localización automática. Los textos se adaptan al idioma del sistema:
+Components support automatic localization. Texts adapt to the system language:
 
-- Español
-- Inglés
-- Otros idiomas (próximamente)
+- Spanish
+- English
+- Other languages (coming soon)
 
-### Accesibilidad
+### Accessibility
 
-Todos los componentes incluyen soporte para accesibilidad:
+All components include accessibility support:
 
-- Descripciones semánticas
-- Soporte para lectores de pantalla
-- Navegación por teclado
-- Contraste adecuado
+- Semantic descriptions
+- Screen reader support
+- Keyboard navigation
+- Adequate contrast
 
-## 🐛 Solución de Problemas
+## 🐛 Troubleshooting
 
-### Problemas Comunes
+### Common Issues
 
-1. **Error de compilación con kotlinx-datetime**
+1. **Compilation error with kotlinx-datetime**
    ```kotlin
-   // Asegúrate de incluir la dependencia
+   // Make sure to include the dependency
    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
    ```
 
-2. **Componentes no se muestran correctamente**
+2. **Components not displaying correctly**
    ```kotlin
-   // Verifica que estés usando MaterialTheme
+   // Verify that you're using MaterialTheme
    MaterialTheme {
        YourContent()
    }
    ```
 
-3. **Problemas de vibración en iOS**
+3. **Vibration issues on iOS**
    ```kotlin
-   // La vibración requiere permisos específicos en iOS
-   // Consulta la documentación de permisos
+   // Vibration requires specific permissions on iOS
+   // Check the permissions documentation
    ```
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
-- [Guía de Inicio Rápido](quick-start.md)
+- [Quick Start Guide](quick-start.md)
 - [API Reference](api-reference.md)
-- [Ejemplos Completos](../kmptestapp/)
-- [Reportar Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
+- [Complete Examples](../kmptestapp/)
+- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
 
 ---
 
-**Próximas Características:**
-- Más componentes de entrada
-- Soporte para más idiomas
-- Temas predefinidos adicionales
-- Animaciones mejoradas
+**Upcoming Features:**
+- More input components
+- Support for more languages
+- Additional predefined themes
+- Enhanced animations

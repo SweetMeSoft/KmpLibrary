@@ -1,55 +1,55 @@
 ---
 layout: default
-title: Inicio
+title: Home
 nav_order: 1
 ---
 
 # 🚀 SweetMeSoft KMP Library
 
-¡Bienvenido a la documentación oficial de SweetMeSoft KMP Library! Una librería multiplataforma completa para Kotlin que te permite crear aplicaciones nativas para Android, iOS y Desktop con un código base compartido.
+Welcome to the official documentation of SweetMeSoft KMP Library! A complete multiplatform library for Kotlin that allows you to create native applications for Android, iOS and Desktop with a shared codebase.
 
-## 🎯 ¿Qué es SweetMeSoft KMP Library?
+## 🎯 What is SweetMeSoft KMP Library?
 
-SweetMeSoft KMP Library es una colección de módulos especializados que proporcionan:
+SweetMeSoft KMP Library is a collection of specialized modules that provide:
 
-- **🎛️ Componentes UI avanzados** para interfaces modernas
-- **🗺️ Integración de mapas** multiplataforma
-- **🔧 Utilidades y herramientas** para desarrollo ágil
-- **📱 Ejemplos prácticos** y mejores prácticas
+- **🎛️ Advanced UI components** for modern interfaces
+- **🗺️ Maps integration** multiplatform
+- **🔧 Utilities and tools** for agile development
+- **📱 Practical examples** and best practices
 
-## 📦 Módulos Disponibles
+## 📦 Available Modules
 
 <div class="module-grid">
   <div class="module-card">
     <h3>🎛️ KMPControls</h3>
-    <p>Componentes UI fundamentales como selectores de fecha, diálogos, campos de texto y utilidades de validación.</p>
-    <a href="kmpcontrols.html" class="btn">Ver Documentación</a>
+    <p>Fundamental UI components like date pickers, dialogs, text fields and validation utilities.</p>
+    <a href="kmpcontrols.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
     <h3>🗺️ KMPMaps</h3>
-    <p>Integración completa de mapas con Google Maps para Android y MapKit para iOS, incluyendo marcadores y geolocalización.</p>
-    <a href="kmpmaps.html" class="btn">Ver Documentación</a>
+    <p>Complete maps integration with Google Maps for Android and MapKit for iOS, including markers and geolocation.</p>
+    <a href="kmpmaps.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
     <h3>📚 Library</h3>
-    <p>Módulo principal con componentes avanzados, navegación, utilidades de red, manejo de imágenes y arquitectura base.</p>
-    <a href="library.html" class="btn">Ver Documentación</a>
+    <p>Main module with advanced components, navigation, network utilities, image handling and base architecture.</p>
+    <a href="library.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
     <h3>🧪 KMPTestApp</h3>
-    <p>Aplicación de ejemplo que demuestra el uso de todos los módulos con implementaciones prácticas y mejores prácticas.</p>
-    <a href="kmptestapp.html" class="btn">Ver Documentación</a>
+    <p>Example application that demonstrates the use of all modules with practical implementations and best practices.</p>
+    <a href="kmptestapp.html" class="btn">View Documentation</a>
   </div>
 </div>
 
-## ⚡ Inicio Rápido
+## ⚡ Quick Start
 
-### 1. Agregar Dependencias
+### 1. Add Dependencies
 
-En tu archivo `libs.versions.toml`:
+In your `libs.versions.toml` file:
 
 ```toml
 [versions]
@@ -61,7 +61,7 @@ kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmeso
 kmplibrary = { module = "com.sweetmesoft.kmplibrary:kmplibrary", version.ref = "sweetmesoft" }
 ```
 
-En tu `build.gradle.kts`:
+In your `build.gradle.kts`:
 
 ```kotlin
 commonMain.dependencies {
@@ -71,7 +71,7 @@ commonMain.dependencies {
 }
 ```
 
-### 2. Configurar tu Aplicación
+### 2. Configure your Application
 
 ```kotlin
 @Composable
@@ -85,7 +85,7 @@ fun App() {
 }
 ```
 
-### 3. Usar Componentes
+### 3. Use Components
 
 ```kotlin
 @Composable
@@ -94,21 +94,21 @@ fun MyScreen() {
     var password by remember { mutableStateOf("") }
     
     Column {
-        // Selector de fecha de KMPControls
+        // Date picker from KMPControls
         ClickableOutlinedTextField(
             value = selectedDate?.toString() ?: "",
-            label = "Fecha",
-            onClick = { /* Mostrar DatePicker */ }
+            label = "Date",
+            onClick = { /* Show DatePicker */ }
         )
         
-        // Control de contraseña de Library
+        // Password control from Library
         PasswordControl(
             value = password,
             onValueChange = { password = it },
-            label = "Contraseña"
+            label = "Password"
         )
         
-        // Mapa de KMPMaps
+        // Map from KMPMaps
         MapComponent(
             modifier = Modifier.height(200.dp),
             initialPosition = GeoPosition(40.7128, -74.0060)
@@ -117,93 +117,93 @@ fun MyScreen() {
 }
 ```
 
-## 🛠️ Características Principales
+## 🛠️ Main Features
 
-### ✨ Multiplataforma Real
-- **Android** con Jetpack Compose
-- **iOS** con SwiftUI integration
+### ✨ True Multiplatform
+- **Android** with Jetpack Compose
+- **iOS** with SwiftUI integration
 - **Desktop** (experimental)
-- Código compartido al máximo
+- Maximum shared code
 
-### 🎨 Componentes Modernos
+### 🎨 Modern Components
 - Material Design 3
-- Temas adaptativos (claro/oscuro)
-- Animaciones fluidas
-- Accesibilidad integrada
+- Adaptive themes (light/dark)
+- Smooth animations
+- Built-in accessibility
 
-### 🗺️ Mapas Nativos
-- Google Maps en Android
-- MapKit en iOS
-- API unificada
-- Marcadores personalizables
+### 🗺️ Native Maps
+- Google Maps on Android
+- MapKit on iOS
+- Unified API
+- Customizable markers
 
-### 🔧 Utilidades Completas
-- Validación de formularios
-- Manejo de imágenes
-- Operaciones de red
-- Navegación avanzada
+### 🔧 Complete Utilities
+- Form validation
+- Image handling
+- Network operations
+- Advanced navigation
 
-### 📱 Arquitectura Sólida
+### 📱 Solid Architecture
 - MVVM pattern
-- StateFlow para estados reactivos
-- Navegación declarativa
-- Manejo de errores centralizado
+- StateFlow for reactive states
+- Declarative navigation
+- Centralized error handling
 
-## 📖 Guías de Documentación
+## 📖 Documentation Guides
 
 <div class="guide-links">
   <a href="kmpcontrols.html" class="guide-link">
-    <h4>🎛️ Guía de KMPControls</h4>
-    <p>Aprende a usar selectores, diálogos y validaciones</p>
+    <h4>🎛️ KMPControls Guide</h4>
+    <p>Learn to use selectors, dialogs and validations</p>
   </a>
   
   <a href="kmpmaps.html" class="guide-link">
-    <h4>🗺️ Guía de KMPMaps</h4>
-    <p>Implementa mapas nativos en tu aplicación</p>
+    <h4>🗺️ KMPMaps Guide</h4>
+    <p>Implement native maps in your application</p>
   </a>
   
   <a href="library.html" class="guide-link">
-    <h4>📚 Guía de Library</h4>
-    <p>Domina los componentes avanzados y utilidades</p>
+    <h4>📚 Library Guide</h4>
+    <p>Master advanced components and utilities</p>
   </a>
   
   <a href="kmptestapp.html" class="guide-link">
-    <h4>🧪 Ejemplos Prácticos</h4>
-    <p>Ve implementaciones reales y mejores prácticas</p>
+    <h4>🧪 Practical Examples</h4>
+    <p>See real implementations and best practices</p>
   </a>
 </div>
 
-## 🚀 Proyectos de Ejemplo
+## 🚀 Example Projects
 
-Explora nuestros ejemplos completos:
+Explore our complete examples:
 
-- **[KMPTestApp](kmptestapp.html)** - Aplicación de demostración completa
-- **[Formularios Avanzados](library.html#ejemplos-de-uso)** - Validación y controles
-- **[Integración de Mapas](kmpmaps.html#ejemplos-de-uso)** - Geolocalización y marcadores
-- **[Navegación Compleja](library.html#navegación)** - Flujos de navegación
+- **[KMPTestApp](kmptestapp.html)** - Complete demonstration application
+- **[Advanced Forms](library.html#ejemplos-de-uso)** - Validation and controls
+- **[Maps Integration](kmpmaps.html#ejemplos-de-uso)** - Geolocation and markers
+- **[Complex Navigation](library.html#navegación)** - Navigation flows
 
-## 🤝 Comunidad y Soporte
+## 🤝 Community and Support
 
-- **📚 [Documentación Completa](https://github.com/erickvelasco11/KmpLibrary/blob/main/README.md)**
-- **🐛 [Reportar Issues](https://github.com/erickvelasco11/KmpLibrary/issues)**
-- **💡 [Solicitar Características](https://github.com/erickvelasco11/KmpLibrary/issues/new)**
-- **🔄 [Contribuir](https://github.com/erickvelasco11/KmpLibrary/blob/main/CONTRIBUTING.md)**
+- **📚 [Complete Documentation](https://github.com/erickvelasco11/KmpLibrary/blob/main/README.md)**
+- **🐛 [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)**
+- **💡 [Request Features](https://github.com/erickvelasco11/KmpLibrary/issues/new)**
+- **🔄 [Contribute](https://github.com/erickvelasco11/KmpLibrary/blob/main/CONTRIBUTING.md)**
 
-## 📊 Estado del Proyecto
+## 📊 Project Status
 
-- **Versión Actual:** 1.6.6
+- **Current Version:** 1.6.6
 - **Kotlin:** 2.1.0
 - **Compose:** 1.7.5
-- **Plataformas:** Android, iOS, Desktop (experimental)
-- **Licencia:** MIT
+- **Platforms:** Android, iOS, Desktop (experimental)
+- **License:** MIT
 
 ---
 
 <div class="footer-cta">
-  <h3>¿Listo para empezar?</h3>
-  <p>Comienza con nuestra guía de instalación y crea tu primera aplicación multiplataforma.</p>
-  <a href="https://github.com/erickvelasco11/KmpLibrary" class="btn btn-primary">Ver en GitHub</a>
-  <a href="kmpcontrols.html" class="btn btn-secondary">Comenzar Tutorial</a>
+  <h3>Ready to get started?</h3>
+  <p>Start with our installation guide and create your first multiplatform application.</p>
+  <a href="https://github.com/erickvelasco11/KmpLibrary" class="btn btn-primary">View on GitHub</a>
+  <a href="kmpcontrols.html" class="btn btn-secondary">Start Tutorial</a>
 </div>
 
 <style>

@@ -175,36 +175,36 @@ fun MyApp() {
 
 ## 📚 Documentación
 
-### 🌐 Documentación Completa
+### 🌐 Complete Documentation
 
-**[📖 Visita nuestra documentación completa en GitHub Pages](https://erickvelasco11.github.io/KmpLibrary)**
+**[📖 Visit our complete documentation on GitHub Pages](https://erickvelasco11.github.io/KmpLibrary)**
 
-La documentación incluye:
+The documentation includes:
 
-- 🚀 **Guías de inicio rápido** para cada módulo
-- 📝 **API detallada** con ejemplos de código
-- 🎨 **Guías de personalización** y temas
-- 🧪 **Ejemplos prácticos** y casos de uso
-- 🔧 **Configuración avanzada** para cada plataforma
-- ❓ **Solución de problemas** comunes
+- 🚀 **Quick start guides** for each module
+- 📝 **Detailed API** with code examples
+- 🎨 **Customization guides** and themes
+- 🧪 **Practical examples** and use cases
+- 🔧 **Advanced configuration** for each platform
+- ❓ **Common troubleshooting** solutions
 
-### 📋 Documentación por Módulo
+### 📋 Documentation by Module
 
-| Módulo | Descripción | Documentación |
+| Module | Description | Documentation |
 |--------|-------------|---------------|
-| 🎛️ **KMPControls** | Componentes UI básicos y utilidades | [Ver Docs](https://erickvelasco11.github.io/KmpLibrary/kmpcontrols) |
-| 🗺️ **KMPMaps** | Integración de mapas multiplataforma | [Ver Docs](https://erickvelasco11.github.io/KmpLibrary/kmpmaps) |
-| 📚 **Library** | Componentes avanzados y herramientas | [Ver Docs](https://erickvelasco11.github.io/KmpLibrary/library) |
-| 🧪 **KMPTestApp** | Aplicación de ejemplo y guías | [Ver Docs](https://erickvelasco11.github.io/KmpLibrary/kmptestapp) |
+| 🎛️ **KMPControls** | Basic UI components and utilities | [View Docs](https://erickvelasco11.github.io/KmpLibrary/kmpcontrols) |
+| 🗺️ **KMPMaps** | Cross-platform maps integration | [View Docs](https://erickvelasco11.github.io/KmpLibrary/kmpmaps) |
+| 📚 **Library** | Advanced components and tools | [View Docs](https://erickvelasco11.github.io/KmpLibrary/library) |
+| 🧪 **KMPTestApp** | Example application and guides | [View Docs](https://erickvelasco11.github.io/KmpLibrary/kmptestapp) |
 
-### 📖 Documentación Local
+### 📖 Local Documentation
 
-También puedes acceder a la documentación localmente:
+You can also access the documentation locally:
 
-- **[KMPControls](docs/kmpcontrols.md)** - Componentes UI básicos
-- **[KMPMaps](docs/kmpmaps.md)** - Integración de mapas
-- **[Library](docs/library.md)** - Módulo principal
-- **[KMPTestApp](docs/kmptestapp.md)** - Ejemplos de uso
+- **[KMPControls](docs/kmpcontrols.md)** - Basic UI components
+- **[KMPMaps](docs/kmpmaps.md)** - Maps integration
+- **[Library](docs/library.md)** - Main module
+- **[KMPTestApp](docs/kmptestapp.md)** - Usage examples
 
 ## 🔧 Configuración del Proyecto
 
@@ -270,44 +270,44 @@ Para ejecutar la aplicación de ejemplo:
 ./gradlew :kmptestapp:run
 ```
 
-## 🤝 Contribuir
+## 🤝 Contributing
 
-¡Las contribuciones son bienvenidas! Tenemos una guía completa para contribuidores.
+Contributions are welcome! We have a complete guide for contributors.
 
-**[📋 Lee nuestra Guía de Contribución](CONTRIBUTING.md)**
+**[📋 Read our Contributing Guide](CONTRIBUTING.md)**
 
-### Formas de Contribuir
+### Ways to Contribute
 
-- 🐛 **Reportar bugs** - Ayúdanos a mejorar reportando problemas
-- 💡 **Sugerir características** - Comparte tus ideas para nuevas funcionalidades
-- 📝 **Mejorar documentación** - Ayuda a que la documentación sea más clara
-- 💻 **Contribuir código** - Implementa nuevas características o corrige bugs
-- 🧪 **Escribir tests** - Mejora la cobertura de pruebas
-- 🌍 **Traducir** - Ayuda a hacer la librería más accesible
+- 🐛 **Report bugs** - Help us improve by reporting issues
+- 💡 **Suggest features** - Share your ideas for new functionalities
+- 📝 **Improve documentation** - Help make documentation clearer
+- 💻 **Contribute code** - Implement new features or fix bugs
+- 🧪 **Write tests** - Improve test coverage
+- 🌍 **Translate** - Help make the library more accessible
 
-### Inicio Rápido para Contribuidores
+### Quick Start for Contributors
 
 ```bash
-# 1. Fork y clona el repositorio
-git clone https://github.com/TU_USUARIO/KmpLibrary.git
+# 1. Fork and clone the repository
+git clone https://github.com/YOUR_USERNAME/KmpLibrary.git
 cd KmpLibrary
 
-# 2. Crea una rama para tu característica
-git checkout -b feature/mi-nueva-caracteristica
+# 2. Create a branch for your feature
+git checkout -b feature/my-new-feature
 
-# 3. Instala dependencias y construye
+# 3. Install dependencies and build
 ./gradlew build
 
-# 4. Ejecuta tests
+# 4. Run tests
 ./gradlew test
 
-# 5. Prueba la app de ejemplo
+# 5. Test the example app
 ./gradlew :kmptestapp:installDebug
 ```
 
-### Código de Conducta
+### Code of Conduct
 
-Este proyecto se adhiere a un código de conducta. Al participar, se espera que mantengas un ambiente respetuoso y acogedor para todos.
+This project adheres to a code of conduct. By participating, you are expected to maintain a respectful and welcoming environment for everyone.
 
 ## 📄 Licencia
 
@@ -317,57 +317,57 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 
 - **Erick Velasco** - *Desarrollo Principal* - [erick.velasco@sweetmesoft.com](mailto:erick.velasco@sweetmesoft.com)
 
-## 🔗 Enlaces Útiles
+## 🔗 Useful Links
 
-### 📚 Documentación y Recursos
-- **[📖 Documentación Completa](https://erickvelasco11.github.io/KmpLibrary)** - GitHub Pages
-- **[📋 Guía de Contribución](CONTRIBUTING.md)** - Cómo contribuir al proyecto
-- **[🧪 Aplicación de Ejemplo](kmptestapp/)** - Código fuente de ejemplos
-- **[📝 Changelog](https://github.com/erickvelasco11/KmpLibrary/releases)** - Historial de cambios
+### 📚 Documentation and Resources
+- **[📖 Complete Documentation](https://erickvelasco11.github.io/KmpLibrary)** - GitHub Pages
+- **[📋 Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
+- **[🧪 Example Application](kmptestapp/)** - Example source code
+- **[📝 Changelog](https://github.com/erickvelasco11/KmpLibrary/releases)** - Change history
 
-### 🛠️ Desarrollo
-- **[🏠 Repositorio Principal](https://github.com/erickvelasco11/KmpLibrary)** - Código fuente
-- **[🐛 Issues y Bug Reports](https://github.com/erickvelasco11/KmpLibrary/issues)** - Reportar problemas
-- **[🚀 Releases](https://github.com/erickvelasco11/KmpLibrary/releases)** - Versiones publicadas
-- **[📦 Maven Central](https://search.maven.org/search?q=g:com.sweetmesoft)** - Paquetes publicados
+### 🛠️ Development
+- **[🏠 Main Repository](https://github.com/erickvelasco11/KmpLibrary)** - Source code
+- **[🐛 Issues and Bug Reports](https://github.com/erickvelasco11/KmpLibrary/issues)** - Report problems
+- **[🚀 Releases](https://github.com/erickvelasco11/KmpLibrary/releases)** - Published versions
+- **[📦 Maven Central](https://search.maven.org/search?q=g:com.sweetmesoft)** - Published packages
 
-### 🌐 Comunidad
-- **[💬 Discusiones](https://github.com/erickvelasco11/KmpLibrary/discussions)** - Preguntas y discusiones
-- **[📧 Contacto](mailto:team@sweetmesoft.com)** - Contacto directo
-- **[🐦 Twitter](https://twitter.com/sweetmesoft)** - Actualizaciones y noticias
+### 🌐 Community
+- **[💬 Discussions](https://github.com/erickvelasco11/KmpLibrary/discussions)** - Questions and discussions
+- **[📧 Contact](mailto:team@sweetmesoft.com)** - Direct contact
+- **[🐦 Twitter](https://twitter.com/sweetmesoft)** - Updates and news
 
-## 📊 Estado del Proyecto
+## 📊 Project Status
 
-| Aspecto | Estado |
+| Aspect | Status |
 |---------|--------|
-| **Versión Actual** | ![Version](https://img.shields.io/badge/version-1.6.6-blue) |
-| **Estado** | ![Status](https://img.shields.io/badge/status-En%20desarrollo%20activo-green) |
+| **Current Version** | ![Version](https://img.shields.io/badge/version-1.6.6-blue) |
+| **Status** | ![Status](https://img.shields.io/badge/status-Active%20development-green) |
 | **Kotlin** | ![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-purple) |
 | **Compose** | ![Compose](https://img.shields.io/badge/Compose-1.7.5-orange) |
-| **Plataformas** | ![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Desktop-lightgrey) |
-| **Licencia** | ![License](https://img.shields.io/badge/license-MIT-yellow) |
+| **Platforms** | ![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Desktop-lightgrey) |
+| **License** | ![License](https://img.shields.io/badge/license-MIT-yellow) |
 | **Tests** | ![Tests](https://img.shields.io/badge/tests-passing-brightgreen) |
-| **Documentación** | ![Docs](https://img.shields.io/badge/docs-completa-blue) |
+| **Documentation** | ![Docs](https://img.shields.io/badge/docs-complete-blue) |
 
 ### 🎯 Roadmap
 
-- ✅ **v1.6.x** - Componentes básicos y mapas
-- 🚧 **v1.7.x** - Mejoras de rendimiento y nuevos componentes
-- 📋 **v1.8.x** - Soporte para más plataformas
-- 🔮 **v2.0.x** - API renovada y características avanzadas
+- ✅ **v1.6.x** - Basic components and maps
+- 🚧 **v1.7.x** - Performance improvements and new components
+- 📋 **v1.8.x** - Support for more platforms
+- 🔮 **v2.0.x** - Renewed API and advanced features
 
 ---
 
 <div align="center">
 
-**¿Te gusta SweetMeSoft KMP Library?**
+**Do you like SweetMeSoft KMP Library?**
 
-⭐ **[Dale una estrella en GitHub](https://github.com/erickvelasco11/KmpLibrary)** ⭐
+⭐ **[Give it a star on GitHub](https://github.com/erickvelasco11/KmpLibrary)** ⭐
 
-**[📖 Explorar Documentación](https://erickvelasco11.github.io/KmpLibrary)** • **[🚀 Comenzar Ahora](#inicio-rápido)** • **[🤝 Contribuir](CONTRIBUTING.md)**
+**[📖 Explore Documentation](https://erickvelasco11.github.io/KmpLibrary)** • **[🚀 Get Started Now](#quick-start)** • **[🤝 Contribute](CONTRIBUTING.md)**
 
 </div>
 
 ---
 
-**¿Necesitas ayuda?** Abre un [issue](https://github.com/erickvelasco11/KmpLibrary/issues) o contacta al equipo de desarrollo.
+**Need help?** Open an [issue](https://github.com/erickvelasco11/KmpLibrary/issues) or contact the development team.

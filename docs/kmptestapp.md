@@ -1,31 +1,31 @@
 # 🧪 KMPTestApp Documentation
 
-KMPTestApp es la aplicación de prueba que demuestra el uso de todos los módulos de la librería SweetMeSoft KMP. Sirve como ejemplo de implementación y guía de mejores prácticas.
+KMPTestApp is the test application that demonstrates the use of all modules of the SweetMeSoft KMP library. It serves as an implementation example and best practices guide.
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [Descripción General](#descripción-general)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Configuración](#configuración)
-- [Pantallas de Ejemplo](#pantallas-de-ejemplo)
-- [Navegación](#navegación)
-- [Temas y Estilos](#temas-y-estilos)
-- [Ejemplos de Uso](#ejemplos-de-uso)
-- [Cómo Ejecutar](#cómo-ejecutar)
+- [General Description](#general-description)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Example Screens](#example-screens)
+- [Navigation](#navigation)
+- [Themes and Styles](#themes-and-styles)
+- [Usage Examples](#usage-examples)
+- [How to Run](#how-to-run)
 
-## 🎯 Descripción General
+## 🎯 General Description
 
-KMPTestApp es una aplicación completa que demuestra:
+KMPTestApp is a complete application that demonstrates:
 
-- ✅ Uso de todos los componentes de `KMPControls`
-- ✅ Implementación de mapas con `KMPMaps`
-- ✅ Utilización de controles avanzados de `Library`
-- ✅ Navegación con Voyager
-- ✅ Manejo de estados y ViewModels
-- ✅ Temas personalizados
-- ✅ Mejores prácticas de arquitectura
+- ✅ Use of all `KMPControls` components
+- ✅ Maps implementation with `KMPMaps`
+- ✅ Utilization of advanced `Library` controls
+- ✅ Navigation with Voyager
+- ✅ State and ViewModels management
+- ✅ Custom themes
+- ✅ Architecture best practices
 
-## 🏗️ Estructura del Proyecto
+## 🏗️ Project Structure
 
 ```
 kmptestapp/
@@ -37,19 +37,19 @@ kmptestapp/
 │   ├── commonMain/
 │   │   └── kotlin/
 │   │       └── com/sweetmesoft/kmptestapp/
-│   │           ├── App.kt                    # Punto de entrada principal
-│   │           ├── PhotoProfileRequest.kt    # Modelo de datos
+│   │           ├── App.kt                    # Main entry point
+│   │           ├── PhotoProfileRequest.kt    # Data model
 │   │           ├── screens/
 │   │           │   ├── about/
-│   │           │   │   └── AboutScreen.kt    # Pantalla Acerca de
+│   │           │   │   └── AboutScreen.kt    # About screen
 │   │           │   ├── main/
-│   │           │   │   ├── MainScreen.kt     # Pantalla principal
-│   │           │   │   └── MainViewModel.kt  # ViewModel principal
+│   │           │   │   ├── MainScreen.kt     # Main screen
+│   │           │   │   └── MainViewModel.kt  # Main ViewModel
 │   │           │   └── splash/
-│   │           │       └── SplashScreen.kt   # Pantalla de splash
+│   │           │       └── SplashScreen.kt   # Splash screen
 │   │           └── theme/
-│   │               ├── Color.kt              # Colores del tema
-│   │               └── Theme.kt              # Configuración del tema
+│   │               ├── Color.kt              # Theme colors
+│   │               └── Theme.kt              # Theme configuration
 │   └── iosMain/
 │       └── kotlin/
 │           └── com/sweetmesoft/kmptestapp/
@@ -57,9 +57,9 @@ kmptestapp/
 └── build.gradle.kts
 ```
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
-### Dependencias Principales
+### Main Dependencies
 
 ```kotlin
 commonMain.dependencies {
@@ -67,13 +67,13 @@ commonMain.dependencies {
     implementation(projects.kmpcontrols)
     implementation(projects.kmpmaps)
     
-    // Navegación
+    // Navigation
     implementation(libs.voyager.navigator)
     implementation(libs.voyager.bottom.sheet.navigator)
     implementation(libs.voyager.tab.navigator)
     implementation(libs.voyager.transitions)
     
-    // UI y Compose
+    // UI and Compose
     implementation(compose.runtime)
     implementation(compose.foundation)
     implementation(compose.material3)
@@ -85,13 +85,12 @@ commonMain.dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.runtime.compose)
     
-    // Utilidades
+    // Utilities
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-}
-```
+}```
 
-### Configuración Android
+### Android Configuration
 
 ```kotlin
 android {
@@ -108,9 +107,9 @@ android {
 }
 ```
 
-## 📱 Pantallas de Ejemplo
+## 📱 Example Screens
 
-### App.kt - Punto de Entrada
+### App.kt - Entry Point
 
 ```kotlin
 @Composable
@@ -127,13 +126,13 @@ fun App() {
 }
 ```
 
-**Características:**
-- Configuración del navegador global
-- Aplicación de tema personalizado
-- Transiciones entre pantallas
-- Punto de entrada único para todas las plataformas
+**Features:**
+- Global navigator configuration
+- Custom theme application
+- Screen transitions
+- Single entry point for all platforms
 
-### SplashScreen.kt - Pantalla de Bienvenida
+### SplashScreen.kt - Welcome Screen
 
 ```kotlin
 class SplashScreen : BaseScreen() {
@@ -163,7 +162,7 @@ class SplashScreen : BaseScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                // Logo de la aplicación
+                // Application logo
                 Icon(
                     imageVector = Icons.Default.Star,
                     contentDescription = null,
@@ -179,7 +178,7 @@ class SplashScreen : BaseScreen() {
                 )
                 
                 Text(
-                    text = "Demostrando SweetMeSoft KMP Library",
+                    text = "Demonstrating SweetMeSoft KMP Library",
                     style = MaterialTheme.typography.bodyLarge,
                     color = Color.White.copy(alpha = 0.8f),
                     textAlign = TextAlign.Center
@@ -202,13 +201,13 @@ class SplashScreen : BaseScreen() {
 }
 ```
 
-**Características:**
-- Diseño atractivo con gradientes
-- Animación de carga
-- Transición automática a la pantalla principal
-- Uso de BaseScreen para funcionalidades comunes
+**Features:**
+- Attractive design with gradients
+- Loading animation
+- Automatic transition to main screen
+- Use of BaseScreen for common functionalities
 
-### MainScreen.kt - Pantalla Principal
+### MainScreen.kt - Main Screen
 
 ```kotlin
 class MainScreen : BaseBottomBarScreen() {
@@ -244,7 +243,7 @@ class MainScreen : BaseBottomBarScreen() {
             }
         }
         
-        // Manejo de alertas y popups
+        // Alert and popup handling
         PopupHandler.currentPopup?.let { popup ->
             when (popup) {
                 is PopupState.Alert -> {
@@ -273,27 +272,27 @@ class MainScreen : BaseBottomBarScreen() {
                 selected = true,
                 onClick = { },
                 icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                label = { Text("Inicio") }
+                label = { Text("Home") }
             )
             NavigationBarItem(
                 selected = false,
                 onClick = { navigator?.push(AboutScreen()) },
                 icon = { Icon(Icons.Default.Info, contentDescription = null) },
-                label = { Text("Acerca de") }
+                label = { Text("About") }
             )
         }
     }
 }
 ```
 
-**Características:**
-- Uso de BaseBottomBarScreen para navegación inferior
-- Integración con ViewModel
-- Secciones organizadas por funcionalidad
-- Manejo de popups y alertas
-- Navegación entre pantallas
+**Features:**
+- Use of BaseBottomBarScreen for bottom navigation
+- ViewModel integration
+- Sections organized by functionality
+- Popup and alert handling
+- Navigation between screens
 
-### MainViewModel.kt - Lógica de Negocio
+### MainViewModel.kt - Business Logic
 
 ```kotlin
 class MainViewModel : BaseViewModel() {
@@ -301,15 +300,15 @@ class MainViewModel : BaseViewModel() {
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
     
     fun showDatePicker() {
-        // Implementación del selector de fecha
+        // Date picker implementation
     }
     
     fun showTimePicker() {
-        // Implementación del selector de tiempo
+        // Time picker implementation
     }
     
     fun showMapExample() {
-        // Navegación a ejemplo de mapas
+        // Navigation to maps example
     }
     
     fun testNetworkCall() {
@@ -318,8 +317,8 @@ class MainViewModel : BaseViewModel() {
             try {
                 val result = NetworkUtils.get("https://api.example.com/test")
                 PopupHandler.showAlert(
-                    title = "Éxito",
-                    message = "Respuesta: $result"
+                    title = "Success",
+                    message = "Response: $result"
                 )
             } catch (e: Exception) {
                 setError(e.message)
@@ -330,7 +329,7 @@ class MainViewModel : BaseViewModel() {
     }
     
     fun showImagePicker() {
-        // Implementación del selector de imágenes
+        // Image picker implementation
     }
 }
 
@@ -343,14 +342,14 @@ data class MainUiState(
 )
 ```
 
-**Características:**
-- Hereda de BaseViewModel para funcionalidades comunes
-- Manejo de estados con StateFlow
-- Operaciones asíncronas con corrutinas
-- Integración con utilidades de red
-- Manejo de errores centralizado
+**Features:**
+- Inherits from BaseViewModel for common functionalities
+- State management with StateFlow
+- Asynchronous operations with coroutines
+- Network utilities integration
+- Centralized error handling
 
-### AboutScreen.kt - Información de la App
+### AboutScreen.kt - App Information
 
 ```kotlin
 class AboutScreen : BaseScreen() {
@@ -362,7 +361,7 @@ class AboutScreen : BaseScreen() {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            // Header con botón de regreso
+            // Header with back button
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -370,26 +369,26 @@ class AboutScreen : BaseScreen() {
                 IconButton(
                     onClick = { navigator?.pop() }
                 ) {
-                    Icon(Icons.Default.ArrowBack, contentDescription = "Volver")
+                    Icon(Icons.Default.ArrowBack, contentDescription = "Back")
                 }
                 Text(
-                    text = "Acerca de",
+                    text = "About",
                     style = MaterialTheme.typography.headlineMedium,
                     modifier = Modifier.weight(1f)
                 )
             }
             
-            // Información de la aplicación
+            // Application information
             AboutContent(
                 appName = "KMP Test App",
                 version = "1.0.0",
-                description = "Aplicación de demostración para SweetMeSoft KMP Library. " +
-                        "Muestra el uso de todos los componentes y funcionalidades " +
-                        "disponibles en la librería multiplataforma.",
+                description = "Demonstration application for SweetMeSoft KMP Library. " +
+                        "Shows the use of all components and functionalities " +
+                        "available in the multiplatform library.",
                 developers = listOf(
                     Developer(
                         name = "SweetMeSoft Team",
-                        role = "Desarrollo",
+                        role = "Development",
                         email = "team@sweetmesoft.com"
                     )
                 ),
@@ -400,7 +399,7 @@ class AboutScreen : BaseScreen() {
                         icon = Icons.Default.Code
                     ),
                     AppLink(
-                        title = "Documentación",
+                        title = "Documentation",
                         url = "https://erickvelasco11.github.io/KmpLibrary",
                         icon = Icons.Default.MenuBook
                     )
@@ -411,15 +410,15 @@ class AboutScreen : BaseScreen() {
 }
 ```
 
-**Características:**
-- Uso del componente AboutContent de la librería
-- Navegación de regreso
-- Información estructurada de la aplicación
-- Enlaces a recursos externos
+**Features:**
+- Use of AboutContent component from library
+- Back navigation
+- Structured application information
+- Links to external resources
 
-## 🎨 Temas y Estilos
+## 🎨 Themes and Styles
 
-### Color.kt - Paleta de Colores
+### Color.kt - Color Palette
 
 ```kotlin
 val md_theme_light_primary = Color(0xFF6750A4)
@@ -432,13 +431,13 @@ val md_theme_dark_onPrimary = Color(0xFF381E72)
 val md_theme_dark_primaryContainer = Color(0xFF4F378B)
 val md_theme_dark_onPrimaryContainer = Color(0xFFEADDFF)
 
-// Colores personalizados
+// Custom colors
 val SweetMeSoftBlue = Color(0xFF2196F3)
 val SweetMeSoftGreen = Color(0xFF4CAF50)
 val SweetMeSoftOrange = Color(0xFFFF9800)
 ```
 
-### Theme.kt - Configuración del Tema
+### Theme.kt - Theme Configuration
 
 ```kotlin
 private val LightColorScheme = lightColorScheme(
@@ -480,15 +479,15 @@ fun AppTheme(
 }
 ```
 
-**Características:**
-- Soporte para tema claro y oscuro
-- Colores dinámicos en Android 12+
-- Paleta de colores personalizada
-- Tipografía Material Design 3
+**Features:**
+- Light and dark theme support
+- Dynamic colors on Android 12+
+- Custom color palette
+- Material Design 3 typography
 
 ## 💡 Ejemplos de Uso
 
-### Ejemplo 1: Sección de Componentes
+### Example 1: Components Section
 
 ```kotlin
 @Composable
@@ -502,33 +501,33 @@ fun ComponentsSection(viewModel: MainViewModel) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Componentes KMPControls",
+                text = "KMPControls Components",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             
-            // Selector de fecha
+            // Date selector
             ClickableOutlinedTextField(
                 value = viewModel.uiState.value.selectedDate?.toString() ?: "",
-                label = "Seleccionar Fecha",
+                label = "Select Date",
                 onClick = { viewModel.showDatePicker() },
                 modifier = Modifier.fillMaxWidth()
             )
             
-            // Selector de tiempo
+            // Time selector
             ClickableOutlinedTextField(
                 value = viewModel.uiState.value.selectedTime?.toString() ?: "",
-                label = "Seleccionar Hora",
+                label = "Select Time",
                 onClick = { viewModel.showTimePicker() },
                 modifier = Modifier.fillMaxWidth()
             )
             
-            // Control de contraseña
+            // Password control
             var password by remember { mutableStateOf("") }
             PasswordControl(
                 value = password,
                 onValueChange = { password = it },
-                label = "Contraseña de Ejemplo",
+                label = "Example Password",
                 modifier = Modifier.fillMaxWidth()
             )
         }
@@ -536,7 +535,7 @@ fun ComponentsSection(viewModel: MainViewModel) {
 }
 ```
 
-### Ejemplo 2: Sección de Mapas
+### Example 2: Maps Section
 
 ```kotlin
 @Composable
@@ -550,13 +549,13 @@ fun MapsSection(viewModel: MainViewModel) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Componentes KMPMaps",
+                text = "KMPMaps Components",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             
             Text(
-                text = "Mapas multiplataforma con Google Maps (Android) y MapKit (iOS)",
+                text = "Multiplatform maps with Google Maps (Android) and MapKit (iOS)",
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -567,14 +566,14 @@ fun MapsSection(viewModel: MainViewModel) {
             ) {
                 Icon(Icons.Default.Map, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Ver Ejemplo de Mapa")
+                Text("View Map Example")
             }
         }
     }
 }
 ```
 
-### Ejemplo 3: Sección de Utilidades
+### Example 3: Utilities Section
 
 ```kotlin
 @Composable
@@ -588,41 +587,41 @@ fun UtilitiesSection(viewModel: MainViewModel) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Utilidades Library",
+                text = "Library Utilities",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             
-            // Prueba de red
+            // Network test
             Button(
                 onClick = { viewModel.testNetworkCall() },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(Icons.Default.CloudDownload, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Probar Llamada de Red")
+                Text("Test Network Call")
             }
             
-            // Selector de imágenes
+            // Image selector
             Button(
                 onClick = { viewModel.showImagePicker() },
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Icon(Icons.Default.Image, contentDescription = null)
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Seleccionar Imagen")
+                Text("Select Image")
             }
             
-            // Ejemplo de validación
+            // Validation example
             var email by remember { mutableStateOf("") }
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = { Text("Email de Prueba") },
+                label = { Text("Test Email") },
                 isError = email.isNotBlank() && !StringUtils.isValidEmail(email),
                 supportingText = {
                     if (email.isNotBlank() && !StringUtils.isValidEmail(email)) {
-                        Text("Email inválido")
+                        Text("Invalid email")
                     }
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -632,57 +631,57 @@ fun UtilitiesSection(viewModel: MainViewModel) {
 }
 ```
 
-## 🚀 Cómo Ejecutar
+## 🚀 How to Run
 
-### Requisitos Previos
+### Prerequisites
 
 1. **Android Studio** (última versión estable)
 2. **Xcode** (para desarrollo iOS)
 3. **JDK 17** o superior
 4. **Kotlin Multiplatform Mobile plugin**
 
-### Pasos para Ejecutar
+### Steps to Run
 
 #### Android
 
 ```bash
-# Clonar el repositorio
+# Clone the repository
 git clone https://github.com/erickvelasco11/KmpLibrary.git
 cd KmpLibrary
 
-# Ejecutar en Android
+# Run on Android
 ./gradlew :kmptestapp:installDebug
 
-# O desde Android Studio
-# 1. Abrir el proyecto
-# 2. Seleccionar 'kmptestapp' como módulo
-# 3. Ejecutar en dispositivo/emulador Android
+# Or from Android Studio
+# 1. Open the project
+# 2. Select 'kmptestapp' as module
+# 3. Run on Android device/emulator
 ```
 
 #### iOS
 
 ```bash
-# Generar proyecto Xcode
+# Generate Xcode project
 ./gradlew :kmptestapp:embedAndSignAppleFrameworkForXcode
 
-# Abrir en Xcode
+# Open in Xcode
 open iosApp/iosApp.xcodeproj
 
-# O desde Android Studio con KMP plugin
-# 1. Seleccionar configuración iOS
-# 2. Ejecutar en simulador/dispositivo iOS
+# Or from Android Studio with KMP plugin
+# 1. Select iOS configuration
+# 2. Run on iOS simulator/device
 ```
 
 #### Desktop (Experimental)
 
 ```bash
-# Ejecutar versión desktop
+# Run desktop version
 ./gradlew :kmptestapp:run
 ```
 
-### Configuración de API Keys
+### API Keys Configuration
 
-Para usar las funcionalidades de mapas, configura las API keys:
+To use maps functionalities, configure the API keys:
 
 #### Android
 ```xml
@@ -696,45 +695,45 @@ Para usar las funcionalidades de mapas, configura las API keys:
 ```xml
 <!-- iosApp/iosApp/Info.plist -->
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>Esta app necesita acceso a la ubicación para mostrar mapas</string>
+<string>This app needs location access to show maps</string>
 ```
 
-## 📚 Recursos de Aprendizaje
+## 📚 Learning Resources
 
-### Patrones Implementados
+### Implemented Patterns
 
 1. **MVVM (Model-View-ViewModel)**
-   - Separación clara de responsabilidades
-   - Estados reactivos con StateFlow
-   - Manejo de ciclo de vida
+   - Clear separation of responsibilities
+   - Reactive states with StateFlow
+   - Lifecycle management
 
 2. **Repository Pattern**
-   - Abstracción de fuentes de datos
-   - Manejo de caché y red
+   - Data source abstraction
+   - Cache and network handling
 
 3. **Navigation Pattern**
-   - Navegación declarativa con Voyager
-   - Manejo de back stack
-   - Transiciones personalizadas
+   - Declarative navigation with Voyager
+   - Back stack handling
+   - Custom transitions
 
 4. **Dependency Injection**
-   - Inyección manual para simplicidad
-   - Fácil testing y mantenimiento
+   - Manual injection for simplicity
+   - Easy testing and maintenance
 
-### Mejores Prácticas Demostradas
+### Demonstrated Best Practices
 
-- ✅ Manejo de estados con Compose
-- ✅ Navegación multiplataforma
-- ✅ Temas adaptativos
-- ✅ Manejo de errores centralizado
-- ✅ Operaciones asíncronas
-- ✅ Validación de formularios
-- ✅ Componentes reutilizables
-- ✅ Arquitectura escalable
+- ✅ State management with Compose
+- ✅ Multiplatform navigation
+- ✅ Adaptive themes
+- ✅ Centralized error handling
+- ✅ Asynchronous operations
+- ✅ Form validation
+- ✅ Reusable components
+- ✅ Scalable architecture
 
 ---
 
-**¿Necesitas ayuda?**
-- [Documentación Completa](../README.md)
-- [Reportar Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
-- [Contribuir](../CONTRIBUTING.md)
+**Need help?**
+- [Complete Documentation](../README.md)
+- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
+- [Contribute](../CONTRIBUTING.md)

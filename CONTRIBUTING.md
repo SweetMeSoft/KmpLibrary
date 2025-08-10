@@ -1,232 +1,232 @@
-# 🤝 Guía de Contribución
+# 🤝 Contributing Guide
 
-¡Gracias por tu interés en contribuir a SweetMeSoft KMP Library! Esta guía te ayudará a entender cómo puedes participar en el desarrollo de la librería.
+Thank you for your interest in contributing to SweetMeSoft KMP Library! This guide will help you understand how you can participate in the development of the library.
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [Código de Conducta](#código-de-conducta)
-- [¿Cómo Contribuir?](#cómo-contribuir)
-- [Reportar Issues](#reportar-issues)
-- [Solicitar Características](#solicitar-características)
-- [Contribuir con Código](#contribuir-con-código)
-- [Estándares de Código](#estándares-de-código)
-- [Proceso de Pull Request](#proceso-de-pull-request)
-- [Configuración del Entorno](#configuración-del-entorno)
+- [Code of Conduct](#code-of-conduct)
+- [How to Contribute?](#how-to-contribute)
+- [Reporting Issues](#reporting-issues)
+- [Feature Requests](#feature-requests)
+- [Contributing Code](#contributing-code)
+- [Code Standards](#code-standards)
+- [Pull Request Process](#pull-request-process)
+- [Environment Setup](#environment-setup)
 
-## 📜 Código de Conducta
+## 📜 Code of Conduct
 
-Este proyecto se adhiere a un código de conducta. Al participar, se espera que mantengas este código. Por favor reporta comportamientos inaceptables a [team@sweetmesoft.com](mailto:team@sweetmesoft.com).
+This project adheres to a code of conduct. By participating, you are expected to uphold this code. Please report unacceptable behavior to [team@sweetmesoft.com](mailto:team@sweetmesoft.com).
 
-### Nuestros Compromisos
+### Our Commitments
 
-- Usar un lenguaje acogedor e inclusivo
-- Respetar diferentes puntos de vista y experiencias
-- Aceptar críticas constructivas de manera elegante
-- Enfocarse en lo que es mejor para la comunidad
-- Mostrar empatía hacia otros miembros de la comunidad
+- Use welcoming and inclusive language
+- Respect different viewpoints and experiences
+- Accept constructive criticism gracefully
+- Focus on what is best for the community
+- Show empathy towards other community members
 
-## 🚀 ¿Cómo Contribuir?
+## 🚀 How to Contribute?
 
-Hay muchas formas de contribuir a SweetMeSoft KMP Library:
+There are many ways to contribute to SweetMeSoft KMP Library:
 
-### 🐛 Reportar Bugs
-- Busca primero en los [issues existentes](https://github.com/erickvelasco11/KmpLibrary/issues)
-- Si no encuentras un issue similar, crea uno nuevo
-- Proporciona información detallada sobre el problema
+### 🐛 Report Bugs
+- First search in [existing issues](https://github.com/erickvelasco11/KmpLibrary/issues)
+- If you don't find a similar issue, create a new one
+- Provide detailed information about the problem
 
-### 💡 Sugerir Mejoras
-- Revisa las [características planificadas](https://github.com/erickvelasco11/KmpLibrary/projects)
-- Abre un issue con la etiqueta "enhancement"
-- Describe claramente la mejora propuesta
+### 💡 Suggest Improvements
+- Review [planned features](https://github.com/erickvelasco11/KmpLibrary/projects)
+- Open an issue with the "enhancement" label
+- Clearly describe the proposed improvement
 
-### 📝 Mejorar Documentación
-- Corrige errores tipográficos
-- Mejora explicaciones existentes
-- Agrega ejemplos de uso
-- Traduce documentación
+### 📝 Improve Documentation
+- Fix typos
+- Improve existing explanations
+- Add usage examples
+- Translate documentation
 
-### 💻 Contribuir con Código
-- Implementa nuevas características
-- Corrige bugs existentes
-- Mejora el rendimiento
-- Agrega tests
+### 💻 Contribute Code
+- Implement new features
+- Fix existing bugs
+- Improve performance
+- Add tests
 
-## 🐛 Reportar Issues
+## 🐛 Reporting Issues
 
-Cuando reportes un bug, incluye:
+When reporting a bug, include:
 
-### Información del Entorno
+### Environment Information
 ```
-- Versión de la librería: [ej. 1.6.6]
-- Plataforma: [Android/iOS/Desktop]
-- Versión del SO: [ej. Android 14, iOS 17.0]
-- Versión de Kotlin: [ej. 2.1.0]
-- Versión de Compose: [ej. 1.7.5]
+- Library version: [e.g. 1.6.6]
+- Platform: [Android/iOS/Desktop]
+- OS version: [e.g. Android 14, iOS 17.0]
+- Kotlin version: [e.g. 2.1.0]
+- Compose version: [e.g. 1.7.5]
 ```
 
-### Descripción del Problema
-- **Resumen:** Descripción breve del problema
-- **Pasos para reproducir:** Lista detallada de pasos
-- **Comportamiento esperado:** Qué debería pasar
-- **Comportamiento actual:** Qué está pasando
-- **Capturas de pantalla:** Si aplica
-- **Logs/Errores:** Mensajes de error relevantes
+### Problem Description
+- **Summary:** Brief description of the problem
+- **Steps to reproduce:** Detailed list of steps
+- **Expected behavior:** What should happen
+- **Actual behavior:** What is happening
+- **Screenshots:** If applicable
+- **Logs/Errors:** Relevant error messages
 
-### Plantilla de Issue
+### Issue Template
 ```markdown
-## 🐛 Descripción del Bug
-Descripción clara y concisa del problema.
+## 🐛 Bug Description
+Clear and concise description of the problem.
 
-## 🔄 Pasos para Reproducir
-1. Ve a '...'
-2. Haz clic en '...'
-3. Desplázate hacia '...'
-4. Ve el error
+## 🔄 Steps to Reproduce
+1. Go to '...'
+2. Click on '...'
+3. Scroll to '...'
+4. See error
 
-## ✅ Comportamiento Esperado
-Descripción de lo que esperabas que pasara.
+## ✅ Expected Behavior
+Description of what you expected to happen.
 
-## ❌ Comportamiento Actual
-Descripción de lo que realmente pasó.
+## ❌ Actual Behavior
+Description of what actually happened.
 
-## 📱 Entorno
-- Versión de la librería: 
-- Plataforma: 
-- Versión del SO: 
-- Dispositivo: 
+## 📱 Environment
+- Library version: 
+- Platform: 
+- OS version: 
+- Device: 
 
-## 📎 Información Adicional
-Cualquier otra información relevante sobre el problema.
+## 📎 Additional Information
+Any other relevant information about the problem.
 ```
 
-## 💡 Solicitar Características
+## 💡 Feature Requests
 
-Para solicitar una nueva característica:
+To request a new feature:
 
-1. **Verifica** que no exista ya una solicitud similar
-2. **Describe** el problema que resuelve la característica
-3. **Explica** la solución propuesta
-4. **Considera** alternativas que hayas evaluado
-5. **Proporciona** ejemplos de uso
+1. **Verify** that a similar request doesn't already exist
+2. **Describe** the problem the feature solves
+3. **Explain** the proposed solution
+4. **Consider** alternatives you have evaluated
+5. **Provide** usage examples
 
-### Plantilla de Feature Request
+### Feature Request Template
 ```markdown
-## 🚀 Descripción de la Característica
-Descripción clara de la característica solicitada.
+## 🚀 Feature Description
+Clear description of the requested feature.
 
-## 🎯 Problema que Resuelve
-¿Qué problema específico resuelve esta característica?
+## 🎯 Problem it Solves
+What specific problem does this feature solve?
 
-## 💡 Solución Propuesta
-Descripción detallada de cómo debería funcionar.
+## 💡 Proposed Solution
+Detailed description of how it should work.
 
-## 🔄 Alternativas Consideradas
-¿Qué otras soluciones has considerado?
+## 🔄 Alternatives Considered
+What other solutions have you considered?
 
-## 📝 Ejemplos de Uso
+## 📝 Usage Examples
 ```kotlin
-// Ejemplo de cómo se usaría la característica
+// Example of how the feature would be used
 ```
 
-## 📊 Impacto
-- ¿Qué módulos se verían afectados?
-- ¿Es un cambio breaking?
-- ¿Requiere migración?
+## 📊 Impact
+- Which modules would be affected?
+- Is it a breaking change?
+- Does it require migration?
 ```
 
-## 💻 Contribuir con Código
+## 💻 Contributing Code
 
-### Configuración del Entorno
+### Environment Setup
 
-#### Requisitos
-- **JDK 17** o superior
-- **Android Studio** (última versión estable)
-- **Xcode** (para desarrollo iOS)
+#### Requirements
+- **JDK 17** or higher
+- **Android Studio** (latest stable version)
+- **Xcode** (for iOS development)
 - **Git**
 
-#### Configuración Inicial
+#### Initial Setup
 ```bash
-# 1. Fork el repositorio
-# 2. Clona tu fork
-git clone https://github.com/TU_USUARIO/KmpLibrary.git
+# 1. Fork the repository
+# 2. Clone your fork
+git clone https://github.com/YOUR_USERNAME/KmpLibrary.git
 cd KmpLibrary
 
-# 3. Agrega el repositorio original como upstream
+# 3. Add the original repository as upstream
 git remote add upstream https://github.com/erickvelasco11/KmpLibrary.git
 
-# 4. Crea una rama para tu característica
-git checkout -b feature/mi-nueva-caracteristica
+# 4. Create a branch for your feature
+git checkout -b feature/my-new-feature
 
-# 5. Instala dependencias
+# 5. Install dependencies
 ./gradlew build
 ```
 
-### Estructura del Proyecto
+### Project Structure
 ```
 KmpLibrary/
-├── kmpcontrols/          # Componentes UI básicos
-├── kmpmaps/              # Integración de mapas
-├── library/              # Módulo principal
-├── kmptestapp/           # Aplicación de prueba
-├── docs/                 # Documentación
-└── .github/              # Configuración de GitHub
+├── kmpcontrols/          # Basic UI components
+├── kmpmaps/              # Maps integration
+├── library/              # Main module
+├── kmptestapp/           # Test application
+├── docs/                 # Documentation
+└── .github/              # GitHub configuration
 ```
 
-### Flujo de Desarrollo
+### Development Workflow
 
-1. **Sincroniza** tu fork con upstream
+1. **Sync** your fork with upstream
 ```bash
 git fetch upstream
 git checkout main
 git merge upstream/main
 ```
 
-2. **Crea** una rama para tu característica
+2. **Create** a branch for your feature
 ```bash
-git checkout -b feature/descripcion-breve
+git checkout -b feature/brief-description
 ```
 
-3. **Desarrolla** tu característica
-   - Escribe código limpio y bien documentado
-   - Agrega tests para nueva funcionalidad
-   - Actualiza documentación si es necesario
+3. **Develop** your feature
+   - Write clean and well-documented code
+   - Add tests for new functionality
+   - Update documentation if necessary
 
-4. **Prueba** tu código
+4. **Test** your code
 ```bash
-# Ejecutar tests
+# Run tests
 ./gradlew test
 
-# Verificar que la app de prueba funciona
+# Verify that the test app works
 ./gradlew :kmptestapp:installDebug
 ```
 
-5. **Commit** tus cambios
+5. **Commit** your changes
 ```bash
 git add .
-git commit -m "feat: agregar nueva característica X"
+git commit -m "feat: add new feature X"
 ```
 
-6. **Push** a tu fork
+6. **Push** to your fork
 ```bash
-git push origin feature/descripcion-breve
+git push origin feature/brief-description
 ```
 
-7. **Crea** un Pull Request
+7. **Create** a Pull Request
 
-## 📏 Estándares de Código
+## 📏 Code Standards
 
-### Convenciones de Naming
+### Naming Conventions
 
 #### Kotlin
 ```kotlin
-// Clases: PascalCase
+// Classes: PascalCase
 class DatePickerDialog
 
-// Funciones y variables: camelCase
+// Functions and variables: camelCase
 fun showDatePicker()
 val selectedDate = LocalDate.now()
 
-// Constantes: SCREAMING_SNAKE_CASE
+// Constants: SCREAMING_SNAKE_CASE
 const val DEFAULT_TIMEOUT = 5000
 
 // Composables: PascalCase
@@ -234,37 +234,37 @@ const val DEFAULT_TIMEOUT = 5000
 fun CustomButton() { }
 ```
 
-#### Archivos
+#### Files
 ```
-// Clases: NombreClase.kt
+// Classes: ClassName.kt
 DatePickerDialog.kt
 
-// Composables: NombreComposable.kt
+// Composables: ComposableName.kt
 CustomButton.kt
 
-// Utilidades: NombreUtils.kt
+// Utilities: NameUtils.kt
 DateUtils.kt
 ```
 
-### Estructura de Archivos
+### File Structure
 
 ```kotlin
 // 1. Package declaration
 package com.sweetmesoft.kmpcontrols.dialogs
 
-// 2. Imports (agrupados y ordenados)
+// 2. Imports (grouped and ordered)
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 
-// 3. Documentación de clase/función
+// 3. Class/function documentation
 /**
- * Diálogo para selección de fechas.
+ * Dialog for date selection.
  * 
- * @param selectedDate Fecha actualmente seleccionada
- * @param onDateSelected Callback cuando se selecciona una fecha
- * @param modifier Modificador para personalización
+ * @param selectedDate Currently selected date
+ * @param onDateSelected Callback when a date is selected
+ * @param modifier Modifier for customization
  */
 @Composable
 fun DatePickerDialog(
@@ -272,19 +272,19 @@ fun DatePickerDialog(
     onDateSelected: (LocalDate) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // Implementación
+    // Implementation
 }
 ```
 
-### Documentación
+### Documentation
 
-#### Funciones Públicas
+#### Public Functions
 ```kotlin
 /**
- * Valida si un email tiene formato correcto.
+ * Validates if an email has correct format.
  * 
- * @param email El email a validar
- * @return true si el email es válido, false en caso contrario
+ * @param email The email to validate
+ * @return true if the email is valid, false otherwise
  * 
  * @sample
  * ```kotlin
@@ -298,13 +298,13 @@ fun isValidEmail(email: String): Boolean
 #### Composables
 ```kotlin
 /**
- * Control de contraseña con visibilidad toggleable.
+ * Password control with toggleable visibility.
  * 
- * @param value Valor actual de la contraseña
- * @param onValueChange Callback cuando cambia el valor
- * @param modifier Modificador para personalización
- * @param label Etiqueta del campo
- * @param enabled Si el campo está habilitado
+ * @param value Current password value
+ * @param onValueChange Callback when value changes
+ * @param modifier Modifier for customization
+ * @param label Field label
+ * @param enabled Whether the field is enabled
  * 
  * @sample
  * ```kotlin
@@ -312,7 +312,7 @@ fun isValidEmail(email: String): Boolean
  * PasswordControl(
  *     value = password,
  *     onValueChange = { password = it },
- *     label = "Contraseña"
+ *     label = "Password"
  * )
  * ```
  */
@@ -321,14 +321,14 @@ fun PasswordControl(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
-    label: String = "Contraseña",
+    label: String = "Password",
     enabled: Boolean = true
 )
 ```
 
 ### Testing
 
-#### Tests Unitarios
+#### Unit Tests
 ```kotlin
 class StringUtilsTest {
     @Test
@@ -370,7 +370,7 @@ class StringUtilsTest {
 }
 ```
 
-#### Tests de Composables
+#### Composable Tests
 ```kotlin
 class PasswordControlTest {
     @get:Rule
@@ -399,103 +399,103 @@ class PasswordControlTest {
 }
 ```
 
-## 🔄 Proceso de Pull Request
+## 🔄 Pull Request Process
 
-### Antes de Crear el PR
+### Before Creating the PR
 
-1. **Asegúrate** de que tu código compila sin errores
-2. **Ejecuta** todos los tests
-3. **Verifica** que la app de prueba funciona correctamente
-4. **Actualiza** la documentación si es necesario
-5. **Sincroniza** con la rama principal
+1. **Ensure** your code compiles without errors
+2. **Run** all tests
+3. **Verify** that the test app works correctly
+4. **Update** documentation if necessary
+5. **Sync** with the main branch
 
-### Creando el PR
+### Creating the PR
 
-#### Título
-Usa el formato: `tipo: descripción breve`
+#### Title
+Use the format: `type: brief description`
 
-Tipos:
-- `feat`: Nueva característica
-- `fix`: Corrección de bug
-- `docs`: Cambios en documentación
-- `style`: Cambios de formato (no afectan funcionalidad)
-- `refactor`: Refactorización de código
-- `test`: Agregar o modificar tests
-- `chore`: Tareas de mantenimiento
+Types:
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Format changes (don't affect functionality)
+- `refactor`: Code refactoring
+- `test`: Add or modify tests
+- `chore`: Maintenance tasks
 
-Ejemplos:
-- `feat: agregar DateTimePicker component`
-- `fix: corregir crash en MapComponent en iOS`
-- `docs: actualizar guía de instalación`
+Examples:
+- `feat: add DateTimePicker component`
+- `fix: fix crash in MapComponent on iOS`
+- `docs: update installation guide`
 
-#### Descripción
+#### Description
 ```markdown
-## 📝 Descripción
-Descripción clara de los cambios realizados.
+## 📝 Description
+Clear description of the changes made.
 
-## 🎯 Tipo de Cambio
-- [ ] Bug fix (cambio que corrige un issue)
-- [ ] Nueva característica (cambio que agrega funcionalidad)
-- [ ] Breaking change (cambio que rompe compatibilidad)
-- [ ] Documentación
+## 🎯 Type of Change
+- [ ] Bug fix (change that fixes an issue)
+- [ ] New feature (change that adds functionality)
+- [ ] Breaking change (change that breaks compatibility)
+- [ ] Documentation
 
-## 🧪 ¿Cómo se ha probado?
-- [ ] Tests unitarios
-- [ ] Tests de integración
-- [ ] Pruebas manuales en Android
-- [ ] Pruebas manuales en iOS
-- [ ] Pruebas en kmptestapp
+## 🧪 How has it been tested?
+- [ ] Unit tests
+- [ ] Integration tests
+- [ ] Manual testing on Android
+- [ ] Manual testing on iOS
+- [ ] Testing in kmptestapp
 
 ## 📋 Checklist
-- [ ] Mi código sigue las convenciones del proyecto
-- [ ] He realizado una auto-revisión de mi código
-- [ ] He comentado mi código, especialmente en áreas complejas
-- [ ] He actualizado la documentación correspondiente
-- [ ] Mis cambios no generan nuevas advertencias
-- [ ] He agregado tests que prueban mi fix/característica
-- [ ] Los tests nuevos y existentes pasan localmente
+- [ ] My code follows the project conventions
+- [ ] I have performed a self-review of my code
+- [ ] I have commented my code, especially in complex areas
+- [ ] I have updated the corresponding documentation
+- [ ] My changes don't generate new warnings
+- [ ] I have added tests that prove my fix/feature
+- [ ] New and existing tests pass locally
 ```
 
-### Revisión del PR
+### PR Review
 
-Tu PR será revisado por los mantenedores. Pueden:
+Your PR will be reviewed by maintainers. They can:
 
-1. **Aprobar** y hacer merge
-2. **Solicitar cambios** con comentarios específicos
-3. **Comentar** sin bloquear el merge
+1. **Approve** and merge
+2. **Request changes** with specific comments
+3. **Comment** without blocking the merge
 
-#### Respondiendo a Comentarios
-- Lee cuidadosamente todos los comentarios
-- Haz los cambios solicitados
-- Responde a cada comentario explicando tus cambios
-- Marca como resueltos los comentarios que hayas atendido
+#### Responding to Comments
+- Read all comments carefully
+- Make the requested changes
+- Respond to each comment explaining your changes
+- Mark as resolved the comments you have addressed
 
-## 🏷️ Versionado
+## 🏷️ Versioning
 
-Seguimos [Semantic Versioning](https://semver.org/):
+We follow [Semantic Versioning](https://semver.org/):
 
-- **MAJOR** (X.0.0): Cambios incompatibles en la API
-- **MINOR** (0.X.0): Nueva funcionalidad compatible
-- **PATCH** (0.0.X): Correcciones de bugs compatibles
+- **MAJOR** (X.0.0): Incompatible API changes
+- **MINOR** (0.X.0): Compatible new functionality
+- **PATCH** (0.0.X): Compatible bug fixes
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
-- [Documentación de Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)
-- [Guía de Jetpack Compose](https://developer.android.com/jetpack/compose)
-- [Convenciones de Kotlin](https://kotlinlang.org/docs/coding-conventions.html)
+- [Kotlin Multiplatform Documentation](https://kotlinlang.org/docs/multiplatform.html)
+- [Jetpack Compose Guide](https://developer.android.com/jetpack/compose)
+- [Kotlin Conventions](https://kotlinlang.org/docs/coding-conventions.html)
 - [Material Design 3](https://m3.material.io/)
 
-## 🙏 Reconocimientos
+## 🙏 Acknowledgments
 
-Todos los contribuidores serán reconocidos en:
-- Lista de contribuidores en GitHub
-- Archivo AUTHORS.md
-- Release notes cuando corresponda
+All contributors will be recognized in:
+- GitHub contributors list
+- AUTHORS.md file
+- Release notes when applicable
 
 ---
 
-¿Tienes preguntas? No dudes en:
-- Abrir un [issue de discusión](https://github.com/erickvelasco11/KmpLibrary/issues)
-- Contactarnos en [team@sweetmesoft.com](mailto:team@sweetmesoft.com)
+Have questions? Feel free to:
+- Open a [discussion issue](https://github.com/erickvelasco11/KmpLibrary/issues)
+- Contact us at [team@sweetmesoft.com](mailto:team@sweetmesoft.com)
 
-¡Gracias por contribuir a SweetMeSoft KMP Library! 🚀
+Thank you for contributing to SweetMeSoft KMP Library! 🚀

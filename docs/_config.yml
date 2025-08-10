@@ -2,9 +2,9 @@
 
 title: SweetMeSoft KMP Library
 description: >-
-  Una librería multiplataforma completa para Kotlin que proporciona componentes UI avanzados,
-  integración de mapas y utilidades esenciales para el desarrollo de aplicaciones nativas
-  en Android, iOS y Desktop.
+  A complete multiplatform library for Kotlin that provides advanced UI components,
+  maps integration and essential utilities for developing native applications
+  on Android, iOS and Desktop.
 baseurl: "/KmpLibrary"
 url: "https://sweetmesoft.github.io"
 repository: SweetMeSoft/KmpLibrary

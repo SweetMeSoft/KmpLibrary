@@ -1,26 +1,26 @@
 # 📗 KMPMaps Documentation
 
-KMPMaps es el módulo especializado de la librería SweetMeSoft KMP que proporciona componentes de mapas multiplataforma con integración nativa para Android (Google Maps) e iOS (MapKit).
+KMPMaps is the specialized module of the SweetMeSoft KMP library that provides multiplatform map components with native integration for Android (Google Maps) and iOS (MapKit).
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [Instalación](#instalación)
-- [Configuración](#configuración)
-- [Componentes Principales](#componentes-principales)
-- [Controles de Mapa](#controles-de-mapa)
-- [Gestión de Ubicación](#gestión-de-ubicación)
-- [Ejemplos de Uso](#ejemplos-de-uso)
-- [Personalización](#personalización)
-- [Solución de Problemas](#solución-de-problemas)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Main Components](#main-components)
+- [Map Controls](#map-controls)
+- [Location Management](#location-management)
+- [Usage Examples](#usage-examples)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
 
-## 🚀 Instalación
+## 🚀 Installation
 
 ```kotlin
 commonMain.dependencies {
     implementation("com.sweetmesoft.kmpmaps:kmpmaps:1.6.6")
     implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
     
-    // Dependencias requeridas
+    // Required dependencies
     implementation("dev.icerock.moko:permissions:0.19.1")
     implementation("dev.icerock.moko:permissions-compose:0.19.1")
     implementation("dev.icerock.moko:permissions-location:0.19.1")
@@ -32,41 +32,55 @@ androidMain.dependencies {
 }
 ```
 
-## ⚙️ Configuración
+## ⚙️ Configuration
 
 ### Android
 
-1. **Agregar API Key de Google Maps**
+#### 1. Google Maps API Key
 
-En `android/src/main/AndroidManifest.xml`:
-```xml
-<application>
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="YOUR_GOOGLE_MAPS_API_KEY" />
-</application>
+Add your API key in `local.properties`:
+```properties
+GOOGLE_MAPS_API_KEY=your_api_key_here
 ```
 
-2. **Permisos de Ubicación**
+In `build.gradle.kts` (app module):
+```kotlin
+android {
+    defaultConfig {
+        val googleMapsApiKey = project.findProperty("GOOGLE_MAPS_API_KEY") as String? ?: ""
+        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$googleMapsApiKey\"")
+        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
+    }
+}
+```
+
+#### 2. Permissions in AndroidManifest.xml
 ```xml
 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.INTERNET" />
+
+<application>
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="${GOOGLE_MAPS_API_KEY}" />
+</application>
 ```
 
 ### iOS
 
-1. **Configurar Info.plist**
+1. **Configure Info.plist**
 ```xml
 <key>NSLocationWhenInUseUsageDescription</key>
-<string>Esta app necesita acceso a la ubicación para mostrar mapas</string>
+<string>This application needs location access to display maps</string>
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>Esta app necesita acceso a la ubicación para funciones de mapas</string>
+<string>This application needs location access to display maps</string>
 ```
 
-## 🗺️ Componentes Principales
+## 🗺️ Main Components
 
 ### MapComponent
-Componente principal de mapa multiplataforma que se adapta automáticamente a la plataforma.
+Main multiplatform map component that automatically adapts to the platform.
 
 ```kotlin
 @Composable
@@ -99,7 +113,7 @@ MapComponent(
 ## 🎯 Controles de Mapa
 
 ### Coordinates
-Clase de datos para representar coordenadas geográficas.
+Data class to represent geographic coordinates.
 
 ```kotlin
 data class Coordinates(
@@ -113,7 +127,7 @@ data class Coordinates(
 ```
 
 ### GeoPosition
-Posición geográfica con información adicional.
+Geographic position with additional information.
 
 ```kotlin
 data class GeoPosition(
@@ -129,7 +143,7 @@ data class GeoPosition(
 ```
 
 ### MarkerMap
-Marcador personalizable para el mapa.
+Customizable marker for the map.
 
 ```kotlin
 data class MarkerMap(
@@ -146,13 +160,13 @@ data class MarkerMap(
 ```
 
 ### CircleMap
-Circulo overlay para el mapa.
+Circle overlay for the map.
 
 ```kotlin
 data class CircleMap(
     val id: String,
     val center: Coordinates,
-    val radius: Double, // en metros
+    val radius: Double, // in meters
     val strokeColor: Color = Color.Blue,
     val fillColor: Color = Color.Blue.copy(alpha = 0.3f),
     val strokeWidth: Float = 2f,
@@ -160,9 +174,9 @@ data class CircleMap(
 )
 ```
 
-## 📍 Gestión de Ubicación
+## 📍 Location Management
 
-### Obtener Ubicación Actual
+### Get Current Location
 
 ```kotlin
 @Composable
@@ -170,7 +184,7 @@ fun LocationExample() {
     var currentLocation by remember { mutableStateOf<GeoPosition?>(null) }
     var hasLocationPermission by remember { mutableStateOf(false) }
     
-    // Solicitar permisos
+    // Request permissions
     LaunchedEffect(Unit) {
         hasLocationPermission = requestLocationPermission()
     }
@@ -188,7 +202,7 @@ fun LocationExample() {
                     MarkerMap(
                         id = "current",
                         position = location.toCoordinates(),
-                        title = "Mi Ubicación",
+                        title = "My Location",
                         color = Color.Blue
                     )
                 )
@@ -199,8 +213,8 @@ fun LocationExample() {
 
 suspend fun getCurrentLocation(): GeoPosition? {
     return try {
-        // Implementación específica de plataforma
-        // Retorna la ubicación actual del usuario
+        // Platform-specific implementation
+        // Returns the user's current location
         null // Placeholder
     } catch (e: Exception) {
         null
@@ -208,14 +222,14 @@ suspend fun getCurrentLocation(): GeoPosition? {
 }
 
 suspend fun requestLocationPermission(): Boolean {
-    // Implementación de solicitud de permisos
+    // Permission request implementation
     return true // Placeholder
 }
 ```
 
-## 📝 Ejemplos de Uso
+## 📝 Usage Examples
 
-### Ejemplo 1: Mapa Básico con Marcadores
+### Example 1: Basic Map with Markers
 
 ```kotlin
 @Composable
@@ -225,15 +239,15 @@ fun BasicMapExample() {
             MarkerMap(
                 id = "marker1",
                 position = Coordinates(40.7128, -74.0060),
-                title = "Nueva York",
-                description = "La Gran Manzana",
+                title = "New York",
+                description = "The Big Apple",
                 color = Color.Red
             ),
             MarkerMap(
                 id = "marker2",
                 position = Coordinates(34.0522, -118.2437),
-                title = "Los Ángeles",
-                description = "Ciudad de los Ángeles",
+                title = "Los Angeles",
+                description = "City of Angels",
                 color = Color.Blue
             )
         )
@@ -241,7 +255,7 @@ fun BasicMapExample() {
     
     MapComponent(
         modifier = Modifier.fillMaxSize(),
-        initialPosition = GeoPosition(39.8283, -98.5795), // Centro de EE.UU.
+        initialPosition = GeoPosition(39.8283, -98.5795), // Center of USA
         zoom = 4f,
         markers = markers,
         onMarkerClick = { marker ->
@@ -251,7 +265,7 @@ fun BasicMapExample() {
 }
 ```
 
-### Ejemplo 2: Mapa con Círculos y Áreas
+### Example 2: Map with Circles and Areas
 
 ```kotlin
 @Composable
@@ -284,7 +298,7 @@ fun MapWithCirclesExample() {
 }
 ```
 
-### Ejemplo 3: Mapa Interactivo con Gestión de Estado
+### Example 3: Interactive Map with State Management
 
 ```kotlin
 @Composable
@@ -293,7 +307,7 @@ fun InteractiveMapExample() {
     var selectedMarker by remember { mutableStateOf<MarkerMap?>(null) }
     
     Column {
-        // Información del marcador seleccionado
+        // Selected marker information
         selectedMarker?.let { marker ->
             Card(
                 modifier = Modifier
@@ -319,18 +333,18 @@ fun InteractiveMapExample() {
             }
         }
         
-        // Mapa
+        // Map
         MapComponent(
             modifier = Modifier.fillMaxSize(),
             initialPosition = GeoPosition(40.7128, -74.0060),
             markers = markers,
             onMapClick = { coordinates ->
-                // Agregar nuevo marcador al hacer clic
+                // Add new marker on click
                 val newMarker = MarkerMap(
                     id = "marker_${System.currentTimeMillis()}",
                     position = coordinates,
-                    title = "Marcador ${markers.size + 1}",
-                    description = "Agregado en ${coordinates.latitude}, ${coordinates.longitude}"
+                    title = "Marker ${markers.size + 1}",
+                    description = "Added at ${coordinates.latitude}, ${coordinates.longitude}"
                 )
                 markers = markers + newMarker
             },
@@ -342,7 +356,7 @@ fun InteractiveMapExample() {
 }
 ```
 
-### Ejemplo 4: Seguimiento de Ubicación en Tiempo Real
+### Example 4: Real-time Location Tracking
 
 ```kotlin
 @Composable
@@ -358,13 +372,13 @@ fun LocationTrackingExample() {
                     currentLocation = location
                     locationHistory = locationHistory + location
                 }
-                delay(5000) // Actualizar cada 5 segundos
+                delay(5000) // Update every 5 seconds
             }
         }
     }
     
     Column {
-        // Controles
+        // Controls
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -374,17 +388,17 @@ fun LocationTrackingExample() {
             Button(
                 onClick = { isTracking = !isTracking }
             ) {
-                Text(if (isTracking) "Detener" else "Iniciar Seguimiento")
+                Text(if (isTracking) "Stop" else "Start Tracking")
             }
             
             Button(
                 onClick = { locationHistory = emptyList() }
             ) {
-                Text("Limpiar Historial")
+                Text("Clear History")
             }
         }
         
-        // Mapa
+        // Map
         currentLocation?.let { location ->
             MapComponent(
                 modifier = Modifier.fillMaxSize(),
@@ -394,7 +408,7 @@ fun LocationTrackingExample() {
                     MarkerMap(
                         id = "history_$index",
                         position = pos.toCoordinates(),
-                        title = "Punto $index",
+                        title = "Point $index",
                         color = if (index == locationHistory.lastIndex) Color.Red else Color.Gray
                     )
                 }
@@ -404,9 +418,9 @@ fun LocationTrackingExample() {
 }
 ```
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### Tipos de Mapa
+### Map Types
 
 ```kotlin
 enum class MapType {
@@ -416,26 +430,26 @@ enum class MapType {
     HYBRID
 }
 
-// Uso
+// Usage
 MapComponent(
     mapType = MapType.SATELLITE
 )
 ```
 
-### Marcadores Personalizados
+### Custom Markers
 
 ```kotlin
 @Composable
 fun CustomMarkerExample() {
     val customIcon = remember {
-        // Crear icono personalizado
+        // Create custom icon
         createCustomMarkerIcon()
     }
     
     val marker = MarkerMap(
         id = "custom",
         position = Coordinates(40.7128, -74.0060),
-        title = "Marcador Personalizado",
+        title = "Custom Marker",
         icon = customIcon,
         isDraggable = true
     )
@@ -446,15 +460,15 @@ fun CustomMarkerExample() {
 }
 
 fun createCustomMarkerIcon(): ImageBitmap {
-    // Implementación específica de plataforma
-    // para crear iconos personalizados
+    // Platform-specific implementation
+    // for creating custom icons
     return ImageBitmap(32, 32) // Placeholder
 }
 ```
 
-## 🔧 Configuración Avanzada
+## 🔧 Advanced Configuration
 
-### Gestión de Permisos
+### Permission Management
 
 ```kotlin
 @Composable
@@ -482,14 +496,14 @@ fun PermissionAwareMap() {
                     permissionState.launchPermissionRequest()
                 }
             ) {
-                Text("Solicitar Permisos de Ubicación")
+                Text("Request Location Permissions")
             }
         }
     }
 }
 ```
 
-### Optimización de Rendimiento
+### Performance Optimization
 
 ```kotlin
 @Composable
@@ -500,7 +514,7 @@ fun OptimizedMapExample() {
     MapComponent(
         markers = visibleMarkers,
         onCameraMove = { bounds ->
-            // Filtrar marcadores visibles para mejor rendimiento
+            // Filter visible markers for better performance
             visibleMarkers = allMarkers.filter { marker ->
                 bounds.contains(marker.position)
             }
@@ -509,59 +523,59 @@ fun OptimizedMapExample() {
 }
 ```
 
-## 🐛 Solución de Problemas
+## 🐛 Troubleshooting
 
-### Problemas Comunes
+### Common Issues
 
-1. **Mapa no se muestra en Android**
+1. **Map not showing on Android**
    ```kotlin
-   // Verificar que la API Key esté configurada correctamente
-   // y que los servicios de Google Play estén disponibles
+   // Verify that the API Key is configured correctly
+   // and that Google Play Services are available
    ```
 
-2. **Permisos de ubicación denegados**
+2. **Location permissions denied**
    ```kotlin
-   // Implementar manejo adecuado de permisos
-   // Mostrar diálogos explicativos al usuario
+   // Implement proper permission handling
+   // Show explanatory dialogs to the user
    ```
 
-3. **Rendimiento lento con muchos marcadores**
+3. **Slow performance with many markers**
    ```kotlin
-   // Implementar clustering de marcadores
-   // Filtrar marcadores por región visible
+   // Implement marker clustering
+   // Filter markers by visible region
    ```
 
-4. **Problemas de compilación en iOS**
+4. **iOS compilation issues**
    ```kotlin
-   // Verificar que los permisos estén configurados en Info.plist
-   // Asegurar compatibilidad con la versión de iOS
+   // Verify that permissions are configured in Info.plist
+   // Ensure compatibility with iOS version
    ```
 
 ### Debugging
 
 ```kotlin
-// Habilitar logs de debug
+// Enable debug logs
 MapComponent(
-    debugMode = true, // Solo en desarrollo
+    debugMode = true, // Development only
     onDebugInfo = { info ->
         println("Map Debug: $info")
     }
 )
 ```
 
-## 📚 Recursos Adicionales
+## 📚 Additional Resources
 
 - [Google Maps API Documentation](https://developers.google.com/maps/documentation)
 - [Apple MapKit Documentation](https://developer.apple.com/documentation/mapkit)
 - [Moko Permissions](https://github.com/icerockdev/moko-permissions)
-- [Ejemplos Completos](../kmptestapp/)
-- [Reportar Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
+- [Complete Examples](../kmptestapp/)
+- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
 
 ---
 
-**Próximas Características:**
-- Clustering de marcadores
-- Rutas y direcciones
-- Mapas offline
-- Más tipos de overlays
-- Integración con servicios de geocodificación
+**Upcoming Features:**
+- Marker clustering
+- Routes and directions
+- Offline maps
+- More overlay types
+- Geocoding services integration
