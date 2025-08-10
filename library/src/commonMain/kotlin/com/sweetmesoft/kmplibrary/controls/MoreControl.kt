@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmplibrary.controls
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +10,7 @@ import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -41,6 +43,7 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
             expanded = showMenu,
             onDismissRequest = { showMenu = false },
             modifier = Modifier.align(Alignment.TopEnd)
+                .background(MaterialTheme.colorScheme.surface)
         ) {
             options.forEach { item ->
                 DropdownMenuItem(onClick = {

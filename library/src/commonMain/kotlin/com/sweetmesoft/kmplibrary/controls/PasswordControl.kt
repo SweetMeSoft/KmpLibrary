@@ -7,7 +7,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
+import compose.icons.tablericons.Lock
 import kmplibrary.library.generated.resources.Password
 import kmplibrary.library.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
@@ -57,6 +57,12 @@ fun PasswordControl(
             capitalization = KeyboardCapitalization.None
         ),
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+        leadingIcon = {
+            Icon(
+                imageVector = TablerIcons.Lock,
+                contentDescription = "Password"
+            )
+        },
         trailingIcon = {
             val image = if (isPasswordVisible) TablerIcons.Eye
             else TablerIcons.EyeOff
@@ -67,15 +73,10 @@ fun PasswordControl(
                 Icon(
                     image,
                     contentDescription = "Toggle password visibility",
-                    modifier = Modifier.height(20.dp)
+                    modifier = Modifier.height(20.dp),
                 )
             }
         },
-        colors = TextFieldDefaults.colors(
-            focusedIndicatorColor = color,
-            cursorColor = color,
-            focusedLabelColor = color,
-        ),
         isError = isError
     )
 }

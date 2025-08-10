@@ -139,16 +139,14 @@ private fun ScreenContent(
                     },
                     navigationIcon = {
                         if (BaseViewModel.navigator.canPop) {
-                            @Composable {
-                                IconButton(
-                                    modifier = Modifier.padding(start = 8.dp),
-                                    onClick = { BaseViewModel.navigator.pop() }
-                                ) {
-                                    Icon(
-                                        imageVector = TablerIcons.ArrowBack,
-                                        contentDescription = "Back"
-                                    )
-                                }
+                            IconButton(
+                                modifier = Modifier.padding(start = 8.dp),
+                                onClick = { BaseViewModel.navigator.pop() }
+                            ) {
+                                Icon(
+                                    imageVector = TablerIcons.ArrowBack,
+                                    contentDescription = "Back"
+                                )
                             }
                         } else {
                             null
