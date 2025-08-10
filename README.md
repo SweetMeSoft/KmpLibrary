@@ -1,85 +1,85 @@
 # 🚀 SweetMeSoft KMP Library
 
-Una librería multiplataforma completa para Kotlin que proporciona componentes UI avanzados, integración de mapas y utilidades esenciales para el desarrollo de aplicaciones nativas en Android, iOS y Desktop.
+A complete cross-platform library for Kotlin that provides advanced UI components, maps integration, and essential utilities for developing native applications on Android, iOS, and Desktop.
 
-[![GitHub release](https://img.shields.io/github/release/erickvelasco11/KmpLibrary.svg)](https://github.com/erickvelasco11/KmpLibrary/releases)
+[![GitHub release](https://img.shields.io/github/release/SweetMeSoft/KmpLibrary.svg)](https://github.com/SweetMeSoft/KmpLibrary/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-blue.svg)](https://kotlinlang.org)
 [![Compose](https://img.shields.io/badge/Compose-1.7.5-green.svg)](https://developer.android.com/jetpack/compose)
-[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://erickvelasco11.github.io/KmpLibrary)
+[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://sweetmesoft.github.io/KmpLibrary)
 
-## 📋 Tabla de Contenidos
+## 📋 Table of Contents
 
-- [🎯 Características](#características)
-- [📦 Módulos](#módulos)
-- [⚡ Inicio Rápido](#inicio-rápido)
-- [📚 Documentación](#documentación)
-- [🛠️ Instalación](#instalación)
-- [📱 Ejemplos](#ejemplos)
-- [🤝 Contribuir](#contribuir)
-- [📄 Licencia](#licencia)
-- [👥 Autores](#autores)
-- [🔗 Enlaces](#enlaces)
+- [🎯 Features](#features)
+- [📦 Modules](#modules)
+- [⚡ Quick Start](#quick-start)
+- [📚 Documentation](#documentation)
+- [🛠️ Installation](#installation)
+- [📱 Examples](#examples)
+- [🤝 Contributing](#contributing)
+- [📄 License](#license)
+- [👥 Authors](#authors)
+- [🔗 Links](#links)
 
-## ✨ Características
+## ✨ Features
 
-- **🎨 Componentes UI Modernos**: Controles personalizados con Material Design 3
-- **🗺️ Integración de Mapas**: Componentes de mapas multiplataforma con Google Maps
-- **📱 Soporte Completo KMP**: Compatible con Android e iOS
-- **🔧 Utilidades Integradas**: Herramientas para fechas, números, imágenes y más
-- **🎯 Fácil Integración**: APIs simples y bien documentadas
-- **⚡ Alto Rendimiento**: Optimizado para aplicaciones de producción
+- **🎨 Modern UI Components**: Custom controls with Material Design 3
+- **🗺️ Maps Integration**: Cross-platform map components with Google Maps
+- **📱 Complete KMP Support**: Compatible with Android and iOS
+- **🔧 Integrated Utilities**: Tools for dates, numbers, images, and more
+- **🎯 Easy Integration**: Simple and well-documented APIs
+- **⚡ High Performance**: Optimized for production applications
 
-## 📦 Módulos
+## 📦 Modules
 
-La librería está dividida en tres módulos principales:
+The library is divided into three main modules:
 
 ### 🎛️ KMPControls
-Componentes UI básicos y utilidades fundamentales.
-- Controles de entrada personalizados
-- Selectores de fecha y hora
-- Diálogos y alertas
-- Utilidades de validación
+Basic UI components and fundamental utilities.
+- Custom input controls
+- Date and time pickers
+- Dialogs and alerts
+- Validation utilities
 
 ### 🗺️ KMPMaps
-Componentes especializados para integración de mapas.
-- Componentes de mapas multiplataforma
-- Marcadores y overlays personalizados
-- Gestión de ubicación
-- Integración con Google Maps
+Specialized components for maps integration.
+- Cross-platform map components
+- Custom markers and overlays
+- Location management
+- Google Maps integration
 
-### 📚 Library (Principal)
-Librería principal con componentes avanzados y herramientas.
-- Componentes UI complejos
-- Gestión de estado
-- Utilidades de red
-- Herramientas de navegación
+### 📚 Library (Main)
+Main library with advanced components and tools.
+- Complex UI components
+- State management
+- Network utilities
+- Navigation tools
 
 ### 🧪 KMPTestApp
-Aplicación de ejemplo que demuestra el uso de todas las librerías.
+Example application that demonstrates the use of all libraries.
 
-## 🚀 Instalación
+## 🚀 Installation
 
 ### Gradle (Kotlin DSL)
 
-Agrega las dependencias en tu archivo `build.gradle.kts`:
+Add the dependencies in your `build.gradle.kts` file:
 
 ```kotlin
 commonMain.dependencies {
-    // Librería principal
+    // Main library
     implementation("com.sweetmesoft.kmplibrary:kmplibrary:1.6.6")
     
-    // Controles básicos
+    // Basic controls
     implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
     
-    // Componentes de mapas
+    // Map components
     implementation("com.sweetmesoft.kmpmaps:kmpmaps:1.6.6")
 }
 ```
 
-### Configuración de Versiones
+### Version Configuration
 
-En tu archivo `libs.versions.toml`:
+In your `libs.versions.toml` file:
 
 ```toml
 [versions]
@@ -91,7 +91,7 @@ sweetmesoft-controls = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", ver
 sweetmesoft-maps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
 ```
 
-## 📋 Requisitos
+## 📋 Requirements
 
 - **Kotlin**: 2.2.0+
 - **Compose Multiplatform**: 1.8.2+
@@ -99,10 +99,10 @@ sweetmesoft-maps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "
 - **iOS**: iOS 14.0+
 - **Gradle**: 8.12.0+
 
-### Dependencias Requeridas
+### Required Dependencies
 
 ```kotlin
-// En tu build.gradle.kts
+// In your build.gradle.kts
 commonMain.dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
@@ -111,11 +111,11 @@ commonMain.dependencies {
 }
 ```
 
-## ⚡ Inicio Rápido
+## ⚡ Quick Start
 
-### 1. Agregar Dependencias
+### 1. Add Dependencies
 
-En tu archivo `libs.versions.toml`:
+In your `libs.versions.toml` file:
 
 ```toml
 [versions]
@@ -127,7 +127,7 @@ kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmeso
 kmplibrary = { module = "com.sweetmesoft.kmplibrary:kmplibrary", version.ref = "sweetmesoft" }
 ```
 
-En tu `build.gradle.kts`:
+In your `build.gradle.kts`:
 
 ```kotlin
 commonMain.dependencies {
@@ -137,7 +137,7 @@ commonMain.dependencies {
 }
 ```
 
-### 2. Usar Componentes
+### 2. Use Components
 
 ```kotlin
 import androidx.compose.runtime.*
@@ -151,20 +151,20 @@ fun MyApp() {
     var password by remember { mutableStateOf("") }
     
     Column {
-        // Control de contraseña
+        // Password control
         PasswordControl(
             value = password,
             onValueChange = { password = it },
-            label = "Contraseña"
+            label = "Password"
         )
         
-        // Selector de fecha
+        // Date picker
         DatePicker(
             selectedDate = selectedDate,
             onDateSelected = { selectedDate = it }
         )
         
-        // Componente de mapa
+        // Map component
         MapComponent(
             modifier = Modifier.fillMaxSize(),
             initialPosition = GeoPosition(40.7128, -74.0060)
@@ -173,11 +173,11 @@ fun MyApp() {
 }
 ```
 
-## 📚 Documentación
+## 📚 Documentation
 
 ### 🌐 Complete Documentation
 
-**[📖 Visit our complete documentation on GitHub Pages](https://erickvelasco11.github.io/KmpLibrary)**
+**[📖 Visit our complete documentation on GitHub Pages](https://sweetmesoft.github.io/KmpLibrary)**
 
 The documentation includes:
 
@@ -192,10 +192,10 @@ The documentation includes:
 
 | Module | Description | Documentation |
 |--------|-------------|---------------|
-| 🎛️ **KMPControls** | Basic UI components and utilities | [View Docs](https://erickvelasco11.github.io/KmpLibrary/kmpcontrols) |
-| 🗺️ **KMPMaps** | Cross-platform maps integration | [View Docs](https://erickvelasco11.github.io/KmpLibrary/kmpmaps) |
-| 📚 **Library** | Advanced components and tools | [View Docs](https://erickvelasco11.github.io/KmpLibrary/library) |
-| 🧪 **KMPTestApp** | Example application and guides | [View Docs](https://erickvelasco11.github.io/KmpLibrary/kmptestapp) |
+| 🎛️ **KMPControls** | Basic UI components and utilities | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpcontrols) |
+| 🗺️ **KMPMaps** | Cross-platform maps integration | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpmaps) |
+| 📚 **Library** | Advanced components and tools | [View Docs](https://sweetmesoft.github.io/KmpLibrary/library) |
+| 🧪 **KMPTestApp** | Example application and guides | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmptestapp) |
 
 ### 📖 Local Documentation
 
@@ -206,11 +206,11 @@ You can also access the documentation locally:
 - **[Library](docs/library.md)** - Main module
 - **[KMPTestApp](docs/kmptestapp.md)** - Usage examples
 
-## 🔧 Configuración del Proyecto
+## 🔧 Project Configuration
 
 ### Android
 
-En tu `build.gradle.kts` de Android:
+In your Android `build.gradle.kts`:
 
 ```kotlin
 android {
@@ -228,7 +228,7 @@ android {
 
 ### iOS
 
-Asegúrate de tener configurado el deployment target mínimo:
+Make sure you have the minimum deployment target configured:
 
 ```kotlin
 iosX64()
@@ -236,9 +236,9 @@ iosArm64()
 iosSimulatorArm64()
 ```
 
-## 🎨 Personalización
+## 🎨 Customization
 
-### Temas Personalizados
+### Custom Themes
 
 ```kotlin
 @Composable
@@ -254,17 +254,17 @@ fun MyCustomTheme(content: @Composable () -> Unit) {
 }
 ```
 
-## 🧪 Ejemplos
+## 🧪 Examples
 
-El proyecto incluye una aplicación de ejemplo completa en el módulo `kmptestapp` que demuestra:
+The project includes a complete example application in the `kmptestapp` module that demonstrates:
 
-- Uso de todos los componentes UI
-- Integración de mapas
-- Navegación entre pantallas
-- Gestión de estado
-- Mejores prácticas de desarrollo
+- Use of all UI components
+- Maps integration
+- Navigation between screens
+- State management
+- Development best practices
 
-Para ejecutar la aplicación de ejemplo:
+To run the example application:
 
 ```bash
 ./gradlew :kmptestapp:run
@@ -309,30 +309,30 @@ git checkout -b feature/my-new-feature
 
 This project adheres to a code of conduct. By participating, you are expected to maintain a respectful and welcoming environment for everyone.
 
-## 📄 Licencia
+## 📄 License
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Autores
+## 👥 Authors
 
-- **Erick Velasco** - *Desarrollo Principal* - [erick.velasco@sweetmesoft.com](mailto:erick.velasco@sweetmesoft.com)
+- **Erick Velasco** - *Main Development* - [erick.velasco@sweetmesoft.com](mailto:erick.velasco@sweetmesoft.com)
 
-## 🔗 Useful Links
+## 🔗 Links
 
 ### 📚 Documentation and Resources
-- **[📖 Complete Documentation](https://erickvelasco11.github.io/KmpLibrary)** - GitHub Pages
+- **[📖 Complete Documentation](https://sweetmesoft.github.io/KmpLibrary)** - GitHub Pages
 - **[📋 Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
 - **[🧪 Example Application](kmptestapp/)** - Example source code
-- **[📝 Changelog](https://github.com/erickvelasco11/KmpLibrary/releases)** - Change history
+- **[📝 Changelog](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Change history
 
 ### 🛠️ Development
-- **[🏠 Main Repository](https://github.com/erickvelasco11/KmpLibrary)** - Source code
-- **[🐛 Issues and Bug Reports](https://github.com/erickvelasco11/KmpLibrary/issues)** - Report problems
-- **[🚀 Releases](https://github.com/erickvelasco11/KmpLibrary/releases)** - Published versions
+- **[🏠 Main Repository](https://github.com/SweetMeSoft/KmpLibrary)** - Source code
+- **[🐛 Issues and Bug Reports](https://github.com/SweetMeSoft/KmpLibrary/issues)** - Report problems
+- **[🚀 Releases](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Published versions
 - **[📦 Maven Central](https://search.maven.org/search?q=g:com.sweetmesoft)** - Published packages
 
 ### 🌐 Community
-- **[💬 Discussions](https://github.com/erickvelasco11/KmpLibrary/discussions)** - Questions and discussions
+- **[💬 Discussions](https://github.com/SweetMeSoft/KmpLibrary/discussions)** - Questions and discussions
 - **[📧 Contact](mailto:team@sweetmesoft.com)** - Direct contact
 - **[🐦 Twitter](https://twitter.com/sweetmesoft)** - Updates and news
 
@@ -362,12 +362,12 @@ Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](L
 
 **Do you like SweetMeSoft KMP Library?**
 
-⭐ **[Give it a star on GitHub](https://github.com/erickvelasco11/KmpLibrary)** ⭐
+⭐ **[Give it a star on GitHub](https://github.com/SweetMeSoft/KmpLibrary)** ⭐
 
-**[📖 Explore Documentation](https://erickvelasco11.github.io/KmpLibrary)** • **[🚀 Get Started Now](#quick-start)** • **[🤝 Contribute](CONTRIBUTING.md)**
+**[📖 Explore Documentation](https://sweetmesoft.github.io/KmpLibrary)** • **[🚀 Get Started Now](#quick-start)** • **[🤝 Contribute](CONTRIBUTING.md)**
 
 </div>
 
 ---
 
-**Need help?** Open an [issue](https://github.com/erickvelasco11/KmpLibrary/issues) or contact the development team.
+**Need help?** Open an [issue](https://github.com/SweetMeSoft/KmpLibrary/issues) or contact the development team.
