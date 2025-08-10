@@ -1,0 +1,75 @@
+# GitHub Pages Configuration for SweetMeSoft KMP Library Documentation
+
+title: SweetMeSoft KMP Library
+description: Librería multiplataforma para Kotlin con componentes UI, mapas y utilidades
+baseurl: "/KmpLibrary"
+url: "https://erickvelasco11.github.io"
+
+# Theme
+theme: minima
+
+# Markdown processor
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Navigation
+header_pages:
+  - README.md
+  - docs/kmpcontrols.md
+  - docs/kmpmaps.md
+  - docs/library.md
+  - docs/kmptestapp.md
+
+# Social links
+github_username: erickvelasco11
+
+# Build settings
+exclude:
+  - .gradle/
+  - build/
+  - gradle/
+  - gradlew
+  - gradlew.bat
+  - settings.gradle.kts
+  - "*.iml"
+  - .idea/
+  - local.properties
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name/
+
+# Defaults
+defaults:
+  - scope:
+      path: "docs"
+      type: "docs"
+    values:
+      layout: "page"
+      nav_order: 1
+
+# Custom variables
+author:
+  name: SweetMeSoft Team
+  email: team@sweetmesoft.com
+
+version: "1.6.6"
+kotlin_version: "2.1.0"
+compose_version: "1.7.5"
+
+# SEO
+lang: es
+logo: /assets/images/logo.png
+
+# Analytics (optional)
+# google_analytics: UA-XXXXXXXX-X
