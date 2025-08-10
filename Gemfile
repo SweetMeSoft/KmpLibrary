@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
-# Jekyll version compatible with GitHub Pages
-gem "jekyll", "~> 4.3.0"
+# Use GitHub Pages compatible versions
+gem "github-pages", group: :jekyll_plugins
 
 # Default theme for GitHub Pages
 gem "minima", "~> 2.5"
