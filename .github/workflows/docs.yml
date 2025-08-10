@@ -7,6 +7,7 @@ on:
       - 'docs/**'
       - 'README.md'
       - '.github/workflows/docs.yml'
+      - 'Gemfile'
   pull_request:
     branches: [ main, master ]
     paths:
@@ -87,7 +88,10 @@ jobs:
         run: |
           bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
+          GITHUB_PAGES: true
           JEKYLL_ENV: production
+          PAGES_REPO_NWO: SweetMeSoft/KmpLibrary
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
