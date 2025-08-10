@@ -4,14 +4,14 @@ KMPMaps is the specialized module of the SweetMeSoft KMP library that provides m
 
 ## 📋 Table of Contents
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Main Components](#main-components)
-- [Map Controls](#map-controls)
-- [Location Management](#location-management)
-- [Usage Examples](#usage-examples)
-- [Customization](#customization)
-- [Troubleshooting](#troubleshooting)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [Main Components](#-main-components)
+- [Map Controls](#-map-controls)
+- [Location Management](#-location-management)
+- [Usage Examples](#-usage-examples)
+- [Customization](#-customization)
+- [Troubleshooting](#-troubleshooting)
 
 ## 🚀 Installation
 

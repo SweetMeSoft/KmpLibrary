@@ -10,16 +10,16 @@ A complete cross-platform library for Kotlin that provides advanced UI component
 
 ## 📋 Table of Contents
 
-- [🎯 Features](#features)
-- [📦 Modules](#modules)
-- [⚡ Quick Start](#quick-start)
-- [📚 Documentation](#documentation)
-- [🛠️ Installation](#installation)
-- [📱 Examples](#examples)
-- [🤝 Contributing](#contributing)
-- [📄 License](#license)
-- [👥 Authors](#authors)
-- [🔗 Links](#links)
+- [🎯 Features](#-features)
+- [📦 Modules](#-modules)
+- [⚡ Quick Start](#-quick-start)
+- [📚 Documentation](#-documentation)
+- [🛠️ Installation](#-installation)
+- [📱 Examples](#-examples)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [👥 Authors](#-authors)
+- [🔗 Links](#-links)
 
 ## ✨ Features
 
@@ -364,7 +364,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ⭐ **[Give it a star on GitHub](https://github.com/SweetMeSoft/KmpLibrary)** ⭐
 
-**[📖 Explore Documentation](https://sweetmesoft.github.io/KmpLibrary)** • **[🚀 Get Started Now](#quick-start)** • **[🤝 Contribute](CONTRIBUTING.md)**
+**[📖 Explore Documentation](https://sweetmesoft.github.io/KmpLibrary)** • **[🚀 Get Started Now](#-quick-start)** • **[🤝 Contribute](CONTRIBUTING.md)**
 
 </div>
 

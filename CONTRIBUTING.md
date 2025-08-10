@@ -4,14 +4,14 @@ Thank you for your interest in contributing to SweetMeSoft KMP Library! This gui
 
 ## 📋 Table of Contents
 
-- [Code of Conduct](#code-of-conduct)
-- [How to Contribute?](#how-to-contribute)
-- [Reporting Issues](#reporting-issues)
-- [Feature Requests](#feature-requests)
-- [Contributing Code](#contributing-code)
-- [Code Standards](#code-standards)
-- [Pull Request Process](#pull-request-process)
-- [Environment Setup](#environment-setup)
+- [Code of Conduct](#-code-of-conduct)
+- [How to Contribute?](#-how-to-contribute)
+- [Reporting Issues](#-reporting-issues)
+- [Feature Requests](#-feature-requests)
+- [Contributing Code](#-contributing-code)
+- [Code Standards](#-code-standards)
+- [Pull Request Process](#-pull-request-process)
+- [Environment Setup](#-environment-setup)
 
 ## 📜 Code of Conduct
 

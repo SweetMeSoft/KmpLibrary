@@ -4,15 +4,15 @@ Library is the main module of the SweetMeSoft KMP library that provides advanced
 
 ## 📋 Table of Contents
 
-- [Installation](#installation)
-- [Base Architecture](#base-architecture)
-- [UI Components](#ui-components)
-- [Advanced Controls](#advanced-controls)
-- [Alerts and Dialogs](#alerts-and-dialogs)
-- [Lists and Grids](#lists-and-grids)
-- [Utilities](#utilities)
-- [Navigation](#navigation)
-- [Usage Examples](#usage-examples)
+- [Installation](#-installation)
+- [Base Architecture](#-base-architecture)
+- [UI Components](#-ui-components)
+- [Advanced Controls](#-advanced-controls)
+- [Alerts and Dialogs](#-alerts-and-dialogs)
+- [Lists and Grids](#-lists-and-grids)
+- [Utilities](#-utilities)
+- [Navigation](#-navigation)
+- [Usage Examples](#-usage-examples)
 
 ## 🚀 Installation
 

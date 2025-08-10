@@ -4,14 +4,14 @@ KMPTestApp is the test application that demonstrates the use of all modules of t
 
 ## 📋 Table of Contents
 
-- [General Description](#general-description)
-- [Project Structure](#project-structure)
-- [Configuration](#configuration)
-- [Example Screens](#example-screens)
-- [Navigation](#navigation)
-- [Themes and Styles](#themes-and-styles)
-- [Usage Examples](#usage-examples)
-- [How to Run](#how-to-run)
+- [General Description](#-general-description)
+- [Project Structure](#-project-structure)
+- [Configuration](#-configuration)
+- [Example Screens](#-example-screens)
+- [Navigation](#-navigation)
+- [Themes and Styles](#-themes-and-styles)
+- [Usage Examples](#-usage-examples)
+- [How to Run](#-how-to-run)
 
 ## 🎯 General Description
 

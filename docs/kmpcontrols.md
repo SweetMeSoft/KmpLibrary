@@ -4,13 +4,13 @@ KMPControls is the fundamental module of the SweetMeSoft KMP library that provid
 
 ## 📋 Table of Contents
 
-- [Installation](#installation)
-- [Available Components](#available-components)
-- [Controls](#controls)
-- [Dialogs](#dialogs)
-- [Selectors](#selectors)
-- [Utilities](#utilities)
-- [Usage Examples](#usage-examples)
+- [Installation](#-installation)
+- [Available Components](#-available-components)
+- [Controls](#-controls)
+- [Dialogs](#-dialogs)
+- [Selectors](#-selectors)
+- [Utilities](#-utilities)
+- [Usage Examples](#-usage-examples)
 
 ## 🚀 Installation
 
