@@ -1,20 +1,20 @@
-# 📙 Library Documentation
+# Library Documentation
 
 Library is the main module of the SweetMeSoft KMP library that provides advanced UI components, navigation tools, network utilities and complete functionalities for cross-platform application development.
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Installation](#-installation)
-- [Base Architecture](#-base-architecture)
-- [UI Components](#-ui-components)
-- [Advanced Controls](#-advanced-controls)
-- [Alerts and Dialogs](#-alerts-and-dialogs)
-- [Lists and Grids](#-lists-and-grids)
-- [Utilities](#-utilities)
-- [Navigation](#-navigation)
-- [Usage Examples](#-usage-examples)
+- [Installation](#installation)
+- [Base Architecture](#base-architecture)
+- [UI Components](#ui-components)
+- [Advanced Controls](#advanced-controls)
+- [Alerts and Dialogs](#alerts-and-dialogs)
+- [Lists and Grids](#lists-and-grids)
+- [Utilities](#utilities)
+- [Navigation](#navigation)
+- [Usage Examples](#usage-examples)
 
-## 🚀 Installation
+## Installation
 
 ```kotlin
 commonMain.dependencies {
@@ -34,7 +34,7 @@ commonMain.dependencies {
 }
 ```
 
-## 🏗️ Base Architecture
+## Base Architecture
 
 ### BaseViewModel
 Base class for ViewModels with common functionalities.
@@ -108,7 +108,7 @@ abstract class BaseBottomBarScreen : Screen {
 }
 ```
 
-## 🎨 UI Components
+## UI Components
 
 ### PasswordControl
 Password control with toggleable visibility.
@@ -191,7 +191,7 @@ data class IconAction(
 )
 ```
 
-## 🚨 Alerts and Dialogs
+## Alerts and Dialogs
 
 ### PopupHandler
 Global handler for popups and alerts.
@@ -272,7 +272,7 @@ fun AlertPrompt(
 )
 ```
 
-## 📋 Lists and Grids
+## Lists and Grids
 
 ### LocalList
 Local list with static data.
@@ -335,7 +335,7 @@ fun <T> RemoteGridList(
 )
 ```
 
-## 🔽 Dropdowns
+## Dropdowns
 
 ### CommonDropDown
 Basic dropdown with local elements.
@@ -369,7 +369,7 @@ fun <T> RemoteDropDown(
 )
 ```
 
-## 🛠️ Utilities
+## Utilities
 
 ### NetworkUtils
 Utilities for network operations.
@@ -427,7 +427,7 @@ object FileUtils {
 }
 ```
 
-## 📱 Predefined Screens
+## Predefined Screens
 
 ### SplashContent
 Customizable splash screen.
@@ -458,7 +458,7 @@ fun AboutContent(
 )
 ```
 
-## 📝 Usage Examples
+## Usage Examples
 
 ### Example 1: Complete Application with Navigation
 
@@ -689,7 +689,7 @@ fun ProductItem(
 }
 ```
 
-## 🎨 Advanced Customization
+## Advanced Customization
 
 ### Custom Themes
 
@@ -727,7 +727,7 @@ fun MyAppTheme(
 }
 ```
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [Voyager Navigation](https://github.com/adrielcafe/voyager)
 - [Ktor Client](https://ktor.io/docs/client.html)

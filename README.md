@@ -1,4 +1,4 @@
-# 🚀 SweetMeSoft KMP Library
+# SweetMeSoft KMP Library
 
 A complete cross-platform library for Kotlin that provides advanced UI components, maps integration, and essential utilities for developing native applications on Android, iOS, and Desktop.
 
@@ -8,57 +8,57 @@ A complete cross-platform library for Kotlin that provides advanced UI component
 [![Compose](https://img.shields.io/badge/Compose-1.7.5-green.svg)](https://developer.android.com/jetpack/compose)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://sweetmesoft.github.io/KmpLibrary)
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [🎯 Features](#-features)
-- [📦 Modules](#-modules)
-- [⚡ Quick Start](#-quick-start)
-- [📚 Documentation](#-documentation)
-- [🛠️ Installation](#-installation)
-- [📱 Examples](#-examples)
-- [🤝 Contributing](#-contributing)
-- [📄 License](#-license)
-- [👥 Authors](#-authors)
-- [🔗 Links](#-links)
+- [Features](#features)
+- [Modules](#modules)
+- [Quick Start](#quick-start)
+- [Documentation](#documentation)
+- [Installation](#installation)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Authors](#authors)
+- [Links](#links)
 
-## ✨ Features
+## Features
 
-- **🎨 Modern UI Components**: Custom controls with Material Design 3
-- **🗺️ Maps Integration**: Cross-platform map components with Google Maps
-- **📱 Complete KMP Support**: Compatible with Android and iOS
-- **🔧 Integrated Utilities**: Tools for dates, numbers, images, and more
-- **🎯 Easy Integration**: Simple and well-documented APIs
-- **⚡ High Performance**: Optimized for production applications
+- **Modern UI Components**: Custom controls with Material Design 3
+- **Maps Integration**: Cross-platform map components with Google Maps
+- **Complete KMP Support**: Compatible with Android and iOS
+- **Integrated Utilities**: Tools for dates, numbers, images, and more
+- **Easy Integration**: Simple and well-documented APIs
+- **High Performance**: Optimized for production applications
 
-## 📦 Modules
+## Modules
 
 The library is divided into three main modules:
 
-### 🎛️ KMPControls
+### KMPControls
 Basic UI components and fundamental utilities.
 - Custom input controls
 - Date and time pickers
 - Dialogs and alerts
 - Validation utilities
 
-### 🗺️ KMPMaps
+### KMPMaps
 Specialized components for maps integration.
 - Cross-platform map components
 - Custom markers and overlays
 - Location management
 - Google Maps integration
 
-### 📚 Library (Main)
+### Library (Main)
 Main library with advanced components and tools.
 - Complex UI components
 - State management
 - Network utilities
 - Navigation tools
 
-### 🧪 KMPTestApp
+### KMPTestApp
 Example application that demonstrates the use of all libraries.
 
-## 🚀 Installation
+## Installation
 
 ### Gradle (Kotlin DSL)
 
@@ -91,7 +91,7 @@ sweetmesoft-controls = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", ver
 sweetmesoft-maps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
 ```
 
-## 📋 Requirements
+## Requirements
 
 - **Kotlin**: 2.2.0+
 - **Compose Multiplatform**: 1.8.2+
@@ -111,7 +111,7 @@ commonMain.dependencies {
 }
 ```
 
-## ⚡ Quick Start
+## Quick Start
 
 ### 1. Add Dependencies
 
@@ -173,31 +173,31 @@ fun MyApp() {
 }
 ```
 
-## 📚 Documentation
+## Documentation
 
-### 🌐 Complete Documentation
+### Complete Documentation
 
-**[📖 Visit our complete documentation on GitHub Pages](https://sweetmesoft.github.io/KmpLibrary)**
+**[Visit our complete documentation on GitHub Pages](https://sweetmesoft.github.io/KmpLibrary)**
 
 The documentation includes:
 
-- 🚀 **Quick start guides** for each module
-- 📝 **Detailed API** with code examples
-- 🎨 **Customization guides** and themes
-- 🧪 **Practical examples** and use cases
-- 🔧 **Advanced configuration** for each platform
-- ❓ **Common troubleshooting** solutions
+- **Quick start guides** for each module
+- **Detailed API** with code examples
+- **Customization guides** and themes
+- **Practical examples** and use cases
+- **Advanced configuration** for each platform
+- **Common troubleshooting** solutions
 
-### 📋 Documentation by Module
+### Documentation by Module
 
 | Module | Description | Documentation |
 |--------|-------------|---------------|
-| 🎛️ **KMPControls** | Basic UI components and utilities | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpcontrols) |
-| 🗺️ **KMPMaps** | Cross-platform maps integration | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpmaps) |
-| 📚 **Library** | Advanced components and tools | [View Docs](https://sweetmesoft.github.io/KmpLibrary/library) |
-| 🧪 **KMPTestApp** | Example application and guides | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmptestapp) |
+| **KMPControls** | Basic UI components and utilities | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpcontrols) |
+| **KMPMaps** | Cross-platform maps integration | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpmaps) |
+| **Library** | Advanced components and tools | [View Docs](https://sweetmesoft.github.io/KmpLibrary/library) |
+| **KMPTestApp** | Example application and guides | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmptestapp) |
 
-### 📖 Local Documentation
+### Local Documentation
 
 You can also access the documentation locally:
 
@@ -206,7 +206,7 @@ You can also access the documentation locally:
 - **[Library](docs/library.md)** - Main module
 - **[KMPTestApp](docs/kmptestapp.md)** - Usage examples
 
-## 🔧 Project Configuration
+## Project Configuration
 
 ### Android
 
@@ -236,7 +236,7 @@ iosArm64()
 iosSimulatorArm64()
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Custom Themes
 
@@ -254,7 +254,7 @@ fun MyCustomTheme(content: @Composable () -> Unit) {
 }
 ```
 
-## 🧪 Examples
+## Examples
 
 The project includes a complete example application in the `kmptestapp` module that demonstrates:
 
@@ -270,20 +270,20 @@ To run the example application:
 ./gradlew :kmptestapp:run
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! We have a complete guide for contributors.
 
-**[📋 Read our Contributing Guide](CONTRIBUTING.md)**
+**[Read our Contributing Guide](CONTRIBUTING.md)**
 
 ### Ways to Contribute
 
-- 🐛 **Report bugs** - Help us improve by reporting issues
-- 💡 **Suggest features** - Share your ideas for new functionalities
-- 📝 **Improve documentation** - Help make documentation clearer
-- 💻 **Contribute code** - Implement new features or fix bugs
-- 🧪 **Write tests** - Improve test coverage
-- 🌍 **Translate** - Help make the library more accessible
+- **Report bugs** - Help us improve by reporting issues
+- **Suggest features** - Share your ideas for new functionalities
+- **Improve documentation** - Help make documentation clearer
+- **Contribute code** - Implement new features or fix bugs
+- **Write tests** - Improve test coverage
+- **Translate** - Help make the library more accessible
 
 ### Quick Start for Contributors
 
@@ -309,34 +309,34 @@ git checkout -b feature/my-new-feature
 
 This project adheres to a code of conduct. By participating, you are expected to maintain a respectful and welcoming environment for everyone.
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Authors
+## Authors
 
 - **Erick Velasco** - *Main Development* - [erick.velasco@sweetmesoft.com](mailto:erick.velasco@sweetmesoft.com)
 
-## 🔗 Links
+## Links
 
-### 📚 Documentation and Resources
-- **[📖 Complete Documentation](https://sweetmesoft.github.io/KmpLibrary)** - GitHub Pages
-- **[📋 Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
-- **[🧪 Example Application](kmptestapp/)** - Example source code
-- **[📝 Changelog](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Change history
+### Documentation and Resources
+- **[Complete Documentation](https://sweetmesoft.github.io/KmpLibrary)** - GitHub Pages
+- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
+- **[Example Application](kmptestapp/)** - Example source code
+- **[Changelog](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Change history
 
-### 🛠️ Development
-- **[🏠 Main Repository](https://github.com/SweetMeSoft/KmpLibrary)** - Source code
-- **[🐛 Issues and Bug Reports](https://github.com/SweetMeSoft/KmpLibrary/issues)** - Report problems
-- **[🚀 Releases](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Published versions
-- **[📦 Maven Central](https://search.maven.org/search?q=g:com.sweetmesoft)** - Published packages
+### Development
+- **[Main Repository](https://github.com/SweetMeSoft/KmpLibrary)** - Source code
+- **[Issues and Bug Reports](https://github.com/SweetMeSoft/KmpLibrary/issues)** - Report problems
+- **[Releases](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Published versions
+- **[Maven Central](https://search.maven.org/search?q=g:com.sweetmesoft)** - Published packages
 
-### 🌐 Community
-- **[💬 Discussions](https://github.com/SweetMeSoft/KmpLibrary/discussions)** - Questions and discussions
-- **[📧 Contact](mailto:team@sweetmesoft.com)** - Direct contact
-- **[🐦 Twitter](https://twitter.com/sweetmesoft)** - Updates and news
+### Community
+- **[Discussions](https://github.com/SweetMeSoft/KmpLibrary/discussions)** - Questions and discussions
+- **[Contact](mailto:team@sweetmesoft.com)** - Direct contact
+- **[Twitter](https://twitter.com/sweetmesoft)** - Updates and news
 
-## 📊 Project Status
+## Project Status
 
 | Aspect | Status |
 |---------|--------|
@@ -349,12 +349,12 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 | **Tests** | ![Tests](https://img.shields.io/badge/tests-passing-brightgreen) |
 | **Documentation** | ![Docs](https://img.shields.io/badge/docs-complete-blue) |
 
-### 🎯 Roadmap
+### Roadmap
 
-- ✅ **v1.6.x** - Basic components and maps
-- 🚧 **v1.7.x** - Performance improvements and new components
-- 📋 **v1.8.x** - Support for more platforms
-- 🔮 **v2.0.x** - Renewed API and advanced features
+- **v1.6.x** - Basic components and maps (Completed)
+- **v1.7.x** - Performance improvements and new components (In Progress)
+- **v1.8.x** - Support for more platforms (Planned)
+- **v2.0.x** - Renewed API and advanced features (Future)
 
 ---
 
@@ -362,9 +362,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Do you like SweetMeSoft KMP Library?**
 
-⭐ **[Give it a star on GitHub](https://github.com/SweetMeSoft/KmpLibrary)** ⭐
-
-**[📖 Explore Documentation](https://sweetmesoft.github.io/KmpLibrary)** • **[🚀 Get Started Now](#-quick-start)** • **[🤝 Contribute](CONTRIBUTING.md)**
+**[Give it a star on GitHub](https://github.com/SweetMeSoft/KmpLibrary)** • **[Explore Documentation](https://sweetmesoft.github.io/KmpLibrary)** • **[Get Started Now](#quick-start)** • **[Contribute](CONTRIBUTING.md)**
 
 </div>
 

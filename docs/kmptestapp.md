@@ -1,19 +1,19 @@
-# 🧪 KMPTestApp Documentation
+# KMPTestApp Documentation
 
 KMPTestApp is the test application that demonstrates the use of all modules of the SweetMeSoft KMP library. It serves as an implementation example and best practices guide.
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [General Description](#-general-description)
-- [Project Structure](#-project-structure)
-- [Configuration](#-configuration)
-- [Example Screens](#-example-screens)
-- [Navigation](#-navigation)
-- [Themes and Styles](#-themes-and-styles)
-- [Usage Examples](#-usage-examples)
-- [How to Run](#-how-to-run)
+- [General Description](#general-description)
+- [Project Structure](#project-structure)
+- [Configuration](#configuration)
+- [Example Screens](#example-screens)
+- [Navigation](#navigation)
+- [Themes and Styles](#themes-and-styles)
+- [Usage Examples](#usage-examples)
+- [How to Run](#how-to-run)
 
-## 🎯 General Description
+## General Description
 
 KMPTestApp is a complete application that demonstrates:
 
@@ -25,7 +25,7 @@ KMPTestApp is a complete application that demonstrates:
 - ✅ Custom themes
 - ✅ Architecture best practices
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 kmptestapp/
@@ -57,7 +57,7 @@ kmptestapp/
 └── build.gradle.kts
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### Main Dependencies
 
@@ -107,7 +107,7 @@ android {
 }
 ```
 
-## 📱 Example Screens
+## Example Screens
 
 ### App.kt - Entry Point
 
@@ -416,7 +416,7 @@ class AboutScreen : BaseScreen() {
 - Structured application information
 - Links to external resources
 
-## 🎨 Themes and Styles
+## Themes and Styles
 
 ### Color.kt - Color Palette
 
@@ -485,7 +485,7 @@ fun AppTheme(
 - Custom color palette
 - Material Design 3 typography
 
-## 💡 Ejemplos de Uso
+## Ejemplos de Uso
 
 ### Example 1: Components Section
 
@@ -631,7 +631,7 @@ fun UtilitiesSection(viewModel: MainViewModel) {
 }
 ```
 
-## 🚀 How to Run
+## How to Run
 
 ### Prerequisites
 
@@ -698,7 +698,7 @@ To use maps functionalities, configure the API keys:
 <string>This app needs location access to show maps</string>
 ```
 
-## 📚 Learning Resources
+## Learning Resources
 
 ### Implemented Patterns
 

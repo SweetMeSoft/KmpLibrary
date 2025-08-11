@@ -1,18 +1,18 @@
-# 📘 KMPControls Documentation
+# KMPControls Documentation
 
 KMPControls is the fundamental module of the SweetMeSoft KMP library that provides basic UI components and essential utilities for multiplatform development.
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Installation](#-installation)
-- [Available Components](#-available-components)
-- [Controls](#-controls)
-- [Dialogs](#-dialogs)
-- [Selectors](#-selectors)
-- [Utilities](#-utilities)
-- [Usage Examples](#-usage-examples)
+- [Installation](#installation)
+- [Available Components](#available-components)
+- [Controls](#controls)
+- [Dialogs](#dialogs)
+- [Selectors](#selectors)
+- [Utilities](#utilities)
+- [Usage Examples](#usage-examples)
 
-## 🚀 Installation
+## Installation
 
 ```kotlin
 commonMain.dependencies {
@@ -24,7 +24,7 @@ commonMain.dependencies {
 }
 ```
 
-## 🎛️ Available Components
+## Available Components
 
 ### Controls
 
@@ -108,7 +108,7 @@ fun DialogFooter(
 )
 ```
 
-### 📅 Selectors (Pickers)
+### Selectors (Pickers)
 
 #### DatePicker
 Date selector with Material Design interface.
@@ -156,7 +156,7 @@ fun DateTimePicker(
 )
 ```
 
-### 🔧 Utilities
+### Utilities
 
 #### DateUtils
 Utilities for date handling and formatting.
@@ -196,7 +196,7 @@ object Vibrator {
 }
 ```
 
-### 🎨 Style Objects
+### Style Objects
 
 #### Colors
 Predefined color palette for the library.
@@ -217,7 +217,7 @@ object Colors {
 }
 ```
 
-## 📝 Usage Examples
+## Usage Examples
 
 ### Complete Example: Form with Validation
 
@@ -341,7 +341,7 @@ fun UtilitiesExample() {
 }
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Custom Themes
 
@@ -372,7 +372,7 @@ fun MyAppTheme(
 }
 ```
 
-## 🔧 Advanced Configuration
+## Advanced Configuration
 
 ### Localization
 
@@ -391,7 +391,7 @@ All components include accessibility support:
 - Keyboard navigation
 - Adequate contrast
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -415,7 +415,7 @@ All components include accessibility support:
    // Check the permissions documentation
    ```
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [Quick Start Guide](quick-start.md)
 - [API Reference](api-reference.md)

@@ -1,19 +1,19 @@
-# 📗 KMPMaps Documentation
+# KMPMaps Documentation
 
 KMPMaps is the specialized module of the SweetMeSoft KMP library that provides multiplatform map components with native integration for Android (Google Maps) and iOS (MapKit).
 
-## 📋 Table of Contents
+## Table of Contents
 
-- [Installation](#-installation)
-- [Configuration](#-configuration)
-- [Main Components](#-main-components)
-- [Map Controls](#-map-controls)
-- [Location Management](#-location-management)
-- [Usage Examples](#-usage-examples)
-- [Customization](#-customization)
-- [Troubleshooting](#-troubleshooting)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Main Components](#main-components)
+- [Map Controls](#map-controls)
+- [Location Management](#location-management)
+- [Usage Examples](#usage-examples)
+- [Customization](#customization)
+- [Troubleshooting](#troubleshooting)
 
-## 🚀 Installation
+## Installation
 
 ```kotlin
 commonMain.dependencies {
@@ -32,7 +32,7 @@ androidMain.dependencies {
 }
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 ### Android
 
@@ -77,7 +77,7 @@ android {
 <string>This application needs location access to display maps</string>
 ```
 
-## 🗺️ Main Components
+## Main Components
 
 ### MapComponent
 Main multiplatform map component that automatically adapts to the platform.
@@ -110,7 +110,7 @@ MapComponent(
 )
 ```
 
-## 🎯 Controles de Mapa
+## Controles de Mapa
 
 ### Coordinates
 Data class to represent geographic coordinates.
@@ -174,7 +174,7 @@ data class CircleMap(
 )
 ```
 
-## 📍 Location Management
+## Location Management
 
 ### Get Current Location
 
@@ -227,7 +227,7 @@ suspend fun requestLocationPermission(): Boolean {
 }
 ```
 
-## 📝 Usage Examples
+## Usage Examples
 
 ### Example 1: Basic Map with Markers
 
@@ -418,7 +418,7 @@ fun LocationTrackingExample() {
 }
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Map Types
 
@@ -466,7 +466,7 @@ fun createCustomMarkerIcon(): ImageBitmap {
 }
 ```
 
-## 🔧 Advanced Configuration
+## Advanced Configuration
 
 ### Permission Management
 
@@ -523,7 +523,7 @@ fun OptimizedMapExample() {
 }
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -563,7 +563,7 @@ MapComponent(
 )
 ```
 
-## 📚 Additional Resources
+## Additional Resources
 
 - [Google Maps API Documentation](https://developers.google.com/maps/documentation)
 - [Apple MapKit Documentation](https://developer.apple.com/documentation/mapkit)

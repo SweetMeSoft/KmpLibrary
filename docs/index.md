@@ -4,48 +4,48 @@ title: Home
 nav_order: 1
 ---
 
-# 🚀 SweetMeSoft KMP Library
+# SweetMeSoft KMP Library
 
 Welcome to the official documentation of SweetMeSoft KMP Library! A complete multiplatform library for Kotlin that allows you to create native applications for Android, iOS and Desktop with a shared codebase.
 
-## 🎯 What is SweetMeSoft KMP Library?
+## What is SweetMeSoft KMP Library?
 
 SweetMeSoft KMP Library is a collection of specialized modules that provide:
 
-- **🎛️ Advanced UI components** for modern interfaces
-- **🗺️ Maps integration** multiplatform
-- **🔧 Utilities and tools** for agile development
-- **📱 Practical examples** and best practices
+- **Advanced UI components** for modern interfaces
+- **Maps integration** multiplatform
+- **Utilities and tools** for agile development
+- **Practical examples** and best practices
 
-## 📦 Available Modules
+## Available Modules
 
 <div class="module-grid">
   <div class="module-card">
-    <h3>🎛️ KMPControls</h3>
+    <h3>KMPControls</h3>
     <p>Fundamental UI components like date pickers, dialogs, text fields and validation utilities.</p>
     <a href="kmpcontrols.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
-    <h3>🗺️ KMPMaps</h3>
+    <h3>KMPMaps</h3>
     <p>Complete maps integration with Google Maps for Android and MapKit for iOS, including markers and geolocation.</p>
     <a href="kmpmaps.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
-    <h3>📚 Library</h3>
+    <h3>Library</h3>
     <p>Main module with advanced components, navigation, network utilities, image handling and base architecture.</p>
     <a href="library.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
-    <h3>🧪 KMPTestApp</h3>
+    <h3>KMPTestApp</h3>
     <p>Example application that demonstrates the use of all modules with practical implementations and best practices.</p>
     <a href="kmptestapp.html" class="btn">View Documentation</a>
   </div>
 </div>
 
-## ⚡ Quick Start
+## Quick Start
 
 ### 1. Add Dependencies
 
@@ -117,63 +117,63 @@ fun MyScreen() {
 }
 ```
 
-## 🛠️ Main Features
+## Main Features
 
-### ✨ True Multiplatform
+### True Multiplatform
 - **Android** with Jetpack Compose
 - **iOS** with SwiftUI integration
 - **Desktop** (experimental)
 - Maximum shared code
 
-### 🎨 Modern Components
+### Modern Components
 - Material Design 3
 - Adaptive themes (light/dark)
 - Smooth animations
 - Built-in accessibility
 
-### 🗺️ Native Maps
+### Native Maps
 - Google Maps on Android
 - MapKit on iOS
 - Unified API
 - Customizable markers
 
-### 🔧 Complete Utilities
+### Complete Utilities
 - Form validation
 - Image handling
 - Network operations
 - Advanced navigation
 
-### 📱 Solid Architecture
+### Solid Architecture
 - MVVM pattern
 - StateFlow for reactive states
 - Declarative navigation
 - Centralized error handling
 
-## 📖 Documentation Guides
+## Documentation Guides
 
 <div class="guide-links">
   <a href="kmpcontrols.html" class="guide-link">
-    <h4>🎛️ KMPControls Guide</h4>
+    <h4>KMPControls Guide</h4>
     <p>Learn to use selectors, dialogs and validations</p>
   </a>
   
   <a href="kmpmaps.html" class="guide-link">
-    <h4>🗺️ KMPMaps Guide</h4>
+    <h4>KMPMaps Guide</h4>
     <p>Implement native maps in your application</p>
   </a>
   
   <a href="library.html" class="guide-link">
-    <h4>📚 Library Guide</h4>
+    <h4>Library Guide</h4>
     <p>Master advanced components and utilities</p>
   </a>
   
   <a href="kmptestapp.html" class="guide-link">
-    <h4>🧪 Practical Examples</h4>
+    <h4>Practical Examples</h4>
     <p>See real implementations and best practices</p>
   </a>
 </div>
 
-## 🚀 Example Projects
+## Example Projects
 
 Explore our complete examples:
 
@@ -182,14 +182,14 @@ Explore our complete examples:
 - **[Maps Integration](kmpmaps.html#ejemplos-de-uso)** - Geolocation and markers
 - **[Complex Navigation](library.html#navegación)** - Navigation flows
 
-## 🤝 Community and Support
+## Community and Support
 
-- **📚 [Complete Documentation](https://github.com/erickvelasco11/KmpLibrary/blob/main/README.md)**
-- **🐛 [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)**
-- **💡 [Request Features](https://github.com/erickvelasco11/KmpLibrary/issues/new)**
-- **🔄 [Contribute](https://github.com/erickvelasco11/KmpLibrary/blob/main/CONTRIBUTING.md)**
+- **[Complete Documentation](https://github.com/erickvelasco11/KmpLibrary/blob/main/README.md)**
+- **[Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)**
+- **[Request Features](https://github.com/erickvelasco11/KmpLibrary/issues/new)**
+- **[Contribute](https://github.com/erickvelasco11/KmpLibrary/blob/main/CONTRIBUTING.md)**
 
-## 📊 Project Status
+## Project Status
 
 - **Current Version:** 1.6.6
 - **Kotlin:** 2.1.0
