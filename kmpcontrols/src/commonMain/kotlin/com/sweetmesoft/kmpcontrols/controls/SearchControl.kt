@@ -1,10 +1,10 @@
-package com.sweetmesoft.kmplibrary.controls
+package com.sweetmesoft.kmpcontrols.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -12,9 +12,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,12 +28,13 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Search
-import kmplibrary.library.generated.resources.Res
-import kmplibrary.library.generated.resources.Search
+import kmplibrary.kmpcontrols.generated.resources.Res
+import kmplibrary.kmpcontrols.generated.resources.Search
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -40,7 +43,9 @@ fun SearchControl(
     placeholder: String = stringResource(Res.string.Search),
     value: String = "",
     onValueChange: (String) -> Unit,
-    onSearch: (String) -> Unit
+    onSearch: (String) -> Unit,
+    imeAction: ImeAction = ImeAction.Default,
+    enabled: Boolean = true
 ) {
     Box(
         modifier = modifier
@@ -54,23 +59,30 @@ fun SearchControl(
             value = value,
             onValueChange = onValueChange,
             placeholder = placeholder,
-            onSearch = onSearch
+            onSearch = onSearch,
+            imeAction = imeAction,
+            enabled = enabled
         )
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CustomBasicTextField(
     value: String,
     placeholder: String,
     onValueChange: (String) -> Unit,
-    onSearch: (String) -> Unit
+    onSearch: (String) -> Unit,
+    imeAction: ImeAction,
+    enabled: Boolean
 ) {
-    remember { MutableInteractionSource() }
+    val interactionSource = remember { MutableInteractionSource() }
     val focusManager = LocalFocusManager.current
 
     BasicTextField(
         value = value,
+        enabled = enabled,
+        maxLines = 1,
         onValueChange = { onValueChange(it) },
         modifier = Modifier
             .fillMaxWidth(),
@@ -80,7 +92,7 @@ private fun CustomBasicTextField(
         ),
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Search,
+            imeAction = imeAction,
             capitalization = KeyboardCapitalization.Sentences
         ),
         cursorBrush = SolidColor(if (!isSystemInDarkTheme()) Color.Black else Color.White),
@@ -91,68 +103,40 @@ private fun CustomBasicTextField(
             }
         ),
         decorationBox = { innerTextField ->
-            Row(
-                modifier = Modifier
-                    .background(
-                        color = MaterialTheme.colorScheme.surface,
-                        shape = RoundedCornerShape(percent = 50)
+            TextFieldDefaults.DecorationBox(
+                value = value,
+                innerTextField = innerTextField,
+                placeholder = {
+                    Text(
+                        text = placeholder,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        fontSize = 14.sp
                     )
-                    .padding(vertical = 8.dp, horizontal = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = TablerIcons.Search,
-                    contentDescription = stringResource(Res.string.Search),
-                    tint = Color.Gray,
-                    modifier = Modifier.size(16.dp)
+                },
+                leadingIcon = {
+                    Icon(
+                        imageVector = TablerIcons.Search,
+                        contentDescription = "Buscar",
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier
+                            .padding(start = 8.dp)
+                            .size(16.dp)
+                    )
+                },
+                singleLine = true,
+                enabled = true,
+                interactionSource = interactionSource,
+                visualTransformation = VisualTransformation.None,
+                contentPadding = PaddingValues(0.dp),
+                colors = TextFieldDefaults.colors(
+                    focusedContainerColor = MaterialTheme.colorScheme.surface,
+                    unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                    disabledContainerColor = MaterialTheme.colorScheme.surface,
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent,
                 )
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(start = 8.dp)
-                ) {
-                    if (value.isEmpty()) {
-                        Text(
-                            text = placeholder,
-                            color = Color.Gray,
-                            fontSize = 14.sp
-                        )
-                    }
-
-                    innerTextField()
-                }
-            }
-//            TextFieldDefaults.TextFieldDecorationBox(
-//                value = value,
-//                innerTextField = innerTextField,
-//                placeholder = {
-//                    Text(
-//                        text = placeholder,
-//                        color = Color.Gray,
-//                        fontSize = 14.sp
-//                    )
-//                },
-//                leadingIcon = {
-//                    Icon(
-//                        imageVector = TablerIcons.Search,
-//                        contentDescription = stringResource(Res.string.Search),
-//                        tint = Color.Gray,
-//                        modifier = Modifier
-//                            .padding(start = 8.dp)
-//                            .size(16.dp)
-//                    )
-//                },
-//                singleLine = true,
-//                enabled = true,
-//                interactionSource = interactionSource,
-//                visualTransformation = VisualTransformation.None,
-//                contentPadding = PaddingValues(0.dp),
-//                colors = TextFieldDefaults.textFieldColors(
-//                    backgroundColor = MaterialTheme.colorScheme.surface,
-//                    focusedIndicatorColor = Color.Transparent,
-//                    unfocusedIndicatorColor = Color.Transparent
-//                )
-//            )
+            )
         }
     )
 }

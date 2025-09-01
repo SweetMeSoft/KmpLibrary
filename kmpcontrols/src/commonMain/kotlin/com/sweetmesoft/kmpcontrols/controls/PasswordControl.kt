@@ -1,11 +1,13 @@
-package com.sweetmesoft.kmplibrary.controls
+package com.sweetmesoft.kmpcontrols.controls
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,8 +26,8 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.Eye
 import compose.icons.tablericons.EyeOff
 import compose.icons.tablericons.Lock
-import kmplibrary.library.generated.resources.Password
-import kmplibrary.library.generated.resources.Res
+import kmplibrary.kmpcontrols.generated.resources.Password
+import kmplibrary.kmpcontrols.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
@@ -33,7 +35,8 @@ fun PasswordControl(
     modifier: Modifier = Modifier,
     value: String,
     label: String = stringResource(Res.string.Password),
-    color: Color = MaterialTheme.colorScheme.primary,
+    colorLight: Color = MaterialTheme.colorScheme.primary,
+    colorDark: Color = MaterialTheme.colorScheme.secondary,
     isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
@@ -77,6 +80,11 @@ fun PasswordControl(
                 )
             }
         },
-        isError = isError
+        isError = isError,
+        colors = OutlinedTextFieldDefaults.colors(
+            focusedBorderColor = if (!isSystemInDarkTheme()) colorLight else colorDark,
+            cursorColor = if (!isSystemInDarkTheme()) colorLight else colorDark,
+            focusedLabelColor = if (!isSystemInDarkTheme()) colorLight else colorDark,
+        )
     )
 }

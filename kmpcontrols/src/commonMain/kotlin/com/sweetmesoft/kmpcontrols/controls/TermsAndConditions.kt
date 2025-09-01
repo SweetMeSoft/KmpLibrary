@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.controls
+package com.sweetmesoft.kmpcontrols.controls
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -20,12 +20,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withLink
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kmplibrary.library.generated.resources.PolicyPrivacy
-import kmplibrary.library.generated.resources.Res
-import kmplibrary.library.generated.resources.TermsAndConditions
-import kmplibrary.library.generated.resources.TermsMessage1
-import kmplibrary.library.generated.resources.TermsMessage2
-import kmplibrary.library.generated.resources.TermsMessage3
+import kmplibrary.kmpcontrols.generated.resources.PolicyPrivacy
+import kmplibrary.kmpcontrols.generated.resources.Res
+import kmplibrary.kmpcontrols.generated.resources.TermsAndConditions
+import kmplibrary.kmpcontrols.generated.resources.TermsMessage1
+import kmplibrary.kmpcontrols.generated.resources.TermsMessage2
+import kmplibrary.kmpcontrols.generated.resources.TermsMessage3
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
