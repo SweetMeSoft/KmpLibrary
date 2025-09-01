@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.core.content.ContextCompat
@@ -61,17 +65,24 @@ actual fun MapComponent(
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         val coordinate = LatLng(coordinates.latitude, coordinates.longitude)
+        var isMapLoaded by remember { mutableStateOf(false) }
         val cameraPositionState = rememberCameraPositionState {
             position = CameraPosition.fromLatLngZoom(coordinate, zoom)
         }
 
-        LaunchedEffect(coordinate, zoom) {
-            cameraPositionState.animate(
-                CameraUpdateFactory.newLatLngZoom(
-                    coordinate,
-                    zoom
-                )
-            )
+        LaunchedEffect(coordinate, zoom, isMapLoaded) {
+            if (isMapLoaded) {
+                try {
+                    cameraPositionState.animate(
+                        CameraUpdateFactory.newLatLngZoom(
+                            coordinate,
+                            zoom
+                        )
+                    )
+                } catch (e: Exception) {
+                    cameraPositionState.position = CameraPosition.fromLatLngZoom(coordinate, zoom)
+                }
+            }
         }
 
         GoogleMap(
@@ -92,6 +103,9 @@ actual fun MapComponent(
                 isTrafficEnabled = showTraffic
             ),
             mapColorScheme = if (!isSystemInDarkTheme()) ComposeMapColorScheme.LIGHT else ComposeMapColorScheme.DARK,
+            onMapLoaded = {
+                isMapLoaded = true
+            },
             onMapClick = { latLng ->
                 onMapClick(Coordinates(latLng.latitude, latLng.longitude))
             },
