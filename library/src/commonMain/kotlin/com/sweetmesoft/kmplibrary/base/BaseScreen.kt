@@ -112,7 +112,7 @@ private fun ScreenContent(
                             horizontalArrangement = Arrangement.SpaceBetween,
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
-                            Text(title)
+                            Text(title, maxLines = 1)
                             Row(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 modifier = Modifier.padding(end = 16.dp)

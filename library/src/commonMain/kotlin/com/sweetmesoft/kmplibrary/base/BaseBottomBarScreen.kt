@@ -149,8 +149,8 @@ private fun ScreenContent(
                             tabNavigator.current = it
                         },
                         colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = Color.White,
-                            selectedTextColor = Color.White,
+                            selectedIconColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
+                            selectedTextColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
                             unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
                             indicatorColor = MaterialTheme.colorScheme.primary
