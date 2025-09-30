@@ -29,6 +29,7 @@ fun SimpleDropDown(
     title: String,
     value: String,
     color: Color = MaterialTheme.colorScheme.primary,
+    enabled: Boolean = true,
     selectValue: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -36,15 +37,18 @@ fun SimpleDropDown(
         modifier = modifier,
         expanded = expanded,
         onExpandedChange = {
-            expanded = it
+            if (enabled) {
+                expanded = !expanded
+            }
         }
     ) {
         OutlinedTextField(
-            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, false),
+            modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryEditable, enabled),
             value = value,
             onValueChange = { selectValue(it) },
             readOnly = true,
             singleLine = true,
+            enabled = enabled,
             label = {
                 Text(
                     text = title,

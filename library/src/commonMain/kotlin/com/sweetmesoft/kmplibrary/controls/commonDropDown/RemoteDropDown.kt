@@ -35,7 +35,7 @@ import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-inline fun <reified T : Any> RemoteDropDown2(
+inline fun <reified T : Any> RemoteDropDown(
     modifier: Modifier = Modifier,
     url: String = "",
     title: String,
