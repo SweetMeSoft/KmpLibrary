@@ -14,7 +14,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
@@ -26,9 +26,11 @@ import com.sweetmesoft.kmpcontrols.utils.getCurrentDateTime
 import com.sweetmesoft.kmpcontrols.utils.toLocalString
 import com.sweetmesoft.kmplibrary.base.BaseScreen
 import com.sweetmesoft.kmplibrary.base.BaseViewModel.Companion.navigator
-import com.sweetmesoft.kmplibrary.controls.ProfilePhoto
 import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.objects.IconAction
+import com.sweetmesoft.kmpmaps.MapComponent
+import com.sweetmesoft.kmpmaps.controls.Coordinates
+import com.sweetmesoft.kmpmaps.controls.RouteMap
 import com.sweetmesoft.kmptestapp.screens.about.AboutScreen
 import compose.icons.TablerIcons
 import compose.icons.tablericons.DotsVertical
@@ -36,14 +38,12 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
-import network.chaintech.cmpimagepickncrop.CMPImagePickNCropDialog
-import network.chaintech.cmpimagepickncrop.imagecropper.rememberImageCropper
 
 class MainScreen : Screen {
     @Suppress("RequiresFeature")
     @Composable
     override fun Content() {
-        val vm = remember { MainViewModel() }
+        remember { MainViewModel() }
         BaseScreen(
             toolbarColor = MaterialTheme.colorScheme.primary,
             toolbarIconsLight = false,
@@ -197,29 +197,27 @@ class MainScreen : Screen {
                         }
                     )
                 }
-                val imageCropper = rememberImageCropper()
-                var selectedImage by remember { mutableStateOf<ImageBitmap?>(null) }
-                var openImagePicker by remember { mutableStateOf(value = false) }
-                ProfilePhoto(
-                    urlImage = vm.state.urlImage,
-                ) {
-                    openImagePicker = true
-                }
-
-                CMPImagePickNCropDialog(
-                    imageCropper = imageCropper,
-                    openImagePicker = openImagePicker,
-                    imagePickerDialogHandler = {
-                        openImagePicker = it
-                    },
-                    selectedImageCallback = {
-                        vm.updatePhoto(it)
-                        selectedImage = it
-                    },
-                    selectedImageFileCallback = {
-                    }
-                )
-
+//                rememberImageCropper()
+//                var openImagePicker by remember { mutableStateOf(value = false) }
+//                ProfilePhoto(
+//                    urlImage = vm.state.urlImage,
+//                ) {
+//                    openImagePicker = true
+//                }
+//
+//                CMPImagePickNCropDialog(
+//                    imageCropper = imageCropper,
+//                    openImagePicker = openImagePicker,
+//                    imagePickerDialogHandler = {
+//                        openImagePicker = it
+//                    },
+//                    selectedImageCallback = {
+//                        vm.updatePhoto(it)
+//                        selectedImage = it
+//                    },
+//                    selectedImageFileCallback = {
+//                    }
+//                )
                 CalendarDialog(
                     isVisible = showDatePicker,
                     value = date,
@@ -237,6 +235,33 @@ class MainScreen : Screen {
                     time = selectedTime
                     showTimePicker = false
                 }
+
+                MapComponent(
+                    coordinates = Coordinates(4.7, -74.12),
+                    zoom = 15f,
+                    routes = listOf(
+                        RouteMap(
+                            points = List(10) {
+                                Coordinates(
+                                    latitude = 4.7 + (Math.random() - 0.5) * 0.1,
+                                    longitude = -74.12 + (Math.random() - 0.5) * 0.1
+                                )
+                            },
+                            color = Color.Red,
+                            width = 5f
+                        ),
+                        RouteMap(
+                            points = List(10) {
+                                Coordinates(
+                                    latitude = 4.8 + (Math.random() - 0.5) * 0.1,
+                                    longitude = -74.5 + (Math.random() - 0.5) * 0.1
+                                )
+                            },
+                            color = Color.Green,
+                            width = 5f
+                        )
+                    )
+                )
             }
         }
     }

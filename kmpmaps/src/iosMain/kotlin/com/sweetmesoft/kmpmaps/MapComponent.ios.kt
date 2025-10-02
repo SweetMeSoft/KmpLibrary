@@ -12,15 +12,22 @@ import androidx.compose.ui.viewinterop.UIKitInteropProperties
 import androidx.compose.ui.viewinterop.UIKitView
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
+import com.sweetmesoft.kmpmaps.controls.RouteMap
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.ObjCAction
 import kotlinx.cinterop.ObjCSignatureOverride
+import kotlinx.cinterop.allocArray
+import kotlinx.cinterop.interpretPointed
+import kotlinx.cinterop.memScoped
+import kotlinx.cinterop.ptr
+import kotlinx.cinterop.sizeOf
 import kotlinx.cinterop.useContents
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.suspendCancellableCoroutine
 import platform.CoreLocation.CLLocation
+import platform.CoreLocation.CLLocationCoordinate2D
 import platform.CoreLocation.CLLocationCoordinate2DMake
 import platform.CoreLocation.CLLocationManager
 import platform.CoreLocation.CLLocationManagerDelegateProtocol
@@ -40,6 +47,7 @@ import platform.MapKit.MKMapViewDelegateProtocol
 import platform.MapKit.MKOverlayProtocol
 import platform.MapKit.MKOverlayRenderer
 import platform.MapKit.MKPinAnnotationView
+import platform.MapKit.MKPolyline
 import platform.MapKit.addOverlay
 import platform.MapKit.overlays
 import platform.MapKit.removeOverlays
@@ -69,11 +77,12 @@ actual fun MapComponent(
     showBuildings: Boolean,
     showCompass: Boolean,
     showTraffic: Boolean,
+    routes: List<RouteMap>,
     markers: List<GeoPosition>,
     onMapClick: (Coordinates) -> Unit,
     onMapLongClick: (Coordinates) -> Unit
 ) {
-    val location = remember {
+    remember {
         CLLocationCoordinate2DMake(coordinates.latitude, coordinates.longitude)
     }
     val mapDelegate = rememberMapDelegate()
@@ -101,10 +110,35 @@ actual fun MapComponent(
         update = { mapView ->
             println("Se llamò el update")
             val padding = 32.dp.value.toDouble()
-            val edgePadding = UIEdgeInsetsMake(padding, padding, padding, padding)
+            UIEdgeInsetsMake(padding, padding, padding, padding)
 
             mapView.removeAnnotations(mapView.annotations)
             mapView.removeOverlays(mapView.overlays)
+
+            routes.forEach {
+                if (it.points.isNotEmpty()) {
+                    memScoped {
+                        val coordinates = allocArray<CLLocationCoordinate2D>(it.points.size)
+
+                        it.points.forEachIndexed { index, coordinate ->
+                            val clLocation = CLLocationCoordinate2DMake(
+                                coordinate.latitude,
+                                coordinate.longitude
+                            )
+                            val offset = index * sizeOf<CLLocationCoordinate2D>()
+                            val pointer = coordinates.rawValue + offset
+                            val a = interpretPointed<CLLocationCoordinate2D>(pointer).ptr
+                            clLocation.place(a)
+                        }
+
+                        MKPolyline.polylineWithCoordinates(
+                            coords = coordinates,
+                            count = it.points.size.toULong()
+                        )
+                    }
+                }
+            }
+
             markers.forEach {
                 if (it.markerMap.isVisible) {
                     val annotation = CustomPointAnnotation(it).apply {

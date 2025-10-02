@@ -37,11 +37,13 @@ import com.google.maps.android.compose.MapProperties
 import com.google.maps.android.compose.MapUiSettings
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
+import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.TileOverlay
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
+import com.sweetmesoft.kmpmaps.controls.RouteMap
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.net.URL
 import kotlin.coroutines.resume
@@ -59,6 +61,7 @@ actual fun MapComponent(
     showBuildings: Boolean,
     showCompass: Boolean,
     showTraffic: Boolean,
+    routes: List<RouteMap>,
     markers: List<GeoPosition>,
     onMapClick: (coordinates: Coordinates) -> Unit,
     onMapLongClick: (coordinates: Coordinates) -> Unit
@@ -73,12 +76,27 @@ actual fun MapComponent(
         LaunchedEffect(coordinate, zoom, isMapLoaded) {
             if (isMapLoaded) {
                 try {
-                    cameraPositionState.animate(
-                        CameraUpdateFactory.newLatLngZoom(
-                            coordinate,
-                            zoom
+                    if (routes.isNotEmpty()) {
+                        val routeCoordinates = routes.flatMap { route ->
+                            route.points.map {
+                                LatLng(it.latitude, it.longitude).toCoordinates()
+                            }
+                        }
+                        val (newZoom, newCenter) = calculateZoomAndCenter(routeCoordinates)
+                        cameraPositionState.animate(
+                            CameraUpdateFactory.newLatLngZoom(
+                                newCenter.toLatLng(),
+                                newZoom
+                            )
                         )
-                    )
+                    } else {
+                        cameraPositionState.animate(
+                            CameraUpdateFactory.newLatLngZoom(
+                                coordinate,
+                                zoom
+                            )
+                        )
+                    }
                 } catch (e: Exception) {
                     cameraPositionState.position = CameraPosition.fromLatLngZoom(coordinate, zoom)
                 }
@@ -127,6 +145,20 @@ actual fun MapComponent(
                 fadeIn = true,
                 transparency = 0.5f
             )
+
+            if (routes.isNotEmpty()) {
+                routes.forEach { route ->
+                    val routeCoordinates = route.points.map {
+                        LatLng(it.latitude, it.longitude)
+                    }
+
+                    Polyline(
+                        points = routeCoordinates,
+                        color = route.color,
+                        width = route.width
+                    )
+                }
+            }
 
             markers.forEach { marker ->
                 val markerCoordinate =
@@ -224,4 +256,12 @@ private fun createCustomMarkerIcon(
     drawable.draw(canvas)
 
     return BitmapDescriptorFactory.fromBitmap(bitmap)
+}
+
+fun Coordinates.toLatLng(): LatLng {
+    return LatLng(latitude, longitude)
+}
+
+fun LatLng.toCoordinates(): Coordinates {
+    return Coordinates(latitude, longitude)
 }

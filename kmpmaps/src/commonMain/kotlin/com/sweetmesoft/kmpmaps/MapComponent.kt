@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import com.sweetmesoft.kmpcontrols.utils.toRadians
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
+import com.sweetmesoft.kmpmaps.controls.RouteMap
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.log2
@@ -28,6 +29,7 @@ expect fun MapComponent(
     showBuildings: Boolean = false,
     showCompass: Boolean = false,
     showTraffic: Boolean = false,
+    routes: List<RouteMap> = emptyList(),
     markers: List<GeoPosition> = emptyList(),
     onMapClick: (Coordinates) -> Unit = {},
     onMapLongClick: (Coordinates) -> Unit = {}

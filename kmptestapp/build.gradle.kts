@@ -50,6 +50,7 @@ kotlin {
             implementation(libs.maps.compose)
             implementation(project(":library"))
             implementation(project(":kmpcontrols"))
+            implementation(project(":kmpmaps"))
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
