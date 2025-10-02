@@ -243,8 +243,8 @@ class MainScreen : Screen {
                         RouteMap(
                             points = List(10) {
                                 Coordinates(
-                                    latitude = 4.7 + (Math.random() - 0.5) * 0.1,
-                                    longitude = -74.12 + (Math.random() - 0.5) * 0.1
+                                    latitude = 4.7 + ((0..10).random() - 0.5) * 0.1,
+                                    longitude = -74.12 + ((0..10).random() - 0.5) * 0.1
                                 )
                             },
                             color = Color.Red,
@@ -253,8 +253,8 @@ class MainScreen : Screen {
                         RouteMap(
                             points = List(10) {
                                 Coordinates(
-                                    latitude = 4.8 + (Math.random() - 0.5) * 0.1,
-                                    longitude = -74.5 + (Math.random() - 0.5) * 0.1
+                                    latitude = 4.8 + ((0..10).random() - 0.5) * 0.1,
+                                    longitude = -74.5 + ((0..10).random() - 0.5) * 0.1
                                 )
                             },
                             color = Color.Green,
