@@ -167,7 +167,10 @@ actual fun MapComponent(
 
             mapView.removeGestureRecognizer(tapGestureRecognizer)
             mapView.addGestureRecognizer(tapGestureRecognizer)
-            centerMapOnCoordinate(mapView, coordinates, zoom)
+            val (z4, center) = calculateZoomAndCenter(
+                positions = routes.flatMap { it.points }
+            )
+            centerMapOnCoordinate(mapView, center, z4)
         },
         properties = UIKitInteropProperties(
             isNativeAccessibilityEnabled = true,
