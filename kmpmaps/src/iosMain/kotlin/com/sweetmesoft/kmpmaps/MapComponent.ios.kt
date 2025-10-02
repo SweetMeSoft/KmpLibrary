@@ -48,6 +48,7 @@ import platform.MapKit.MKOverlayProtocol
 import platform.MapKit.MKOverlayRenderer
 import platform.MapKit.MKPinAnnotationView
 import platform.MapKit.MKPolyline
+import platform.MapKit.MKPolylineRenderer
 import platform.MapKit.addOverlay
 import platform.MapKit.overlays
 import platform.MapKit.removeOverlays
@@ -217,7 +218,14 @@ fun rememberMapDelegate(): MKMapViewDelegateProtocol {
                     circleRenderer.lineWidth = 2.0
                     circleRenderer
                 } else {
-                    MKOverlayRenderer(rendererForOverlay)
+                    return if (rendererForOverlay is MKPolyline) {
+                        MKPolylineRenderer(overlay = rendererForOverlay).apply {
+                            strokeColor = UIColor.redColor()
+                            lineWidth = 2.0
+                        }
+                    } else {
+                        MKOverlayRenderer(rendererForOverlay)
+                    }
                 }
             }
 
