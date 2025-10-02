@@ -130,11 +130,11 @@ actual fun MapComponent(
                             val a = interpretPointed<CLLocationCoordinate2D>(pointer).ptr
                             clLocation.place(a)
                         }
-
-                        MKPolyline.polylineWithCoordinates(
+                        val polyline = MKPolyline.polylineWithCoordinates(
                             coords = coordinates,
                             count = it.points.size.toULong()
                         )
+                        mapView.addOverlay(polyline)
                     }
                 }
             }
