@@ -251,7 +251,9 @@ private fun TabContent(
             }
         }
     ) {
-        content(it)
+        Box(modifier = Modifier.padding(it)) {
+            content(it)
+        }
     }
 }
 

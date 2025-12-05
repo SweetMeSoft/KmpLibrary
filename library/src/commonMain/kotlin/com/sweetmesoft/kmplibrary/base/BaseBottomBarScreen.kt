@@ -160,7 +160,7 @@ private fun ScreenContent(
             }
         },
     ) {
-        Column {
+        Column(modifier = Modifier.padding(it)) {
             Box(modifier = Modifier.weight(1f)) {
                 CurrentTab()
             }

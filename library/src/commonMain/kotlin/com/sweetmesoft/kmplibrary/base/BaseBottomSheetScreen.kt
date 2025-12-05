@@ -3,6 +3,7 @@ package com.sweetmesoft.kmplibrary.base
 import androidx.compose.foundation.background
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
@@ -158,7 +159,9 @@ private fun ScreenContent(
             }
         }
     ) {
-        content()
+        Box(modifier = Modifier.padding(it)) {
+            content()
+        }
 
         AlertView()
         AlertConfirm()
