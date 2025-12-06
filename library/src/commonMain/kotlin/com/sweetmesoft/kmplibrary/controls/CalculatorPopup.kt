@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -71,7 +71,7 @@ fun CalculatorPopup(
                     color = Color.Gray
                 )
 
-                Divider()
+                HorizontalDivider()
 
                 Row {
                     CalculatorButton(modifier = Modifier.weight(1f), 'C') {
@@ -103,10 +103,8 @@ fun CalculatorPopup(
                                 else -> 0.0
                             }
 
-                            subtotal = subtotal.substring(
-                                0,
-                                subtotal.lastIndexOf(lastOperator) + 1
-                            ) + newNumber
+                            subtotal =
+                                subtotal.take(subtotal.lastIndexOf(lastOperator) + 1) + newNumber
                             total = operate(subtotal)
                         }
                     }

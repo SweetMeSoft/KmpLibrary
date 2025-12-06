@@ -39,7 +39,7 @@ internal fun AlertProgress() {
                 )
                 LinearProgressIndicator(
                     modifier = Modifier.fillMaxWidth(),
-                    progress = PopupHandler.progressProgress,
+                    progress = { PopupHandler.progressProgress },
                     color = if (PopupHandler.progressColor == Color.Unspecified) MaterialTheme.colorScheme.primary else PopupHandler.progressColor
                 )
                 Text(

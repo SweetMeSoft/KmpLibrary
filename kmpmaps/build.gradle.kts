@@ -28,11 +28,11 @@ kotlin {
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.material3)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
             implementation(libs.ktor.client.core)

@@ -12,9 +12,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
@@ -107,7 +107,7 @@ fun <T> LargeDropdownMenu(
                         label,
                         modifier = Modifier.padding(16.dp)
                     )
-                    Divider()
+                    HorizontalDivider()
                     LazyColumn(
                         modifier = Modifier.fillMaxWidth(),
                         state = listState
@@ -118,7 +118,7 @@ fun <T> LargeDropdownMenu(
                                 expanded = false
                             }) {
                                 itemContent(items[index])
-                                Divider(modifier = Modifier.padding(horizontal = 16.dp))
+                                HorizontalDivider(modifier = Modifier.padding(horizontal = 16.dp))
                             }
                         }
                     }
