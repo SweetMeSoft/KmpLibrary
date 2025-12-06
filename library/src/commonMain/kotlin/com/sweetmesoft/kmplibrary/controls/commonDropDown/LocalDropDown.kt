@@ -70,6 +70,7 @@ inline fun <reified T : Any> LocalDropDown(
                 focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
+                unfocusedContainerColor = Color.Transparent
             )
         )
 

@@ -22,7 +22,10 @@ fun ClickableOutlinedTextField(
     enabled: Boolean = true,
     onClick: () -> Unit
 ) {
-    Box(modifier = modifier) {
+    Box(
+        modifier = modifier
+            .background(Color.Transparent)
+    ) {
         OutlinedTextField(
             value = value,
             onValueChange = {},
@@ -38,6 +41,7 @@ fun ClickableOutlinedTextField(
                 focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
+                unfocusedContainerColor = Color.Transparent
             )
         )
 

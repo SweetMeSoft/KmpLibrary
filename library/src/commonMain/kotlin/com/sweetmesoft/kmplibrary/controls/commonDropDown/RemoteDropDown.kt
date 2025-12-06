@@ -94,6 +94,7 @@ inline fun <reified T : Any> RemoteDropDown(
                 focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
+                unfocusedContainerColor = Color.Transparent
             )
         )
         val widthInDp = with(LocalDensity.current) { textFieldSize.width.toDp() }

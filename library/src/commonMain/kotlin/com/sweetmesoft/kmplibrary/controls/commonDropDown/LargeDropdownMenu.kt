@@ -77,6 +77,7 @@ fun <T> LargeDropdownMenu(
                 focusedIndicatorColor = color,
                 cursorColor = color,
                 focusedLabelColor = color,
+                unfocusedContainerColor = Color.Transparent
             )
         )
 
