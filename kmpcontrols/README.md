@@ -1,345 +1,242 @@
-# KMPControls - Advanced Date and Time Pickers
+# KMPControls
 
-KMPControls is a Kotlin Multiplatform library that provides advanced date and time picker components with native look and feel across Android and iOS platforms.
+KMPControls is a Kotlin Multiplatform library that provides advanced date and time picker components, along with other useful UI controls, offering a native look and feel across Android and iOS platforms.
 
 ## Features
 
-- Cross-platform date, time, and datetime pickers
-- Native UI components with platform-specific styling
-- Customizable appearance and behavior
-- Dialog and inline picker modes
-- Comprehensive date/time utilities
-- Full integration with kotlinx-datetime
-- Material Design 3 support
-- Accessibility features
+- **Cross-platform Pickers**: Fully functional Date, Time, and DateTime pickers.
+- **Dialogs**: Customizable standalone Calendar and Clock dialogs.
+- **Additional Controls**:
+  - `PasswordControl`: Password input with visibility toggle.
+  - `SearchControl`: Search bar component.
+- **Material Design 3**: Built using Jetpack Compose Material 3.
+- **Kotlin Multiplatform**: Seamless support for Android and iOS.
 
 ## Installation
 
-### 1. Add Dependencies
+Add the dependency to your project.
 
-Update your `libs.versions.toml` and `build.gradle.kts` files with the required dependencies:
+### Using Version Catalog
 
-### `libs.versions.toml`
+If you are using a version catalog (e.g., `libs.versions.toml`), add the following:
 
 ```toml
 [versions]
-sweetmesoft = "{version-sweetmesoft}"
+sweetmesoft = "1.7.7"
 
 [libraries]
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
 ```
 
-### `build.gradle.kts`
+### Build Gradle
+
+In your `build.gradle.kts` (commonMain source set):
 
 ```kotlin
 implementation(libs.sweetmesoft.kmpcontrols)
 ```
 
-### 2. Platform Requirements
+## Android Initialization
 
-#### Android
-- Minimum SDK: 28 (Android 9 Pie)
-- Target SDK: 35
-- Compile SDK: 35
-
-Update your `gradle.properties`:
-
-```properties
-android-compileSdk="35"
-android-minSdk="28"
-android-targetSdk="35"
-```
-
-#### iOS
-- iOS 12.0+
-- Xcode 14.0+
-
-### 3. Required Dependencies
-
-This library requires the official `kotlinx-datetime` library. Add the following dependency:
-
-### `libs.versions.toml`
-
-```toml
-[versions]
-kotlinx-datetime = "{version-datetime}"
-
-[libraries]
-kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
-```
-
-### `build.gradle.kts`
+For Android, you need to initialize the library in your `MainActivity` to support features like vibration feedback.
 
 ```kotlin
-implementation(libs.kotlinx.datetime)
-```
+// In your Android MainActivity.kt
+import com.sweetmesoft.kmpcontrols.tools.BaseAndroid
 
-For more details, visit
-the [kotlinx-datetime GitHub page](https://github.com/Kotlin/kotlinx-datetime).
-
-## Usage Examples
-
-### Basic Date Picker
-
-```kotlin
-import kotlinx.datetime.LocalDate
-import com.sweetmesoft.kmpcontrols.DatePicker
-
-@Composable
-fun DatePickerExample() {
-    var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
-    
-    DatePicker(
-        selectedDate = selectedDate,
-        onDateSelected = { date ->
-            selectedDate = date
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // Initialize KMPControls
+        BaseAndroid.initSweetMeSoft(this)
+        
+        setContent {
+            // Your content
         }
-    )
-}
-```
-
-### Time Picker
-
-```kotlin
-import kotlinx.datetime.LocalTime
-import com.sweetmesoft.kmpcontrols.TimePicker
-
-@Composable
-fun TimePickerExample() {
-    var selectedTime by remember { mutableStateOf(LocalTime(12, 0)) }
-    
-    TimePicker(
-        selectedTime = selectedTime,
-        onTimeSelected = { time ->
-            selectedTime = time
-        }
-    )
-}
-```
-
-### DateTime Picker
-
-```kotlin
-import kotlinx.datetime.LocalDateTime
-import com.sweetmesoft.kmpcontrols.DateTimePicker
-
-@Composable
-fun DateTimePickerExample() {
-    var selectedDateTime by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
-    
-    DateTimePicker(
-        selectedDateTime = selectedDateTime,
-        onDateTimeSelected = { dateTime ->
-            selectedDateTime = dateTime
-        }
-    )
-}
-```
-
-### Calendar Dialog
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.CalendarDialog
-
-@Composable
-fun CalendarDialogExample() {
-    var showCalendarDialog by remember { mutableStateOf(false) }
-    var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
-    
-    Button(
-        onClick = { showCalendarDialog = true }
-    ) {
-        Text("Select Date")
     }
-    
-    CalendarDialog(
-        showDialog = showCalendarDialog,
-        selectedDate = selectedDate,
-        onDateSelected = { date ->
-            selectedDate = date
-            showCalendarDialog = false
-        },
-        onDismiss = {
-            showCalendarDialog = false
-        }
-    )
 }
 ```
 
-### Clock Dialog
+### Permissions (Android)
 
-```kotlin
-import com.sweetmesoft.kmpcontrols.ClockDialog
+For haptic feedback (vibration) in pickers, add the following permission to your `AndroidManifest.xml`:
 
-@Composable
-fun ClockDialogExample() {
-    var showClockDialog by remember { mutableStateOf(false) }
-    var selectedTime by remember { mutableStateOf(LocalTime(12, 0)) }
-    
-    Button(
-        onClick = { showClockDialog = true }
-    ) {
-        Text("Select Time")
-    }
-    
-    ClockDialog(
-        showDialog = showClockDialog,
-        selectedTime = selectedTime,
-        onTimeSelected = { time ->
-            selectedTime = time
-            showClockDialog = false
-        },
-        onDismiss = {
-            showClockDialog = false
-        }
-    )
-}
+```xml
+<uses-permission android:name="android.permission.VIBRATE" />
 ```
 
-## Advanced Usage
+## Usage
 
-### Custom Styling
+### DatePicker
+
+A text field that opens a calendar dialog when clicked.
 
 ```kotlin
+import com.sweetmesoft.kmpcontrols.pickers.DatePicker
+import kotlinx.datetime.Clock
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
+
+// ... inside your Composable
+var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
+
 DatePicker(
-    selectedDate = selectedDate,
-    onDateSelected = { selectedDate = it },
-    colors = DatePickerColors(
-        primaryColor = Color.Blue,
-        backgroundColor = Color.White,
-        textColor = Color.Black
-    ),
-    dateFormat = "dd/MM/yyyy"
+    value = selectedDate,
+    title = "Select Date",
+    onSelectedDate = { date ->
+        selectedDate = date
+    }
 )
 ```
 
-### Date Range Restrictions
+### TimePicker
+
+A text field that opens a clock dialog when clicked.
 
 ```kotlin
-val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
-val minDate = today.minus(30, DateTimeUnit.DAY)
-val maxDate = today.plus(30, DateTimeUnit.DAY)
+import com.sweetmesoft.kmpcontrols.pickers.TimePicker
 
-DatePicker(
-    selectedDate = selectedDate,
-    onDateSelected = { selectedDate = it },
-    minDate = minDate,
-    maxDate = maxDate
+var selectedTime by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time) }
+
+TimePicker(
+    value = selectedTime,
+    title = "Select Time",
+    onSelectedTime = { time ->
+        selectedTime = time
+    }
+)
+```
+
+### DateTimePicker
+
+A text field that opens a calendar dialog followed by a clock dialog.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.pickers.DateTimePicker
+
+var selectedDateTime by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
+
+DateTimePicker(
+    value = selectedDateTime,
+    title = "Select Date & Time",
+    onSelectedDateTime = { dateTime ->
+        selectedDateTime = dateTime
+    }
+)
+```
+
+### CalendarDialog
+
+Use the calendar dialog directly.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
+
+CalendarDialog(
+    isVisible = showCalendar,
+    value = selectedDate,
+    onDismiss = { showCalendar = false },
+    onDateSelected = { date ->
+        selectedDate = date
+        showCalendar = false
+    }
+)
+```
+
+### ClockDialog
+
+Use the clock dialog directly.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
+
+ClockDialog(
+    isVisible = showClock,
+    value = selectedTime,
+    onDismiss = { showClock = false },
+    onTimeSelected = { time ->
+        selectedTime = time
+        showClock = false
+    }
+)
+```
+
+### PasswordControl
+
+A password input field with a visibility toggle icon.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.PasswordControl
+
+var password by remember { mutableStateOf("") }
+
+PasswordControl(
+    value = password,
+    label = "Password",
+    onValueChange = { password = it }
+)
+```
+
+### SearchControl
+
+A search bar component.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.SearchControl
+
+var query by remember { mutableStateOf("") }
+
+SearchControl(
+    value = query,
+    placeholder = "Search...",
+    onValueChange = { query = it },
+    onSearch = { 
+        // Perform search
+    }
 )
 ```
 
 ## API Reference
 
-### DatePicker
-- `selectedDate: LocalDate` - Currently selected date
-- `onDateSelected: (LocalDate) -> Unit` - Callback when date is selected
-- `minDate: LocalDate?` - Minimum selectable date
-- `maxDate: LocalDate?` - Maximum selectable date
-- `colors: DatePickerColors?` - Custom color scheme
-- `dateFormat: String?` - Custom date format
+### Pickers
 
-### TimePicker
-- `selectedTime: LocalTime` - Currently selected time
-- `onTimeSelected: (LocalTime) -> Unit` - Callback when time is selected
-- `is24Hour: Boolean` - Use 24-hour format (default: true)
-- `colors: TimePickerColors?` - Custom color scheme
+**DatePicker**
+- `value`: `LocalDate` - The currently selected date.
+- `onSelectedDate`: `(LocalDate) -> Unit` - Callback when a date is selected.
+- `title`: `String` - Label for the text field.
+- `minDate`, `maxDate`: `LocalDate` - Date range constraints.
+- `color`: `Color` - Primary color for the picker.
 
-### DateTimePicker
-- `selectedDateTime: LocalDateTime` - Currently selected date and time
-- `onDateTimeSelected: (LocalDateTime) -> Unit` - Callback when datetime is selected
-- `minDateTime: LocalDateTime?` - Minimum selectable datetime
-- `maxDateTime: LocalDateTime?` - Maximum selectable datetime
+**TimePicker**
+- `value`: `LocalTime` - The currently selected time.
+- `onSelectedTime`: `(LocalTime) -> Unit` - Callback when a time is selected.
+- `title`: `String` - Label for the text field.
+
+**DateTimePicker**
+- `value`: `LocalDateTime` - The currently selected date and time.
+- `onSelectedDateTime`: `(LocalDateTime) -> Unit` - Callback when date and time are selected.
+
+### Controls
+
+**PasswordControl**
+- `value`: `String` - Current password text.
+- `onValueChange`: `(String) -> Unit` - Callback for text changes.
+- `label`: `String` - Label text.
+- `isError`: `Boolean` - Whether to show error state.
+
+**SearchControl**
+- `value`: `String` - Current search query.
+- `onValueChange`: `(String) -> Unit` - Callback for text changes.
+- `onSearch`: `(String) -> Unit` - Callback when search action is triggered (e.g., keyboard enter).
 
 ## Requirements
 
-- Kotlin Multiplatform 1.9.0+
-- Compose Multiplatform 1.5.0+
-- kotlinx-datetime 0.6.1+
-- Android API 28+ / iOS 12.0+
+- **Android**: Min SDK 28, Target SDK 36
+- **iOS**: 12.0+
+- **Kotlin**: 2.2.21+
+- **Compose Multiplatform**: 1.9.0+
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support and questions, please contact SweetMeSoft or create an issue in the project repository.
-
-## 6. Use the Composables
-
-You can now use the `DatePicker`, `TimePicker`, and `DateTimePicker` components in your UI. Here’s
-an example:
-
-### Example
-
-```kotlin
-var date: LocalDate by remember { mutableStateOf(getCurrentDateTime().date) }
-var time: LocalTime by remember { mutableStateOf(getCurrentDateTime().time) }
-var dateTime: LocalDateTime by remember { mutableStateOf(getCurrentDateTime()) }
-
-Column(
-    modifier = Modifier.padding(16.dp),
-    verticalArrangement = Arrangement.spacedBy(8.dp)
-) {
-    DatePicker(value = date) { selectedDate ->
-        date = selectedDate
-    }
-    TimePicker(value = time) { selectedTime ->
-        time = selectedTime
-    }
-    DateTimePicker(value = dateTime) { selectedDateTime ->
-        dateTime = selectedDateTime
-    }
-}
-```
-
-## 7. Show Dialogs for Date and Time Pickers
-
-If you want to use dialogs for selecting dates or times, use `CalendarDialog` or `ClockDialog` as
-shown below:
-
-### Example
-
-```kotlin
-var showDatePicker by remember { mutableStateOf(false) }
-var showTimePicker by remember { mutableStateOf(false) }
-
-Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-    Button(
-        modifier = Modifier.weight(1f),
-        content = { Text("Show Date") },
-        onClick = { showDatePicker = true }
-    )
-    Button(
-        modifier = Modifier.weight(1f),
-        content = { Text("Show Time") },
-        onClick = { showTimePicker = true }
-    )
-}
-
-CalendarDialog(
-    isVisible = showDatePicker,
-    value = date,
-    onDismiss = { showDatePicker = false }
-) { selectedDate ->
-    date = selectedDate
-    showDatePicker = false
-}
-
-ClockDialog(
-    isVisible = showTimePicker,
-    value = time,
-    onDismiss = { showTimePicker = false }
-) { selectedTime ->
-    time = selectedTime
-    showTimePicker = false
-}
-```
-
-## Contributing
-
-We welcome contributions to KMPControls! Please feel free to submit issues, feature requests, or pull requests.
-
-## Changelog
-
-See the [CHANGELOG.md](CHANGELOG.md) file for details about changes in each version.
+This project is licensed under the MIT License.

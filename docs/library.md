@@ -1,746 +1,352 @@
-# Library Documentation
+---
+layout: default
+title: KMP Library
+nav_order: 4
+---
 
-Library is the main module of the SweetMeSoft KMP library that provides advanced UI components, navigation tools, network utilities and complete functionalities for cross-platform application development.
+# KMP Library
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Base Architecture](#base-architecture)
-- [UI Components](#ui-components)
-- [Advanced Controls](#advanced-controls)
-- [Alerts and Dialogs](#alerts-and-dialogs)
-- [Lists and Grids](#lists-and-grids)
-- [Utilities](#utilities)
-- [Navigation](#navigation)
-- [Usage Examples](#usage-examples)
+The `library` module is the core component of the SweetMeSoft KMP Library. It provides a robust architectural foundation and a comprehensive set of UI components, utilities, and network helpers for Kotlin Multiplatform development. It is designed to accelerate cross-platform application development by abstracting common patterns and boilerplate code.
 
 ## Installation
 
-```kotlin
-commonMain.dependencies {
-    implementation("com.sweetmesoft.kmplibrary:kmplibrary:1.6.6")
-    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
-    
-    // Required dependencies
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
-    implementation("cafe.adriel.voyager:voyager-navigator:1.1.0-beta03")
-    implementation("cafe.adriel.voyager:voyager-bottom-sheet-navigator:1.1.0-beta03")
-    implementation("cafe.adriel.voyager:voyager-tab-navigator:1.1.0-beta03")
-    implementation("cafe.adriel.voyager:voyager-transitions:1.1.0-beta03")
-    implementation("io.ktor:ktor-client-core:3.2.3")
-    implementation("media.kamel:kamel-image-default:1.0.7")
-    implementation("io.github.alexzhirkevich:compottie:2.0.0-rc04")
-}
+Add the dependency to your version catalog or build file.
+
+### Version Catalog
+
+```toml
+[versions]
+sweetmesoft = "1.7.7"
+
+[libraries]
+sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
 ```
 
-## Base Architecture
-
-### BaseViewModel
-Base class for ViewModels with common functionalities.
+### Gradle (Kotlin DSL)
 
 ```kotlin
-abstract class BaseViewModel : ViewModel() {
-    companion object {
-        var navigator: Navigator? = null
-    }
-    
-    protected val _isLoading = MutableStateFlow(false)
-    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
-    
-    protected val _error = MutableStateFlow<String?>(null)
-    val error: StateFlow<String?> = _error.asStateFlow()
-    
-    protected fun setLoading(loading: Boolean) {
-        _isLoading.value = loading
-    }
-    
-    protected fun setError(error: String?) {
-        _error.value = error
-    }
-    
-    fun navigateTo(screen: Screen) {
-        navigator?.push(screen)
-    }
-    
-    fun navigateBack() {
-        navigator?.pop()
-    }
-}
+implementation(libs.sweetmesoft.library)
 ```
+
+## Architecture
+
+This library promotes a consistent architecture using a suite of `BaseScreen` composables and `BaseViewModel`.
 
 ### BaseScreen
-Base screen with common functionalities.
+
+`BaseScreen` provides a standardized screen structure with built-in support for:
+- Navigation integration (Voyager)
+- Top app bar customization
+- Global loading state handling
+- Global alert dialogs (Info, Confirm, Prompt, Progress)
+- Floating Action Button (FAB) support
 
 ```kotlin
-abstract class BaseScreen : Screen {
-    @Composable
-    abstract fun ScreenContent()
-    
-    @Composable
-    override fun Content() {
-        ScreenContent()
+@Composable
+fun HomeScreen() {
+    BaseScreen(
+        title = "Home",
+        showTop = true,
+        fabAction = { /* Handle FAB click */ }
+    ) { paddingValues ->
+        // Screen content
+        Column(modifier = Modifier.padding(paddingValues)) {
+            Text("Welcome to the Home Screen")
+        }
     }
 }
 ```
 
-### BaseBottomBarScreen
-Base screen with bottom navigation bar.
+### Advanced Screen Types
+
+In addition to `BaseScreen`, the library offers specialized screen layouts:
+
+#### BaseBottomBarScreen
+
+Manages a screen with a bottom navigation bar. It requires a list of `BaseTab` items.
 
 ```kotlin
-abstract class BaseBottomBarScreen : Screen {
-    @Composable
-    abstract fun ScreenContent()
+@Composable
+fun MainScreen() {
+    val homeTab = object : BaseTab {
+        override val baseOptions = defaultBaseTabOptions(
+            title = "Home",
+            icon = rememberVectorPainter(Icons.Default.Home),
+            showTop = true
+        )
+        
+        @Composable
+        override fun Content() {
+            // Tab content
+        }
+    }
+
+    BaseBottomBarScreen(
+        tabs = listOf(homeTab, profileTab)
+    )
+}
+```
+
+#### BaseDrawerScreen
+
+Manages a screen with a side navigation drawer. Similar to `BaseBottomBarScreen`, it uses `BaseTab` for navigation items.
+
+```kotlin
+@Composable
+fun MainScreen() {
+    BaseDrawerScreen(
+        tabs = listOf(homeTab, settingsTab),
+        headerView = {
+            // Drawer header content
+        },
+        logoutAction = {
+            // Handle logout
+        }
+    )
+}
+```
+
+#### BaseBottomSheetScreen
+
+A wrapper for screens displayed within a bottom sheet. It includes a standard top bar with a close button.
+
+```kotlin
+BaseBottomSheetScreen(
+    title = "Details",
+    showTop = true
+) {
+    // Bottom sheet content
+}
+```
+
+### BaseViewModel
+
+`BaseViewModel` serves as the base class for ViewModels, offering:
+- Coroutine scope management
+- Permission handling helpers
+- Navigation integration
+
+```kotlin
+class HomeViewModel : BaseViewModel() {
     
-    @Composable
-    abstract fun BottomBarContent()
-    
-    @Composable
-    override fun Content() {
-        Scaffold(
-            bottomBar = { BottomBarContent() }
-        ) { paddingValues ->
-            Box(modifier = Modifier.padding(paddingValues)) {
-                ScreenContent()
+    fun checkCameraPermission() {
+        screenModelScope.launch {
+            val granted = requestPermission(Permission.CAMERA)
+            if (granted) {
+                // Permission granted
             }
         }
     }
 }
 ```
 
+## Pre-built Screens
+
+The library includes common screen implementations to speed up development.
+
+### SplashContent
+
+A configurable splash screen with logo animation and automatic navigation after a delay.
+
+```kotlin
+SplashContent(
+    logo = painterResource(Res.drawable.logo),
+    waitMillis = 2000,
+    title = "My App",
+    action = {
+        // Navigate to next screen
+        navigator.replace(HomeScreen())
+    }
+)
+```
+
+### AboutContent
+
+An "About" screen displaying app version, logo, and links.
+
+```kotlin
+AboutContent(
+    logo = painterResource(Res.drawable.logo),
+    appName = "My App",
+    appId = "com.example.myapp"
+)
+```
+
 ## UI Components
 
-### PasswordControl
-Password control with toggleable visibility.
+### Lists and Grids
+
+The library provides `LocalList`/`RemoteList` for linear lists and `LocalGridList`/`RemoteGridList` for grid layouts.
+
+#### LocalList / LocalGridList
+
+For displaying static or locally available data.
 
 ```kotlin
-@Composable
-fun PasswordControl(
-    value: String,
-    onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = "Password",
-    placeholder: String = "",
-    enabled: Boolean = true,
-    isError: Boolean = false,
-    supportingText: String? = null
-)
-```
+LocalList(
+    list = myDataList,
+    title = "My Items",
+    addClick = { /* Handle add */ }
+) { index, item ->
+    Text(text = item.name)
+}
 
-### SearchControl
-Search control with advanced functionalities.
-
-```kotlin
-@Composable
-fun SearchControl(
-    query: String,
-    onQueryChange: (String) -> Unit,
-    onSearch: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    placeholder: String = "Search...",
-    enabled: Boolean = true,
-    suggestions: List<String> = emptyList(),
-    onSuggestionClick: (String) -> Unit = {}
-)
-```
-
-### ProfilePhoto
-Component for displaying and editing profile photos.
-
-```kotlin
-@Composable
-fun ProfilePhoto(
-    imageUrl: String?,
-    modifier: Modifier = Modifier,
-    size: Dp = 80.dp,
-    onClick: (() -> Unit)? = null,
-    placeholder: ImageBitmap? = null,
-    isEditable: Boolean = false
-)
-```
-
-### LoadingView
-Customizable loading indicator.
-
-```kotlin
-@Composable
-fun LoadingView(
-    modifier: Modifier = Modifier,
-    message: String = "Loading...",
-    showMessage: Boolean = true,
-    color: Color = MaterialTheme.colorScheme.primary
-)
-```
-
-### MoreControl
-Options menu control (three dots).
-
-```kotlin
-@Composable
-fun MoreControl(
-    options: List<IconAction>,
-    modifier: Modifier = Modifier,
-    onOptionSelected: (IconAction) -> Unit
-)
-
-data class IconAction(
-    val id: String,
-    val title: String,
-    val icon: ImageVector,
-    val enabled: Boolean = true
-)
-```
-
-## Alerts and Dialogs
-
-### PopupHandler
-Global handler for popups and alerts.
-
-```kotlin
-object PopupHandler {
-    private var _currentPopup by mutableStateOf<PopupState?>(null)
-    val currentPopup: PopupState? get() = _currentPopup
-    
-    fun showAlert(
-        title: String,
-        message: String,
-        onConfirm: () -> Unit = {},
-        onCancel: () -> Unit = {}
-    )
-    
-    fun showProgress(
-        title: String,
-        message: String,
-        progress: Float? = null
-    )
-    
-    fun showPrompt(
-        title: String,
-        message: String,
-        initialValue: String = "",
-        onConfirm: (String) -> Unit,
-        onCancel: () -> Unit = {}
-    )
-    
-    fun dismiss()
+LocalGridList(
+    list = myDataList,
+    columns = 2
+) { index, item ->
+    MyGridItem(item)
 }
 ```
 
-### AlertConfirm
-Confirmation dialog.
+#### RemoteList / RemoteGridList
+
+Automatically handles data fetching, loading states, and pull-to-refresh from a URL.
 
 ```kotlin
-@Composable
-fun AlertConfirm(
-    title: String,
-    message: String,
-    onConfirm: () -> Unit,
-    onCancel: () -> Unit,
-    confirmText: String = "Accept",
-    cancelText: String = "Cancel",
-    showDialog: Boolean = true
+RemoteList<MyDataItem>(
+    url = "https://api.example.com/items",
+    title = "Remote Items",
+    bearer = "token",
+    refresh = shouldRefresh
+) { item ->
+    Text(text = item.name)
+}
+```
+
+### Dropdowns
+
+`LocalDropDown` and `RemoteDropDown` simplify selection interfaces.
+
+```kotlin
+RemoteDropDown<MyDataItem>(
+    url = "https://api.example.com/options",
+    title = "Select Option",
+    value = selectedOptionName,
+    selectValue = { item -> 
+        // Handle selection
+    }
+) { item ->
+    Text(text = item.name)
+}
+```
+
+### Other Components
+
+#### SettingsItem
+
+A standard row for settings screens with an icon, title, and description.
+
+```kotlin
+SettingsItem(
+    icon = Icons.Default.Settings,
+    title = "General",
+    description = "App preferences"
+) {
+    // Handle click
+}
+```
+
+#### ProfilePhoto
+
+A circular image component that handles loading from a URL and caching.
+
+```kotlin
+ProfilePhoto(
+    urlImage = "https://example.com/avatar.jpg",
+    radius = 100.dp,
+    onClick = { /* Handle click */ }
 )
 ```
 
-### AlertProgress
-Progress dialog.
+#### DoublePicker & CalculatorPopup
+
+Input controls for numeric values.
 
 ```kotlin
-@Composable
-fun AlertProgress(
-    title: String,
-    message: String,
-    progress: Float? = null, // null for indeterminate progress
-    showDialog: Boolean = true,
-    onCancel: (() -> Unit)? = null
+DoublePicker(
+    title = "Amount",
+    value = amountStr,
+    onValueChange = { newValue ->
+        // Update value
+    }
 )
 ```
 
-### AlertPrompt
-Text input dialog.
+### Popups and Alerts
+
+The `PopupHandler` allows displaying global alerts from anywhere in your code (e.g., ViewModels).
 
 ```kotlin
-@Composable
-fun AlertPrompt(
-    title: String,
-    message: String,
-    initialValue: String = "",
-    placeholder: String = "",
-    onConfirm: (String) -> Unit,
-    onCancel: () -> Unit,
-    showDialog: Boolean = true
+// Display a simple alert
+PopupHandler.displayAlert(
+    title = "Success",
+    message = "Operation completed successfully"
+)
+
+// Display a confirmation dialog
+PopupHandler.displayConfirm(
+    title = "Delete Item",
+    message = "Are you sure?",
+    onConfirm = { 
+        // Handle confirmation
+    }
 )
 ```
 
-## Lists and Grids
+## Network Utilities
 
-### LocalList
-Local list with static data.
+`NetworkUtils` provides simplified HTTP methods that integrate with the global loading state.
 
 ```kotlin
-@Composable
-fun <T> LocalList(
-    items: List<T>,
-    modifier: Modifier = Modifier,
-    itemContent: @Composable (T) -> Unit,
-    emptyContent: @Composable () -> Unit = { EmptyList() },
-    loadingContent: @Composable () -> Unit = { LoadingView() }
+// GET request
+val result = NetworkUtils.get<MyResponseData>(
+    url = "https://api.example.com/data",
+    showLoading = true, // specific loading indicator control
+    bearer = "token"
 )
-```
 
-### RemoteList
-List with remote data and pagination.
+result.onSuccess { response ->
+    // Handle success
+}
 
-```kotlin
-@Composable
-fun <T> RemoteList(
-    items: List<T>,
-    isLoading: Boolean,
-    hasMoreItems: Boolean,
-    onLoadMore: () -> Unit,
-    modifier: Modifier = Modifier,
-    itemContent: @Composable (T) -> Unit,
-    emptyContent: @Composable () -> Unit = { EmptyList() },
-    loadingContent: @Composable () -> Unit = { LoadingView() }
-)
-```
+result.onFailure { error ->
+    // Handle error
+}
 
-### LocalGridList
-Local grid with static data.
-
-```kotlin
-@Composable
-fun <T> LocalGridList(
-    items: List<T>,
-    columns: Int = 2,
-    modifier: Modifier = Modifier,
-    itemContent: @Composable (T) -> Unit,
-    emptyContent: @Composable () -> Unit = { EmptyList() }
-)
-```
-
-### RemoteGridList
-Grid with remote data.
-
-```kotlin
-@Composable
-fun <T> RemoteGridList(
-    items: List<T>,
-    columns: Int = 2,
-    isLoading: Boolean,
-    hasMoreItems: Boolean,
-    onLoadMore: () -> Unit,
-    modifier: Modifier = Modifier,
-    itemContent: @Composable (T) -> Unit
-)
-```
-
-## Dropdowns
-
-### CommonDropDown
-Basic dropdown with local elements.
-
-```kotlin
-@Composable
-fun <T> CommonDropDown(
-    items: List<T>,
-    selectedItem: T?,
-    onItemSelected: (T) -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = "",
-    enabled: Boolean = true,
-    itemText: (T) -> String = { it.toString() }
-)
-```
-
-### RemoteDropDown
-Dropdown with remote data.
-
-```kotlin
-@Composable
-fun <T> RemoteDropDown(
-    url: String,
-    selectedItem: T?,
-    onItemSelected: (T) -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = "",
-    parser: (String) -> List<T>,
-    itemText: (T) -> String = { it.toString() }
+// POST request
+val result = NetworkUtils.post<MyResponseData>(
+    url = "https://api.example.com/data",
+    body = myRequestObject
 )
 ```
 
 ## Utilities
 
-### NetworkUtils
-Utilities for network operations.
+### PlatformUtils
+
+Helper functions to interact with the platform.
 
 ```kotlin
-object NetworkUtils {
-    suspend fun get(url: String): String
-    suspend fun post(url: String, body: String): String
-    suspend fun put(url: String, body: String): String
-    suspend fun delete(url: String): String
-    
-    fun createHttpClient(): HttpClient
-    fun isNetworkAvailable(): Boolean
-}
+val platform = getPlatform() // Returns PlatformType.ANDROID or PlatformType.IOS
+val version = getAppVersion()
+openAppStore("com.example.app") // Opens the store page
 ```
 
-### ImageUtils
-Utilities for image handling.
+### General Utils
 
 ```kotlin
-object ImageUtils {
-    fun resizeImage(image: ImageBitmap, width: Int, height: Int): ImageBitmap
-    fun cropImage(image: ImageBitmap, x: Int, y: Int, width: Int, height: Int): ImageBitmap
-    fun rotateImage(image: ImageBitmap, degrees: Float): ImageBitmap
-    fun imageToBase64(image: ImageBitmap): String
-    fun base64ToImage(base64: String): ImageBitmap?
-}
+// String extensions
+val isValid = "test@example.com".isEmail()
+val passwordValid = isValidPassword("StrongPass1!")
+
+// Browser
+openUrl("https://www.google.com")
 ```
 
-### StringUtils
-Utilities for string handling.
+## Requirements
 
-```kotlin
-object StringUtils {
-    fun isValidEmail(email: String): Boolean
-    fun isValidPhone(phone: String): Boolean
-    fun formatPhone(phone: String): String
-    fun removeAccents(text: String): String
-    fun capitalizeWords(text: String): String
-    fun truncate(text: String, maxLength: Int): String
-}
-```
-
-### FileUtils
-Utilities for file handling.
-
-```kotlin
-object FileUtils {
-    suspend fun readTextFile(path: String): String?
-    suspend fun writeTextFile(path: String, content: String): Boolean
-    suspend fun deleteFile(path: String): Boolean
-    suspend fun fileExists(path: String): Boolean
-    fun getFileExtension(filename: String): String
-    fun getMimeType(filename: String): String
-}
-```
-
-## Predefined Screens
-
-### SplashContent
-Customizable splash screen.
-
-```kotlin
-@Composable
-fun SplashContent(
-    logo: ImageBitmap? = null,
-    title: String = "",
-    subtitle: String = "",
-    backgroundColor: Color = MaterialTheme.colorScheme.background,
-    onSplashComplete: () -> Unit
-)
-```
-
-### AboutContent
-App information screen.
-
-```kotlin
-@Composable
-fun AboutContent(
-    appName: String,
-    version: String,
-    description: String,
-    logo: ImageBitmap? = null,
-    developers: List<Developer> = emptyList(),
-    links: List<AppLink> = emptyList()
-)
-```
-
-## Usage Examples
-
-### Example 1: Complete Application with Navigation
-
-```kotlin
-@Composable
-fun MyApp() {
-    MyAppTheme {
-        Navigator(screen = SplashScreen()) { navigator ->
-            BaseViewModel.navigator = navigator
-            SlideTransition(navigator)
-        }
-    }
-}
-
-class SplashScreen : BaseScreen() {
-    @Composable
-    override fun ScreenContent() {
-        SplashContent(
-            title = "My App",
-            subtitle = "Welcome",
-            onSplashComplete = {
-                navigateTo(MainScreen())
-            }
-        )
-    }
-}
-
-class MainScreen : BaseBottomBarScreen() {
-    @Composable
-    override fun ScreenContent() {
-        var searchQuery by remember { mutableStateOf("") }
-        var items by remember { mutableStateOf(emptyList<String>()) }
-        
-        Column {
-            SearchControl(
-                query = searchQuery,
-                onQueryChange = { searchQuery = it },
-                onSearch = { query ->
-                    // Perform search
-                    items = performSearch(query)
-                }
-            )
-            
-            LocalList(
-                items = items,
-                itemContent = { item ->
-                    ListItem(
-                        headlineContent = { Text(item) }
-                    )
-                }
-            )
-        }
-    }
-    
-    @Composable
-    override fun BottomBarContent() {
-        NavigationBar {
-            NavigationBarItem(
-                selected = true,
-                onClick = { },
-                icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                label = { Text("Home") }
-            )
-        }
-    }
-}
-```
-
-### Example 2: Form with Validation
-
-```kotlin
-@Composable
-fun UserFormExample() {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var selectedCountry by remember { mutableStateOf<Country?>(null) }
-    
-    val isFormValid = remember(name, email, password) {
-        name.isNotBlank() && 
-        StringUtils.isValidEmail(email) && 
-        password.length >= 6
-    }
-    
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            isError = email.isNotBlank() && !StringUtils.isValidEmail(email),
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        PasswordControl(
-            value = password,
-            onValueChange = { password = it },
-            label = "Password",
-            supportingText = if (password.isNotBlank() && password.length < 6) {
-                "Password must be at least 6 characters"
-            } else null
-        )
-        
-        RemoteDropDown(
-            url = "https://api.example.com/countries",
-            selectedItem = selectedCountry,
-            onItemSelected = { selectedCountry = it },
-            label = "Country",
-            parser = { json -> parseCountries(json) },
-            itemText = { it.name }
-        )
-        
-        Button(
-            onClick = {
-                if (isFormValid) {
-                    submitForm(name, email, password, selectedCountry)
-                }
-            },
-            enabled = isFormValid,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Register")
-        }
-    }
-}
-```
-
-### Example 3: List with Remote Data
-
-```kotlin
-@Composable
-fun ProductListExample() {
-    var products by remember { mutableStateOf(emptyList<Product>()) }
-    var isLoading by remember { mutableStateOf(false) }
-    var hasMoreItems by remember { mutableStateOf(true) }
-    var page by remember { mutableStateOf(1) }
-    
-    LaunchedEffect(Unit) {
-        loadProducts(page)
-    }
-    
-    RemoteList(
-        items = products,
-        isLoading = isLoading,
-        hasMoreItems = hasMoreItems,
-        onLoadMore = {
-            if (!isLoading && hasMoreItems) {
-                loadProducts(page + 1)
-            }
-        },
-        itemContent = { product ->
-            ProductItem(
-                product = product,
-                onClick = {
-                    // Navigate to product details
-                }
-            )
-        }
-    )
-}
-
-@Composable
-fun ProductItem(
-    product: Product,
-    onClick: () -> Unit
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clickable { onClick() },
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier.padding(16.dp)
-        ) {
-            ProfilePhoto(
-                imageUrl = product.imageUrl,
-                size = 60.dp
-            )
-            
-            Spacer(modifier = Modifier.width(16.dp))
-            
-            Column(
-                modifier = Modifier.weight(1f)
-            ) {
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = product.description,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
-                )
-                Text(
-                    text = NumberUtils.formatCurrency(product.price),
-                    style = MaterialTheme.typography.titleSmall,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
-            
-            MoreControl(
-                options = listOf(
-                    IconAction("edit", "Edit", Icons.Default.Edit),
-                    IconAction("delete", "Delete", Icons.Default.Delete)
-                ),
-                onOptionSelected = { action ->
-                    when (action.id) {
-                        "edit" -> editProduct(product)
-                        "delete" -> deleteProduct(product)
-                    }
-                }
-            )
-        }
-    }
-}
-```
-
-## Advanced Customization
-
-### Custom Themes
-
-```kotlin
-@Composable
-fun MyAppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colorScheme = if (darkTheme) {
-        darkColorScheme(
-            primary = Color(0xFF6200EE),
-            secondary = Color(0xFF03DAC6),
-            background = Color(0xFF121212)
-        )
-    } else {
-        lightColorScheme(
-            primary = Color(0xFF6200EE),
-            secondary = Color(0xFF03DAC6),
-            background = Color(0xFFF5F5F5)
-        )
-    }
-    
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography(
-            headlineLarge = TextStyle(
-                fontFamily = FontFamily.Default,
-                fontWeight = FontWeight.Bold,
-                fontSize = 32.sp
-            )
-        ),
-        content = content
-    )
-}
-```
-
-## Additional Resources
-
-- [Voyager Navigation](https://github.com/adrielcafe/voyager)
-- [Ktor Client](https://ktor.io/docs/client.html)
-- [Kamel Image Loading](https://github.com/Kamel-Media/Kamel)
-- [Compottie Animations](https://github.com/alexzhirkevich/compottie)
-- [Complete Examples](../kmptestapp/)
-- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
-
----
-
-**Upcoming Features:**
-- More UI components
-- Local database integration
-- Push notification support
-- Analytics tools
-- More network utilities
+- **Android**: Min SDK 28, Target SDK 36
+- **iOS**: iOS 14.0+
+- **Kotlin**: 2.2.0+
+- **Compose Multiplatform**: 1.9.0+

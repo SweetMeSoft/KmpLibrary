@@ -1,581 +1,267 @@
-# KMPMaps Documentation
+---
+layout: default
+title: KMPMaps
+nav_order: 3
+---
 
-KMPMaps is the specialized module of the SweetMeSoft KMP library that provides multiplatform map components with native integration for Android (Google Maps) and iOS (MapKit).
+# KMPMaps
 
-## Table of Contents
+KMPMaps is a Kotlin Multiplatform library that provides unified map functionality across Android and iOS platforms, leveraging native map implementations (Google Maps on Android and MapKit on iOS) with a simple, composable API.
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Main Components](#main-components)
-- [Map Controls](#map-controls)
-- [Location Management](#location-management)
-- [Usage Examples](#usage-examples)
-- [Customization](#customization)
-- [Troubleshooting](#troubleshooting)
+## Features
+
+- **Cross-platform Map Component**: A unified `MapComponent` for Android and iOS.
+- **Markers**: Easily add markers with custom titles, snippets, and colors.
+- **Routes (Polylines)**: Draw routes on the map with customizable colors and widths.
+- **Shapes**: Draw circles on the map.
+- **Location Services**: Integrated user location display and retrieval.
+- **Map Controls**: Toggle zoom, scroll, rotation, traffic, buildings, and more.
+- **Utilities**: Helper functions for distance calculation and zoom level estimation.
 
 ## Installation
 
-```kotlin
-commonMain.dependencies {
-    implementation("com.sweetmesoft.kmpmaps:kmpmaps:1.6.6")
-    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
-    
-    // Required dependencies
-    implementation("dev.icerock.moko:permissions:0.19.1")
-    implementation("dev.icerock.moko:permissions-compose:0.19.1")
-    implementation("dev.icerock.moko:permissions-location:0.19.1")
-    implementation("com.google.maps.android:maps-compose:6.7.1")
-}
+Add the dependency to your project.
 
-androidMain.dependencies {
-    implementation("com.google.android.gms:play-services-location:21.3.0")
-}
+### Using Version Catalog
+
+If you are using a version catalog (e.g., `libs.versions.toml`), add the following:
+
+```toml
+[versions]
+sweetmesoft = "1.7.7"
+
+[libraries]
+sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
 ```
 
-## Configuration
+### Build Gradle
+
+In your `build.gradle.kts` (commonMain source set):
+
+```kotlin
+implementation(libs.sweetmesoft.kmpmaps)
+```
+
+## Platform Configuration
 
 ### Android
 
-#### 1. Google Maps API Key
+1.  **API Key**: Add your Google Maps API key to your `local.properties` or directly in `AndroidManifest.xml` (though `local.properties` is safer, for this guide we show the manifest meta-data).
 
-Add your API key in `local.properties`:
-```properties
-GOOGLE_MAPS_API_KEY=your_api_key_here
-```
-
-In `build.gradle.kts` (app module):
-```kotlin
-android {
-    defaultConfig {
-        val googleMapsApiKey = project.findProperty("GOOGLE_MAPS_API_KEY") as String? ?: ""
-        buildConfigField("String", "GOOGLE_MAPS_API_KEY", "\"$googleMapsApiKey\"")
-        manifestPlaceholders["GOOGLE_MAPS_API_KEY"] = googleMapsApiKey
-    }
-}
-```
-
-#### 2. Permissions in AndroidManifest.xml
-```xml
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.INTERNET" />
-
-<application>
+    In `AndroidManifest.xml`:
+    ```xml
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="${GOOGLE_MAPS_API_KEY}" />
-</application>
-```
+        android:value="YOUR_GOOGLE_MAPS_API_KEY" />
+    ```
+
+2.  **Permissions**: Add location permissions if you intend to use location features.
+    ```xml
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    ```
 
 ### iOS
 
-1. **Configure Info.plist**
-```xml
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>This application needs location access to display maps</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>This application needs location access to display maps</string>
+1.  **Permissions**: Add location usage descriptions to your `Info.plist` if you use location features.
+
+    ```xml
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>We need your location to show it on the map.</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>We need your location to show it on the map.</string>
+    ```
+
+## Usage
+
+### Basic Map
+
+Display a simple map centered at a specific location.
+
+```kotlin
+import com.sweetmesoft.kmpmaps.MapComponent
+import com.sweetmesoft.kmpmaps.controls.Coordinates
+
+@Composable
+fun SimpleMap() {
+    val center = Coordinates(37.7749, -122.4194) // San Francisco
+    
+    MapComponent(
+        coordinates = center,
+        zoom = 12f
+    )
+}
 ```
 
-## Main Components
+### Adding Markers
+
+Markers are added via the `markers` parameter, which takes a list of `GeoPosition` objects. Each `GeoPosition` can have a `MarkerMap` configuration.
+
+```kotlin
+import com.sweetmesoft.kmpmaps.controls.GeoPosition
+import com.sweetmesoft.kmpmaps.controls.MarkerMap
+import androidx.compose.ui.graphics.Color
+
+val markers = listOf(
+    GeoPosition(
+        coordinates = Coordinates(37.7749, -122.4194),
+        markerMap = MarkerMap(
+            isVisible = true,
+            title = "San Francisco",
+            snippet = "A beautiful city",
+            iconColor = Color.Red,
+            onClick = { position ->
+                println("Clicked: ${position.markerMap.title}")
+                true // Return true to consume the event
+            }
+        )
+    )
+)
+
+MapComponent(
+    coordinates = Coordinates(37.7749, -122.4194),
+    markers = markers
+)
+```
+
+### Drawing Routes (Polylines)
+
+Draw lines on the map using `RouteMap`.
+
+```kotlin
+import com.sweetmesoft.kmpmaps.controls.RouteMap
+
+val route = RouteMap(
+    points = listOf(
+        Coordinates(37.7749, -122.4194),
+        Coordinates(34.0522, -118.2437) // LA
+    ),
+    color = Color.Blue,
+    width = 5f
+)
+
+MapComponent(
+    coordinates = Coordinates(36.0, -120.0),
+    zoom = 6f,
+    routes = listOf(route)
+)
+```
+
+### Drawing Circles
+
+Circles are also attached to a `GeoPosition` via the `CircleMap` property.
+
+```kotlin
+import com.sweetmesoft.kmpmaps.controls.CircleMap
+
+val circlePosition = GeoPosition(
+    coordinates = Coordinates(37.7749, -122.4194),
+    circleMap = CircleMap(
+        radius = 1000.0, // meters
+        fillColor = Color.Blue.copy(alpha = 0.3f),
+        strokeColor = Color.Blue,
+        strokeWidth = 2f
+    )
+)
+
+MapComponent(
+    coordinates = Coordinates(37.7749, -122.4194),
+    markers = listOf(circlePosition)
+)
+```
+
+### User Location
+
+Enable the user's location display on the map.
+
+```kotlin
+MapComponent(
+    coordinates = center,
+    locationEnabled = true, // Shows the user location dot
+    // ...
+)
+```
+
+To get the current location programmatically:
+
+```kotlin
+import com.sweetmesoft.kmpmaps.getLocation
+
+LaunchedEffect(Unit) {
+    try {
+        val location = getLocation(updateLocation = true)
+        println("User location: ${location.latitude}, ${location.longitude}")
+    } catch (e: Exception) {
+        println("Error getting location: ${e.message}")
+    }
+}
+```
+
+## API Reference
 
 ### MapComponent
-Main multiplatform map component that automatically adapts to the platform.
 
-```kotlin
-@Composable
-fun MapComponent(
-    modifier: Modifier = Modifier,
-    initialPosition: GeoPosition = GeoPosition(0.0, 0.0),
-    zoom: Float = 15f,
-    markers: List<MarkerMap> = emptyList(),
-    circles: List<CircleMap> = emptyList(),
-    onMapClick: (Coordinates) -> Unit = {},
-    onMarkerClick: (MarkerMap) -> Unit = {},
-    showUserLocation: Boolean = true,
-    mapType: MapType = MapType.NORMAL
-)
-```
+| Parameter | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| `coordinates` | `Coordinates` | Center coordinates of the map. | Required |
+| `zoom` | `Float` | Initial zoom level. | `1f` |
+| `zoomEnabled` | `Boolean` | Enable zoom gestures. | `true` |
+| `scrollEnabled` | `Boolean` | Enable scroll gestures. | `true` |
+| `rotateEnabled` | `Boolean` | Enable rotation gestures. | `false` |
+| `locationEnabled` | `Boolean` | Show user location (requires permissions). | `false` |
+| `markers` | `List<GeoPosition>` | List of positions to display markers or circles. | `emptyList()` |
+| `routes` | `List<RouteMap>` | List of polylines to draw. | `emptyList()` |
+| `showTraffic` | `Boolean` | Show traffic layer. | `false` |
+| `showBuildings` | `Boolean` | Show 3D buildings. | `false` |
+| `showCompass` | `Boolean` | Show compass. | `false` |
+| `onMapClick` | `(Coordinates) -> Unit` | Callback for map click. | `{}` |
+| `onMapLongClick` | `(Coordinates) -> Unit` | Callback for map long click. | `{}` |
 
-**Ejemplo básico:**
-```kotlin
-MapComponent(
-    modifier = Modifier.fillMaxSize(),
-    initialPosition = GeoPosition(40.7128, -74.0060), // Nueva York
-    zoom = 12f,
-    showUserLocation = true,
-    onMapClick = { coordinates ->
-        println("Clicked at: ${coordinates.latitude}, ${coordinates.longitude}")
-    }
-)
-```
+### Data Classes
 
-## Controles de Mapa
+**Coordinates**
+- `latitude`: `Double`
+- `longitude`: `Double`
 
-### Coordinates
-Data class to represent geographic coordinates.
+**GeoPosition**
+- `coordinates`: `Coordinates`
+- `address`: `String`
+- `markerMap`: `MarkerMap`
+- `circleMap`: `CircleMap`
 
-```kotlin
-data class Coordinates(
-    val latitude: Double,
-    val longitude: Double
-) {
-    fun distanceTo(other: Coordinates): Double
-    fun bearingTo(other: Coordinates): Double
-    fun isValid(): Boolean
-}
-```
+**MarkerMap**
+- `isVisible`: `Boolean`
+- `title`: `String`
+- `snippet`: `String`
+- `iconColor`: `Color`
+- `onClick`: `(GeoPosition) -> Boolean`
+- `onInfoWindowClick`: `(GeoPosition) -> Unit`
 
-### GeoPosition
-Geographic position with additional information.
+**RouteMap**
+- `points`: `List<Coordinates>`
+- `color`: `Color`
+- `width`: `Float`
 
-```kotlin
-data class GeoPosition(
-    val latitude: Double,
-    val longitude: Double,
-    val altitude: Double = 0.0,
-    val accuracy: Double = 0.0,
-    val timestamp: Long = System.currentTimeMillis()
-) {
-    fun toCoordinates(): Coordinates
-    fun distanceTo(other: GeoPosition): Double
-}
-```
+**CircleMap**
+- `radius`: `Double` (in meters)
+- `fillColor`: `Color`
+- `strokeColor`: `Color`
+- `strokeWidth`: `Float`
 
-### MarkerMap
-Customizable marker for the map.
+## Utilities
 
-```kotlin
-data class MarkerMap(
-    val id: String,
-    val position: Coordinates,
-    val title: String = "",
-    val description: String = "",
-    val icon: ImageBitmap? = null,
-    val color: Color = Color.Red,
-    val isVisible: Boolean = true,
-    val isDraggable: Boolean = false,
-    val onClick: (MarkerMap) -> Unit = {}
-)
-```
+- `getLocation(updateLocation: Boolean)`: Suspend function to get current user location.
+- `calculateDistance(from: Coordinates, to: Coordinates)`: Returns distance in meters.
+- `calculateZoomByRadius(radiusInMeters: Double)`: Returns appropriate zoom level for a given radius.
+- `calculateZoomAndCenter(positions: List<Coordinates>)`: Returns a pair of `Float` (zoom) and `Coordinates` (center) to fit all positions.
 
-### CircleMap
-Circle overlay for the map.
+## Requirements
 
-```kotlin
-data class CircleMap(
-    val id: String,
-    val center: Coordinates,
-    val radius: Double, // in meters
-    val strokeColor: Color = Color.Blue,
-    val fillColor: Color = Color.Blue.copy(alpha = 0.3f),
-    val strokeWidth: Float = 2f,
-    val isVisible: Boolean = true
-)
-```
+- **Android**: Min SDK 28, Target SDK 36
+- **iOS**: 12.0+
+- **Kotlin**: 2.2.21+
+- **Compose Multiplatform**: 1.9.0+
 
-## Location Management
+## License
 
-### Get Current Location
-
-```kotlin
-@Composable
-fun LocationExample() {
-    var currentLocation by remember { mutableStateOf<GeoPosition?>(null) }
-    var hasLocationPermission by remember { mutableStateOf(false) }
-    
-    // Request permissions
-    LaunchedEffect(Unit) {
-        hasLocationPermission = requestLocationPermission()
-    }
-    
-    if (hasLocationPermission) {
-        LaunchedEffect(Unit) {
-            currentLocation = getCurrentLocation()
-        }
-        
-        currentLocation?.let { location ->
-            MapComponent(
-                initialPosition = location,
-                showUserLocation = true,
-                markers = listOf(
-                    MarkerMap(
-                        id = "current",
-                        position = location.toCoordinates(),
-                        title = "My Location",
-                        color = Color.Blue
-                    )
-                )
-            )
-        }
-    }
-}
-
-suspend fun getCurrentLocation(): GeoPosition? {
-    return try {
-        // Platform-specific implementation
-        // Returns the user's current location
-        null // Placeholder
-    } catch (e: Exception) {
-        null
-    }
-}
-
-suspend fun requestLocationPermission(): Boolean {
-    // Permission request implementation
-    return true // Placeholder
-}
-```
-
-## Usage Examples
-
-### Example 1: Basic Map with Markers
-
-```kotlin
-@Composable
-fun BasicMapExample() {
-    val markers = remember {
-        listOf(
-            MarkerMap(
-                id = "marker1",
-                position = Coordinates(40.7128, -74.0060),
-                title = "New York",
-                description = "The Big Apple",
-                color = Color.Red
-            ),
-            MarkerMap(
-                id = "marker2",
-                position = Coordinates(34.0522, -118.2437),
-                title = "Los Angeles",
-                description = "City of Angels",
-                color = Color.Blue
-            )
-        )
-    }
-    
-    MapComponent(
-        modifier = Modifier.fillMaxSize(),
-        initialPosition = GeoPosition(39.8283, -98.5795), // Center of USA
-        zoom = 4f,
-        markers = markers,
-        onMarkerClick = { marker ->
-            println("Clicked marker: ${marker.title}")
-        }
-    )
-}
-```
-
-### Example 2: Map with Circles and Areas
-
-```kotlin
-@Composable
-fun MapWithCirclesExample() {
-    val circles = remember {
-        listOf(
-            CircleMap(
-                id = "area1",
-                center = Coordinates(40.7128, -74.0060),
-                radius = 1000.0, // 1km
-                strokeColor = Color.Red,
-                fillColor = Color.Red.copy(alpha = 0.2f)
-            ),
-            CircleMap(
-                id = "area2",
-                center = Coordinates(40.7589, -73.9851),
-                radius = 500.0, // 500m
-                strokeColor = Color.Green,
-                fillColor = Color.Green.copy(alpha = 0.2f)
-            )
-        )
-    }
-    
-    MapComponent(
-        modifier = Modifier.fillMaxSize(),
-        initialPosition = GeoPosition(40.7128, -74.0060),
-        zoom = 12f,
-        circles = circles
-    )
-}
-```
-
-### Example 3: Interactive Map with State Management
-
-```kotlin
-@Composable
-fun InteractiveMapExample() {
-    var markers by remember { mutableStateOf(emptyList<MarkerMap>()) }
-    var selectedMarker by remember { mutableStateOf<MarkerMap?>(null) }
-    
-    Column {
-        // Selected marker information
-        selectedMarker?.let { marker ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(16.dp)
-                ) {
-                    Text(
-                        text = marker.title,
-                        style = MaterialTheme.typography.headlineSmall
-                    )
-                    Text(
-                        text = marker.description,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        text = "Lat: ${marker.position.latitude}, Lng: ${marker.position.longitude}",
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-            }
-        }
-        
-        // Map
-        MapComponent(
-            modifier = Modifier.fillMaxSize(),
-            initialPosition = GeoPosition(40.7128, -74.0060),
-            markers = markers,
-            onMapClick = { coordinates ->
-                // Add new marker on click
-                val newMarker = MarkerMap(
-                    id = "marker_${System.currentTimeMillis()}",
-                    position = coordinates,
-                    title = "Marker ${markers.size + 1}",
-                    description = "Added at ${coordinates.latitude}, ${coordinates.longitude}"
-                )
-                markers = markers + newMarker
-            },
-            onMarkerClick = { marker ->
-                selectedMarker = marker
-            }
-        )
-    }
-}
-```
-
-### Example 4: Real-time Location Tracking
-
-```kotlin
-@Composable
-fun LocationTrackingExample() {
-    var currentLocation by remember { mutableStateOf<GeoPosition?>(null) }
-    var locationHistory by remember { mutableStateOf(emptyList<GeoPosition>()) }
-    var isTracking by remember { mutableStateOf(false) }
-    
-    LaunchedEffect(isTracking) {
-        if (isTracking) {
-            while (isTracking) {
-                getCurrentLocation()?.let { location ->
-                    currentLocation = location
-                    locationHistory = locationHistory + location
-                }
-                delay(5000) // Update every 5 seconds
-            }
-        }
-    }
-    
-    Column {
-        // Controls
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            Button(
-                onClick = { isTracking = !isTracking }
-            ) {
-                Text(if (isTracking) "Stop" else "Start Tracking")
-            }
-            
-            Button(
-                onClick = { locationHistory = emptyList() }
-            ) {
-                Text("Clear History")
-            }
-        }
-        
-        // Map
-        currentLocation?.let { location ->
-            MapComponent(
-                modifier = Modifier.fillMaxSize(),
-                initialPosition = location,
-                showUserLocation = true,
-                markers = locationHistory.mapIndexed { index, pos ->
-                    MarkerMap(
-                        id = "history_$index",
-                        position = pos.toCoordinates(),
-                        title = "Point $index",
-                        color = if (index == locationHistory.lastIndex) Color.Red else Color.Gray
-                    )
-                }
-            )
-        }
-    }
-}
-```
-
-## Customization
-
-### Map Types
-
-```kotlin
-enum class MapType {
-    NORMAL,
-    SATELLITE,
-    TERRAIN,
-    HYBRID
-}
-
-// Usage
-MapComponent(
-    mapType = MapType.SATELLITE
-)
-```
-
-### Custom Markers
-
-```kotlin
-@Composable
-fun CustomMarkerExample() {
-    val customIcon = remember {
-        // Create custom icon
-        createCustomMarkerIcon()
-    }
-    
-    val marker = MarkerMap(
-        id = "custom",
-        position = Coordinates(40.7128, -74.0060),
-        title = "Custom Marker",
-        icon = customIcon,
-        isDraggable = true
-    )
-    
-    MapComponent(
-        markers = listOf(marker)
-    )
-}
-
-fun createCustomMarkerIcon(): ImageBitmap {
-    // Platform-specific implementation
-    // for creating custom icons
-    return ImageBitmap(32, 32) // Placeholder
-}
-```
-
-## Advanced Configuration
-
-### Permission Management
-
-```kotlin
-@Composable
-fun PermissionAwareMap() {
-    val permissionState = rememberPermissionState(
-        permission = Permission.LOCATION
-    )
-    
-    when {
-        permissionState.hasPermission -> {
-            MapComponent(
-                showUserLocation = true
-            )
-        }
-        permissionState.shouldShowRationale -> {
-            PermissionRationaleDialog(
-                onRequestPermission = {
-                    permissionState.launchPermissionRequest()
-                }
-            )
-        }
-        else -> {
-            Button(
-                onClick = {
-                    permissionState.launchPermissionRequest()
-                }
-            ) {
-                Text("Request Location Permissions")
-            }
-        }
-    }
-}
-```
-
-### Performance Optimization
-
-```kotlin
-@Composable
-fun OptimizedMapExample() {
-    var visibleMarkers by remember { mutableStateOf(emptyList<MarkerMap>()) }
-    val allMarkers = remember { generateLargeMarkerList() }
-    
-    MapComponent(
-        markers = visibleMarkers,
-        onCameraMove = { bounds ->
-            // Filter visible markers for better performance
-            visibleMarkers = allMarkers.filter { marker ->
-                bounds.contains(marker.position)
-            }
-        }
-    )
-}
-```
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Map not showing on Android**
-   ```kotlin
-   // Verify that the API Key is configured correctly
-   // and that Google Play Services are available
-   ```
-
-2. **Location permissions denied**
-   ```kotlin
-   // Implement proper permission handling
-   // Show explanatory dialogs to the user
-   ```
-
-3. **Slow performance with many markers**
-   ```kotlin
-   // Implement marker clustering
-   // Filter markers by visible region
-   ```
-
-4. **iOS compilation issues**
-   ```kotlin
-   // Verify that permissions are configured in Info.plist
-   // Ensure compatibility with iOS version
-   ```
-
-### Debugging
-
-```kotlin
-// Enable debug logs
-MapComponent(
-    debugMode = true, // Development only
-    onDebugInfo = { info ->
-        println("Map Debug: $info")
-    }
-)
-```
-
-## Additional Resources
-
-- [Google Maps API Documentation](https://developers.google.com/maps/documentation)
-- [Apple MapKit Documentation](https://developer.apple.com/documentation/mapkit)
-- [Moko Permissions](https://github.com/icerockdev/moko-permissions)
-- [Complete Examples](../kmptestapp/)
-- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
-
----
-
-**Upcoming Features:**
-- Marker clustering
-- Routes and directions
-- Offline maps
-- More overlay types
-- Geocoding services integration
+This project is licensed under the MIT License.

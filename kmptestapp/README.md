@@ -148,7 +148,7 @@ Add your Google Maps API key to `android/src/main/res/values/strings.xml`:
 
 ```xml
 <resources>
-    <string name="google_maps_key">YOUR_GOOGLE_MAPS_API_KEY</string>
+    <string name="google_maps_key">YOUR_API_KEY_HERE</string>
 </resources>
 ```
 
@@ -285,7 +285,7 @@ class MainViewModel : BaseViewModel() {
         viewModelScope.launch {
             setLoading(true)
             try {
-                val result = NetworkUtils.get("https://api.example.com/test")
+                val result = NetworkUtils.get<String>("https://api.example.com/test")
                 PopupHandler.showAlert(
                     title = "Success",
                     message = "Response: $result"

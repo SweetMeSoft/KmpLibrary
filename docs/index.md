@@ -6,7 +6,7 @@ nav_order: 1
 
 # SweetMeSoft KMP Library
 
-Welcome to the official documentation of SweetMeSoft KMP Library! A complete multiplatform library for Kotlin that allows you to create native applications for Android, iOS and Desktop with a shared codebase.
+Welcome to the official documentation of SweetMeSoft KMP Library! A complete multiplatform library for Kotlin that allows you to create native applications for Android and iOS with a shared codebase.
 
 ## What is SweetMeSoft KMP Library?
 
@@ -53,21 +53,21 @@ In your `libs.versions.toml` file:
 
 ```toml
 [versions]
-sweetmesoft = "1.6.6"
+sweetmesoft = "1.7.7"
 
 [libraries]
-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
-kmplibrary = { module = "com.sweetmesoft.kmplibrary:kmplibrary", version.ref = "sweetmesoft" }
+sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
+sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
+sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
 ```
 
 In your `build.gradle.kts`:
 
 ```kotlin
 commonMain.dependencies {
-    implementation(libs.kmpcontrols)
-    implementation(libs.kmpmaps)
-    implementation(libs.kmplibrary)
+    implementation(libs.sweetmesoft.kmpcontrols)
+    implementation(libs.sweetmesoft.kmpmaps)
+    implementation(libs.sweetmesoft.library)
 }
 ```
 
@@ -90,28 +90,30 @@ fun App() {
 ```kotlin
 @Composable
 fun MyScreen() {
-    var selectedDate by remember { mutableStateOf<LocalDate?>(null) }
+    var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
     var password by remember { mutableStateOf("") }
     
     Column {
         // Date picker from KMPControls
-        ClickableOutlinedTextField(
-            value = selectedDate?.toString() ?: "",
-            label = "Date",
-            onClick = { /* Show DatePicker */ }
+        DatePicker(
+            value = selectedDate,
+            title = "Select Date",
+            onSelectedDate = { date ->
+                selectedDate = date
+            }
         )
         
-        // Password control from Library
+        // Password control from KMPControls
         PasswordControl(
             value = password,
-            onValueChange = { password = it },
-            label = "Password"
+            label = "Password",
+            onValueChange = { password = it }
         )
         
         // Map from KMPMaps
         MapComponent(
             modifier = Modifier.height(200.dp),
-            initialPosition = GeoPosition(40.7128, -74.0060)
+            coordinates = Coordinates(37.7749, -122.4194)
         )
     }
 }
@@ -121,8 +123,7 @@ fun MyScreen() {
 
 ### True Multiplatform
 - **Android** with Jetpack Compose
-- **iOS** with SwiftUI integration
-- **Desktop** (experimental)
+- **iOS** with Compose Multiplatform / Native
 - Maximum shared code
 
 ### Modern Components
@@ -178,9 +179,9 @@ fun MyScreen() {
 Explore our complete examples:
 
 - **[KMPTestApp](kmptestapp.html)** - Complete demonstration application
-- **[Advanced Forms](library.html#ejemplos-de-uso)** - Validation and controls
-- **[Maps Integration](kmpmaps.html#ejemplos-de-uso)** - Geolocation and markers
-- **[Complex Navigation](library.html#navegación)** - Navigation flows
+- **[Advanced Forms](library.html)** - Validation and controls
+- **[Maps Integration](kmpmaps.html)** - Geolocation and markers
+- **[Complex Navigation](library.html)** - Navigation flows
 
 ## Community and Support
 
@@ -191,10 +192,10 @@ Explore our complete examples:
 
 ## Project Status
 
-- **Current Version:** 1.6.6
-- **Kotlin:** 2.1.0
-- **Compose:** 1.7.5
-- **Platforms:** Android, iOS, Desktop (experimental)
+- **Current Version:** 1.7.7
+- **Kotlin:** 2.2.21+
+- **Compose:** 1.9.0+
+- **Platforms:** Android, iOS
 - **License:** MIT
 
 ---

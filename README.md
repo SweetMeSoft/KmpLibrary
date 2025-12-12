@@ -5,7 +5,7 @@ A complete cross-platform library for Kotlin that provides advanced UI component
 [![GitHub release](https://img.shields.io/github/release/SweetMeSoft/KmpLibrary.svg)](https://github.com/SweetMeSoft/KmpLibrary/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-blue.svg)](https://kotlinlang.org)
-[![Compose](https://img.shields.io/badge/Compose-1.7.5-green.svg)](https://developer.android.com/jetpack/compose)
+[![Compose](https://img.shields.io/badge/Compose-1.7.0%2B-green.svg)](https://developer.android.com/jetpack/compose)
 [![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://sweetmesoft.github.io/KmpLibrary)
 
 ## Table of Contents
@@ -67,13 +67,13 @@ Add the dependencies in your `build.gradle.kts` file:
 ```kotlin
 commonMain.dependencies {
     // Main library
-    implementation("com.sweetmesoft.kmplibrary:kmplibrary:1.6.6")
+    implementation("com.sweetmesoft.kmplibrary:kmplibrary:1.7.7")
     
     // Basic controls
-    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.6.6")
+    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.7.7")
     
     // Map components
-    implementation("com.sweetmesoft.kmpmaps:kmpmaps:1.6.6")
+    implementation("com.sweetmesoft.kmpmaps:kmpmaps:1.7.7")
 }
 ```
 
@@ -83,31 +83,31 @@ In your `libs.versions.toml` file:
 
 ```toml
 [versions]
-sweetmesoft = "1.6.6"
+sweetmesoft = "1.7.7"
 
 [libraries]
 sweetmesoft-library = { module = "com.sweetmesoft.kmplibrary:kmplibrary", version.ref = "sweetmesoft" }
-sweetmesoft-controls = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
-sweetmesoft-maps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
+sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
+sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
 ```
 
 ## Requirements
 
-- **Kotlin**: 2.2.0+
-- **Compose Multiplatform**: 1.8.2+
+- **Kotlin**: 2.1.0+
+- **Compose Multiplatform**: 1.7.0+
 - **Android**: API 28+ (Android 9.0)
-- **iOS**: iOS 14.0+
-- **Gradle**: 8.12.0+
+- **iOS**: iOS 12.0+
+- **Gradle**: 8.0.0+
 
 ### Required Dependencies
 
 ```kotlin
 // In your build.gradle.kts
 commonMain.dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
-    implementation("dev.icerock.moko:permissions:0.19.1")
-    implementation("dev.icerock.moko:permissions-compose:0.19.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+    implementation("dev.icerock.moko:permissions:0.18.0")
+    implementation("dev.icerock.moko:permissions-compose:0.18.0")
 }
 ```
 
@@ -119,21 +119,21 @@ In your `libs.versions.toml` file:
 
 ```toml
 [versions]
-sweetmesoft = "1.6.6"
+sweetmesoft = "1.7.7"
 
 [libraries]
-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
-kmplibrary = { module = "com.sweetmesoft.kmplibrary:kmplibrary", version.ref = "sweetmesoft" }
+sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
+sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
+sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
 ```
 
 In your `build.gradle.kts`:
 
 ```kotlin
 commonMain.dependencies {
-    implementation(libs.kmpcontrols)
-    implementation(libs.kmpmaps)
-    implementation(libs.kmplibrary)
+    implementation(libs.sweetmesoft.kmpcontrols)
+    implementation(libs.sweetmesoft.kmpmaps)
+    implementation(libs.sweetmesoft.library)
 }
 ```
 
@@ -144,10 +144,11 @@ import androidx.compose.runtime.*
 import com.sweetmesoft.kmpcontrols.pickers.DatePicker
 import com.sweetmesoft.kmplibrary.controls.PasswordControl
 import com.sweetmesoft.kmpmaps.MapComponent
+import com.sweetmesoft.kmpmaps.controls.Coordinates
 
 @Composable
 fun MyApp() {
-    var selectedDate by remember { mutableStateOf("") }
+    var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
     var password by remember { mutableStateOf("") }
     
     Column {
@@ -160,14 +161,15 @@ fun MyApp() {
         
         // Date picker
         DatePicker(
-            selectedDate = selectedDate,
-            onDateSelected = { selectedDate = it }
+            value = selectedDate,
+            title = "Select Date",
+            onSelectedDate = { selectedDate = it }
         )
         
         // Map component
         MapComponent(
             modifier = Modifier.fillMaxSize(),
-            initialPosition = GeoPosition(40.7128, -74.0060)
+            coordinates = Coordinates(40.7128, -74.0060)
         )
     }
 }
@@ -340,10 +342,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Aspect | Status |
 |---------|--------|
-| **Current Version** | ![Version](https://img.shields.io/badge/version-1.6.6-blue) |
+| **Current Version** | ![Version](https://img.shields.io/badge/version-1.7.7-blue) |
 | **Status** | ![Status](https://img.shields.io/badge/status-Active%20development-green) |
 | **Kotlin** | ![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-purple) |
-| **Compose** | ![Compose](https://img.shields.io/badge/Compose-1.7.5-orange) |
+| **Compose** | ![Compose](https://img.shields.io/badge/Compose-1.7.0%2B-orange) |
 | **Platforms** | ![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Desktop-lightgrey) |
 | **License** | ![License](https://img.shields.io/badge/license-MIT-yellow) |
 | **Tests** | ![Tests](https://img.shields.io/badge/tests-passing-brightgreen) |

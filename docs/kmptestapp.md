@@ -1,3 +1,9 @@
+---
+layout: default
+title: KMPTestApp
+nav_order: 5
+---
+
 # KMPTestApp Documentation
 
 KMPTestApp is the test application that demonstrates the use of all modules of the SweetMeSoft KMP library. It serves as an implementation example and best practices guide.
@@ -88,7 +94,8 @@ commonMain.dependencies {
     // Utilities
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
-}```
+}
+```
 
 ### Android Configuration
 
@@ -116,10 +123,10 @@ android {
 fun App() {
     AppTheme {
         Navigator(screen = SplashScreen()) { navigator ->
-            // Configurar el navegador global
+            // Configure global navigator
             BaseViewModel.navigator = navigator
             
-            // Aplicar transiciones
+            // Apply transitions
             SlideTransition(navigator)
         }
     }
@@ -141,7 +148,7 @@ class SplashScreen : BaseScreen() {
         var isLoading by remember { mutableStateOf(true) }
         
         LaunchedEffect(Unit) {
-            delay(2000) // Simular carga
+            delay(2000) // Simulate loading
             isLoading = false
         }
         
@@ -445,7 +452,7 @@ private val LightColorScheme = lightColorScheme(
     onPrimary = md_theme_light_onPrimary,
     primaryContainer = md_theme_light_primaryContainer,
     onPrimaryContainer = md_theme_light_onPrimaryContainer,
-    // ... más colores
+    // ... more colors
 )
 
 private val DarkColorScheme = darkColorScheme(
@@ -453,7 +460,7 @@ private val DarkColorScheme = darkColorScheme(
     onPrimary = md_theme_dark_onPrimary,
     primaryContainer = md_theme_dark_primaryContainer,
     onPrimaryContainer = md_theme_dark_onPrimaryContainer,
-    // ... más colores
+    // ... more colors
 )
 
 @Composable
@@ -485,7 +492,7 @@ fun AppTheme(
 - Custom color palette
 - Material Design 3 typography
 
-## Ejemplos de Uso
+## Usage Examples
 
 ### Example 1: Components Section
 
@@ -635,9 +642,9 @@ fun UtilitiesSection(viewModel: MainViewModel) {
 
 ### Prerequisites
 
-1. **Android Studio** (última versión estable)
-2. **Xcode** (para desarrollo iOS)
-3. **JDK 17** o superior
+1. **Android Studio** (latest stable version)
+2. **Xcode** (for iOS development)
+3. **JDK 17** or higher
 4. **Kotlin Multiplatform Mobile plugin**
 
 ### Steps to Run
@@ -672,13 +679,6 @@ open iosApp/iosApp.xcodeproj
 # 2. Run on iOS simulator/device
 ```
 
-#### Desktop (Experimental)
-
-```bash
-# Run desktop version
-./gradlew :kmptestapp:run
-```
-
 ### API Keys Configuration
 
 To use maps functionalities, configure the API keys:
@@ -687,7 +687,7 @@ To use maps functionalities, configure the API keys:
 ```xml
 <!-- android/src/main/res/values/strings.xml -->
 <resources>
-    <string name="google_maps_key">TU_API_KEY_AQUI</string>
+    <string name="google_maps_key">YOUR_API_KEY_HERE</string>
 </resources>
 ```
 
@@ -697,43 +697,3 @@ To use maps functionalities, configure the API keys:
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>This app needs location access to show maps</string>
 ```
-
-## Learning Resources
-
-### Implemented Patterns
-
-1. **MVVM (Model-View-ViewModel)**
-   - Clear separation of responsibilities
-   - Reactive states with StateFlow
-   - Lifecycle management
-
-2. **Repository Pattern**
-   - Data source abstraction
-   - Cache and network handling
-
-3. **Navigation Pattern**
-   - Declarative navigation with Voyager
-   - Back stack handling
-   - Custom transitions
-
-4. **Dependency Injection**
-   - Manual injection for simplicity
-   - Easy testing and maintenance
-
-### Demonstrated Best Practices
-
-- ✅ State management with Compose
-- ✅ Multiplatform navigation
-- ✅ Adaptive themes
-- ✅ Centralized error handling
-- ✅ Asynchronous operations
-- ✅ Form validation
-- ✅ Reusable components
-- ✅ Scalable architecture
-
----
-
-**Need help?**
-- [Complete Documentation](../README.md)
-- [Report Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
-- [Contribute](../CONTRIBUTING.md)
