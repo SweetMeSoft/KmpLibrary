@@ -146,15 +146,24 @@ class PopupHandler {
         suspend fun displayProgress(
             title: String = "",
             cancelText: String = "",
+            progress: Float = 0f,
             color: Color = accentColor,
             dismiss: () -> Unit = {},
         ) {
             progressTitle = title.ifEmpty { getString(Res.string.Downloading) }
             progressCancelText = cancelText.ifEmpty { getString(Res.string.Cancel) }
-            progressProgress = 0f
+            progressProgress = progress
             progressDismiss = { dismiss() }
             progressColor = color
             progressShow = true
+        }
+
+        fun updateProgress(value: Float) {
+            progressProgress = value
+        }
+
+        fun hideProgress() {
+            progressShow = false
         }
     }
 }
