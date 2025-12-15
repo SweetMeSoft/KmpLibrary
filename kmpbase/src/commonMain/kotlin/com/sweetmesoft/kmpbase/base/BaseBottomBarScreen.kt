@@ -2,11 +2,8 @@ package com.sweetmesoft.kmpbase.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
@@ -18,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -40,6 +38,9 @@ import com.sweetmesoft.kmpbase.controls.alerts.AlertList
 import com.sweetmesoft.kmpbase.controls.alerts.AlertProgress
 import com.sweetmesoft.kmpbase.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmpbase.controls.alerts.AlertView
+import com.sweetmesoft.kmpbase.theme.disabledColor
+import com.sweetmesoft.kmpbase.theme.disabledColorText
+import com.sweetmesoft.kmpbase.tools.SetNavigationBarColor
 import com.sweetmesoft.kmpbase.tools.SetStatusBarColor
 import compose.icons.TablerIcons
 import compose.icons.tablericons.ArrowBack
@@ -52,8 +53,20 @@ class BaseBottomBarScreen {
 
 @Composable
 fun BaseBottomBarScreen(
-    modifier: Modifier = Modifier, tabs: List<BaseTab>
+    modifier: Modifier = Modifier,
+    navigationBarItemColors: NavigationBarItemColors = NavigationBarItemDefaults.colors(
+        selectedIconColor = Color.White,
+        selectedTextColor = MaterialTheme.colorScheme.primary,
+        unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
+        indicatorColor = MaterialTheme.colorScheme.primary,
+        disabledIconColor = disabledColor,
+        disabledTextColor = disabledColorText
+    ),
+    navigationBarColor: Color = MaterialTheme.colorScheme.surfaceContainer,
+    tabs: List<BaseTab>
 ) {
+    SetNavigationBarColor(navigationBarColor, true)
     TabNavigator(tabs.first(), tabDisposable = {
         TabDisposable(
             it,
@@ -61,7 +74,7 @@ fun BaseBottomBarScreen(
         )
     }) {
         ScreenContent(
-            modifier, tabs
+            modifier, navigationBarItemColors, navigationBarColor, tabs
         )
     }
 }
@@ -69,7 +82,10 @@ fun BaseBottomBarScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun ScreenContent(
-    modifier: Modifier, tabs: List<BaseTab>
+    modifier: Modifier,
+    navigationBarItemColors: NavigationBarItemColors,
+    navigationBarColor: Color,
+    tabs: List<BaseTab>
 ) {
     val tab = tabs[currentTab.value]
     SetStatusBarColor(
@@ -123,7 +139,9 @@ private fun ScreenContent(
             }
         },
         bottomBar = {
-            NavigationBar {
+            NavigationBar(
+                containerColor = navigationBarColor
+            ) {
                 val tabNavigator = LocalTabNavigator.current
                 tabs.forEachIndexed { index, it ->
                     NavigationBarItem(
@@ -140,23 +158,14 @@ private fun ScreenContent(
                             currentTab.value = index
                             tabNavigator.current = it
                         },
-                        colors = NavigationBarItemDefaults.colors(
-                            selectedIconColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
-                            selectedTextColor = if (tab.baseOptions.toolbarIconsLight) Color.Black else Color.White,
-                            unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,
-                            indicatorColor = MaterialTheme.colorScheme.primary
-                        )
+                        colors = navigationBarItemColors
                     )
                 }
             }
         },
     ) {
-        Column(modifier = Modifier.padding(it)) {
-            Box(modifier = Modifier.weight(1f)) {
-                CurrentTab()
-            }
-            Spacer(modifier = Modifier.height(40.dp))
+        Box(modifier = Modifier.padding(it).fillMaxSize()) {
+            CurrentTab()
         }
 
         AlertView()
