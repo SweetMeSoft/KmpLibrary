@@ -3,16 +3,12 @@ package com.sweetmesoft.kmplibrary.controls.commonList
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -32,6 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sweetmesoft.kmplibrary.tools.NetworkUtils.get
@@ -53,6 +50,7 @@ inline fun <reified T : Any> RemoteGridList(
     title: String = "",
     bearer: String = "",
     columns: Int = 2,
+    spaceBetween: Dp = 16.dp,
     crossinline itemContent: (@Composable (Int, T) -> Unit),
     crossinline refreshedList: ((List<T>) -> Unit) = {},
     noinline addClick: (() -> Unit) = emptyFunction
@@ -66,8 +64,7 @@ inline fun <reified T : Any> RemoteGridList(
             isRefreshing = true
             get<List<T>>(url, false, bearer).onSuccess {
                 refreshedList(it.obj)
-            }.onFailure {
-            }.also {
+            }.onFailure {}.also {
                 isRefreshing = false
             }
         }
@@ -133,42 +130,12 @@ inline fun <reified T : Any> RemoteGridList(
                 )
             }
 
-            if (list.any()) {
-                PullToRefreshBox(
-                    isRefreshing = isRefreshing,
-                    onRefresh = refreshAction,
-                    modifier = Modifier.fillMaxSize()
-                ) {
-                    val chunkedList = list.chunked(columns)
-                    LazyColumn(
-                        modifier = modifier
-                    ) {
-                        items(chunkedList.size) { index ->
-                            val rowItems = chunkedList[index]
-                            Row(
-                                modifier = Modifier
-                                    .height(IntrinsicSize.Max)
-                            ) {
-                                rowItems.forEachIndexed { index2, item ->
-                                    Box(
-                                        modifier = Modifier.weight(1f),
-                                        contentAlignment = Alignment.Center
-                                    ) {
-                                        itemContent((index * 2) + index2, item)
-                                    }
-                                }
-
-                                if (rowItems.size < columns) {
-                                    for (i in rowItems.size until columns) {
-                                        Spacer(modifier = Modifier.weight(1f))
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            } else {
-                EmptyList(modifier)
+            PullToRefreshBox(
+                isRefreshing = isRefreshing,
+                onRefresh = refreshAction,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                GridBase(modifier, list, columns, spaceBetween, itemContent)
             }
         }
     }
