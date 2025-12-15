@@ -11,7 +11,7 @@ jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin
 
 [versions]
 
-agp = "8.13.1"
+agp = "8.13.2"
 ##⬆= "9.0.0-alpha01"
 ##⬆= "9.0.0-alpha02"
 ##⬆= "9.0.0-alpha03"

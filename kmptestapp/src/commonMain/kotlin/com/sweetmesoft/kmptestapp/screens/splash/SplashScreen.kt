@@ -21,6 +21,7 @@ class SplashScreen : Screen {
                 logo = Res.drawable.sweetmesoft_logo_sq_transparent,
                 backgroundColor = MaterialTheme.colorScheme.secondary,
                 background2Color = MaterialTheme.colorScheme.primary,
+                onBackgroundColor = MaterialTheme.colorScheme.onPrimary,
                 action = { navigator.replace(MainScreen()) }
             )
         }
