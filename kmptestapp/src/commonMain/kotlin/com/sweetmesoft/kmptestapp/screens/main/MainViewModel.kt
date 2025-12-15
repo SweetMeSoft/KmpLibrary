@@ -5,10 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.lifecycle.viewModelScope
-import com.sweetmesoft.kmplibrary.base.BaseViewModel
-import com.sweetmesoft.kmplibrary.tools.NetworkUtils.post
-import com.sweetmesoft.kmplibrary.tools.resizeImage
-import com.sweetmesoft.kmplibrary.tools.toBase64
+import com.sweetmesoft.kmpbase.base.BaseViewModel
+import com.sweetmesoft.kmpbase.tools.NetworkUtils.post
+import com.sweetmesoft.kmpbase.tools.resizeImage
+import com.sweetmesoft.kmpbase.tools.toBase64
 import com.sweetmesoft.kmptestapp.PhotoProfileRequest
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

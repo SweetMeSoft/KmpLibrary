@@ -37,7 +37,7 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
-            implementation(project(":library"))
+            implementation(project(":kmpbase"))
         }
 
         androidMain.dependencies {

@@ -39,7 +39,7 @@ kotlin {
             implementation(libs.ktor.client.negotiation)
             implementation(libs.maps.compose)
             implementation(libs.permissions.location)
-            implementation(project(":library"))
+            implementation(project(":kmpbase"))
             implementation(project(":kmpcontrols"))
 
             api(libs.moko.permissions)

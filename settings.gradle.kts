@@ -18,4 +18,4 @@ plugins {
 }
 
 rootProject.name = "kmplibrary"
-include(":library", ":kmpmaps", ":kmptestapp", ":kmpcontrols")
+include(":kmpbase", ":kmpmaps", ":kmptestapp", ":kmpcontrols")

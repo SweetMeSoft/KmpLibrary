@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.core.screen.Screen
-import com.sweetmesoft.kmplibrary.base.BaseScreen
+import com.sweetmesoft.kmpbase.base.BaseScreen
 import com.sweetmesoft.kmpmaps.MapComponent
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.RouteMap

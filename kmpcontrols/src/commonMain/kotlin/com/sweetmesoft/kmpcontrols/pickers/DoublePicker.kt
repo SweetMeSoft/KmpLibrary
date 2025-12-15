@@ -8,8 +8,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.sweetmesoft.kmpbase.controls.CalculatorPopup
 import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
-import com.sweetmesoft.kmplibrary.controls.CalculatorPopup
 
 @Composable
 fun DoublePicker(

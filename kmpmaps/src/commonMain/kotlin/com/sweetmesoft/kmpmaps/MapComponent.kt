@@ -1,7 +1,7 @@
 package com.sweetmesoft.kmpmaps
 
 import androidx.compose.runtime.Composable
-import com.sweetmesoft.kmplibrary.tools.toRadians
+import com.sweetmesoft.kmpbase.tools.toRadians
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import com.sweetmesoft.kmpmaps.controls.RouteMap

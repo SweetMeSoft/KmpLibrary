@@ -2,8 +2,8 @@ package com.sweetmesoft.kmptestapp.screens.about
 
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.core.screen.Screen
-import com.sweetmesoft.kmplibrary.base.BaseScreen
-import com.sweetmesoft.kmplibrary.screens.AboutContent
+import com.sweetmesoft.kmpbase.base.BaseScreen
+import com.sweetmesoft.kmpbase.screens.AboutContent
 import kmplibrary.kmptestapp.generated.resources.sweetmesoft_logo_ci_color
 
 class AboutScreen : Screen {

@@ -16,10 +16,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
-import com.sweetmesoft.kmplibrary.base.BaseScreen
-import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
-import com.sweetmesoft.kmplibrary.tools.getCurrentDateTime
-import com.sweetmesoft.kmplibrary.tools.toLocalString
+import com.sweetmesoft.kmpbase.base.BaseScreen
+import com.sweetmesoft.kmpbase.controls.alerts.PopupHandler
+import com.sweetmesoft.kmpbase.tools.getCurrentDateTime
+import com.sweetmesoft.kmpbase.tools.toLocalString
 import kotlinx.coroutines.launch
 
 class DialogsScreen : Screen {

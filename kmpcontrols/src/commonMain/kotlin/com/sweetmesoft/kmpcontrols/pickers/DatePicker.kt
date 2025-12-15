@@ -8,9 +8,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.sweetmesoft.kmpbase.tools.toLocalString
 import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
 import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
-import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kmplibrary.kmpcontrols.generated.resources.Accept
 import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.Date

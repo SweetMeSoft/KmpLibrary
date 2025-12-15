@@ -3,7 +3,7 @@ package com.sweetmesoft.kmptestapp.screens.controls
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import com.sweetmesoft.kmplibrary.base.BaseViewModel
+import com.sweetmesoft.kmpbase.base.BaseViewModel
 
 class ControlsViewModel : BaseViewModel() {
     var searchQuery by mutableStateOf("")

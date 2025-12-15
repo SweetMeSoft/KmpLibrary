@@ -21,9 +21,7 @@ kotlin {
     }
 
     listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
+        iosX64(), iosArm64(), iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "KmpTestApp"
@@ -48,7 +46,7 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.maps.compose)
-            implementation(project(":library"))
+            implementation(project(":kmpbase"))
             implementation(project(":kmpcontrols"))
             implementation(project(":kmpmaps"))
             implementation(libs.voyager.bottomSheetNavigator)

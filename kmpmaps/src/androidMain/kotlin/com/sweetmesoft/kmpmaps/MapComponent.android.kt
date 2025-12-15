@@ -40,7 +40,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.TileOverlay
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmpbase.BaseAndroid.Companion.getContext
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import com.sweetmesoft.kmpmaps.controls.RouteMap
