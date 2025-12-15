@@ -23,16 +23,14 @@ import com.sweetmesoft.kmpcontrols.pickers.DatePicker
 import com.sweetmesoft.kmpcontrols.pickers.DateTimePicker
 import com.sweetmesoft.kmpcontrols.pickers.TimePicker
 import com.sweetmesoft.kmpcontrols.utils.getCurrentDateTime
-import com.sweetmesoft.kmpcontrols.utils.toLocalString
 import com.sweetmesoft.kmplibrary.base.BaseScreen
 import com.sweetmesoft.kmplibrary.base.BaseViewModel.Companion.navigator
-import com.sweetmesoft.kmplibrary.controls.alerts.PopupHandler
 import com.sweetmesoft.kmplibrary.objects.IconAction
 import com.sweetmesoft.kmptestapp.screens.about.AboutScreen
+import com.sweetmesoft.kmptestapp.screens.dialogs.DialogsScreen
 import com.sweetmesoft.kmptestapp.screens.map.MapScreen
 import compose.icons.TablerIcons
 import compose.icons.tablericons.DotsVertical
-import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -43,28 +41,24 @@ class MainScreen : Screen {
     override fun Content() {
         remember { MainViewModel() }
         BaseScreen(
-                toolbarColor = MaterialTheme.colorScheme.primary,
-                toolbarIconsLight = false,
-                title = "KMP TestApp",
-                edgeToEdge = false,
-                iconActions =
-                        listOf(
-                                IconAction(TablerIcons.DotsVertical, true) {
-                                    navigator.push(AboutScreen())
-                                }
-                        )
+            toolbarColor = MaterialTheme.colorScheme.primary,
+            toolbarIconsLight = false,
+            title = "KMP TestApp",
+            edgeToEdge = false,
+            iconActions = listOf(
+                IconAction(TablerIcons.DotsVertical, true) {
+                    navigator.push(AboutScreen())
+                })
         ) {
-            val scope = rememberCoroutineScope()
+            rememberCoroutineScope()
             var date: LocalDate by remember { mutableStateOf(getCurrentDateTime().date) }
             var time: LocalTime by remember { mutableStateOf(getCurrentDateTime().time) }
             var dateTime: LocalDateTime by remember { mutableStateOf(getCurrentDateTime()) }
             var showDatePicker by remember { mutableStateOf(false) }
             var showTimePicker by remember { mutableStateOf(false) }
-            var promptInput by remember { mutableStateOf("") }
 
             Column(
-                    modifier = Modifier.padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 DatePicker(value = date) { date = it }
                 TimePicker(value = time) { time = it }
@@ -72,91 +66,20 @@ class MainScreen : Screen {
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(
-                            modifier = Modifier.weight(1f),
-                            content = { Text("Show Date") },
-                            onClick = { showDatePicker = true }
-                    )
+                        modifier = Modifier.weight(1f),
+                        content = { Text("Show Date") },
+                        onClick = { showDatePicker = true })
                     Button(
-                            modifier = Modifier.weight(1f),
-                            content = { Text("Show Time") },
-                            onClick = { showTimePicker = true }
-                    )
+                        modifier = Modifier.weight(1f),
+                        content = { Text("Show Time") },
+                        onClick = { showTimePicker = true })
                 }
 
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(
-                            modifier = Modifier.weight(1f),
-                            content = { Text("Alert") },
-                            onClick = {
-                                scope.launch {
-                                    PopupHandler.displayAlert(
-                                            "The is a alert dialog",
-                                            "Here you can show a message. For example, the hour is " +
-                                                    time.toLocalString()
-                                    )
-                                }
-                            }
-                    )
+                Button(
+                    modifier = Modifier.fillMaxWidth(),
+                    content = { Text("Open Dialogs") },
+                    onClick = { navigator.push(DialogsScreen()) })
 
-                    Button(
-                            modifier = Modifier.weight(1f),
-                            content = { Text("Confirm") },
-                            onClick = {
-                                scope.launch {
-                                    PopupHandler.displayConfirm(
-                                            "This is a confirm dialog",
-                                            "Here you can show a message to user can select yes or no, accept or cancel, and do something accordingly",
-                                            dismiss = {
-                                                scope.launch {
-                                                    PopupHandler.displayAlert("You selected", "No")
-                                                }
-                                            }
-                                    ) {
-                                        scope.launch {
-                                            PopupHandler.displayAlert("You selected", "Yes")
-                                        }
-                                    }
-                                }
-                            }
-                    )
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Button(
-                            modifier = Modifier.weight(1f),
-                            content = { Text("Prompt") },
-                            onClick = {
-                                scope.launch {
-                                    PopupHandler.displayPrompt(
-                                            "This is a prompt dialog",
-                                            "Here you can show a message to user to enter some text",
-                                            input = promptInput
-                                    ) {
-                                        promptInput = it
-                                        scope.launch {
-                                            PopupHandler.displayAlert("Your prompt was", it)
-                                        }
-                                    }
-                                }
-                            }
-                    )
-                    Button(
-                            modifier = Modifier.weight(1f),
-                            content = { Text("List") },
-                            onClick = {
-                                scope.launch {
-                                    PopupHandler.displayList(
-                                            "This is a list dialog",
-                                            "Here you can show to the user a list of options, and the user can select one of them",
-                                            options = listOf("Option 1", "Option 2", "Option 3")
-                                    ) {
-                                        scope.launch {
-                                            PopupHandler.displayAlert("Option selected", it)
-                                        }
-                                    }
-                                }
-                            }
-                    )
-                }
                 //                rememberImageCropper()
                 //                var openImagePicker by remember { mutableStateOf(value = false) }
                 //                ProfilePhoto(
@@ -179,28 +102,21 @@ class MainScreen : Screen {
                 //                    }
                 //                )
                 CalendarDialog(
-                        isVisible = showDatePicker,
-                        value = date,
-                        onDismiss = { showDatePicker = false }
-                ) { selectedDate ->
+                    isVisible = showDatePicker, value = date, onDismiss = { showDatePicker = false }) { selectedDate ->
                     date = selectedDate
                     showDatePicker = false
                 }
 
                 ClockDialog(
-                        isVisible = showTimePicker,
-                        value = time,
-                        onDismiss = { showTimePicker = false }
-                ) { selectedTime ->
+                    isVisible = showTimePicker, value = time, onDismiss = { showTimePicker = false }) { selectedTime ->
                     time = selectedTime
                     showTimePicker = false
                 }
 
                 Button(
-                        modifier = Modifier.fillMaxWidth(),
-                        content = { Text("Open Map") },
-                        onClick = { navigator.push(MapScreen()) }
-                )
+                    modifier = Modifier.fillMaxWidth(),
+                    content = { Text("Open Map") },
+                    onClick = { navigator.push(MapScreen()) })
             }
         }
     }
