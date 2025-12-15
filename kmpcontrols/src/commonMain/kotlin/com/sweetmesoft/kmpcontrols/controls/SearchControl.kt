@@ -1,6 +1,7 @@
 package com.sweetmesoft.kmpcontrols.controls
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
@@ -21,7 +22,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
@@ -48,12 +48,11 @@ fun SearchControl(
     enabled: Boolean = true
 ) {
     Box(
-        modifier = modifier
-            .clip(
-                RoundedCornerShape(40.dp)
-            )
-            .background(Color.White),
-        contentAlignment = Alignment.Center
+        modifier = modifier.background(Color.Transparent).border(
+            width = 1.dp,
+            color = MaterialTheme.colorScheme.outline,
+            shape = RoundedCornerShape(4.dp)
+        ), contentAlignment = Alignment.Center
     ) {
         CustomBasicTextField(
             value = value,
@@ -84,24 +83,21 @@ private fun CustomBasicTextField(
         enabled = enabled,
         maxLines = 1,
         onValueChange = { onValueChange(it) },
-        modifier = Modifier
-            .fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth(),
         textStyle = TextStyle(
             fontSize = 14.sp,
             color = if (!isSystemInDarkTheme()) Color.Black else Color.White,
         ),
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = imeAction,
-            capitalization = KeyboardCapitalization.Sentences
+            imeAction = imeAction, capitalization = KeyboardCapitalization.Sentences
         ),
         cursorBrush = SolidColor(if (!isSystemInDarkTheme()) Color.Black else Color.White),
         keyboardActions = KeyboardActions(
             onSearch = {
                 focusManager.clearFocus()
                 onSearch(value)
-            }
-        ),
+            }),
         decorationBox = { innerTextField ->
             TextFieldDefaults.DecorationBox(
                 value = value,
@@ -118,9 +114,7 @@ private fun CustomBasicTextField(
                         imageVector = TablerIcons.Search,
                         contentDescription = "Buscar",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier
-                            .padding(start = 8.dp)
-                            .size(16.dp)
+                        modifier = Modifier.padding(start = 8.dp).size(16.dp)
                     )
                 },
                 singleLine = true,
@@ -137,6 +131,5 @@ private fun CustomBasicTextField(
                     disabledIndicatorColor = Color.Transparent,
                 )
             )
-        }
-    )
+        })
 }

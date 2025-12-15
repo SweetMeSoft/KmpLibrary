@@ -15,7 +15,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.dialogs.BaseDialog
 import com.sweetmesoft.kmplibrary.controls.commonDropDown.SimpleDropDown
 
 @Composable
@@ -36,8 +35,7 @@ internal fun AlertList() {
                 PopupHandler.listShow = false
                 PopupHandler.listDismiss()
                 value = ""
-            }
-        ) {
+            }) {
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                 Text(
                     PopupHandler.listTitle,

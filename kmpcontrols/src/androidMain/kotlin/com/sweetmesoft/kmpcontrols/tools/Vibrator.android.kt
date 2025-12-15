@@ -6,7 +6,7 @@ import android.os.Vibrator
 import android.os.VibratorManager
 import androidx.annotation.RequiresPermission
 import androidx.core.content.getSystemService
-import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
 
 actual object Vibrator {
     @RequiresPermission("android.permission.VIBRATE")

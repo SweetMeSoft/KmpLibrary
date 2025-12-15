@@ -33,12 +33,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColorDark
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColorText
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColorTextDark
-import com.sweetmesoft.kmpcontrols.utils.DateFormats
-import com.sweetmesoft.kmpcontrols.utils.daysInMonth
-import com.sweetmesoft.kmpcontrols.utils.toLocalString
+import com.sweetmesoft.kmplibrary.controls.alerts.BaseDialog
+import com.sweetmesoft.kmplibrary.theme.disabledColorDark
+import com.sweetmesoft.kmplibrary.theme.disabledColorText
+import com.sweetmesoft.kmplibrary.theme.disabledColorTextDark
+import com.sweetmesoft.kmplibrary.tools.DateFormats
+import com.sweetmesoft.kmplibrary.tools.daysInMonth
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import compose.icons.TablerIcons
 import compose.icons.tablericons.ChevronLeft
 import compose.icons.tablericons.ChevronRight
@@ -100,8 +101,7 @@ fun CalendarDialog(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().background(
-                    color = color,
-                    shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                    color = color, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                 ).padding(16.dp)
             ) {
                 Text(
@@ -109,9 +109,7 @@ fun CalendarDialog(
                         if (!selectYear) {
                             selectYear = true
                         }
-                    },
-                    text = selectedDate.year.toString(),
-                    color = Color.White
+                    }, text = selectedDate.year.toString(), color = Color.White
                 )
                 Text(
                     text = selectedDate.toLocalString(DateFormats.WWW_MMM_DD),
@@ -122,8 +120,7 @@ fun CalendarDialog(
 
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth()
-                    .padding(8.dp)
+                modifier = Modifier.fillMaxWidth().padding(8.dp)
             ) {
                 IconButton(onClick = {
                     dateShown = dateShown.minus(1, MONTH)
@@ -149,22 +146,16 @@ fun CalendarDialog(
                     columns = GridCells.Fixed(3),
                 ) {
                     items(300) { year ->
-                        val enabled =
-                            (year + 1900) >= minDate.year && (year + 1900) <= maxDate.year
+                        val enabled = (year + 1900) >= minDate.year && (year + 1900) <= maxDate.year
                         Box(
-                            modifier = Modifier
-                                .background(
-                                    if (year == dateShown.year) color else MaterialTheme.colorScheme.surface,
+                            modifier = Modifier.background(
+                                if (year == dateShown.year) color else MaterialTheme.colorScheme.surface,
+                            ).clickable(enabled = enabled) {
+                                dateShown = LocalDate(
+                                    year + 1900, selectedDate.month.number, selectedDate.day
                                 )
-                                .clickable(enabled = enabled) {
-                                    dateShown = LocalDate(
-                                        year + 1900,
-                                        selectedDate.month.number,
-                                        selectedDate.day
-                                    )
-                                    selectYear = false
-                                },
-                            contentAlignment = Alignment.Center
+                                selectYear = false
+                            }, contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 modifier = Modifier.padding(vertical = 16.dp),
@@ -196,19 +187,13 @@ fun CalendarDialog(
                         val thisDate = LocalDate(dateShown.year, dateShown.month.number, day + 1)
                         val enabled = thisDate in minDate..maxDate
                         Box(
-                            modifier = Modifier
-                                .aspectRatio(1f)
-                                .clip(CircleShape)
+                            modifier = Modifier.aspectRatio(1f).clip(CircleShape)
                                 .background(if (thisDate == selectedDate) color else MaterialTheme.colorScheme.surface)
                                 .clickable(enabled = enabled) {
-                                    selectedDate =
-                                        LocalDate(
-                                            dateShown.year,
-                                            dateShown.month.number,
-                                            day + 1
-                                        )
-                                },
-                            contentAlignment = Alignment.Center
+                                    selectedDate = LocalDate(
+                                        dateShown.year, dateShown.month.number, day + 1
+                                    )
+                                }, contentAlignment = Alignment.Center
                         ) {
                             Text(
                                 text = (day + 1).toString(),

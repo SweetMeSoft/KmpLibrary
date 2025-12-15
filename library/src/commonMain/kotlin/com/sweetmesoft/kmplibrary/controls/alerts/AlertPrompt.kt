@@ -19,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.dialogs.BaseDialog
 
 @Composable
 internal fun AlertPrompt() {
@@ -38,8 +37,7 @@ internal fun AlertPrompt() {
                 text = ""
                 PopupHandler.promptShow = false
                 PopupHandler.promptDismiss()
-            }
-        ) {
+            }) {
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                 Text(
                     PopupHandler.promptTitle,

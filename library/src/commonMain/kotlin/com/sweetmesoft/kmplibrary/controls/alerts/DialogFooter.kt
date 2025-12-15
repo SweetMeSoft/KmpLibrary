@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpcontrols.dialogs
+package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -27,11 +27,9 @@ fun DialogFooter(
     ) {
         if (cancelText.isNotEmpty()) {
             TextButton(
-                modifier = Modifier.padding(end = 8.dp),
-                onClick = {
+                modifier = Modifier.padding(end = 8.dp), onClick = {
                     onDismiss()
-                },
-                colors = ButtonDefaults.textButtonColors(
+                }, colors = ButtonDefaults.textButtonColors(
                     contentColor = MaterialTheme.colorScheme.error,
                     containerColor = Color.Transparent
                 )
@@ -44,8 +42,7 @@ fun DialogFooter(
             TextButton(
                 onClick = {
                     onAccept()
-                },
-                colors = ButtonDefaults.textButtonColors(
+                }, colors = ButtonDefaults.textButtonColors(
                     contentColor = if (color == Color.Unspecified) MaterialTheme.colorScheme.primary else color,
                     containerColor = Color.Transparent
                 )

@@ -1,26 +1,27 @@
-package com.sweetmesoft.kmpcontrols.utils
+package com.sweetmesoft.kmplibrary.tools
 
 import androidx.compose.runtime.Composable
-import kmplibrary.kmpcontrols.generated.resources.Apr
-import kmplibrary.kmpcontrols.generated.resources.Aug
-import kmplibrary.kmpcontrols.generated.resources.Dec
-import kmplibrary.kmpcontrols.generated.resources.Feb
-import kmplibrary.kmpcontrols.generated.resources.Fri
-import kmplibrary.kmpcontrols.generated.resources.Jan
-import kmplibrary.kmpcontrols.generated.resources.Jul
-import kmplibrary.kmpcontrols.generated.resources.Jun
-import kmplibrary.kmpcontrols.generated.resources.Mar
-import kmplibrary.kmpcontrols.generated.resources.May
-import kmplibrary.kmpcontrols.generated.resources.Mon
-import kmplibrary.kmpcontrols.generated.resources.Nov
-import kmplibrary.kmpcontrols.generated.resources.Oct
-import kmplibrary.kmpcontrols.generated.resources.Res
-import kmplibrary.kmpcontrols.generated.resources.Sat
-import kmplibrary.kmpcontrols.generated.resources.Sep
-import kmplibrary.kmpcontrols.generated.resources.Sun
-import kmplibrary.kmpcontrols.generated.resources.Thu
-import kmplibrary.kmpcontrols.generated.resources.Tue
-import kmplibrary.kmpcontrols.generated.resources.Wed
+import kmplibrary.library.generated.resources.Apr
+import kmplibrary.library.generated.resources.Aug
+import kmplibrary.library.generated.resources.Dec
+import kmplibrary.library.generated.resources.Feb
+import kmplibrary.library.generated.resources.Fri
+import kmplibrary.library.generated.resources.Jan
+import kmplibrary.library.generated.resources.Jul
+import kmplibrary.library.generated.resources.Jun
+import kmplibrary.library.generated.resources.Mar
+import kmplibrary.library.generated.resources.May
+import kmplibrary.library.generated.resources.Mon
+import kmplibrary.library.generated.resources.Nov
+import kmplibrary.library.generated.resources.Oct
+import kmplibrary.library.generated.resources.Res
+import kmplibrary.library.generated.resources.Sat
+import kmplibrary.library.generated.resources.Sep
+import kmplibrary.library.generated.resources.Sun
+import kmplibrary.library.generated.resources.Thu
+import kmplibrary.library.generated.resources.Tue
+import kmplibrary.library.generated.resources.Wed
+import kotlinx.datetime.DateTimeUnit
 import kotlinx.datetime.DateTimeUnit.Companion.DAY
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
@@ -147,36 +148,22 @@ fun LocalTime.toLocalString(showSeconds: Boolean = false): String {
 }
 
 fun LocalDateTime.plus(
-    quantity: Int,
-    unit: kotlinx.datetime.DateTimeUnit.DateBased
+    quantity: Int, unit: DateTimeUnit.DateBased
 ): LocalDateTime {
     var date = this.date
     date = date.plus(quantity, unit)
     return LocalDateTime(
-        date.year,
-        date.month,
-        date.day,
-        this.hour,
-        this.minute,
-        this.second,
-        this.nanosecond
+        date.year, date.month, date.day, this.hour, this.minute, this.second, this.nanosecond
     )
 }
 
 fun LocalDateTime.minus(
-    quantity: Int,
-    unit: kotlinx.datetime.DateTimeUnit.DateBased
+    quantity: Int, unit: DateTimeUnit.DateBased
 ): LocalDateTime {
     var date = this.date
     date = date.minus(quantity, unit)
     return LocalDateTime(
-        date.year,
-        date.month,
-        date.day,
-        this.hour,
-        this.minute,
-        this.second,
-        this.nanosecond
+        date.year, date.month, date.day, this.hour, this.minute, this.second, this.nanosecond
     )
 }
 

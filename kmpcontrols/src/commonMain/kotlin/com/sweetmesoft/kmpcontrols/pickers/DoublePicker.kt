@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmplibrary.controls.pickers
+package com.sweetmesoft.kmpcontrols.pickers
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -29,15 +29,12 @@ fun DoublePicker(
         enabled = enabled,
         onClick = {
             showCalculator = true
-        }
-    )
+        })
 
     CalculatorPopup(
-        visible = showCalculator,
-        onDismissRequest = {
+        visible = showCalculator, onDismissRequest = {
             showCalculator = false
-        }
-    ) {
+        }) {
         onValueChange(it)
         showCalculator = false
     }

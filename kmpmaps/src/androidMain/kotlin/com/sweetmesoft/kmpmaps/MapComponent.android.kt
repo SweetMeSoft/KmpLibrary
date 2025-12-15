@@ -40,7 +40,7 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.Polyline
 import com.google.maps.android.compose.TileOverlay
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import com.sweetmesoft.kmpmaps.controls.RouteMap
@@ -85,15 +85,13 @@ actual fun MapComponent(
                         val (newZoom, newCenter) = calculateZoomAndCenter(routeCoordinates)
                         cameraPositionState.animate(
                             CameraUpdateFactory.newLatLngZoom(
-                                newCenter.toLatLng(),
-                                newZoom
+                                newCenter.toLatLng(), newZoom
                             )
                         )
                     } else {
                         cameraPositionState.animate(
                             CameraUpdateFactory.newLatLngZoom(
-                                coordinate,
-                                zoom
+                                coordinate, zoom
                             )
                         )
                     }
@@ -129,8 +127,7 @@ actual fun MapComponent(
             },
             onMapLongClick = { latLng ->
                 onMapLongClick(Coordinates(latLng.latitude, latLng.longitude))
-            }
-        ) {
+            }) {
             val tileProvider = object : UrlTileProvider(256, 256) {
                 override fun getTileUrl(x: Int, y: Int, zoom: Int): URL? {
                     return try {
@@ -141,9 +138,7 @@ actual fun MapComponent(
                 }
             }
             TileOverlay(
-                tileProvider = tileProvider,
-                fadeIn = true,
-                transparency = 0.5f
+                tileProvider = tileProvider, fadeIn = true, transparency = 0.5f
             )
 
             if (routes.isNotEmpty()) {
@@ -153,9 +148,7 @@ actual fun MapComponent(
                     }
 
                     Polyline(
-                        points = routeCoordinates,
-                        color = route.color,
-                        width = route.width
+                        points = routeCoordinates, color = route.color, width = route.width
                     )
                 }
             }
@@ -174,8 +167,7 @@ actual fun MapComponent(
                             color = marker.markerMap.iconColor.toArgb()
                         ),
                         onClick = { marker.markerMap.onClick(marker) },
-                        onInfoWindowClick = { marker.markerMap.onInfoWindowClick(marker) }
-                    )
+                        onInfoWindowClick = { marker.markerMap.onInfoWindowClick(marker) })
                 }
 
                 if (marker.circleMap.radius != 0.0) {
@@ -199,9 +191,7 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
             val fusedLocationClient: FusedLocationProviderClient =
                 LocationServices.getFusedLocationProviderClient(getContext())
             val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 15000)
-                .setWaitForAccurateLocation(true)
-                .setMaxUpdates(1)
-                .build()
+                .setWaitForAccurateLocation(true).setMaxUpdates(1).build()
             val locationCallback = object : LocationCallback() {
                 override fun onLocationResult(locationResult: LocationResult) {
                     val location = locationResult.lastLocation
@@ -221,9 +211,7 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
             }
 
             fusedLocationClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.getMainLooper()
+                locationRequest, locationCallback, Looper.getMainLooper()
             )
         } else {
             val fusedLocationClient: FusedLocationProviderClient =
@@ -243,13 +231,10 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
 private fun createCustomMarkerIcon(
     color: Int
 ): BitmapDescriptor {
-    val drawable =
-        ContextCompat.getDrawable(getContext(), R.drawable.pin)?.mutate()
+    val drawable = ContextCompat.getDrawable(getContext(), R.drawable.pin)?.mutate()
     drawable?.setTint(color)
     val bitmap = Bitmap.createBitmap(
-        drawable!!.intrinsicWidth,
-        drawable.intrinsicHeight,
-        Bitmap.Config.ARGB_8888
+        drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
     )
     val canvas = Canvas(bitmap)
     drawable.setBounds(0, 0, canvas.width, canvas.height)

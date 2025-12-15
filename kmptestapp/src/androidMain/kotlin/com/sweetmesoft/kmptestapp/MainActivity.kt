@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.initSweetMeSoft
+import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.initSweetMeSoft
 
 class MainActivity : ComponentActivity() {
     init {

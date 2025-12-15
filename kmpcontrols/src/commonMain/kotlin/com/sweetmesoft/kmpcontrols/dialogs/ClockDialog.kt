@@ -34,13 +34,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColor
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColorDark
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColorText
-import com.sweetmesoft.kmpcontrols.objetcs.disabledColorTextDark
 import com.sweetmesoft.kmpcontrols.tools.Vibrator
-import com.sweetmesoft.kmpcontrols.utils.toDegrees
-import com.sweetmesoft.kmpcontrols.utils.toRadians
+import com.sweetmesoft.kmplibrary.controls.alerts.BaseDialog
+import com.sweetmesoft.kmplibrary.theme.disabledColor
+import com.sweetmesoft.kmplibrary.theme.disabledColorDark
+import com.sweetmesoft.kmplibrary.theme.disabledColorText
+import com.sweetmesoft.kmplibrary.theme.disabledColorTextDark
+import com.sweetmesoft.kmplibrary.tools.toDegrees
+import com.sweetmesoft.kmplibrary.tools.toRadians
 import kmplibrary.kmpcontrols.generated.resources.Accept
 import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.Res
@@ -67,31 +68,23 @@ fun ClockDialog(
         var selectedMinute by remember { mutableStateOf(value.minute) }
         var isHourSelection by remember { mutableStateOf(true) }
 
-        BaseDialog(
-            acceptText = acceptText,
-            cancelText = cancelText,
-            color = color,
-            onAccept = {
-                onTimeSelected(LocalTime(selectedHour, selectedMinute))
-            },
-            onDismiss = {
-                onDismiss()
-            }
-        ) {
+        BaseDialog(acceptText = acceptText, cancelText = cancelText, color = color, onAccept = {
+            onTimeSelected(LocalTime(selectedHour, selectedMinute))
+        }, onDismiss = {
+            onDismiss()
+        }) {
             Column(
                 modifier = Modifier.fillMaxWidth()
             ) {
                 TimeDialogHeader(
                     modifier = Modifier.fillMaxWidth().background(
-                        color = color,
-                        shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                        color = color, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
                     ).padding(16.dp),
                     hour = selectedHour,
                     minute = selectedMinute,
                     isHourSelection = isHourSelection,
                     onHourClick = { isHourSelection = true },
-                    onMinuteClick = { isHourSelection = false }
-                )
+                    onMinuteClick = { isHourSelection = false })
 
                 Column(
                     modifier = Modifier.fillMaxWidth().padding(top = 16.dp),
@@ -123,33 +116,23 @@ private fun TimeDialogHeader(
     onHourClick: () -> Unit,
     onMinuteClick: () -> Unit
 ) {
-    val disabledColor =
-        if (!isSystemInDarkTheme()) disabledColorText else disabledColorTextDark
+    val disabledColor = if (!isSystemInDarkTheme()) disabledColorText else disabledColorTextDark
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-            text = hour.toString().padStart(2, '0'),
-            style = TextStyle(
-                fontSize = 60.sp,
-                color = if (!isHourSelection) disabledColor else Color.White
-            ),
-            modifier = Modifier.padding(4.dp).clickable { onHourClick() }
+            text = hour.toString().padStart(2, '0'), style = TextStyle(
+                fontSize = 60.sp, color = if (!isHourSelection) disabledColor else Color.White
+            ), modifier = Modifier.padding(4.dp).clickable { onHourClick() })
+        Text(
+            text = ":", style = TextStyle(fontSize = 60.sp, color = Color.White)
         )
         Text(
-            text = ":",
-            style = TextStyle(fontSize = 60.sp, color = Color.White)
-        )
-        Text(
-            text = minute.toString().padStart(2, '0'),
-            style = TextStyle(
-                fontSize = 60.sp,
-                color = if (isHourSelection) disabledColor else Color.White
-            ),
-            modifier = Modifier.padding(4.dp).clickable { onMinuteClick() }
-        )
+            text = minute.toString().padStart(2, '0'), style = TextStyle(
+                fontSize = 60.sp, color = if (isHourSelection) disabledColor else Color.White
+            ), modifier = Modifier.padding(4.dp).clickable { onMinuteClick() })
     }
 }
 
@@ -173,9 +156,7 @@ private fun TimeSelector(
         var previousValue = remember { 0 }
 
         Box(
-            modifier = modifier
-                .size(radiusExternal * 2.5f)
-                .clip(CircleShape)
+            modifier = modifier.size(radiusExternal * 2.5f).clip(CircleShape)
                 .background(if (!isSystemInDarkTheme()) disabledColor else disabledColorDark)
                 .pointerInput(isHour) {
                     detectDragGestures { change, dragAmount ->
@@ -192,8 +173,7 @@ private fun TimeSelector(
                             Vibrator.vibrate()
                         }
                     }
-                },
-            contentAlignment = Alignment.Center
+                }, contentAlignment = Alignment.Center
         ) {
             ClockLine(
                 color = color,
@@ -208,20 +188,15 @@ private fun TimeSelector(
                 val xOffset = (radiusPxExternal * sin(angleRadians)).toFloat()
                 val yOffset = (-radiusPxExternal * cos(angleRadians)).toFloat()
                 Box(
-                    modifier = Modifier
-                        .offset(x = xOffset.toDp(), y = yOffset.toDp())
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .clickable { onValueChange(value) }
-                        .background(
+                    modifier = Modifier.offset(x = xOffset.toDp(), y = yOffset.toDp()).size(40.dp)
+                        .clip(CircleShape).clickable { onValueChange(value) }.background(
                             if (value == selectedValue) color else Color.Transparent
                         ),
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
                         text = if (isHour) value.toString() else if (value % 5 == 0) value.toString()
-                            .padStart(2, '0') else "",
-                        style = TextStyle(
+                            .padStart(2, '0') else "", style = TextStyle(
                             fontSize = 16.sp,
                             color = if (value == selectedValue) Color.White else MaterialTheme.colorScheme.onBackground
                         )
@@ -234,19 +209,13 @@ private fun TimeSelector(
                 val xOffset = (radiusPxInternal * sin(angle)).toFloat()
                 val yOffset = (-radiusPxInternal * cos(angle)).toFloat()
                 Box(
-                    modifier = Modifier
-                        .offset(x = xOffset.toDp(), y = yOffset.toDp())
-                        .size(40.dp)
-                        .clip(CircleShape)
-                        .clickable { onValueChange(value) }
-                        .background(
+                    modifier = Modifier.offset(x = xOffset.toDp(), y = yOffset.toDp()).size(40.dp)
+                        .clip(CircleShape).clickable { onValueChange(value) }.background(
                             if (value == selectedValue) color else Color.Transparent
-                        ),
-                    contentAlignment = Alignment.Center
+                        ), contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = value.toString(),
-                        style = TextStyle(
+                        text = value.toString(), style = TextStyle(
                             fontSize = 14.sp,
                             color = if (value == selectedValue) Color.White else Color.Gray
                         )
@@ -267,8 +236,7 @@ private fun ClockLine(color: Color, radius: Dp, selectedValue: Int, values: List
         val selectedYOffset = (-radiusPx * cos(selectedAngle)).toFloat()
 
         Canvas(
-            modifier = Modifier
-                .size(radius * 2.5f)
+            modifier = Modifier.size(radius * 2.5f)
         ) {
             drawLine(
                 color = color,
@@ -278,9 +246,7 @@ private fun ClockLine(color: Color, radius: Dp, selectedValue: Int, values: List
             )
 
             drawCircle(
-                color = color,
-                radius = 16f,
-                center = Offset(centerPx, centerPx)
+                color = color, radius = 16f, center = Offset(centerPx, centerPx)
             )
         }
     }

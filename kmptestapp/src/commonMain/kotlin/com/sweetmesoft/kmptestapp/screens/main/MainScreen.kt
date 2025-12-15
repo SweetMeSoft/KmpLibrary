@@ -26,10 +26,12 @@ import com.sweetmesoft.kmplibrary.base.BaseViewModel.Companion.navigator
 import com.sweetmesoft.kmplibrary.controls.commonList.LocalGridList
 import com.sweetmesoft.kmplibrary.objects.IconAction
 import com.sweetmesoft.kmptestapp.screens.about.AboutScreen
+import com.sweetmesoft.kmptestapp.screens.controls.ControlsScreen
 import com.sweetmesoft.kmptestapp.screens.dialogs.DialogsScreen
 import com.sweetmesoft.kmptestapp.screens.map.MapScreen
 import com.sweetmesoft.kmptestapp.screens.pickers.PickersScreen
 import compose.icons.TablerIcons
+import compose.icons.tablericons.Adjustments
 import compose.icons.tablericons.Calendar
 import compose.icons.tablericons.DotsVertical
 import compose.icons.tablericons.InfoCircle
@@ -37,11 +39,11 @@ import compose.icons.tablericons.Map
 import compose.icons.tablericons.Message
 
 data class MainMenuItem(
-    val title: String,
-    val description: String,
-    val icon: ImageVector,
-    val color: Color,
-    val onClick: () -> Unit
+        val title: String,
+        val description: String,
+        val icon: ImageVector,
+        val color: Color,
+        val onClick: () -> Unit
 )
 
 class MainScreen : Screen {
@@ -50,79 +52,100 @@ class MainScreen : Screen {
     override fun Content() {
         remember { MainViewModel() }
         BaseScreen(
-            toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false,
-            title = "KMP TestApp",
-            edgeToEdge = false,
-            iconActions = listOf(
-                IconAction(TablerIcons.DotsVertical, true) {
-                    navigator.push(AboutScreen())
-                })
+                toolbarColor = MaterialTheme.colorScheme.primary,
+                toolbarIconsLight = false,
+                title = "KMP TestApp",
+                edgeToEdge = false,
+                iconActions =
+                        listOf(
+                                IconAction(TablerIcons.DotsVertical, true) {
+                                    navigator.push(AboutScreen())
+                                }
+                        )
         ) {
-            val items = listOf(
-                MainMenuItem(
-                    "Pickers",
-                    "Select dates and times easily",
-                    TablerIcons.Calendar,
-                    Color(0xFFE91E63)
-                ) { navigator.push(PickersScreen()) }, MainMenuItem(
-                    "Dialogs", "Alerts, confirms and more", TablerIcons.Message, Color(0xFF2196F3)
-                ) { navigator.push(DialogsScreen()) }, MainMenuItem(
-                    "Maps", "Display maps and routes", TablerIcons.Map, Color(0xFF4CAF50)
-                ) { navigator.push(MapScreen()) }, MainMenuItem(
-                    "About", "Learn more about this app", TablerIcons.InfoCircle, Color(0xFFFF9800)
-                ) { navigator.push(AboutScreen()) })
+            val items =
+                    listOf(
+                            MainMenuItem(
+                                    "Pickers",
+                                    "Select dates and times easily",
+                                    TablerIcons.Calendar,
+                                    Color(0xFFE91E63)
+                            ) { navigator.push(PickersScreen()) },
+                            MainMenuItem(
+                                    "Dialogs",
+                                    "Alerts, confirms and more",
+                                    TablerIcons.Message,
+                                    Color(0xFF2196F3)
+                            ) { navigator.push(DialogsScreen()) },
+                            MainMenuItem(
+                                    "Maps",
+                                    "Display maps and routes",
+                                    TablerIcons.Map,
+                                    Color(0xFF4CAF50)
+                            ) { navigator.push(MapScreen()) },
+                            MainMenuItem(
+                                    "Controls",
+                                    "Test KMP Controls",
+                                    TablerIcons.Adjustments,
+                                    Color(0xFF9C27B0)
+                            ) { navigator.push(ControlsScreen()) },
+                            MainMenuItem(
+                                    "About",
+                                    "Learn more about this app",
+                                    TablerIcons.InfoCircle,
+                                    Color(0xFFFF9800)
+                            ) { navigator.push(AboutScreen()) }
+                    )
 
             Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
                 Text(
-                    text = "KMP Library",
-                    fontSize = MaterialTheme.typography.displaySmall.fontSize,
-                    fontWeight = FontWeight.Bold
+                        text = "KMP Library",
+                        fontSize = MaterialTheme.typography.displaySmall.fontSize,
+                        fontWeight = FontWeight.Bold
                 )
                 Text(
-                    "Try all our Free KMP Components.",
-                    style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray),
-                    modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
+                        "Try all our Free KMP Components.",
+                        style = MaterialTheme.typography.bodyMedium.copy(color = Color.Gray),
+                        modifier = Modifier.padding(top = 4.dp, bottom = 24.dp)
                 )
 
                 LocalGridList(
-                    list = items,
-                    columns = 2,
-                    modifier = Modifier.fillMaxSize(),
-                    spaceBetween = 12.dp
-                ) { _, item ->
-                    MenuItemCard(item)
-                }
+                        list = items,
+                        columns = 2,
+                        modifier = Modifier.fillMaxSize(),
+                        spaceBetween = 12.dp
+                ) { _, item -> MenuItemCard(item) }
             }
         }
     }
 
     @Composable
     private fun MenuItemCard(item: MainMenuItem) {
-        Card(
-            modifier = Modifier.fillMaxHeight().clickable { item.onClick() }) {
+        Card(modifier = Modifier.fillMaxHeight().clickable { item.onClick() }) {
             Column(
-                verticalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxSize().padding(12.dp)
+                    verticalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxSize().padding(12.dp)
             ) {
                 Icon(
-                    imageVector = item.icon,
-                    contentDescription = item.title,
-                    tint = item.color,
-                    modifier = Modifier.size(28.dp)
+                        imageVector = item.icon,
+                        contentDescription = item.title,
+                        tint = item.color,
+                        modifier = Modifier.size(28.dp)
                 )
 
                 Column {
                     Text(
-                        text = item.title, style = MaterialTheme.typography.titleMedium.copy(
-                            fontWeight = FontWeight.Bold, color = Color.White
-                        )
+                            text = item.title,
+                            style =
+                                    MaterialTheme.typography.titleMedium.copy(
+                                            fontWeight = FontWeight.Bold
+                                    )
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = item.description,
-                        style = MaterialTheme.typography.bodySmall.copy(color = Color.Gray),
-                        maxLines = 2
+                            text = item.description,
+                            style = MaterialTheme.typography.bodySmall,
+                            maxLines = 2
                     )
                 }
             }

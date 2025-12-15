@@ -46,7 +46,6 @@ kotlin {
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)
             implementation(libs.voyager.tabNavigator)
-            implementation(project(":kmpcontrols"))
 
             api(libs.moko.permissions)
             api(libs.moko.permissions.compose)

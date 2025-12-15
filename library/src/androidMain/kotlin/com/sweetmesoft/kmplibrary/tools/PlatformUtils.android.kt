@@ -3,7 +3,7 @@ package com.sweetmesoft.kmplibrary.tools
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import com.sweetmesoft.kmpcontrols.tools.BaseAndroid.Companion.getContext
+import com.sweetmesoft.kmplibrary.BaseAndroid.Companion.getContext
 
 actual fun getPlatform(): PlatformType {
     return PlatformType.ANDROID

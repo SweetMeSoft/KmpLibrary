@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpcontrols.dialogs
+package com.sweetmesoft.kmplibrary.controls.alerts
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -25,16 +25,13 @@ fun BaseDialog(
     Dialog(
         onDismissRequest = {
             onDismiss()
-        },
-        properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true
+        }, properties = DialogProperties(
+            dismissOnBackPress = true, dismissOnClickOutside = true
         )
     ) {
         Column(
             modifier = Modifier.fillMaxWidth().background(
-                MaterialTheme.colorScheme.surface,
-                shape = RoundedCornerShape(16.dp)
+                MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(16.dp)
             )
         ) {
             content()
@@ -46,8 +43,7 @@ fun BaseDialog(
                 color = color,
                 onAccept = {
                     onAccept()
-                }
-            ) {
+                }) {
                 onDismiss()
             }
         }

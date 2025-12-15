@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.dialogs.BaseDialog
 
 @Composable
 internal fun AlertView() {
@@ -22,8 +21,7 @@ internal fun AlertView() {
                 PopupHandler.alertShow = false
                 PopupHandler.alertDismiss()
             },
-            onDismiss = { }
-        ) {
+            onDismiss = { }) {
             Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
                 Text(
                     PopupHandler.alertTitle,

@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
 import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
-import com.sweetmesoft.kmpcontrols.utils.toLocalString
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kmplibrary.kmpcontrols.generated.resources.Accept
 import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.Date
@@ -38,8 +38,7 @@ fun DatePicker(
         enabled = enabled,
         onClick = {
             showPicker = true
-        }
-    )
+        })
 
     CalendarDialog(
         isVisible = showPicker,
@@ -49,8 +48,7 @@ fun DatePicker(
         maxDate = maxDate,
         acceptText = stringResource(Res.string.Accept),
         cancelText = stringResource(Res.string.Cancel),
-        onDismiss = { showPicker = false }
-    ) { selectedDate ->
+        onDismiss = { showPicker = false }) { selectedDate ->
         onSelectedDate(selectedDate)
         showPicker = false
     }

@@ -9,7 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.dialogs.BaseDialog
 
 @Composable
 internal fun AlertConfirm() {
@@ -25,8 +24,7 @@ internal fun AlertConfirm() {
             onDismiss = {
                 PopupHandler.confirmShow = false
                 PopupHandler.confirmDismiss()
-            }
-        ) {
+            }) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(16.dp)
             ) {

@@ -20,8 +20,8 @@ import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
 import com.sweetmesoft.kmpcontrols.pickers.DatePicker
 import com.sweetmesoft.kmpcontrols.pickers.DateTimePicker
 import com.sweetmesoft.kmpcontrols.pickers.TimePicker
-import com.sweetmesoft.kmpcontrols.utils.getCurrentDateTime
 import com.sweetmesoft.kmplibrary.base.BaseScreen
+import com.sweetmesoft.kmplibrary.tools.getCurrentDateTime
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.LocalTime
@@ -75,13 +75,17 @@ class PickersScreen : Screen {
                 }
 
                 CalendarDialog(
-                    isVisible = showDatePicker, value = date, onDismiss = { showDatePicker = false }) { selectedDate ->
+                    isVisible = showDatePicker,
+                    value = date,
+                    onDismiss = { showDatePicker = false }) { selectedDate ->
                     date = selectedDate
                     showDatePicker = false
                 }
 
                 ClockDialog(
-                    isVisible = showTimePicker, value = time, onDismiss = { showTimePicker = false }) { selectedTime ->
+                    isVisible = showTimePicker,
+                    value = time,
+                    onDismiss = { showTimePicker = false }) { selectedTime ->
                     time = selectedTime
                     showTimePicker = false
                 }

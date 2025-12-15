@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpcontrols.tools
+package com.sweetmesoft.kmplibrary
 
 import android.annotation.SuppressLint
 import android.content.Context

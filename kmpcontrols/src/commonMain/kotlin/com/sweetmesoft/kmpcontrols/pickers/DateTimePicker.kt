@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
 import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
 import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
-import com.sweetmesoft.kmpcontrols.utils.toLocalString
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kmplibrary.kmpcontrols.generated.resources.Accept
 import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.Date
@@ -44,8 +44,7 @@ fun DateTimePicker(
         enabled = enabled,
         onClick = {
             showDate = true
-        }
-    )
+        })
 
     CalendarDialog(
         isVisible = showDate,
@@ -59,21 +58,15 @@ fun DateTimePicker(
             showDate = false
             showTime = false
             selectedDateTime = value
-        }
-    ) { selectedDate ->
+        }) { selectedDate ->
         selectedDateTime = LocalDateTime(
-            selectedDate.year,
-            selectedDate.month.number,
-            selectedDate.day,
-            value.hour,
-            value.minute
+            selectedDate.year, selectedDate.month.number, selectedDate.day, value.hour, value.minute
         )
         showDate = false
         showTime = true
     }
 
-    @Suppress("RequiresFeature")
-    ClockDialog(
+    @Suppress("RequiresFeature") ClockDialog(
         isVisible = showTime,
         value = value.time,
         color = color,
@@ -83,8 +76,7 @@ fun DateTimePicker(
             showTime = false
             showDate = false
             selectedDateTime = value
-        }
-    ) { selectedTime ->
+        }) { selectedTime ->
         selectedDateTime = LocalDateTime(
             selectedDateTime.year,
             selectedDateTime.month.number,

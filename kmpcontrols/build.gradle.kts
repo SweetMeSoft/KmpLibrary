@@ -37,14 +37,14 @@ kotlin {
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
+            implementation(project(":library"))
         }
 
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
         }
 
-        iosMain.dependencies {
-        }
+        iosMain.dependencies {}
     }
 }
 

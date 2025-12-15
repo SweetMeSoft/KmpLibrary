@@ -1,7 +1,7 @@
 package com.sweetmesoft.kmpmaps
 
 import androidx.compose.runtime.Composable
-import com.sweetmesoft.kmpcontrols.utils.toRadians
+import com.sweetmesoft.kmplibrary.tools.toRadians
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 import com.sweetmesoft.kmpmaps.controls.GeoPosition
 import com.sweetmesoft.kmpmaps.controls.RouteMap
@@ -53,10 +53,7 @@ fun calculateZoomByRadius(radiusInMeters: Int): Float {
 
 fun calculateDistance(from: Coordinates, to: Coordinates): Double {
     val distance = haversineDistance(
-        from.latitude,
-        from.longitude,
-        to.latitude,
-        to.longitude
+        from.latitude, from.longitude, to.latitude, to.longitude
     )
     return distance * 1000
 }

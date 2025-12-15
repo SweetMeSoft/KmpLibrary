@@ -1,6 +1,6 @@
 package com.sweetmesoft.kmplibrary.serializers
 
-import com.sweetmesoft.kmpcontrols.utils.toLocalString
+import com.sweetmesoft.kmplibrary.tools.toLocalString
 import kotlinx.datetime.LocalTime
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind

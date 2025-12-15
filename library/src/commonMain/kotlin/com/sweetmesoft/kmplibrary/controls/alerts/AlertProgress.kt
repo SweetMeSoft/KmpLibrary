@@ -13,7 +13,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.sweetmesoft.kmpcontrols.dialogs.BaseDialog
 
 @Composable
 internal fun AlertProgress() {
@@ -26,8 +25,7 @@ internal fun AlertProgress() {
             onDismiss = {
                 PopupHandler.progressShow = false
                 PopupHandler.progressDismiss()
-            }
-        ) {
+            }) {
             Column(
                 modifier = Modifier.fillMaxWidth().padding(16.dp)
             ) {
