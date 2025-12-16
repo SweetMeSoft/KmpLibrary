@@ -27,6 +27,7 @@ import com.sweetmesoft.kmpbase.controls.commonList.LocalGridList
 import com.sweetmesoft.kmpbase.objects.IconAction
 import com.sweetmesoft.kmptestapp.screens.about.AboutScreen
 import com.sweetmesoft.kmptestapp.screens.bottombar.BottomBarScreen
+import com.sweetmesoft.kmptestapp.screens.colors.ColorsScreen
 import com.sweetmesoft.kmptestapp.screens.controls.ControlsScreen
 import com.sweetmesoft.kmptestapp.screens.dialogs.DialogsScreen
 import com.sweetmesoft.kmptestapp.screens.drawer.DrawerScreen
@@ -41,6 +42,7 @@ import compose.icons.tablericons.LayoutBottombar
 import compose.icons.tablericons.LayoutSidebar
 import compose.icons.tablericons.Map
 import compose.icons.tablericons.Message
+import compose.icons.tablericons.Palette
 
 data class MainMenuItem(
         val title: String,
@@ -81,6 +83,12 @@ class MainScreen : Screen {
                                     TablerIcons.Message,
                                     Color(0xFF2196F3)
                             ) { navigator.push(DialogsScreen()) },
+                            MainMenuItem(
+                                    "Colors",
+                                    "Theme Color Palette",
+                                    TablerIcons.Palette,
+                                    Color(0xFF607D8B)
+                            ) { navigator.push(ColorsScreen()) },
                             MainMenuItem(
                                     "Maps",
                                     "Display maps and routes",
