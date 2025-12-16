@@ -53,7 +53,7 @@ In your `libs.versions.toml` file:
 
 ```toml
 [versions]
-sweetmesoft = "1.7.7"
+sweetmesoft = "2.0.1"
 
 [libraries]
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
@@ -192,7 +192,7 @@ Explore our complete examples:
 
 ## Project Status
 
-- **Current Version:** 1.7.7
+- **Current Version:** 2.0.1
 - **Kotlin:** 2.2.21+
 - **Compose:** 1.9.0+
 - **Platforms:** Android, iOS

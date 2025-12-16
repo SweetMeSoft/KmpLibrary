@@ -216,77 +216,38 @@ class SplashScreen : BaseScreen() {
 
 ### MainScreen.kt - Main Screen
 
+The main screen uses `LocalGridList` to provide navigation to different feature modules.
+
 ```kotlin
 class MainScreen : BaseBottomBarScreen() {
     @Composable
     override fun ScreenContent() {
-        val viewModel = remember { MainViewModel() }
-        val uiState by viewModel.uiState.collectAsState()
+        val navigator = LocalNavigator.currentOrThrow
         
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item {
-                WelcomeCard()
-            }
-            
-            item {
-                ComponentsSection(viewModel)
-            }
-            
-            item {
-                ControlsSection(viewModel)
-            }
-            
-            item {
-                MapsSection(viewModel)
-            }
-            
-            item {
-                UtilitiesSection(viewModel)
-            }
+        val menuItems = listOf(
+            MainMenuItem("Controls", "Input controls", TablerIcons.Forms) { 
+                navigator.push(ControlsScreen()) 
+            },
+            MainMenuItem("Maps", "Map integration", TablerIcons.Map) { 
+                navigator.push(MapScreen()) 
+            },
+            MainMenuItem("Dialogs", "Alerts & Dialogs", TablerIcons.Message) { 
+                navigator.push(DialogsScreen()) 
+            },
+            // ... other items
+        )
+        
+        LocalGridList(
+            list = menuItems,
+            columns = 2,
+            contentPadding = PaddingValues(16.dp)
+        ) { _, item ->
+            MenuCard(item)
         }
         
         // Alert and popup handling
         PopupHandler.currentPopup?.let { popup ->
-            when (popup) {
-                is PopupState.Alert -> {
-                    AlertConfirm(
-                        title = popup.title,
-                        message = popup.message,
-                        onConfirm = popup.onConfirm,
-                        onCancel = popup.onCancel
-                    )
-                }
-                is PopupState.Progress -> {
-                    AlertProgress(
-                        title = popup.title,
-                        message = popup.message,
-                        progress = popup.progress
-                    )
-                }
-            }
-        }
-    }
-    
-    @Composable
-    override fun BottomBarContent() {
-        NavigationBar {
-            NavigationBarItem(
-                selected = true,
-                onClick = { },
-                icon = { Icon(Icons.Default.Home, contentDescription = null) },
-                label = { Text("Home") }
-            )
-            NavigationBarItem(
-                selected = false,
-                onClick = { navigator?.push(AboutScreen()) },
-                icon = { Icon(Icons.Default.Info, contentDescription = null) },
-                label = { Text("About") }
-            )
+            // ...
         }
     }
 }

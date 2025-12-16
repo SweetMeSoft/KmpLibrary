@@ -67,7 +67,7 @@ author:
   name: SweetMeSoft Team
   email: team@sweetmesoft.com
 
-version: "1.7.7"
+version: "2.0.1"
 kotlin_version: "2.1.0"
 compose_version: "1.7.5"
 

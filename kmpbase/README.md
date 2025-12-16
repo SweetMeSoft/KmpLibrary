@@ -10,7 +10,7 @@ Add the dependency to your version catalog or build file.
 
 ```toml
 [versions]
-sweetmesoft = "1.7.7"
+sweetmesoft = "2.0.1"
 
 [libraries]
 sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
@@ -265,6 +265,15 @@ DoublePicker(
         // Update value
     }
 )
+
+CalculatorPopup(
+    visible = showCalculator,
+    onDismissRequest = { showCalculator = false },
+    onResult = { result ->
+        amount = result
+        showCalculator = false
+    }
+)
 ```
 
 ### Popups and Alerts
@@ -286,6 +295,24 @@ PopupHandler.displayConfirm(
         // Handle confirmation
     }
 )
+
+// Display a progress dialog with updates
+val job = scope.launch {
+    PopupHandler.displayProgress(
+        title = "Downloading",
+        cancelText = "Cancel",
+        progress = 0f
+    ) {
+        // Handle cancellation
+    }
+    
+    for (i in 1..100) {
+        delay(50)
+        PopupHandler.updateProgress(i / 100f)
+    }
+    
+    PopupHandler.hideProgress()
+}
 ```
 
 ## Network Utilities

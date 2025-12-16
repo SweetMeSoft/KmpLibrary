@@ -22,7 +22,7 @@ If you are using a version catalog (e.g., `libs.versions.toml`), add the followi
 
 ```toml
 [versions]
-sweetmesoft = "1.7.7"
+sweetmesoft = "2.0.1"
 
 [libraries]
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }

@@ -67,13 +67,13 @@ Add the dependencies in your `build.gradle.kts` file:
 ```kotlin
 commonMain.dependencies {
     // Main library
-    implementation("com.sweetmesoft.kmplibrary:kmplibrary:1.7.7")
+    implementation("com.sweetmesoft.kmpbase:kmpbase:2.0.1")
     
     // Basic controls
-    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:1.7.7")
+    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:2.0.1")
     
     // Map components
-    implementation("com.sweetmesoft.kmpmaps:kmpmaps:1.7.7")
+    implementation("com.sweetmesoft.kmpmaps:kmpmaps:2.0.1")
 }
 ```
 
@@ -83,10 +83,10 @@ In your `libs.versions.toml` file:
 
 ```toml
 [versions]
-sweetmesoft = "1.7.7"
+sweetmesoft = "2.0.1"
 
 [libraries]
-sweetmesoft-library = { module = "com.sweetmesoft.kmplibrary:kmplibrary", version.ref = "sweetmesoft" }
+sweetmesoft-library = { module = "com.sweetmesoft.kmpbase:kmpbase", version.ref = "sweetmesoft" }
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
 sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
 ```
@@ -119,7 +119,7 @@ In your `libs.versions.toml` file:
 
 ```toml
 [versions]
-sweetmesoft = "1.7.7"
+sweetmesoft = "2.0.1"
 
 [libraries]
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
@@ -142,7 +142,7 @@ commonMain.dependencies {
 ```kotlin
 import androidx.compose.runtime.*
 import com.sweetmesoft.kmpcontrols.pickers.DatePicker
-import com.sweetmesoft.kmplibrary.controls.PasswordControl
+import com.sweetmesoft.kmpbase.controls.PasswordControl
 import com.sweetmesoft.kmpmaps.MapComponent
 import com.sweetmesoft.kmpmaps.controls.Coordinates
 
@@ -342,7 +342,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 | Aspect | Status |
 |---------|--------|
-| **Current Version** | ![Version](https://img.shields.io/badge/version-1.7.7-blue) |
+| **Current Version** | ![Version](https://img.shields.io/badge/version-2.0.1-blue) |
 | **Status** | ![Status](https://img.shields.io/badge/status-Active%20development-green) |
 | **Kotlin** | ![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-purple) |
 | **Compose** | ![Compose](https://img.shields.io/badge/Compose-1.7.0%2B-orange) |

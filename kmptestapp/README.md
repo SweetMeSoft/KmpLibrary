@@ -58,9 +58,17 @@ kmptestapp/
 │   │           │   ├── about/
 │   │           │   │   └── AboutScreen.kt    # About screen
 │   │           │   ├── main/
-│   │           │   │   ├── MainScreen.kt     # Main screen
-│   │           │   │   └── MainViewModel.kt  # Main ViewModel
-│   │           │   └── splash/
+│           │   │   ├── MainScreen.kt     # Main screen (Grid menu)
+│           │   │   └── MainViewModel.kt  # Main ViewModel
+│           │   ├── maps/
+│           │   │   └── MapScreen.kt      # Maps demonstration
+│           │   ├── dialogs/
+│           │   │   └── DialogsScreen.kt  # Dialogs & Alerts
+│           │   ├── pickers/
+│           │   │   └── PickersScreen.kt  # Date/Time Pickers
+│           │   ├── controls/
+│           │   │   └── ControlsScreen.kt # UI Controls
+│           │   └── splash/
 │   │           │       └── SplashScreen.kt   # Splash screen
 │   │           └── theme/
 │   │               ├── Color.kt              # Theme colors
@@ -201,23 +209,33 @@ commonMain.dependencies {
 
 ### 1. Main Screen Implementation
 
-The main screen demonstrates the use of multiple components:
+The main screen demonstrates the use of `LocalGridList` to navigate to different feature modules:
 
 ```kotlin
 class MainScreen : BaseBottomBarScreen() {
     @Composable
     override fun ScreenContent() {
-        val viewModel = remember { MainViewModel() }
-        val uiState by viewModel.uiState.collectAsState()
+        val navigator = LocalNavigator.currentOrThrow
         
-        LazyColumn(
-            modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            item { ComponentsSection(viewModel) }
-            item { MapsSection(viewModel) }
-            item { UtilitiesSection(viewModel) }
+        val menuItems = listOf(
+            MainMenuItem("Controls", "Input controls", TablerIcons.Forms) { 
+                navigator.push(ControlsScreen()) 
+            },
+            MainMenuItem("Maps", "Map integration", TablerIcons.Map) { 
+                navigator.push(MapScreen()) 
+            },
+            MainMenuItem("Dialogs", "Alerts & Dialogs", TablerIcons.Message) { 
+                navigator.push(DialogsScreen()) 
+            },
+            // ... other items
+        )
+        
+        LocalGridList(
+            list = menuItems,
+            columns = 2,
+            contentPadding = PaddingValues(16.dp)
+        ) { _, item ->
+            MenuCard(item)
         }
     }
 }
