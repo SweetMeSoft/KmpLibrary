@@ -11,6 +11,9 @@ import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import com.sweetmesoft.kmpbase.base.BaseDrawerScreen
 import com.sweetmesoft.kmpbase.base.BaseViewModel
+import com.sweetmesoft.kmptestapp.tabs.FavoritesTab
+import com.sweetmesoft.kmptestapp.tabs.HomeTab
+import com.sweetmesoft.kmptestapp.tabs.SettingsTab
 
 class DrawerScreen : Screen {
     @Composable
@@ -20,10 +23,12 @@ class DrawerScreen : Screen {
             tabs = listOf(HomeTab(), FavoritesTab(), SettingsTab()),
             logoutAction = { navigator.pop() },
             headerView = {
-                Box(modifier = Modifier.fillMaxWidth().height(150.dp), contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier.fillMaxWidth().height(150.dp),
+                    contentAlignment = Alignment.Center
+                ) {
                     Text("Drawer Header")
                 }
-            }
-        )
+            })
     }
 }

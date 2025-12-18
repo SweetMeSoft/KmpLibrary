@@ -29,7 +29,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.LinearProgressIndicator
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
@@ -268,7 +267,7 @@ class MaterialScreen : Screen {
     private fun Section(title: String, content: @Composable () -> Unit) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
-                title, style = MaterialTheme.typography.titleMedium
+                title
             )
             HorizontalDivider()
             content()
