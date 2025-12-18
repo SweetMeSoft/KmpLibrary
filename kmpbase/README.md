@@ -22,6 +22,36 @@ sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweet
 implementation(libs.sweetmesoft.library)
 ```
 
+## Theming
+
+The library supports easy theme customization using Material 3 dynamic color schemes. You can generate a full color palette from just a primary color (and optionally secondary/tertiary colors).
+
+### Basic Theme Customization
+
+```kotlin
+CustomTheme(
+    primaryColor = Color(0xFF003b61), // Only primary color is required
+    secondaryColor = Color(0xFF4D7690), // Optional
+    darkTheme = isSystemInDarkTheme(),
+    isAmoled = false, // True for pitch black background in dark mode
+    content = {
+        // Your app content
+    }
+)
+```
+
+### Advanced Color Scheme Generation
+
+You can also use the `CustomColors.fromPrimarySecondary` helper to generate a `ColorScheme` object directly:
+
+```kotlin
+val myScheme = CustomColors.fromPrimarySecondary(
+    primary = Color(0xFF6200EE),
+    secondary = Color(0xFF03DAC6),
+    style = PaletteStyle.Vibrant // Choose from TonalSpot, Neutral, Vibrant, Expressive, etc.
+)
+```
+
 ## Architecture
 
 This library promotes a consistent architecture using a suite of `BaseScreen` composables and `BaseViewModel`.

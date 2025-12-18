@@ -41,6 +41,7 @@ kotlin {
             implementation(libs.kotlin.serialization)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.negotiation)
+            implementation(libs.material.kolor)
             implementation(libs.settings)
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.navigator)
@@ -65,9 +66,7 @@ kotlin {
 android {
     namespace = "com.sweetmesoft.kmpbase"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
+    defaultConfig { minSdk = libs.versions.android.minSdk.get().toInt() }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -94,7 +93,6 @@ mavenPublishing {
             }
         }
 
-
         developers {
             developer {
                 name.set("Erick Velasco")
@@ -102,9 +100,7 @@ mavenPublishing {
             }
         }
 
-        scm {
-            url.set("https://github.com/erickvelasco11/KmpLibrary")
-        }
+        scm { url.set("https://github.com/erickvelasco11/KmpLibrary") }
     }
 
     publishToMavenCentral()
