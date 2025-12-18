@@ -40,7 +40,7 @@ fun SearchControl(
     modifier: Modifier = Modifier,
     placeholder: String = stringResource(Res.string.Search),
     value: String = "",
-    imeAction: ImeAction = ImeAction.Default,
+    imeAction: ImeAction = ImeAction.Search,
     enabled: Boolean = true,
     cornerSize: Dp = 4.dp,
     onValueChange: (String) -> Unit,

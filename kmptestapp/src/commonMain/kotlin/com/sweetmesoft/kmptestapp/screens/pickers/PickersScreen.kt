@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,10 +35,7 @@ class PickersScreen : Screen {
     override fun Content() {
         remember { PickersViewModel() }
         BaseScreen(
-            toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false,
-            title = "Pickers",
-            edgeToEdge = false
+            title = "Pickers"
         ) {
             var date: LocalDate by remember { mutableStateOf(getCurrentDateTime().date) }
             var time: LocalTime by remember { mutableStateOf(getCurrentDateTime().time) }

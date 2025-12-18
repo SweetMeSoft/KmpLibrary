@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -31,10 +30,7 @@ class DialogsScreen : Screen {
     override fun Content() {
         remember { DialogsViewModel() }
         BaseScreen(
-            toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false,
-            title = "Dialogs",
-            edgeToEdge = false
+            title = "Dialogs"
         ) {
             val scope = rememberCoroutineScope()
             var promptInput by remember { mutableStateOf("") }

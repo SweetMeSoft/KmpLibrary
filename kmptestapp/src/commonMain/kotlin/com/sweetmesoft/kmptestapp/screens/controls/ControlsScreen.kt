@@ -31,9 +31,7 @@ class ControlsScreen : Screen {
         val viewModel = remember { ControlsViewModel() }
 
         BaseScreen(
-            title = "Controls Test",
-            toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false
+            title = "Controls Test"
         ) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(16.dp),

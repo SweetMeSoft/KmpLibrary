@@ -1,6 +1,5 @@
 package com.sweetmesoft.kmptestapp.screens.map
 
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
@@ -14,12 +13,7 @@ class MapScreen : Screen {
     @Composable
     override fun Content() {
         remember { MapViewModel() }
-        BaseScreen(
-            toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false,
-            title = "Map",
-            edgeToEdge = false
-        ) {
+        BaseScreen(edgeToEdge = true) {
             MapComponent(
                 coordinates = Coordinates(4.7, -74.12), zoom = 15f, routes = listOf(
                     RouteMap(

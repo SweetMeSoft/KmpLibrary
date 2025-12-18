@@ -2,7 +2,6 @@ package com.sweetmesoft.kmptestapp.screens.drawer
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,14 +15,9 @@ import compose.icons.tablericons.Home
 
 class HomeTab : BaseTab {
     override val baseOptions: BaseTabOptions
-        @Composable
-        get() =
-                defaultBaseTabOptions(
-                        title = "Inicio",
-                        icon = rememberVectorPainter(image = TablerIcons.Home),
-                        toolbarColor = MaterialTheme.colorScheme.primary,
-                        toolbarIconsLight = false
-                )
+        @Composable get() = defaultBaseTabOptions(
+            title = "Inicio", icon = rememberVectorPainter(image = TablerIcons.Home)
+        )
 
     @Composable
     override fun Content() {

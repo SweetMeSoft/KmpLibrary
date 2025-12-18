@@ -36,17 +36,12 @@ class ColorsScreen : Screen {
         val colors = remember { defineList(colorScheme) }
 
         BaseScreen(
-            toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false,
-            title = "Theme Colors",
-            edgeToEdge = false
+            title = "Theme Colors"
         ) {
             Column(modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp)) {
                 LocalGridList(
                     list = colors, modifier = Modifier.fillMaxSize(), spaceBetween = 12.dp
-                ) { _, item ->
-                    ColorCard(item)
-                }
+                ) { _, item -> ColorCard(item) }
             }
         }
     }
@@ -98,9 +93,7 @@ class ColorsScreen : Screen {
             ColorItem(
                 "On Primary Container", colorScheme.onPrimaryContainer, colorScheme.primaryContainer
             ),
-            ColorItem(
-                "Inverse Primary", colorScheme.inversePrimary, colorScheme.primary
-            ),
+            ColorItem("Inverse Primary", colorScheme.inversePrimary, colorScheme.primary),
             ColorItem("Secondary", colorScheme.secondary, colorScheme.onSecondary),
             ColorItem("On Secondary", colorScheme.onSecondary, colorScheme.secondary),
             ColorItem(
@@ -124,9 +117,7 @@ class ColorsScreen : Screen {
                 colorScheme.tertiaryContainer
             ),
             ColorItem("Background", colorScheme.background, colorScheme.onBackground),
-            ColorItem(
-                "On Background", colorScheme.onBackground, colorScheme.background
-            ),
+            ColorItem("On Background", colorScheme.onBackground, colorScheme.background),
             ColorItem("Surface", colorScheme.surface, colorScheme.onSurface),
             ColorItem("On Surface", colorScheme.onSurface, colorScheme.surface),
             ColorItem(
@@ -153,9 +144,7 @@ class ColorsScreen : Screen {
             ColorItem("Outline", colorScheme.outline, colorScheme.onPrimary),
             ColorItem("Outline Variant", colorScheme.outlineVariant, colorScheme.onPrimary),
             ColorItem("Scrim", colorScheme.scrim, Color.White),
-            ColorItem(
-                "Surface Bright", colorScheme.surfaceBright, colorScheme.onSurface
-            ),
+            ColorItem("Surface Bright", colorScheme.surfaceBright, colorScheme.onSurface),
             ColorItem(
                 "Surface Container Highest",
                 colorScheme.surfaceContainerHighest,
@@ -164,9 +153,7 @@ class ColorsScreen : Screen {
             ColorItem(
                 "Surface Container High", colorScheme.surfaceContainerHigh, colorScheme.onSurface
             ),
-            ColorItem(
-                "Surface Container", colorScheme.surfaceContainer, colorScheme.onSurface
-            ),
+            ColorItem("Surface Container", colorScheme.surfaceContainer, colorScheme.onSurface),
             ColorItem(
                 "Surface Container Low", colorScheme.surfaceContainerLow, colorScheme.onSurface
             ),
@@ -178,12 +165,8 @@ class ColorsScreen : Screen {
             ColorItem("Surface Dim", colorScheme.surfaceDim, colorScheme.onSurface),
 
             // Fixed colors
-            ColorItem(
-                "Primary Fixed", colorScheme.primaryFixed, colorScheme.onPrimaryFixed
-            ),
-            ColorItem(
-                "On Primary Fixed", colorScheme.onPrimaryFixed, colorScheme.primaryFixed
-            ),
+            ColorItem("Primary Fixed", colorScheme.primaryFixed, colorScheme.onPrimaryFixed),
+            ColorItem("On Primary Fixed", colorScheme.onPrimaryFixed, colorScheme.primaryFixed),
             ColorItem(
                 "Primary Fixed Dim", colorScheme.primaryFixedDim, colorScheme.onPrimaryFixedVariant
             ),
@@ -208,9 +191,7 @@ class ColorsScreen : Screen {
                 colorScheme.onSecondaryFixedVariant,
                 colorScheme.secondaryFixedDim
             ),
-            ColorItem(
-                "Tertiary Fixed", colorScheme.tertiaryFixed, colorScheme.onTertiaryFixed
-            ),
+            ColorItem("Tertiary Fixed", colorScheme.tertiaryFixed, colorScheme.onTertiaryFixed),
             ColorItem(
                 "On Tertiary Fixed", colorScheme.onTertiaryFixed, colorScheme.tertiaryFixed
             ),
