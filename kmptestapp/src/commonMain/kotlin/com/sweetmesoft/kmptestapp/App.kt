@@ -10,7 +10,7 @@ import com.sweetmesoft.kmptestapp.screens.splash.SplashScreen
 
 @Composable
 fun App() {
-    CustomTheme(primaryColor = Color(0xFF003b61)) {
+    CustomTheme(primaryColor = Color(0xFF003b61), shapes = "circle") {
         Navigator(screen = SplashScreen()) { navigator ->
             BaseViewModel.navigator = navigator
             SlideTransition(navigator)

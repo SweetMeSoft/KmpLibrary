@@ -60,7 +60,7 @@ class MainScreen : Screen {
     override fun Content() {
         remember { MainViewModel() }
         BaseScreen(
-            showTop = true, iconActions = listOf(
+            showTop = true, title = "KMP Library", iconActions = listOf(
                 IconAction(TablerIcons.DotsVertical, true) {
                     navigator.push(AboutScreen())
                 })

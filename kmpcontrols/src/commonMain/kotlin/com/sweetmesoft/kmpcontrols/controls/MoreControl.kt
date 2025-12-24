@@ -30,18 +30,17 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
 
     Box(modifier) {
         IconButton(
-            onClick = { showMenu = true },
-            modifier = modifier.size(20.dp)
+            onClick = { showMenu = true }, modifier = modifier.size(20.dp)
         ) {
             Icon(
-                TablerIcons.DotsVertical,
-                contentDescription = "Options Icon"
+                TablerIcons.DotsVertical, contentDescription = "Options Icon"
             )
         }
 
         DropdownMenu(
             expanded = showMenu,
             onDismissRequest = { showMenu = false },
+            shape = MaterialTheme.shapes.medium,
             modifier = Modifier.align(Alignment.TopEnd)
                 .background(MaterialTheme.colorScheme.surface)
         ) {
@@ -68,7 +67,5 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
 }
 
 data class ItemOption(
-    val text: String,
-    val icon: ImageVector? = null,
-    val onClick: () -> Unit
+    val text: String, val icon: ImageVector? = null, val onClick: () -> Unit
 )

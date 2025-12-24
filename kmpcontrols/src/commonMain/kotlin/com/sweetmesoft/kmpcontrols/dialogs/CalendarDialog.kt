@@ -16,7 +16,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -101,7 +101,9 @@ fun CalendarDialog(
         ) {
             Column(
                 modifier = Modifier.fillMaxWidth().background(
-                    color = color, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                    color = color, shape = MaterialTheme.shapes.medium.copy(
+                        bottomStart = CornerSize(0), bottomEnd = CornerSize(0)
+                    )
                 ).padding(16.dp)
             ) {
                 Text(

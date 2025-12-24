@@ -55,7 +55,7 @@ class BaseBottomBarScreen {
 fun BaseBottomBarScreen(
     modifier: Modifier = Modifier,
     navigationBarItemColors: NavigationBarItemColors = NavigationBarItemDefaults.colors(
-        selectedIconColor = Color.White,
+        selectedIconColor = MaterialTheme.colorScheme.onPrimary,
         selectedTextColor = MaterialTheme.colorScheme.primary,
         unselectedIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
         unselectedTextColor = MaterialTheme.colorScheme.onSurfaceVariant,

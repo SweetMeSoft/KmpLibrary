@@ -45,7 +45,7 @@ fun CalculatorPopup(
         ) {
             Column(
                 modifier = Modifier.background(
-                    MaterialTheme.colorScheme.surface, shape = RoundedCornerShape(16.dp)
+                    MaterialTheme.colorScheme.surface, shape = MaterialTheme.shapes.extraLarge
                 )
             ) {
                 Text(

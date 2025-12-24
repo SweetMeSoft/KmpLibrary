@@ -15,7 +15,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -78,7 +78,11 @@ fun ClockDialog(
             ) {
                 TimeDialogHeader(
                     modifier = Modifier.fillMaxWidth().background(
-                        color = color, shape = RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)
+                        color = color,
+                        shape = MaterialTheme.shapes.large.copy(
+                            bottomStart = CornerSize(0),
+                            bottomEnd = CornerSize(0)
+                        )
                     ).padding(16.dp),
                     hour = selectedHour,
                     minute = selectedMinute,

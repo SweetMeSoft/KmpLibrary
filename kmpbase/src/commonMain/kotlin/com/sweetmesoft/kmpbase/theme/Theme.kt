@@ -2,16 +2,14 @@ package com.sweetmesoft.kmpbase.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.MaterialTheme.shapes
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import com.materialkolor.DynamicMaterialTheme
 import com.materialkolor.PaletteStyle
-import com.materialkolor.rememberDynamicMaterialThemeState
+import com.materialkolor.rememberDynamicColorScheme
 import kmplibrary.kmpbase.generated.resources.Nunito_Bold
 import kmplibrary.kmpbase.generated.resources.Nunito_BoldItalic
 import kmplibrary.kmpbase.generated.resources.Nunito_ExtraBold
@@ -86,36 +84,37 @@ fun CustomTheme(
     primaryColor: Color,
     secondaryColor: Color? = null,
     tertiaryColor: Color? = null,
+    neutralColor: Color? = null,
     isAmoled: Boolean = false,
+    isDark: Boolean = isSystemInDarkTheme(),
     style: PaletteStyle = PaletteStyle.TonalSpot,
     typography: Typography = getDefaultTypography(),
+    shapes: CustomShapes = CustomShapes.Squircle,
     content: @Composable () -> Unit
 ) {
-    val stateLight = rememberDynamicMaterialThemeState(
-        primaryColor,
-        isDark = false,
+    val colorScheme = rememberDynamicColorScheme(
+        seedColor = primaryColor,
+        primary = primaryColor,
         secondary = secondaryColor,
         tertiary = tertiaryColor,
+        neutral = neutralColor ?: primaryColor,
+        isDark = isDark,
         isAmoled = isAmoled,
-        style = style
-    ) { colorScheme ->
-        colorScheme.copy(primary = primaryColor)
-    }
-    val stateDark = rememberDynamicMaterialThemeState(
-        primaryColor,
-        isDark = true,
-        secondary = secondaryColor,
-        tertiary = tertiaryColor,
-        isAmoled = isAmoled,
-        style = style
-    ) { colorScheme ->
-        colorScheme.copy(primaryContainer = primaryColor)
-    }
-
-    DynamicMaterialTheme(
-        state = if (isSystemInDarkTheme()) stateDark else stateLight, animate = true, content = {
-            MaterialTheme(
-                content = content, shapes = shapes, typography = typography
-            )
+        style = style,
+        modifyColorScheme = {
+            if (isDark) {
+                it.copy()
+            } else {
+                it.copy(
+                    primary = primaryColor
+                )
+            }
         })
+
+    MaterialTheme(
+        colorScheme = colorScheme,
+        content = content,
+        typography = typography,
+        shapes = getShapes(shapes)
+    )
 }
