@@ -13,7 +13,7 @@ class MapScreen : Screen {
     @Composable
     override fun Content() {
         remember { MapViewModel() }
-        BaseScreen(edgeToEdge = true) {
+        BaseScreen {
             MapComponent(
                 coordinates = Coordinates(4.7, -74.12), zoom = 15f, routes = listOf(
                     RouteMap(

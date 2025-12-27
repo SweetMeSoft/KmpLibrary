@@ -111,12 +111,14 @@ fun CalendarDialog(
                         if (!selectYear) {
                             selectYear = true
                         }
-                    }, text = selectedDate.year.toString(), color = Color.White
+                    },
+                    text = selectedDate.year.toString(),
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
                 Text(
                     text = selectedDate.toLocalString(DateFormats.WWW_MMM_DD),
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             }
 

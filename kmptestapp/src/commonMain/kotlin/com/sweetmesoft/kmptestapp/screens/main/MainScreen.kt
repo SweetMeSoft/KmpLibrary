@@ -4,11 +4,14 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -95,7 +98,10 @@ class MainScreen : Screen {
                     "About", "Learn more about this app", TablerIcons.InfoCircle, Color(0xFFFF9800)
                 ) { navigator.push(AboutScreen()) })
 
-            Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+            Column(
+                modifier = Modifier.fillMaxSize().padding(16.dp)
+                    .windowInsetsPadding(WindowInsets.navigationBars)
+            ) {
                 Text(
                     text = "KMP Library",
                     fontSize = MaterialTheme.typography.displaySmall.fontSize,

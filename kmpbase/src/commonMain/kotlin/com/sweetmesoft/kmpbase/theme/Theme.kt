@@ -90,6 +90,7 @@ fun CustomTheme(
     style: PaletteStyle = PaletteStyle.TonalSpot,
     typography: Typography = getDefaultTypography(),
     shapes: CustomShapes = CustomShapes.Squircle,
+    inverseLight: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = rememberDynamicColorScheme(
@@ -105,9 +106,28 @@ fun CustomTheme(
             if (isDark) {
                 it.copy()
             } else {
-                it.copy(
-                    primary = primaryColor
-                )
+                if (inverseLight) {
+                    val s = it.surfaceDim
+                    val sch = it.surfaceContainerHighest
+                    it.surfaceContainerHigh
+
+                    it.copy(
+                        primary = primaryColor,
+                        primaryContainer = it.surfaceContainerLowest,
+                        surfaceDim = it.surfaceBright,
+                        surfaceContainerHighest = it.surfaceContainerLowest,
+                        surfaceContainerHigh = it.surfaceContainerLow,
+                        //surfaceContainerLow = sh,
+                        surfaceContainerLowest = sch,
+                        surfaceBright = s,
+                        surface = it.surfaceContainerHigh,
+                        background = it.surfaceContainerHigh
+                    )
+                } else {
+                    it.copy(
+                        primary = primaryColor
+                    )
+                }
             }
         })
 

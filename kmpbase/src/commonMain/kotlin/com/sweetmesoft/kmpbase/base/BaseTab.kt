@@ -22,24 +22,26 @@ data class BaseTabOptions(
     var fabAction: () -> Unit = emptyFunction,
     val fabIcon: ImageVector = TablerIcons.Check,
     val toolbarColor: Color,
-    val toolbarIconsLight: Boolean,
-    val navigationColor: Color,
-    val navigationIconsLight: Boolean,
+    val onToolbarColor: Color,
+    val statusDarkIcons: Boolean,
+    val navigationDarkIcons: Boolean,
+    var navigationColor: Color,
     val iconActions: List<IconAction> = listOf()
 )
 
 @Composable
 fun defaultBaseTabOptions(
-    title: String,
+    title: String = "",
     icon: Painter? = null,
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
     fabIcon: ImageVector = TablerIcons.Check,
-    toolbarColor: Color = MaterialTheme.colorScheme.background,
-    toolbarIconsLight: Boolean = !isSystemInDarkTheme(),
-    navigationColor: Color = MaterialTheme.colorScheme.background,
-    navigationIconsLight: Boolean = !isSystemInDarkTheme(),
+    toolbarColor: Color = MaterialTheme.colorScheme.surface,
+    onToolbarColor: Color = MaterialTheme.colorScheme.onSurface,
+    statusDarkIcons: Boolean = !isSystemInDarkTheme(),
+    navigationDarkIcons: Boolean = !isSystemInDarkTheme(),
+    navigationColor: Color = Color.Transparent,
     iconActions: List<IconAction> = listOf()
 ): BaseTabOptions {
     return BaseTabOptions(
@@ -50,9 +52,10 @@ fun defaultBaseTabOptions(
         fabAction = fabAction,
         fabIcon = fabIcon,
         toolbarColor = toolbarColor,
-        toolbarIconsLight = toolbarIconsLight,
+        onToolbarColor = onToolbarColor,
+        statusDarkIcons = statusDarkIcons,
+        navigationDarkIcons = navigationDarkIcons,
         navigationColor = navigationColor,
-        navigationIconsLight = navigationIconsLight,
         iconActions = iconActions
     )
 }

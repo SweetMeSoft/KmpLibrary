@@ -125,9 +125,9 @@ private fun ScreenContent(
                     }
                 }, colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = toolbarColor,
-                    titleContentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                    navigationIconContentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                    actionIconContentColor = if (toolbarIconsLight) Color.Black else Color.White
+                    titleContentColor = MaterialTheme.colorScheme.onPrimary,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimary,
+                    actionIconContentColor = MaterialTheme.colorScheme.onPrimary
                 )
                 )
             }

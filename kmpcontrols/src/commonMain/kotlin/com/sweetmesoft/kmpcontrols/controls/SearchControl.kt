@@ -58,13 +58,13 @@ fun SearchControl(
         onValueChange = { onValueChange(it) },
         textStyle = TextStyle(
             fontSize = 14.sp,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.onSurface,
         ),
         singleLine = true,
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = imeAction, capitalization = KeyboardCapitalization.Sentences
         ),
-        cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
+        cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
         keyboardActions = KeyboardActions(
             onSearch = {
                 focusManager.clearFocus()

@@ -143,7 +143,7 @@ class ColorsScreen : Screen {
             ColorItem("Outline", colorScheme.outline, colorScheme.onPrimary),
             ColorItem("Outline Variant", colorScheme.outlineVariant, colorScheme.onPrimary),
             ColorItem("Scrim", colorScheme.scrim, Color.White),
-            ColorItem("Surface Bright", colorScheme.surfaceBright, colorScheme.onSurface),
+            ColorItem("Surface Dim", colorScheme.surfaceDim, colorScheme.onSurface),
             ColorItem(
                 "Surface Container Highest",
                 colorScheme.surfaceContainerHighest,
@@ -161,7 +161,7 @@ class ColorsScreen : Screen {
                 colorScheme.surfaceContainerLowest,
                 colorScheme.onSurface
             ),
-            ColorItem("Surface Dim", colorScheme.surfaceDim, colorScheme.onSurface),
+            ColorItem("Surface Bright", colorScheme.surfaceBright, colorScheme.onSurface),
 
             // Fixed colors
             ColorItem("Primary Fixed", colorScheme.primaryFixed, colorScheme.onPrimaryFixed),

@@ -39,9 +39,9 @@ import org.jetbrains.compose.resources.stringResource
 fun SplashContent(
     logo: DrawableResource,
     waitMillis: Int = 1500,
-    backgroundColor: Color = MaterialTheme.colorScheme.secondary,
-    background2Color: Color = MaterialTheme.colorScheme.secondary,
-    onBackgroundColor: Color = MaterialTheme.colorScheme.onSecondary,
+    backgroundColor: Color = MaterialTheme.colorScheme.primary,
+    background2Color: Color = MaterialTheme.colorScheme.primary,
+    onBackgroundColor: Color = MaterialTheme.colorScheme.onPrimary,
     title: String = stringResource(Res.string.By),
     subtitle: String = stringResource(Res.string.Slogan),
     action: () -> Unit

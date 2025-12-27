@@ -20,13 +20,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.sweetmesoft.kmpbase.theme.errorColor
 
 @Composable
 fun CalculatorPopup(
@@ -63,7 +63,7 @@ fun CalculatorPopup(
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 8.dp),
                     textAlign = TextAlign.End,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.outlineVariant
                 )
 
                 HorizontalDivider()
@@ -74,7 +74,7 @@ fun CalculatorPopup(
                         subtotal = "0"
                     }
                     CalculatorButton(modifier = Modifier.weight(1f), '←') {
-                        subtotal = subtotal.substring(0, subtotal.length - 1)
+                        subtotal = subtotal.dropLast(1)
                         if (subtotal.isEmpty()) {
                             subtotal = "0"
                         }
@@ -87,8 +87,7 @@ fun CalculatorPopup(
                         if (lastOperator != ' ') {
                             val lastNumber =
                                 subtotal.substring(subtotal.lastIndexOf(lastOperator) + 1)
-                            val possibleTotal =
-                                subtotal.substring(0, subtotal.lastIndexOf(lastOperator))
+                            val possibleTotal = subtotal.take(subtotal.lastIndexOf(lastOperator))
                             val percentage = lastNumber.toDouble() / 100.0
                             val newNumber = when (lastOperator) {
                                 '+' -> possibleTotal.toDouble() * percentage
@@ -105,7 +104,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colorScheme.background), '/'
+                            .background(MaterialTheme.colorScheme.primaryContainer), '/'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -126,7 +125,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colorScheme.background), '*'
+                            .background(MaterialTheme.colorScheme.primaryContainer), '*'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -147,7 +146,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colorScheme.background), '-'
+                            .background(MaterialTheme.colorScheme.primaryContainer), '-'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -168,7 +167,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f)
-                            .background(MaterialTheme.colorScheme.background), '+'
+                            .background(MaterialTheme.colorScheme.primaryContainer), '+'
                     ) {
                         subtotal = addNumber(it, subtotal)
                     }
@@ -187,7 +186,7 @@ fun CalculatorPopup(
                     }
                     CalculatorButton(
                         modifier = Modifier.weight(1f).clip(RoundedCornerShape(bottomEnd = 16.dp))
-                            .background(MaterialTheme.colorScheme.background), '='
+                            .background(MaterialTheme.colorScheme.primaryContainer), '='
                     ) {
                         onResult(total.toDouble())
                     }
@@ -267,7 +266,7 @@ private fun CalculatorButton(
         Text(
             text = text.toString(),
             fontSize = 28.sp,
-            color = if (text.isDigit()) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.primary
+            color = if (text.isDigit()) MaterialTheme.colorScheme.onSurface else if (text == '=') errorColor else MaterialTheme.colorScheme.primary
         )
     }
 }

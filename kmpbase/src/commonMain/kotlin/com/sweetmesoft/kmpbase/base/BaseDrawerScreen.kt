@@ -2,7 +2,6 @@ package com.sweetmesoft.kmpbase.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,23 +10,19 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -48,6 +43,7 @@ import com.sweetmesoft.kmpbase.controls.alerts.AlertPrompt
 import com.sweetmesoft.kmpbase.controls.alerts.AlertView
 import com.sweetmesoft.kmpbase.controls.commonList.LocalList
 import com.sweetmesoft.kmpbase.objects.IconAction
+import com.sweetmesoft.kmpbase.tools.SetNavigationBarColor
 import com.sweetmesoft.kmpbase.tools.SetStatusBarColor
 import com.sweetmesoft.kmpbase.tools.emptyFunction
 import compose.icons.TablerIcons
@@ -75,7 +71,9 @@ fun BaseDrawerScreen(
 ) {
     ModalNavigationDrawer(drawerState = vm.baseState.drawerState, drawerContent = {
         ModalDrawerSheet(
-            drawerContainerColor = Color.Transparent, drawerTonalElevation = 0.dp
+            drawerContainerColor = Color.Transparent,
+            drawerTonalElevation = 0.dp,
+            windowInsets = WindowInsets(0, 0, 0, 0),
         ) {
             DrawerContent(tabs, vm, logoutAction, headerView)
         }
@@ -97,7 +95,10 @@ fun ScreenContent(
         fabAction = tab.baseOptions.fabAction,
         fabIcon = tab.baseOptions.fabIcon,
         toolbarColor = tab.baseOptions.toolbarColor,
-        toolbarIconsLight = tab.baseOptions.toolbarIconsLight,
+        onToolbarColor = tab.baseOptions.onToolbarColor,
+        statusDarkIcons = tab.baseOptions.statusDarkIcons,
+        navigationDarkIcons = tab.baseOptions.navigationDarkIcons,
+        navigationColor = tab.baseOptions.navigationColor,
         iconActions = tab.baseOptions.iconActions,
         vm = vm
     ) {
@@ -124,7 +125,6 @@ private fun DrawerContent(
     Column(
         modifier = Modifier.fillMaxHeight().fillMaxWidth(0.75f)
             .background(MaterialTheme.colorScheme.surface)
-            .windowInsetsPadding(WindowInsets.safeDrawing),
     ) {
         headerView()
         Box(modifier = Modifier.weight(1f)) {
@@ -146,7 +146,10 @@ private fun DrawerContent(
         }
         val icon = rememberVectorPainter(TablerIcons.Logout)
         ItemDrawer(
-            icon = icon, title = stringResource(Res.string.Logout), index = 9999
+            icon = icon,
+            title = stringResource(Res.string.Logout),
+            index = 9999,
+            modifier = Modifier.windowInsetsPadding(WindowInsets.navigationBars)
         ) {
             logoutAction()
         }
@@ -162,82 +165,43 @@ private fun TabContent(
     fabAction: () -> Unit,
     fabIcon: ImageVector,
     toolbarColor: Color,
-    toolbarIconsLight: Boolean,
-    iconActions: List<IconAction> = listOf(),
+    onToolbarColor: Color,
+    statusDarkIcons: Boolean,
+    navigationDarkIcons: Boolean,
+    navigationColor: Color,
+    iconActions: List<IconAction>,
     vm: BaseViewModel,
     content: @Composable (PaddingValues) -> Unit
 ) {
-    SetStatusBarColor(color = toolbarColor, darkIcons = toolbarIconsLight)
+    SetStatusBarColor(toolbarColor, statusDarkIcons)
+    SetNavigationBarColor(navigationColor, navigationDarkIcons)
     val scope = rememberCoroutineScope()
-    Scaffold(
-        contentWindowInsets = WindowInsets.systemBars,
-        modifier = modifier.fillMaxSize().background(toolbarColor)
-            .windowInsetsPadding(WindowInsets.safeDrawing),
-        topBar = {
-            if (title.isNotEmpty() || showTop) {
-                TopAppBar(
-                    title = {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(title)
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.padding(end = 16.dp)
-                        ) {
-                            if (iconActions.any()) {
-                                iconActions.forEach { action ->
-                                    if (action.showIcon) {
-                                        IconButton(
-                                            onClick = action.onClick,
-                                            modifier = Modifier.padding(start = 12.dp).size(28.dp)
-                                        ) {
-                                            Icon(
-                                                imageVector = action.icon,
-                                                contentDescription = null,
-                                                modifier = Modifier.padding(4.dp)
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }, navigationIcon = {
-                    IconButton(modifier = Modifier.padding(horizontal = 16.dp), onClick = {
-                        scope.launch {
-                            vm.openDrawer()
-                        }
-                    }) {
-                        Icon(
-                            modifier = Modifier.size(24.dp),
-                            imageVector = TablerIcons.Menu2,
-                            contentDescription = "List"
-                        )
-                    }
-                }, colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = toolbarColor,
-                    titleContentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                    navigationIconContentColor = if (toolbarIconsLight) Color.Black else Color.White,
-                    actionIconContentColor = if (toolbarIconsLight) Color.Black else Color.White
-                )
-                )
-            }
-        },
-        floatingActionButton = {
-            if (fabAction != emptyFunction) {
-                FloatingActionButton(onClick = fabAction) {
-                    Icon(
-                        imageVector = fabIcon,
-                        contentDescription = "fabIcon",
-                        tint = Color.DarkGray,
-                        modifier = Modifier.size(24.dp)
-                    )
+    Scaffold(modifier = modifier.fillMaxSize(), topBar = {
+        if (title.isNotEmpty() || showTop) {
+            CustomToolbar(
+                title = title,
+                iconActions = iconActions,
+                toolbarColor = toolbarColor,
+                onToolbarColor = onToolbarColor,
+                navigationIcon = TablerIcons.Menu2,
+            ) {
+                scope.launch {
+                    vm.openDrawer()
                 }
             }
-        }) {
+        }
+    }, floatingActionButton = {
+        if (fabAction != emptyFunction) {
+            FloatingActionButton(onClick = fabAction) {
+                Icon(
+                    imageVector = fabIcon,
+                    contentDescription = "fabIcon",
+                    tint = Color.DarkGray,
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+        }
+    }) {
         Box(modifier = Modifier.padding(it)) {
             content(it)
         }

@@ -12,7 +12,7 @@ import compose.icons.tablericons.Settings
 class SettingsTab : BaseTab {
     override val baseOptions: BaseTabOptions
         @Composable get() = defaultBaseTabOptions(
-            title = "Inicio", icon = rememberVectorPainter(image = TablerIcons.Settings)
+            title = "Configuraciones", icon = rememberVectorPainter(image = TablerIcons.Settings)
         )
 
     @Composable

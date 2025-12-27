@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmptestapp.tabs
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
@@ -14,9 +15,11 @@ class FavoritesTab : BaseTab {
     override val baseOptions: BaseTabOptions
         @Composable get() = defaultBaseTabOptions(
             title = "Favoritos",
+            showTop = true,
             icon = rememberVectorPainter(image = TablerIcons.Star),
             toolbarColor = MaterialTheme.colorScheme.primary,
-            toolbarIconsLight = false
+            onToolbarColor = MaterialTheme.colorScheme.onPrimary,
+            statusDarkIcons = isSystemInDarkTheme()
         )
 
     @Composable
