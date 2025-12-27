@@ -29,6 +29,7 @@ fun CustomToolbar(
     iconActions: List<IconAction> = listOf(),
     toolbarColor: Color = MaterialTheme.colorScheme.surface,
     onToolbarColor: Color = MaterialTheme.colorScheme.onSurface,
+    showNavigation: Boolean = false,
     navigationIcon: ImageVector = TablerIcons.ArrowBack,
     onNavigationClick: () -> Unit = { BaseViewModel.navigator.pop() }
 ) {
@@ -63,7 +64,7 @@ fun CustomToolbar(
             }
         }
     }, navigationIcon = {
-        if (BaseViewModel.navigator.canPop) {
+        if (BaseViewModel.navigator.canPop || showNavigation) {
             IconButton(
                 modifier = Modifier.padding(start = 8.dp), onClick = { onNavigationClick() }) {
                 Icon(
@@ -72,8 +73,6 @@ fun CustomToolbar(
                     modifier = Modifier.size(24.dp)
                 )
             }
-        } else {
-            null
         }
     }, colors = TopAppBarDefaults.topAppBarColors(
         containerColor = toolbarColor,

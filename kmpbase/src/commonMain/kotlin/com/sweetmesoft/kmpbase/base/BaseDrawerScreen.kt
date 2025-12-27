@@ -183,6 +183,7 @@ private fun TabContent(
                 iconActions = iconActions,
                 toolbarColor = toolbarColor,
                 onToolbarColor = onToolbarColor,
+                showNavigation = true,
                 navigationIcon = TablerIcons.Menu2,
             ) {
                 scope.launch {
