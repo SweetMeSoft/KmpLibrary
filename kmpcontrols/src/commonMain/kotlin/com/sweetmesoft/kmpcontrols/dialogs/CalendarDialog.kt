@@ -129,17 +129,26 @@ fun CalendarDialog(
                 IconButton(onClick = {
                     dateShown = dateShown.minus(1, MONTH)
                 }) {
-                    Icon(TablerIcons.ChevronLeft, contentDescription = "Mes anterior")
+                    Icon(
+                        TablerIcons.ChevronLeft,
+                        contentDescription = "Mes anterior",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
                 Text(
                     text = dateShown.month.name + ", " + dateShown.year.toString(),
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.align(Alignment.CenterVertically)
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 IconButton(onClick = {
                     dateShown = dateShown.plus(1, MONTH)
                 }) {
-                    Icon(TablerIcons.ChevronRight, contentDescription = "Mes siguiente")
+                    Icon(
+                        TablerIcons.ChevronRight,
+                        contentDescription = "Mes siguiente",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
             }
 

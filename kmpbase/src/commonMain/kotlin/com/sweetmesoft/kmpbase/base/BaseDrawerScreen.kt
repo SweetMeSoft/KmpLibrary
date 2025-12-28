@@ -197,7 +197,7 @@ private fun TabContent(
                 Icon(
                     imageVector = fabIcon,
                     contentDescription = "fabIcon",
-                    tint = Color.DarkGray,
+                    tint = MaterialTheme.colorScheme.onPrimaryContainer,
                     modifier = Modifier.size(24.dp)
                 )
             }

@@ -13,7 +13,8 @@ import com.sweetmesoft.kmptestapp.screens.splash.SplashScreen
 fun App() {
     CustomTheme(
         primaryColor = Color(0xFF003b61),
-        shapes = CustomShapes.Squircle,
+        Color(0xFF000000),
+        shapes = CustomShapes.SoftSquircle,
         inverseLight = true
     ) {
         Navigator(screen = SplashScreen()) { navigator ->

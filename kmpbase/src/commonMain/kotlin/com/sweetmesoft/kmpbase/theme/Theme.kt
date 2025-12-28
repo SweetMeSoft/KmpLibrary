@@ -113,7 +113,7 @@ fun CustomTheme(
 
                     it.copy(
                         primary = primaryColor,
-                        primaryContainer = it.surfaceContainerLowest,
+                        //primaryContainer = it.surfaceContainerLowest,
                         surfaceDim = it.surfaceBright,
                         surfaceContainerHighest = it.surfaceContainerLowest,
                         surfaceContainerHigh = it.surfaceContainerLow,
