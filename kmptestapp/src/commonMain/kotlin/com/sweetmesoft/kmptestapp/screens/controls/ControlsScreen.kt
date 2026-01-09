@@ -15,9 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import com.sweetmesoft.kmpbase.base.BaseScreen
+import com.sweetmesoft.kmpbase.controls.MoreControl
+import com.sweetmesoft.kmpbase.objects.IconAction
 import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
-import com.sweetmesoft.kmpcontrols.controls.ItemOption
-import com.sweetmesoft.kmpcontrols.controls.MoreControl
 import com.sweetmesoft.kmpcontrols.controls.PasswordControl
 import com.sweetmesoft.kmpcontrols.controls.SearchControl
 import com.sweetmesoft.kmpcontrols.controls.TermsAndConditions
@@ -80,8 +80,8 @@ class ControlsScreen : Screen {
                         Text("Item with options")
                         MoreControl(
                             options = listOf(
-                                ItemOption("Edit", TablerIcons.Edit) {},
-                                ItemOption("Delete", TablerIcons.Trash) {})
+                                IconAction(TablerIcons.Edit, "Edit") {},
+                                IconAction(TablerIcons.Trash, "Delete") {})
                         )
                     }
                 }

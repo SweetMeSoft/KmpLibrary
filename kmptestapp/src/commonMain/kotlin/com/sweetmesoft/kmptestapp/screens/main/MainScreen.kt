@@ -41,7 +41,6 @@ import compose.icons.TablerIcons
 import compose.icons.tablericons.Adjustments
 import compose.icons.tablericons.Calendar
 import compose.icons.tablericons.Container
-import compose.icons.tablericons.DotsVertical
 import compose.icons.tablericons.InfoCircle
 import compose.icons.tablericons.LayoutBottombar
 import compose.icons.tablericons.LayoutSidebar
@@ -64,7 +63,7 @@ class MainScreen : Screen {
         remember { MainViewModel() }
         BaseScreen(
             showTop = true, title = "KMP Library", iconActions = listOf(
-                IconAction(TablerIcons.DotsVertical, true) {
+                IconAction(TablerIcons.InfoCircle, "About", true) {
                     navigator.push(AboutScreen())
                 })
         ) {

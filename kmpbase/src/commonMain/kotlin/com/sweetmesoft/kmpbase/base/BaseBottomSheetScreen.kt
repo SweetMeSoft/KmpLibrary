@@ -104,11 +104,13 @@ private fun ScreenContent(
                                             onClick = action.onClick,
                                             modifier = Modifier.padding(start = 12.dp).size(28.dp)
                                         ) {
-                                            Icon(
-                                                imageVector = action.icon,
-                                                contentDescription = null,
-                                                modifier = Modifier.padding(4.dp)
-                                            )
+                                            action.icon?.let {
+                                                Icon(
+                                                    imageVector = it,
+                                                    contentDescription = null,
+                                                    modifier = Modifier.padding(4.dp)
+                                                )
+                                            }
                                         }
                                     }
                                 }

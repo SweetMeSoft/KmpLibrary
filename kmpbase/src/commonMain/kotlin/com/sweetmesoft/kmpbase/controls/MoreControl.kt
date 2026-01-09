@@ -1,4 +1,4 @@
-package com.sweetmesoft.kmpcontrols.controls
+package com.sweetmesoft.kmpbase.controls
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -19,13 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.sweetmesoft.kmpbase.objects.IconAction
 import compose.icons.TablerIcons
 import compose.icons.tablericons.DotsVertical
 
 @Composable
-fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
+fun MoreControl(modifier: Modifier = Modifier, options: List<IconAction>) {
     var showMenu by remember { mutableStateOf(false) }
 
     Box(modifier) {
@@ -65,7 +65,3 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<ItemOption>) {
         }
     }
 }
-
-data class ItemOption(
-    val text: String, val icon: ImageVector? = null, val onClick: () -> Unit
-)

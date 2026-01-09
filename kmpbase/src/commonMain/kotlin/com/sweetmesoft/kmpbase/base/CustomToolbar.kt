@@ -13,11 +13,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.sweetmesoft.kmpbase.controls.MoreControl
 import com.sweetmesoft.kmpbase.objects.IconAction
 import compose.icons.TablerIcons
 import compose.icons.tablericons.ArrowBack
@@ -33,6 +35,9 @@ fun CustomToolbar(
     navigationIcon: ImageVector = TablerIcons.ArrowBack,
     onNavigationClick: () -> Unit = { BaseViewModel.navigator.pop() }
 ) {
+    val visibleActions = remember(iconActions) { iconActions.filter { !it.showStacked } }
+    val overflowActions = remember(iconActions) { iconActions.filter { it.showStacked } }
+
     TopAppBar(
         title = {
         Row(
@@ -43,23 +48,28 @@ fun CustomToolbar(
             Text(title, maxLines = 1)
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.padding(end = 16.dp)
             ) {
-                if (iconActions.any()) {
-                    iconActions.forEach { action ->
-                        if (action.showIcon) {
-                            IconButton(
-                                onClick = action.onClick,
-                                modifier = Modifier.padding(start = 12.dp).size(28.dp)
-                            ) {
+                if (visibleActions.isNotEmpty()) {
+                    visibleActions.forEach { action ->
+                        IconButton(
+                            onClick = action.onClick,
+                            modifier = Modifier.padding(start = 12.dp).size(28.dp)
+                        ) {
+                            action.icon?.let {
                                 Icon(
-                                    imageVector = action.icon,
-                                    contentDescription = null,
+                                    imageVector = it,
+                                    contentDescription = action.text,
                                     modifier = Modifier.padding(4.dp)
                                 )
                             }
                         }
                     }
+                }
+
+                if (overflowActions.isNotEmpty()) {
+                    MoreControl(options = overflowActions)
                 }
             }
         }
