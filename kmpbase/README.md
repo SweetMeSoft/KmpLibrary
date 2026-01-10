@@ -354,7 +354,8 @@ val job = scope.launch {
 val result = NetworkUtils.get<MyResponseData>(
     url = "https://api.example.com/data",
     showLoading = true, // specific loading indicator control
-    bearer = "token"
+    bearer = "token",
+    contentType = ApiContentType.Json // Optional, default is Json
 )
 
 result.onSuccess { response ->
@@ -365,10 +366,28 @@ result.onFailure { error ->
     // Handle error
 }
 
-// POST request
+// POST request with custom content type
 val result = NetworkUtils.post<MyResponseData>(
     url = "https://api.example.com/data",
+    body = myRequestObject,
+    contentType = ApiContentType.FormUrlEncoded // Example of changing content type
+)
+
+// PUT request
+val result = NetworkUtils.put<MyResponseData>(
+    url = "https://api.example.com/data/1",
     body = myRequestObject
+)
+
+// PATCH request
+val result = NetworkUtils.patch<MyResponseData>(
+    url = "https://api.example.com/data/1",
+    body = mapOf("name" to "New Name")
+)
+
+// DELETE request
+val result = NetworkUtils.delete<MyResponseData>(
+    url = "https://api.example.com/data/1"
 )
 ```
 

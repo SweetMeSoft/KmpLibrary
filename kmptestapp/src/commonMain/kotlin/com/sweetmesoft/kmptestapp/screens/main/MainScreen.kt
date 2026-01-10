@@ -36,6 +36,7 @@ import com.sweetmesoft.kmptestapp.screens.dialogs.DialogsScreen
 import com.sweetmesoft.kmptestapp.screens.drawer.DrawerScreen
 import com.sweetmesoft.kmptestapp.screens.map.MapScreen
 import com.sweetmesoft.kmptestapp.screens.material.MaterialScreen
+import com.sweetmesoft.kmptestapp.screens.network.NetworkScreen
 import com.sweetmesoft.kmptestapp.screens.pickers.PickersScreen
 import compose.icons.TablerIcons
 import compose.icons.tablericons.Adjustments
@@ -47,6 +48,7 @@ import compose.icons.tablericons.LayoutSidebar
 import compose.icons.tablericons.Map
 import compose.icons.tablericons.Message
 import compose.icons.tablericons.Palette
+import compose.icons.tablericons.World
 
 data class MainMenuItem(
     val title: String,
@@ -85,6 +87,8 @@ class MainScreen : Screen {
                 ) { navigator.push(MaterialScreen()) }, MainMenuItem(
                     "Maps", "Display maps and routes", TablerIcons.Map, Color(0xFF4CAF50)
                 ) { navigator.push(MapScreen()) }, MainMenuItem(
+                    "Network", "Test HTTP Methods", TablerIcons.World, Color(0xFF009688)
+                ) { navigator.push(NetworkScreen()) }, MainMenuItem(
                     "Controls", "Test KMP Controls", TablerIcons.Adjustments, Color(0xFF9C27B0)
                 ) { navigator.push(ControlsScreen()) }, MainMenuItem(
                     "Bottom Bar",
