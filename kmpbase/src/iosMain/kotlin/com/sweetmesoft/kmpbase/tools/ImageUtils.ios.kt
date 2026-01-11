@@ -24,6 +24,11 @@ actual fun ImageBitmap.toBase64(): String {
     return imageData.base64EncodedStringWithOptions(0u)
 }
 
+actual fun ByteArray.toImageBitmap(): ImageBitmap {
+    val data = this.toNSData()
+    return UIImage(data = data).toImageBitmap()
+}
+
 @OptIn(ExperimentalForeignApi::class)
 actual fun resizeImage(byteArray: ByteArray, maxSize: Int): ByteArray {
     require(maxSize > 0) { "maxSize must be greater than 0" }

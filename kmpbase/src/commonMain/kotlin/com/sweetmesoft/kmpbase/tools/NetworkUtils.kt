@@ -50,29 +50,7 @@ object NetworkUtils {
                 }
             }
 
-            if (showLoading) {
-                PopupHandler.hideLoading()
-            }
-
-            if (response.status.value == 200) {
-                return Result.success(
-                    GenericResponse(
-                        obj = response.body<T>(),
-                        cookies = response.setCookie().map { it.name + ":" + it.value },
-                        status = response.status.value,
-                        headers = response.headers.entries().associate { entry ->
-                            entry.key to entry.value
-                        })
-                )
-            }
-
-            println("HTTP Error: ${response.bodyAsText()}")
-            if (response.status.value == 204) {
-                return Result.failure(Exception("204 Not Content"))
-            }
-            val error = response.body<ErrorResponse>()
-            PopupHandler.displayAlert(response.status.description, error.title)
-            return Result.failure(Exception(error.detail))
+            return handleResponse(showLoading, response)
         } catch (e: HttpRequestTimeoutException) {
             e.printStackTrace()
             return Result.failure(e)
@@ -106,29 +84,29 @@ object NetworkUtils {
                 if (bearer.isNotEmpty()) {
                     headers.append("Authorization", "Bearer $bearer")
                 }
-                setBody(body)
+
+                if (contentType == ApiContentType.FormUrlEncoded) {
+                    val formParams = when (body) {
+                        is io.ktor.http.Parameters -> body
+                        is Map<*, *> -> {
+                            io.ktor.http.Parameters.build {
+                                body.forEach { (key, value) ->
+                                    append(key.toString(), value.toString())
+                                }
+                            }
+                        }
+
+                        else -> {
+                            throw IllegalArgumentException("Para x-www-form-urlencoded, el body debe ser un Map")
+                        }
+                    }
+                    setBody(io.ktor.client.request.forms.FormDataContent(formParams))
+                } else {
+                    setBody(body)
+                }
             }
 
-            if (showLoading) {
-                PopupHandler.hideLoading()
-            }
-
-            if (response.status.value != 200) {
-                println("HTTP Error: ${response.bodyAsText()}")
-                val error = response.body<ErrorResponse>()
-                PopupHandler.displayAlert(response.status.description, error.title)
-                return Result.failure(Exception(error.detail))
-            }
-
-            return Result.success(
-                GenericResponse(
-                    obj = response.body<T>(),
-                    cookies = response.setCookie().map { it.name + ":" + it.value },
-                    status = response.status.value,
-                    headers = response.headers.entries().associate { entry ->
-                        entry.key to entry.value
-                    })
-            )
+            return handleResponse(showLoading, response)
         } catch (e: Exception) {
             e.printStackTrace()
             return Result.failure(e)
@@ -162,29 +140,29 @@ object NetworkUtils {
                 if (bearer.isNotEmpty()) {
                     headers.append("Authorization", "Bearer $bearer")
                 }
-                setBody(body)
+
+                if (contentType == ApiContentType.FormUrlEncoded) {
+                    val formParams = when (body) {
+                        is io.ktor.http.Parameters -> body
+                        is Map<*, *> -> {
+                            io.ktor.http.Parameters.build {
+                                body.forEach { (key, value) ->
+                                    append(key.toString(), value.toString())
+                                }
+                            }
+                        }
+
+                        else -> {
+                            throw IllegalArgumentException("Para x-www-form-urlencoded, el body debe ser un Map")
+                        }
+                    }
+                    setBody(io.ktor.client.request.forms.FormDataContent(formParams))
+                } else {
+                    setBody(body)
+                }
             }
 
-            if (showLoading) {
-                PopupHandler.hideLoading()
-            }
-
-            if (response.status.value != 200 && response.status.value != 204) {
-                println("HTTP Error: ${response.bodyAsText()}")
-                val error = response.body<ErrorResponse>()
-                PopupHandler.displayAlert(response.status.description, error.title)
-                return Result.failure(Exception(error.detail))
-            }
-
-            return Result.success(
-                GenericResponse(
-                    obj = response.body<T>(),
-                    cookies = response.setCookie().map { it.name + ":" + it.value },
-                    status = response.status.value,
-                    headers = response.headers.entries().associate { entry ->
-                        entry.key to entry.value
-                    })
-            )
+            return handleResponse(showLoading, response)
         } catch (e: Exception) {
             e.printStackTrace()
             return Result.failure(e)
@@ -218,29 +196,28 @@ object NetworkUtils {
                 if (bearer.isNotEmpty()) {
                     headers.append("Authorization", "Bearer $bearer")
                 }
-                setBody(body)
+                if (contentType == ApiContentType.FormUrlEncoded) {
+                    val formParams = when (body) {
+                        is io.ktor.http.Parameters -> body
+                        is Map<*, *> -> {
+                            io.ktor.http.Parameters.build {
+                                body.forEach { (key, value) ->
+                                    append(key.toString(), value.toString())
+                                }
+                            }
+                        }
+
+                        else -> {
+                            throw IllegalArgumentException("Para x-www-form-urlencoded, el body debe ser un Map")
+                        }
+                    }
+                    setBody(io.ktor.client.request.forms.FormDataContent(formParams))
+                } else {
+                    setBody(body)
+                }
             }
 
-            if (showLoading) {
-                PopupHandler.hideLoading()
-            }
-
-            if (response.status.value != 200 && response.status.value != 204) {
-                println("HTTP Error: ${response.bodyAsText()}")
-                val error = response.body<ErrorResponse>()
-                PopupHandler.displayAlert(response.status.description, error.title)
-                return Result.failure(Exception(error.detail))
-            }
-
-            return Result.success(
-                GenericResponse(
-                    obj = response.body<T>(),
-                    cookies = response.setCookie().map { it.name + ":" + it.value },
-                    status = response.status.value,
-                    headers = response.headers.entries().associate { entry ->
-                        entry.key to entry.value
-                    })
-            )
+            return handleResponse(showLoading, response)
         } catch (e: Exception) {
             e.printStackTrace()
             return Result.failure(e)
@@ -275,26 +252,7 @@ object NetworkUtils {
                 }
             }
 
-            if (showLoading) {
-                PopupHandler.hideLoading()
-            }
-
-            if (response.status.value != 200 && response.status.value != 204) {
-                println("HTTP Error: ${response.bodyAsText()}")
-                val error = response.body<ErrorResponse>()
-                PopupHandler.displayAlert(response.status.description, error.title)
-                return Result.failure(Exception(error.detail))
-            }
-
-            return Result.success(
-                GenericResponse(
-                    obj = response.body<T>(),
-                    cookies = response.setCookie().map { it.name + ":" + it.value },
-                    status = response.status.value,
-                    headers = response.headers.entries().associate { entry ->
-                        entry.key to entry.value
-                    })
-            )
+            return handleResponse(showLoading, response)
         } catch (e: Exception) {
             e.printStackTrace()
             return Result.failure(e)
@@ -341,5 +299,31 @@ object NetworkUtils {
             e.printStackTrace()
             return ""
         }
+    }
+
+    suspend inline fun <reified T> handleResponse(
+        showLoading: Boolean, response: io.ktor.client.statement.HttpResponse
+    ): Result<GenericResponse<T>> {
+
+        if (showLoading) {
+            PopupHandler.hideLoading()
+        }
+
+        if (response.status.value != 200 && response.status.value != 204) {
+            println("HTTP Error: ${response.bodyAsText()}")
+            val error = response.body<ErrorResponse>()
+            PopupHandler.displayAlert(response.status.description, error.title)
+            return Result.failure(Exception(error.detail))
+        }
+
+        return Result.success(
+            GenericResponse(
+                obj = response.body<T>(),
+                cookies = response.setCookie().map { it.name + ":" + it.value },
+                status = response.status.value,
+                headers = response.headers.entries().associate { entry ->
+                    entry.key to entry.value
+                })
+        )
     }
 }

@@ -1,8 +1,10 @@
 <resources>
     <string name="Accept">Accept</string>
     <string name="By">By SweetMeSoft</string>
+    <string name="Camera">Camera</string>
     <string name="Cancel">Cancel</string>
     <string name="Date">Date</string>
+    <string name="Gallery">Gallery</string>
     <string name="Downloading">Downloading</string>
     <string name="EmptyList">The list is empty</string>
     <string name="Hour">Hour</string>
@@ -13,6 +15,9 @@
     <string name="RateUs">Rate us</string>
     <string name="RateUsMessage">If you have enjoyed %1$s, we would be very happy to hear from you.</string>
     <string name="Search">Search</string>
+    <string name="SelectSource">Select Source</string>
+    <string name="SelectSourceDescription">You can choose from camera or gallery</string>
+    <string name="Settings">Settings</string>
     <string name="Slogan">Every detail matters to us 🩵</string>
     <string name="TermsAndConditions">Terms and conditions</string>
     <string name="TermsMessage1">By continuing you are accepting the </string>

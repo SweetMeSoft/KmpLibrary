@@ -14,7 +14,7 @@ fun App() {
     CustomTheme(
         primaryColor = Color(0xFF003b61),
         Color(0xFF000000),
-        shapes = CustomShapes.SoftSquircle,
+        shapes = CustomShapes.HardSquircle,
         inverseLight = true
     ) {
         Navigator(screen = SplashScreen()) { navigator ->

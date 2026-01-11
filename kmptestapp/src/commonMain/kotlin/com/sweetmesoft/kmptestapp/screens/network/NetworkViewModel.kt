@@ -11,14 +11,10 @@ import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Post(
-    val userId: Int, val id: Int, val title: String, val body: String
-)
+data class Post(val userId: Int, val id: Int, val title: String, val body: String)
 
 @Serializable
-data class PostRequest(
-    val userId: Int, val title: String, val body: String
-)
+data class PostRequest(val userId: Int, val title: String, val body: String)
 
 class NetworkViewModel : BaseViewModel() {
     var logs by mutableStateOf("")
@@ -39,10 +35,8 @@ class NetworkViewModel : BaseViewModel() {
                 url = "https://jsonplaceholder.typicode.com/posts/1", showLoading = true
             )
             result.onSuccess { response ->
-                log("GET Success: ${response.status}\n${response.obj}")
-            }.onFailure { error ->
-                log("GET Error: ${error.message}")
-            }
+                    log("GET Success: ${response.status}\n${response.obj}")
+                }.onFailure { error -> log("GET Error: ${error.message}") }
         }
     }
 
@@ -56,18 +50,18 @@ class NetworkViewModel : BaseViewModel() {
                 showLoading = true
             )
             result.onSuccess { response ->
-                log("POST Success: ${response.status}\n${response.obj}")
-            }.onFailure { error ->
-                log("POST Error: ${error.message}")
-            }
+                    log("POST Success: ${response.status}\n${response.obj}")
+                }.onFailure { error -> log("POST Error: ${error.message}") }
         }
     }
 
     fun testPostFormUrlEncoded() {
         viewModelScope.launch {
             log("Testing POST (FormUrlEncoded)...")
-            // Note: jsonplaceholder might not fully support this echo back as JSON, but we test the call structure
-            val body = "userId=1&title=foo&body=bar"
+            // Note: jsonplaceholder might not fully support this echo back as JSON, but we test the
+            // call structure
+            // val body = "userId=1&title=foo&body=bar"
+            val body = PostRequest(userId = 1, title = "foo", body = "bar")
             val result = NetworkUtils.post<Post>(
                 url = "https://jsonplaceholder.typicode.com/posts",
                 body = body,
@@ -75,10 +69,8 @@ class NetworkViewModel : BaseViewModel() {
                 contentType = ApiContentType.FormUrlEncoded
             )
             result.onSuccess { response ->
-                log("POST (Form) Success: ${response.status}\n${response.obj}")
-            }.onFailure { error ->
-                log("POST (Form) Error: ${error.message}")
-            }
+                    log("POST (Form) Success: ${response.status}\n${response.obj}")
+                }.onFailure { error -> log("POST (Form) Error: ${error.message}") }
         }
     }
 
@@ -92,10 +84,8 @@ class NetworkViewModel : BaseViewModel() {
                 showLoading = true
             )
             result.onSuccess { response ->
-                log("PUT Success: ${response.status}\n${response.obj}")
-            }.onFailure { error ->
-                log("PUT Error: ${error.message}")
-            }
+                    log("PUT Success: ${response.status}\n${response.obj}")
+                }.onFailure { error -> log("PUT Error: ${error.message}") }
         }
     }
 
@@ -109,10 +99,8 @@ class NetworkViewModel : BaseViewModel() {
                 showLoading = true
             )
             result.onSuccess { response ->
-                log("PATCH Success: ${response.status}\n${response.obj}")
-            }.onFailure { error ->
-                log("PATCH Error: ${error.message}")
-            }
+                    log("PATCH Success: ${response.status}\n${response.obj}")
+                }.onFailure { error -> log("PATCH Error: ${error.message}") }
         }
     }
 
@@ -123,10 +111,8 @@ class NetworkViewModel : BaseViewModel() {
                 url = "https://jsonplaceholder.typicode.com/posts/1", showLoading = true
             )
             result.onSuccess { response ->
-                log("DELETE Success: ${response.status}\n${response.obj}")
-            }.onFailure { error ->
-                log("DELETE Error: ${error.message}")
-            }
+                    log("DELETE Success: ${response.status}\n${response.obj}")
+                }.onFailure { error -> log("DELETE Error: ${error.message}") }
         }
     }
 }

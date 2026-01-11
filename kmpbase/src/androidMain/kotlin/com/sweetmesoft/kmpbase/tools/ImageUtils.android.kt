@@ -14,6 +14,10 @@ actual fun ImageBitmap.toBase64(): String {
     return Base64.encodeToString(byteArray, Base64.DEFAULT)
 }
 
+actual fun ByteArray.toImageBitmap(): ImageBitmap {
+    return BitmapFactory.decodeByteArray(this, 0, this.size).asImageBitmap()
+}
+
 actual fun resizeImage(byteArray: ByteArray, maxSize: Int): ByteArray {
     val originalBitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
     val aspectRatio = originalBitmap.width.toFloat() / originalBitmap.height

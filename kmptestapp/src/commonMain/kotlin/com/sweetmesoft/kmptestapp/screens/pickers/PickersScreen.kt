@@ -52,7 +52,13 @@ class PickersScreen : Screen {
                     modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
                 ) {
                     ProfilePhoto(
-                        urlImage = "https://picsum.photos/200", radius = 120.dp, onClick = {
+                        urlImage = "https://picsum.photos/200",
+                        radius = 120.dp,
+                        allowCamera = true,
+                        allowGallery = true,
+                        invalidateCache = true,
+                        onPhotoSelected = {},
+                        onClick = {
                             scope.launch {
                                 PopupHandler.displayAlert(
                                     "Profile Photo", "You clicked the profile photo"

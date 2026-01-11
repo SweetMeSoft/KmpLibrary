@@ -50,9 +50,9 @@ fun getShapes(kind: CustomShapes): Shapes {
         CustomShapes.Circle -> Shapes(
             extraSmall = CircleShape,
             small = CircleShape,
-            medium = RoundedCornerShape(24.dp),
-            large = RoundedCornerShape(28.dp),
-            extraLarge = RoundedCornerShape(36.dp)
+            medium = RoundedCornerShape(28.dp),
+            large = RoundedCornerShape(32.dp),
+            extraLarge = RoundedCornerShape(40.dp)
         )
     }
 }

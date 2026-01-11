@@ -12,4 +12,6 @@ expect fun rotateImage(imageBitmap: ImageBitmap, angle: Int): ImageBitmap
 
 expect fun ImageBitmap.toBase64(): String
 
+expect fun ByteArray.toImageBitmap(): ImageBitmap
+
 expect fun ImageBitmap.toByteArray(): ByteArray

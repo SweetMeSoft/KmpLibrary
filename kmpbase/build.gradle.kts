@@ -35,6 +35,7 @@ kotlin {
             implementation(libs.androidx.material3)
             implementation(libs.compose.icons)
             implementation(libs.compottie)
+            implementation(libs.imagepickerkmp)
             implementation(libs.kamel.image.default)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
