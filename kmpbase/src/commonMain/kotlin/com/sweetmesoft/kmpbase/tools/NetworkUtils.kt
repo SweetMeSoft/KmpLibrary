@@ -30,6 +30,7 @@ object NetworkUtils {
         url: String,
         showLoading: Boolean = true,
         bearer: String = "",
+        headers: Map<String, String> = emptyMap(),
         timeout: Long = 30000,
         contentType: ApiContentType = ApiContentType.Json
     ): Result<GenericResponse<T>> {
@@ -40,13 +41,16 @@ object NetworkUtils {
             val httpClient = createHttpClient(timeout)
             val response = httpClient.get(url) {
                 contentType(contentType.contentType)
-                headers.append(
+                this.headers.append(
                     "CurrentDate",
                     Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
                 )
-                headers.append("Language", getCurrentLanguage())
+                this.headers.append("Language", getCurrentLanguage())
                 if (bearer.isNotEmpty()) {
-                    headers.append("Authorization", "Bearer $bearer")
+                    this.headers.append("Authorization", "Bearer $bearer")
+                }
+                headers.forEach { (key, value) ->
+                    this.headers.append(key, value)
                 }
             }
 
@@ -66,6 +70,7 @@ object NetworkUtils {
         body: Any? = null,
         showLoading: Boolean = true,
         bearer: String = "",
+        headers: Map<String, String> = emptyMap(),
         timeout: Long = 30000,
         contentType: ApiContentType = ApiContentType.Json
     ): Result<GenericResponse<T>> {
@@ -76,13 +81,16 @@ object NetworkUtils {
             val httpClient = createHttpClient(timeout)
             val response = httpClient.post(url) {
                 contentType(contentType.contentType)
-                headers.append(
+                this.headers.append(
                     "CurrentDate",
                     Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
                 )
-                headers.append("Language", getCurrentLanguage())
+                this.headers.append("Language", getCurrentLanguage())
                 if (bearer.isNotEmpty()) {
-                    headers.append("Authorization", "Bearer $bearer")
+                    this.headers.append("Authorization", "Bearer $bearer")
+                }
+                headers.forEach { (key, value) ->
+                    this.headers.append(key, value)
                 }
 
                 if (contentType == ApiContentType.FormUrlEncoded) {
@@ -122,6 +130,7 @@ object NetworkUtils {
         body: Any? = null,
         showLoading: Boolean = true,
         bearer: String = "",
+        headers: Map<String, String> = emptyMap(),
         timeout: Long = 30000,
         contentType: ApiContentType = ApiContentType.Json
     ): Result<GenericResponse<T>> {
@@ -132,13 +141,16 @@ object NetworkUtils {
             val httpClient = createHttpClient(timeout)
             val response = httpClient.put(url) {
                 contentType(contentType.contentType)
-                headers.append(
+                this.headers.append(
                     "CurrentDate",
                     Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
                 )
-                headers.append("Language", getCurrentLanguage())
+                this.headers.append("Language", getCurrentLanguage())
                 if (bearer.isNotEmpty()) {
-                    headers.append("Authorization", "Bearer $bearer")
+                    this.headers.append("Authorization", "Bearer $bearer")
+                }
+                headers.forEach { (key, value) ->
+                    this.headers.append(key, value)
                 }
 
                 if (contentType == ApiContentType.FormUrlEncoded) {
@@ -177,6 +189,7 @@ object NetworkUtils {
         url: String,
         body: Any? = null,
         showLoading: Boolean = true,
+        customHeaders: Map<String, String> = emptyMap(),
         bearer: String = "",
         timeout: Long = 30000,
         contentType: ApiContentType = ApiContentType.Json
@@ -188,13 +201,16 @@ object NetworkUtils {
             val httpClient = createHttpClient(timeout)
             val response = httpClient.patch(url) {
                 contentType(contentType.contentType)
-                headers.append(
+                this.headers.append(
                     "CurrentDate",
                     Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
                 )
-                headers.append("Language", getCurrentLanguage())
+                this.headers.append("Language", getCurrentLanguage())
                 if (bearer.isNotEmpty()) {
-                    headers.append("Authorization", "Bearer $bearer")
+                    this.headers.append("Authorization", "Bearer $bearer")
+                }
+                customHeaders.forEach { (key, value) ->
+                    this.headers.append(key, value)
                 }
                 if (contentType == ApiContentType.FormUrlEncoded) {
                     val formParams = when (body) {
@@ -232,6 +248,7 @@ object NetworkUtils {
         url: String,
         showLoading: Boolean = true,
         bearer: String = "",
+        headers: Map<String, String> = emptyMap(),
         timeout: Long = 30000,
         contentType: ApiContentType = ApiContentType.Json
     ): Result<GenericResponse<T>> {
@@ -242,13 +259,16 @@ object NetworkUtils {
             val httpClient = createHttpClient(timeout)
             val response = httpClient.delete(url) {
                 contentType(contentType.contentType)
-                headers.append(
+                this.headers.append(
                     "CurrentDate",
                     Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).toString()
                 )
-                headers.append("Language", getCurrentLanguage())
+                this.headers.append("Language", getCurrentLanguage())
                 if (bearer.isNotEmpty()) {
-                    headers.append("Authorization", "Bearer $bearer")
+                    this.headers.append("Authorization", "Bearer $bearer")
+                }
+                headers.forEach { (key, value) ->
+                    this.headers.append(key, value)
                 }
             }
 

@@ -42,7 +42,13 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
+fun AboutContent(
+    logo: DrawableResource,
+    appName: String,
+    appId: String,
+    developedBy: String = stringResource(Res.string.By),
+    developerPage: String = "https://www.sweetmesoft.com"
+) {
     Column(
         modifier = Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.navigationBars),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -78,12 +84,11 @@ fun AboutContent(logo: DrawableResource, appName: String, appId: String) {
 
         Spacer(modifier = Modifier.weight(1f))
 
-
         Text(
             modifier = Modifier.clickable {
-                openUrl("https://www.sweetmesoft.com")
+                openUrl(developerPage)
             },
-            text = stringResource(Res.string.By),
+            text = developedBy,
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             textDecoration = TextDecoration.Underline
