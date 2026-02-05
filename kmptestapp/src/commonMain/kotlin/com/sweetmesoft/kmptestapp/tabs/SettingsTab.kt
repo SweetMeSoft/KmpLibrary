@@ -6,13 +6,14 @@ import com.sweetmesoft.kmpbase.base.BaseTab
 import com.sweetmesoft.kmpbase.base.BaseTabOptions
 import com.sweetmesoft.kmpbase.base.defaultBaseTabOptions
 import com.sweetmesoft.kmptestapp.components.DefaultPlaceHolder
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Settings
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Settings
 
 class SettingsTab : BaseTab {
     override val baseOptions: BaseTabOptions
         @Composable get() = defaultBaseTabOptions(
-            title = "Configuraciones", icon = rememberVectorPainter(image = TablerIcons.Settings)
+            title = "Configuraciones",
+            icon = rememberVectorPainter(image = TablerIcons.Outlined.Settings)
         )
 
     @Composable

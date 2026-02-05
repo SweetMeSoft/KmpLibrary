@@ -11,8 +11,8 @@ import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
 import com.sweetmesoft.kmpbase.objects.IconAction
 import com.sweetmesoft.kmpbase.tools.emptyFunction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Check
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Check
 
 data class BaseTabOptions(
     val title: String,
@@ -20,7 +20,7 @@ data class BaseTabOptions(
     val showTop: Boolean = false,
     val modifier: Modifier = Modifier,
     var fabAction: () -> Unit = emptyFunction,
-    val fabIcon: ImageVector = TablerIcons.Check,
+    val fabIcon: ImageVector = TablerIcons.Outlined.Check,
     val toolbarColor: Color,
     val onToolbarColor: Color,
     val statusDarkIcons: Boolean,
@@ -36,7 +36,7 @@ fun defaultBaseTabOptions(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
-    fabIcon: ImageVector = TablerIcons.Check,
+    fabIcon: ImageVector = TablerIcons.Outlined.Check,
     toolbarColor: Color = MaterialTheme.colorScheme.surface,
     onToolbarColor: Color = MaterialTheme.colorScheme.onSurface,
     statusDarkIcons: Boolean = !isSystemInDarkTheme(),

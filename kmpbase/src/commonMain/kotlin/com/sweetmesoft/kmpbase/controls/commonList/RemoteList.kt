@@ -32,8 +32,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sweetmesoft.kmpbase.tools.NetworkUtils.get
 import com.sweetmesoft.kmpbase.tools.emptyFunction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Plus
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Plus
 import kmplibrary.kmpbase.generated.resources.Loading
 import kmplibrary.kmpbase.generated.resources.Res
 import kotlinx.coroutines.launch
@@ -112,7 +112,7 @@ inline fun <reified T : Any> RemoteList(
                     if (addClick != emptyFunction) {
                         IconButton(onClick = { addClick() }) {
                             Icon(
-                                imageVector = TablerIcons.Plus,
+                                imageVector = TablerIcons.Outlined.Plus,
                                 contentDescription = "Add list event",
                                 tint = MaterialTheme.colorScheme.primary,
                                 modifier = Modifier.size(24.dp)

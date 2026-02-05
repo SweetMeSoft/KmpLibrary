@@ -26,17 +26,18 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.components.resources)
-            implementation(compose.foundation)
-            implementation(compose.runtime)
-            implementation(compose.ui)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.material3)
+            implementation(libs.components.resources)
             implementation(libs.compose.icons)
+            implementation(libs.foundation)
             implementation(libs.kotlinx.datetime)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
+            implementation(libs.runtime)
+            implementation(libs.tabler.icons.kmp)
+            implementation(libs.ui)
             implementation(project(":kmpbase"))
         }
 

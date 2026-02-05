@@ -38,9 +38,9 @@ import com.sweetmesoft.kmpbase.objects.IconAction
 import com.sweetmesoft.kmpbase.tools.SetNavigationBarColor
 import com.sweetmesoft.kmpbase.tools.SetStatusBarColor
 import com.sweetmesoft.kmpbase.tools.emptyFunction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Check
-import compose.icons.tablericons.X
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Check
+import dev.seyfarth.tablericons.outlined.X
 
 @Composable
 fun BaseBottomSheetScreen(
@@ -48,7 +48,7 @@ fun BaseBottomSheetScreen(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
-    fabIcon: ImageVector = TablerIcons.Check,
+    fabIcon: ImageVector = TablerIcons.Outlined.Check,
     toolbarColor: Color = MaterialTheme.colorScheme.background,
     toolbarIconsLight: Boolean = !isSystemInDarkTheme(),
     navigationColor: Color = MaterialTheme.colorScheme.background,
@@ -122,7 +122,7 @@ private fun ScreenContent(
                         modifier = Modifier.padding(start = 8.dp),
                         onClick = { BaseViewModel.bottomSheetNavigator.hide() }) {
                         Icon(
-                            imageVector = TablerIcons.X, contentDescription = "Close"
+                            imageVector = TablerIcons.Outlined.X, contentDescription = "Close"
                         )
                     }
                 }, colors = TopAppBarDefaults.topAppBarColors(

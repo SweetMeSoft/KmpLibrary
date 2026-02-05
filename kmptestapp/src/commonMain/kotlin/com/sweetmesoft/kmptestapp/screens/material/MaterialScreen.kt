@@ -55,12 +55,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import com.sweetmesoft.kmpbase.base.BaseScreen
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Check
-import compose.icons.tablericons.Plus
-import compose.icons.tablericons.Settings
-import compose.icons.tablericons.Star
-import compose.icons.tablericons.User
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Check
+import dev.seyfarth.tablericons.outlined.Plus
+import dev.seyfarth.tablericons.outlined.Settings
+import dev.seyfarth.tablericons.outlined.Star
+import dev.seyfarth.tablericons.outlined.User
 
 class MaterialScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -99,19 +99,19 @@ class MaterialScreen : Screen {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         SmallFloatingActionButton(onClick = {}) {
-                            Icon(TablerIcons.Plus, "Small FAB")
+                            Icon(TablerIcons.Outlined.Plus, "Small FAB")
                         }
                         FloatingActionButton(onClick = {}) {
-                            Icon(TablerIcons.Plus, "FAB")
+                            Icon(TablerIcons.Outlined.Plus, "FAB")
                         }
                         LargeFloatingActionButton(onClick = {}) {
-                            Icon(TablerIcons.Plus, "Large FAB")
+                            Icon(TablerIcons.Outlined.Plus, "Large FAB")
                         }
                     }
                     Spacer(Modifier.height(8.dp))
                     ExtendedFloatingActionButton(
                         onClick = {},
-                        icon = { Icon(TablerIcons.Plus, "Extended FAB") },
+                        icon = { Icon(TablerIcons.Outlined.Plus, "Extended FAB") },
                         text = { Text("Extended FAB") })
                 }
 
@@ -177,19 +177,19 @@ class MaterialScreen : Screen {
                         AssistChip(
                             onClick = {},
                             label = { Text("Assist") },
-                            leadingIcon = { Icon(TablerIcons.Settings, null) })
+                            leadingIcon = { Icon(TablerIcons.Outlined.Settings, null) })
                         FilterChip(
                             selected = true,
                             onClick = {},
                             label = { Text("Filter") },
-                            leadingIcon = { Icon(TablerIcons.Check, null) })
+                            leadingIcon = { Icon(TablerIcons.Outlined.Check, null) })
                     }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         InputChip(
                             selected = false,
                             onClick = {},
                             label = { Text("Input") },
-                            avatar = { Icon(TablerIcons.User, null) })
+                            avatar = { Icon(TablerIcons.Outlined.User, null) })
                         SuggestionChip(onClick = {}, label = { Text("Suggestion") })
                     }
                 }
@@ -223,12 +223,12 @@ class MaterialScreen : Screen {
                         NavigationBarItem(
                             selected = true,
                             onClick = {},
-                            icon = { Icon(TablerIcons.Star, null) },
+                            icon = { Icon(TablerIcons.Outlined.Star, null) },
                             label = { Text("Item 1") })
                         NavigationBarItem(
                             selected = false,
                             onClick = {},
-                            icon = { Icon(TablerIcons.User, null) },
+                            icon = { Icon(TablerIcons.Outlined.User, null) },
                             label = { Text("Item 2") })
                     }
 
@@ -251,11 +251,11 @@ class MaterialScreen : Screen {
                 Section("Badges") {
                     Row(horizontalArrangement = Arrangement.spacedBy(24.dp)) {
                         BadgedBox(badge = { Badge { Text("8") } }) {
-                            Icon(TablerIcons.Star, contentDescription = "Favorite")
+                            Icon(TablerIcons.Outlined.Star, contentDescription = "Favorite")
                         }
 
                         BadgedBox(badge = { Badge() }) {
-                            Icon(TablerIcons.Settings, contentDescription = "Settings")
+                            Icon(TablerIcons.Outlined.Settings, contentDescription = "Settings")
                         }
                     }
                 }

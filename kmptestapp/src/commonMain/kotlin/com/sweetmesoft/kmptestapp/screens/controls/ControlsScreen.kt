@@ -21,9 +21,9 @@ import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
 import com.sweetmesoft.kmpcontrols.controls.PasswordControl
 import com.sweetmesoft.kmpcontrols.controls.SearchControl
 import com.sweetmesoft.kmpcontrols.controls.TermsAndConditions
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Edit
-import compose.icons.tablericons.Trash
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Edit
+import dev.seyfarth.tablericons.outlined.Trash
 
 class ControlsScreen : Screen {
     @Composable
@@ -80,8 +80,8 @@ class ControlsScreen : Screen {
                         Text("Item with options")
                         MoreControl(
                             options = listOf(
-                                IconAction(TablerIcons.Edit, "Edit") {},
-                                IconAction(TablerIcons.Trash, "Delete") {})
+                                IconAction(TablerIcons.Outlined.Edit, "Edit") {},
+                                IconAction(TablerIcons.Outlined.Trash, "Delete") {})
                         )
                     }
                 }

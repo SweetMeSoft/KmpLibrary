@@ -31,8 +31,8 @@ import com.sweetmesoft.kmpbase.objects.IconAction
 import com.sweetmesoft.kmpbase.tools.SetNavigationBarColor
 import com.sweetmesoft.kmpbase.tools.SetStatusBarColor
 import com.sweetmesoft.kmpbase.tools.emptyFunction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Check
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Check
 
 @Composable
 fun BaseScreen(
@@ -40,7 +40,7 @@ fun BaseScreen(
     showTop: Boolean = false,
     modifier: Modifier = Modifier,
     fabAction: () -> Unit = emptyFunction,
-    fabIcon: ImageVector = TablerIcons.Check,
+    fabIcon: ImageVector = TablerIcons.Outlined.Check,
     toolbarColor: Color = MaterialTheme.colorScheme.surface,
     onToolbarColor: Color = MaterialTheme.colorScheme.onSurface,
     statusDarkIcons: Boolean = !isSystemInDarkTheme(),

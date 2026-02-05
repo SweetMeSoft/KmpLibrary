@@ -6,13 +6,13 @@ import com.sweetmesoft.kmpbase.base.BaseTab
 import com.sweetmesoft.kmpbase.base.BaseTabOptions
 import com.sweetmesoft.kmpbase.base.defaultBaseTabOptions
 import com.sweetmesoft.kmptestapp.components.DefaultPlaceHolder
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Home
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Home
 
 class HomeTab : BaseTab {
     override val baseOptions: BaseTabOptions
         @Composable get() = defaultBaseTabOptions(
-            title = "Inicio", icon = rememberVectorPainter(image = TablerIcons.Home)
+            title = "Inicio", icon = rememberVectorPainter(image = TablerIcons.Outlined.Home)
         )
 
     @Composable

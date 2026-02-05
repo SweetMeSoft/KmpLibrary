@@ -8,15 +8,15 @@ import com.sweetmesoft.kmpbase.base.BaseTab
 import com.sweetmesoft.kmpbase.base.BaseTabOptions
 import com.sweetmesoft.kmpbase.base.defaultBaseTabOptions
 import com.sweetmesoft.kmptestapp.components.DefaultPlaceHolder
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Star
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Star
 
 class FavoritesTab : BaseTab {
     override val baseOptions: BaseTabOptions
         @Composable get() = defaultBaseTabOptions(
             title = "Favoritos",
             showTop = true,
-            icon = rememberVectorPainter(image = TablerIcons.Star),
+            icon = rememberVectorPainter(image = TablerIcons.Outlined.Star),
             toolbarColor = MaterialTheme.colorScheme.primary,
             onToolbarColor = MaterialTheme.colorScheme.onPrimary,
             statusDarkIcons = isSystemInDarkTheme()

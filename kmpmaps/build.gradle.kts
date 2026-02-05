@@ -26,19 +26,20 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.material3)
+            implementation(libs.components.resources)
+            implementation(libs.foundation)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlin.serialization)
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.maps.compose)
             implementation(libs.permissions.location)
+            implementation(libs.runtime)
+            implementation(libs.tabler.icons.kmp)
+            implementation(libs.ui)
             implementation(project(":kmpbase"))
             implementation(project(":kmpcontrols"))
 

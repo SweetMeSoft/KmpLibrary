@@ -22,10 +22,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Eye
-import compose.icons.tablericons.EyeOff
-import compose.icons.tablericons.Lock
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Eye
+import dev.seyfarth.tablericons.outlined.EyeOff
+import dev.seyfarth.tablericons.outlined.Lock
 import kmplibrary.kmpcontrols.generated.resources.Password
 import kmplibrary.kmpcontrols.generated.resources.Res
 import org.jetbrains.compose.resources.stringResource
@@ -62,13 +62,12 @@ fun PasswordControl(
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         leadingIcon = {
             Icon(
-                imageVector = TablerIcons.Lock,
-                contentDescription = "Password"
+                imageVector = TablerIcons.Outlined.Lock, contentDescription = "Password"
             )
         },
         trailingIcon = {
-            val image = if (isPasswordVisible) TablerIcons.Eye
-            else TablerIcons.EyeOff
+            val image = if (isPasswordVisible) TablerIcons.Outlined.Eye
+            else TablerIcons.Outlined.EyeOff
 
             IconButton(onClick = {
                 isPasswordVisible = !isPasswordVisible

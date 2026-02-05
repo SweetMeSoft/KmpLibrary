@@ -21,8 +21,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmpbase.controls.MoreControl
 import com.sweetmesoft.kmpbase.objects.IconAction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.ArrowBack
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.ArrowBack
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -32,7 +32,7 @@ fun CustomToolbar(
     toolbarColor: Color = MaterialTheme.colorScheme.surface,
     onToolbarColor: Color = MaterialTheme.colorScheme.onSurface,
     showNavigation: Boolean = false,
-    navigationIcon: ImageVector = TablerIcons.ArrowBack,
+    navigationIcon: ImageVector = TablerIcons.Outlined.ArrowBack,
     onNavigationClick: () -> Unit = { BaseViewModel.navigator.pop() }
 ) {
     val visibleActions = remember(iconActions) { iconActions.filter { !it.showStacked } }

@@ -21,8 +21,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmpbase.objects.IconAction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.DotsVertical
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.DotsVertical
 
 @Composable
 fun MoreControl(modifier: Modifier = Modifier, options: List<IconAction>) {
@@ -33,7 +33,7 @@ fun MoreControl(modifier: Modifier = Modifier, options: List<IconAction>) {
             onClick = { showMenu = true }, modifier = modifier.size(20.dp)
         ) {
             Icon(
-                TablerIcons.DotsVertical, contentDescription = "Options Icon"
+                TablerIcons.Outlined.DotsVertical, contentDescription = "Options Icon"
             )
         }
 

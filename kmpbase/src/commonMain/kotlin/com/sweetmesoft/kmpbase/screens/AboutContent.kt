@@ -26,10 +26,10 @@ import com.sweetmesoft.kmpbase.tools.getAppVersion
 import com.sweetmesoft.kmpbase.tools.getPlatform
 import com.sweetmesoft.kmpbase.tools.openAppStore
 import com.sweetmesoft.kmpbase.tools.openUrl
-import compose.icons.TablerIcons
-import compose.icons.tablericons.BrandAppstore
-import compose.icons.tablericons.BrandGooglePlay
-import compose.icons.tablericons.Versions
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.BrandAppstore
+import dev.seyfarth.tablericons.outlined.BrandGooglePlay
+import dev.seyfarth.tablericons.outlined.Versions
 import kmplibrary.kmpbase.generated.resources.By
 import kmplibrary.kmpbase.generated.resources.RateUs
 import kmplibrary.kmpbase.generated.resources.RateUsMessage
@@ -69,7 +69,7 @@ fun AboutContent(
         )
 
         SettingsItem(
-            icon = if (getPlatform() == PlatformType.ANDROID) TablerIcons.BrandGooglePlay else TablerIcons.BrandAppstore,
+            icon = if (getPlatform() == PlatformType.ANDROID) TablerIcons.Outlined.BrandGooglePlay else TablerIcons.Outlined.BrandAppstore,
             title = stringResource(Res.string.RateUs),
             description = stringResource(Res.string.RateUsMessage, appName),
         ) {
@@ -79,7 +79,7 @@ fun AboutContent(
         SettingsItem(
             title = stringResource(Res.string.Version),
             description = getAppVersion(),
-            icon = TablerIcons.Versions
+            icon = TablerIcons.Outlined.Versions
         )
 
         Spacer(modifier = Modifier.weight(1f))

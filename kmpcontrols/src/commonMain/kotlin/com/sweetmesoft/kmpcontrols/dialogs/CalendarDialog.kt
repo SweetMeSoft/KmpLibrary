@@ -40,9 +40,9 @@ import com.sweetmesoft.kmpbase.theme.disabledColorTextDark
 import com.sweetmesoft.kmpbase.tools.DateFormats
 import com.sweetmesoft.kmpbase.tools.daysInMonth
 import com.sweetmesoft.kmpbase.tools.toLocalString
-import compose.icons.TablerIcons
-import compose.icons.tablericons.ChevronLeft
-import compose.icons.tablericons.ChevronRight
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.ChevronLeft
+import dev.seyfarth.tablericons.outlined.ChevronRight
 import kmplibrary.kmpcontrols.generated.resources.Accept
 import kmplibrary.kmpcontrols.generated.resources.Cancel
 import kmplibrary.kmpcontrols.generated.resources.FridayOneLetter
@@ -130,7 +130,7 @@ fun CalendarDialog(
                     dateShown = dateShown.minus(1, MONTH)
                 }) {
                     Icon(
-                        TablerIcons.ChevronLeft,
+                        TablerIcons.Outlined.ChevronLeft,
                         contentDescription = "Mes anterior",
                         tint = MaterialTheme.colorScheme.onSurface
                     )
@@ -145,7 +145,7 @@ fun CalendarDialog(
                     dateShown = dateShown.plus(1, MONTH)
                 }) {
                     Icon(
-                        TablerIcons.ChevronRight,
+                        TablerIcons.Outlined.ChevronRight,
                         contentDescription = "Mes siguiente",
                         tint = MaterialTheme.colorScheme.onSurface
                     )

@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import com.sweetmesoft.kmpbase.base.BaseScreen
 import com.sweetmesoft.kmpbase.objects.IconAction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Trash
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Trash
 
 class NetworkScreen : Screen {
     @Composable
@@ -31,7 +31,8 @@ class NetworkScreen : Screen {
 
         BaseScreen(
             title = "Network Utils", showTop = true, iconActions = listOf(
-            IconAction(TablerIcons.Trash, "Clear Logs") { viewModel.clearLogs() })) {
+                IconAction(TablerIcons.Outlined.Trash, "Clear Logs") { viewModel.clearLogs() })
+        ) {
             Column(
                 modifier = Modifier.fillMaxSize().padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -90,9 +91,8 @@ class NetworkScreen : Screen {
 
                 Column(
                     modifier = Modifier.fillMaxWidth().weight(1f).background(
-                            MaterialTheme.colorScheme.surfaceVariant,
-                            MaterialTheme.shapes.medium
-                        ).padding(8.dp).verticalScroll(rememberScrollState())
+                        MaterialTheme.colorScheme.surfaceVariant, MaterialTheme.shapes.medium
+                    ).padding(8.dp).verticalScroll(rememberScrollState())
                 ) {
                     Text(
                         text = viewModel.logs.ifEmpty { "Ready to test..." },

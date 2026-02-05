@@ -46,10 +46,10 @@ import com.sweetmesoft.kmpbase.objects.IconAction
 import com.sweetmesoft.kmpbase.tools.SetNavigationBarColor
 import com.sweetmesoft.kmpbase.tools.SetStatusBarColor
 import com.sweetmesoft.kmpbase.tools.emptyFunction
-import compose.icons.TablerIcons
-import compose.icons.tablericons.ChevronRight
-import compose.icons.tablericons.Logout
-import compose.icons.tablericons.Menu2
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.ChevronRight
+import dev.seyfarth.tablericons.outlined.Logout
+import dev.seyfarth.tablericons.outlined.Menu2
 import kmplibrary.kmpbase.generated.resources.Logout
 import kmplibrary.kmpbase.generated.resources.Res
 import kotlinx.coroutines.launch
@@ -144,7 +144,7 @@ private fun DrawerContent(
                 }
             }
         }
-        val icon = rememberVectorPainter(TablerIcons.Logout)
+        val icon = rememberVectorPainter(TablerIcons.Outlined.Logout)
         ItemDrawer(
             icon = icon,
             title = stringResource(Res.string.Logout),
@@ -184,7 +184,7 @@ private fun TabContent(
                 toolbarColor = toolbarColor,
                 onToolbarColor = onToolbarColor,
                 showNavigation = true,
-                navigationIcon = TablerIcons.Menu2,
+                navigationIcon = TablerIcons.Outlined.Menu2,
             ) {
                 scope.launch {
                     vm.openDrawer()
@@ -221,7 +221,7 @@ private fun ItemDrawer(
     ) {
         if (BaseDrawerScreen.currentTab.value == index) {
             Icon(
-                imageVector = TablerIcons.ChevronRight,
+                imageVector = TablerIcons.Outlined.ChevronRight,
                 tint = MaterialTheme.colorScheme.onSurface,
                 contentDescription = title,
                 modifier = Modifier.padding(end = 16.dp).size(16.dp)

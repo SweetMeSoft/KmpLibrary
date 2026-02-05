@@ -27,8 +27,8 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Search
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Search
 import kmplibrary.kmpcontrols.generated.resources.Res
 import kmplibrary.kmpcontrols.generated.resources.Search
 import org.jetbrains.compose.resources.stringResource
@@ -83,7 +83,7 @@ fun SearchControl(
                 },
                 leadingIcon = {
                     Icon(
-                        imageVector = TablerIcons.Search,
+                        imageVector = TablerIcons.Outlined.Search,
                         contentDescription = "Buscar",
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(start = 8.dp).size(16.dp)

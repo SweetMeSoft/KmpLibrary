@@ -26,15 +26,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.material3)
-            implementation(libs.compose.icons)
+            implementation(libs.components.resources)
             implementation(libs.compottie)
+            implementation(libs.foundation)
             implementation(libs.imagepickerkmp)
             implementation(libs.kamel.image.default)
             implementation(libs.kotlinx.datetime)
@@ -43,7 +40,10 @@ kotlin {
             implementation(libs.ktor.client.core)
             implementation(libs.ktor.client.negotiation)
             implementation(libs.material.kolor)
+            implementation(libs.runtime)
             implementation(libs.settings)
+            implementation(libs.tabler.icons.kmp)
+            implementation(libs.ui)
             implementation(libs.voyager.bottomSheetNavigator)
             implementation(libs.voyager.navigator)
             implementation(libs.voyager.transitions)

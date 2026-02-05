@@ -38,17 +38,17 @@ import com.sweetmesoft.kmptestapp.screens.map.MapScreen
 import com.sweetmesoft.kmptestapp.screens.material.MaterialScreen
 import com.sweetmesoft.kmptestapp.screens.network.NetworkScreen
 import com.sweetmesoft.kmptestapp.screens.pickers.PickersScreen
-import compose.icons.TablerIcons
-import compose.icons.tablericons.Adjustments
-import compose.icons.tablericons.Calendar
-import compose.icons.tablericons.Container
-import compose.icons.tablericons.InfoCircle
-import compose.icons.tablericons.LayoutBottombar
-import compose.icons.tablericons.LayoutSidebar
-import compose.icons.tablericons.Map
-import compose.icons.tablericons.Message
-import compose.icons.tablericons.Palette
-import compose.icons.tablericons.World
+import dev.seyfarth.tablericons.TablerIcons
+import dev.seyfarth.tablericons.outlined.Adjustments
+import dev.seyfarth.tablericons.outlined.Calendar
+import dev.seyfarth.tablericons.outlined.Container
+import dev.seyfarth.tablericons.outlined.InfoCircle
+import dev.seyfarth.tablericons.outlined.LayoutBottombar
+import dev.seyfarth.tablericons.outlined.LayoutSidebar
+import dev.seyfarth.tablericons.outlined.Map
+import dev.seyfarth.tablericons.outlined.Message
+import dev.seyfarth.tablericons.outlined.Palette
+import dev.seyfarth.tablericons.outlined.World
 
 data class MainMenuItem(
     val title: String,
@@ -65,7 +65,7 @@ class MainScreen : Screen {
         remember { MainViewModel() }
         BaseScreen(
             showTop = true, title = "KMP Library", iconActions = listOf(
-                IconAction(TablerIcons.InfoCircle, "About", true) {
+                IconAction(TablerIcons.Outlined.InfoCircle, "About", true) {
                     navigator.push(AboutScreen())
                 })
         ) {
@@ -73,32 +73,44 @@ class MainScreen : Screen {
                 MainMenuItem(
                     "Pickers",
                     "Select dates and times easily",
-                    TablerIcons.Calendar,
+                    TablerIcons.Outlined.Calendar,
                     Color(0xFFE91E63)
                 ) { navigator.push(PickersScreen()) }, MainMenuItem(
-                    "Dialogs", "Alerts, confirms and more", TablerIcons.Message, Color(0xFF2196F3)
+                    "Dialogs",
+                    "Alerts, confirms and more",
+                    TablerIcons.Outlined.Message,
+                    Color(0xFF2196F3)
                 ) { navigator.push(DialogsScreen()) }, MainMenuItem(
-                    "Colors", "Theme Color Palette", TablerIcons.Palette, Color(0xFF607D8B)
+                    "Colors", "Theme Color Palette", TablerIcons.Outlined.Palette, Color(0xFF607D8B)
                 ) { navigator.push(ColorsScreen()) }, MainMenuItem(
                     "M3 Default",
                     "Standard Material 3 Components",
-                    TablerIcons.Container,
+                    TablerIcons.Outlined.Container,
                     Color(0xFF673AB7)
                 ) { navigator.push(MaterialScreen()) }, MainMenuItem(
-                    "Maps", "Display maps and routes", TablerIcons.Map, Color(0xFF4CAF50)
+                    "Maps", "Display maps and routes", TablerIcons.Outlined.Map, Color(0xFF4CAF50)
                 ) { navigator.push(MapScreen()) }, MainMenuItem(
-                    "Network", "Test HTTP Methods", TablerIcons.World, Color(0xFF009688)
+                    "Network", "Test HTTP Methods", TablerIcons.Outlined.World, Color(0xFF009688)
                 ) { navigator.push(NetworkScreen()) }, MainMenuItem(
-                    "Controls", "Test KMP Controls", TablerIcons.Adjustments, Color(0xFF9C27B0)
+                    "Controls",
+                    "Test KMP Controls",
+                    TablerIcons.Outlined.Adjustments,
+                    Color(0xFF9C27B0)
                 ) { navigator.push(ControlsScreen()) }, MainMenuItem(
                     "Bottom Bar",
                     "Test Bottom Bar Screen",
-                    TablerIcons.LayoutBottombar,
+                    TablerIcons.Outlined.LayoutBottombar,
                     Color(0xFFFF9800)
                 ) { navigator.push(BottomBarScreen()) }, MainMenuItem(
-                    "Drawer", "Test Drawer Screen", TablerIcons.LayoutSidebar, Color(0xFF673AB7)
+                    "Drawer",
+                    "Test Drawer Screen",
+                    TablerIcons.Outlined.LayoutSidebar,
+                    Color(0xFF673AB7)
                 ) { navigator.push(DrawerScreen()) }, MainMenuItem(
-                    "About", "Learn more about this app", TablerIcons.InfoCircle, Color(0xFFFF9800)
+                    "About",
+                    "Learn more about this app",
+                    TablerIcons.Outlined.InfoCircle,
+                    Color(0xFFFF9800)
                 ) { navigator.push(AboutScreen()) })
 
             Column(
