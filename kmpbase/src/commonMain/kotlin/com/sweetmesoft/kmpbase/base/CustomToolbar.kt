@@ -1,5 +1,6 @@
 package com.sweetmesoft.kmpbase.base
 
+import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -45,7 +46,7 @@ fun CustomToolbar(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(title, maxLines = 1)
+            Text(title, maxLines = 1, modifier = Modifier.weight(1f).basicMarquee())
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,

@@ -64,7 +64,9 @@ class MainScreen : Screen {
     override fun Content() {
         remember { MainViewModel() }
         BaseScreen(
-            showTop = true, title = "KMP Library", iconActions = listOf(
+            showTop = true,
+            title = "KMP Library Test App with a very long title to test the more button",
+            iconActions = listOf(
                 IconAction(TablerIcons.Outlined.InfoCircle, "About", true) {
                     navigator.push(AboutScreen())
                 })

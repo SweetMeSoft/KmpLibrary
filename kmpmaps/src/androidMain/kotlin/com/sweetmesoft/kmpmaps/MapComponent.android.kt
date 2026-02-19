@@ -187,9 +187,10 @@ actual fun MapComponent(
 @SuppressLint("MissingPermission")
 actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
     suspendCancellableCoroutine { cont ->
-        if (updateLocation) {
-            val fusedLocationClient: FusedLocationProviderClient =
-                LocationServices.getFusedLocationProviderClient(getContext())
+        val fusedLocationClient: FusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(getContext())
+
+        fun requestCurrentLocation() {
             val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 15000)
                 .setWaitForAccurateLocation(true).setMaxUpdates(1).build()
             val locationCallback = object : LocationCallback() {
@@ -213,14 +214,16 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
             fusedLocationClient.requestLocationUpdates(
                 locationRequest, locationCallback, Looper.getMainLooper()
             )
+        }
+
+        if (updateLocation) {
+            requestCurrentLocation()
         } else {
-            val fusedLocationClient: FusedLocationProviderClient =
-                LocationServices.getFusedLocationProviderClient(getContext())
             fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                 if (location != null) {
                     cont.resume(Coordinates(location.latitude, location.longitude))
                 } else {
-                    cont.resumeWithException(Exception("Unable to get location stored"))
+                    requestCurrentLocation()
                 }
             }.addOnFailureListener { exception ->
                 cont.resumeWithException(exception)
