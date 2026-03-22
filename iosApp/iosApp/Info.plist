@@ -26,6 +26,10 @@
     <string>Provide access to camera in order to be able for scan the QR codes.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
     <string>You need to provide camera access to change your profile photo and for use the purchase loader.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to show it on the map.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app needs access to your location to show it on the map.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
