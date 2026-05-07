@@ -36,8 +36,10 @@ fun CustomToolbar(
     navigationIcon: ImageVector = TablerIcons.Outlined.ArrowBack,
     onNavigationClick: () -> Unit = { BaseViewModel.navigator.pop() }
 ) {
-    val visibleActions = remember(iconActions) { iconActions.filter { !it.showStacked } }
-    val overflowActions = remember(iconActions) { iconActions.filter { it.showStacked } }
+    val visibleActions =
+        remember(iconActions) { iconActions.filter { !it.showStacked && it.showIcon } }
+    val overflowActions =
+        remember(iconActions) { iconActions.filter { it.showStacked && it.showIcon } }
 
     TopAppBar(
         title = {
