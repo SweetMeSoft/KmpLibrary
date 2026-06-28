@@ -1,7 +1,7 @@
 ---
 layout: default
 title: KMPControls
-nav_order: 2
+nav_order: 3
 ---
 
 # KMPControls
@@ -203,6 +203,57 @@ SearchControl(
 )
 ```
 
+### ClickableOutlinedTextField
+
+A text field wrapper that triggers a callback when clicked while preventing the soft keyboard from opening. Useful for date pickers, dropdowns, or selection prompts.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
+import androidx.compose.ui.graphics.Color
+
+ClickableOutlinedTextField(
+    value = selectedOptionLabel,
+    title = "Select Option",
+    color = Color.Blue,
+    onClick = {
+        // Trigger dialog or sheet
+    }
+)
+```
+
+### TermsAndConditions
+
+Displays localized terms of service and privacy policy disclaimer text with embedded clickable links.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.TermsAndConditions
+import androidx.compose.ui.graphics.Color
+
+TermsAndConditions(
+    urlTerms = "https://example.com/terms",
+    urlPrivacy = "https://example.com/privacy",
+    color = Color.Blue // Highlight link color
+)
+```
+
+### DoublePicker
+
+Input control for numeric double values.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.pickers.DoublePicker
+
+var amountStr by remember { mutableStateOf("0.0") }
+
+DoublePicker(
+    title = "Amount",
+    value = amountStr,
+    onValueChange = { newValue ->
+        amountStr = newValue
+    }
+)
+```
+
 ## API Reference
 
 ### Pickers
@@ -223,6 +274,12 @@ SearchControl(
 - `value`: `LocalDateTime` - The currently selected date and time.
 - `onSelectedDateTime`: `(LocalDateTime) -> Unit` - Callback when date and time are selected.
 
+**DoublePicker**
+- `value`: `String` - Current double input value.
+- `onValueChange`: `(String) -> Unit` - Callback for text changes.
+- `title`: `String` - Label for the input text field.
+- `enabled`: `Boolean` - Controls the enabled state of the input.
+
 ### Controls
 
 **PasswordControl**
@@ -236,12 +293,24 @@ SearchControl(
 - `onValueChange`: `(String) -> Unit` - Callback for text changes.
 - `onSearch`: `(String) -> Unit` - Callback when search action is triggered (e.g., keyboard enter).
 
+**ClickableOutlinedTextField**
+- `value`: `String` - Current text to display.
+- `title`: `String` - Label for the text field.
+- `color`: `Color` - Custom accent highlight color.
+- `enabled`: `Boolean` - Interaction switch.
+- `onClick`: `() -> Unit` - Click event handler.
+
+**TermsAndConditions**
+- `urlPrivacy`: `String` - Target web address for privacy policy link.
+- `urlTerms`: `String` - Target web address for terms and conditions link.
+- `color`: `Color` - Highlight color for the link labels.
+
 ## Requirements
 
-- **Android**: Min SDK 28, Target SDK 36
+- **Android**: Min SDK 24, Target SDK 37
 - **iOS**: 12.0+
-- **Kotlin**: 2.2.21+
-- **Compose Multiplatform**: 1.9.0+
+- **Kotlin**: 2.4.0
+- **Compose Multiplatform**: 1.11.1
 
 ## License
 

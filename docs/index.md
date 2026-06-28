@@ -33,9 +33,9 @@ SweetMeSoft KMP Library is a collection of specialized modules that provide:
   </div>
   
   <div class="module-card">
-    <h3>Library</h3>
-    <p>Main module with advanced components, navigation, network utilities, image handling and base architecture.</p>
-    <a href="library.html" class="btn">View Documentation</a>
+    <h3>KMPBase</h3>
+    <p>Core module with advanced components, navigation, network utilities, image handling and base architecture.</p>
+    <a href="kmpbase.html" class="btn">View Documentation</a>
   </div>
   
   <div class="module-card">
@@ -58,16 +58,15 @@ sweetmesoft = "2.0.1"
 [libraries]
 sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
 sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
-sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
+sweetmesoft-kmpbase = { module = "com.sweetmesoft.kmpbase:kmpbase", version.ref = "sweetmesoft" }
 ```
 
 In your `build.gradle.kts`:
 
 ```kotlin
-commonMain.dependencies {
     implementation(libs.sweetmesoft.kmpcontrols)
     implementation(libs.sweetmesoft.kmpmaps)
-    implementation(libs.sweetmesoft.library)
+    implementation(libs.sweetmesoft.kmpbase)
 }
 ```
 
@@ -163,8 +162,8 @@ fun MyScreen() {
     <p>Implement native maps in your application</p>
   </a>
   
-  <a href="library.html" class="guide-link">
-    <h4>Library Guide</h4>
+  <a href="kmpbase.html" class="guide-link">
+    <h4>KMPBase Guide</h4>
     <p>Master advanced components and utilities</p>
   </a>
   
@@ -179,9 +178,9 @@ fun MyScreen() {
 Explore our complete examples:
 
 - **[KMPTestApp](kmptestapp.html)** - Complete demonstration application
-- **[Advanced Forms](library.html)** - Validation and controls
+- **[Advanced Forms](kmpbase.html)** - Validation and controls
 - **[Maps Integration](kmpmaps.html)** - Geolocation and markers
-- **[Complex Navigation](library.html)** - Navigation flows
+- **[Complex Navigation](kmpbase.html)** - Navigation flows
 
 ## Community and Support
 
@@ -193,8 +192,8 @@ Explore our complete examples:
 ## Project Status
 
 - **Current Version:** 2.0.1
-- **Kotlin:** 2.2.21+
-- **Compose:** 1.9.0+
+- **Kotlin:** 2.4.0
+- **Compose:** 1.11.1
 - **Platforms:** Android, iOS
 - **License:** MIT
 

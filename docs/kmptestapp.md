@@ -1,7 +1,7 @@
 ---
 layout: default
 title: KMPTestApp
-nav_order: 5
+nav_order: 6
 ---
 
 # KMPTestApp Documentation
@@ -25,7 +25,7 @@ KMPTestApp is a complete application that demonstrates:
 
 - ✅ Use of all `KMPControls` components
 - ✅ Maps implementation with `KMPMaps`
-- ✅ Utilization of advanced `Library` controls
+- ✅ Utilization of advanced `KMPBase` controls
 - ✅ Navigation with Voyager
 - ✅ State and ViewModels management
 - ✅ Custom themes
@@ -69,7 +69,7 @@ kmptestapp/
 
 ```kotlin
 commonMain.dependencies {
-    implementation(projects.library)
+    implementation(projects.kmpbase)
     implementation(projects.kmpcontrols)
     implementation(projects.kmpmaps)
     
@@ -379,7 +379,7 @@ class AboutScreen : BaseScreen() {
 ```
 
 **Features:**
-- Use of AboutContent component from library
+- Use of AboutContent component from kmpbase
 - Back navigation
 - Structured application information
 - Links to external resources
@@ -555,7 +555,7 @@ fun UtilitiesSection(viewModel: MainViewModel) {
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             Text(
-                text = "Library Utilities",
+                text = "KMPBase Utilities",
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )

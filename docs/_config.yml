@@ -27,9 +27,10 @@ plugins:
 # Navigation
 header_pages:
   - README.md
+  - docs/getting-started.md
   - docs/kmpcontrols.md
   - docs/kmpmaps.md
-  - docs/library.md
+  - docs/kmpbase.md
   - docs/kmptestapp.md
 
 # Social links

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: KMPMaps
-nav_order: 3
+nav_order: 4
 ---
 
 # KMPMaps
@@ -209,6 +209,7 @@ LaunchedEffect(Unit) {
 | `scrollEnabled` | `Boolean` | Enable scroll gestures. | `true` |
 | `rotateEnabled` | `Boolean` | Enable rotation gestures. | `false` |
 | `locationEnabled` | `Boolean` | Show user location (requires permissions). | `false` |
+| `showPointsOfInterest` | `Boolean` | Show points of interest on the map canvas. | `false` |
 | `markers` | `List<GeoPosition>` | List of positions to display markers or circles. | `emptyList()` |
 | `routes` | `List<RouteMap>` | List of polylines to draw. | `emptyList()` |
 | `showTraffic` | `Boolean` | Show traffic layer. | `false` |
@@ -257,10 +258,10 @@ LaunchedEffect(Unit) {
 
 ## Requirements
 
-- **Android**: Min SDK 28, Target SDK 36
+- **Android**: Min SDK 24, Target SDK 37
 - **iOS**: 12.0+
-- **Kotlin**: 2.2.21+
-- **Compose Multiplatform**: 1.9.0+
+- **Kotlin**: 2.4.0
+- **Compose Multiplatform**: 1.11.1
 
 ## License
 

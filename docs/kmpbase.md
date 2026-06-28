@@ -1,12 +1,12 @@
 ---
 layout: default
-title: KMP Library
-nav_order: 4
+title: KMPBase
+nav_order: 5
 ---
 
-# KMP Library
+# KMPBase
 
-The `library` module is the core component of the SweetMeSoft KMP Library. It provides a robust architectural foundation and a comprehensive set of UI components, utilities, and network helpers for Kotlin Multiplatform development. It is designed to accelerate cross-platform application development by abstracting common patterns and boilerplate code.
+The `kmpbase` module is the core component of the SweetMeSoft KMP project. It provides a robust architectural foundation and a comprehensive set of UI components, utilities, and network helpers for Kotlin Multiplatform development. It is designed to accelerate cross-platform application development by abstracting common patterns and boilerplate code.
 
 ## Installation
 
@@ -19,18 +19,18 @@ Add the dependency to your version catalog or build file.
 sweetmesoft = "2.0.1"
 
 [libraries]
-sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
+sweetmesoft-kmpbase = { module = "com.sweetmesoft.kmpbase:kmpbase", version.ref = "sweetmesoft" }
 ```
 
 ### Gradle (Kotlin DSL)
 
 ```kotlin
-implementation(libs.sweetmesoft.library)
+implementation(libs.sweetmesoft.kmpbase)
 ```
 
 ## Architecture
 
-This library promotes a consistent architecture using a suite of `BaseScreen` composables and `BaseViewModel`.
+This module promotes a consistent architecture using a suite of `BaseScreen` composables and `BaseViewModel`.
 
 ### BaseScreen
 
@@ -59,7 +59,7 @@ fun HomeScreen() {
 
 ### Advanced Screen Types
 
-In addition to `BaseScreen`, the library offers specialized screen layouts:
+In addition to `BaseScreen`, the module offers specialized screen layouts:
 
 #### BaseBottomBarScreen
 
@@ -130,7 +130,7 @@ BaseBottomSheetScreen(
 class HomeViewModel : BaseViewModel() {
     
     fun checkCameraPermission() {
-        screenModelScope.launch {
+        viewModelScope.launch {
             val granted = requestPermission(Permission.CAMERA)
             if (granted) {
                 // Permission granted
@@ -142,7 +142,7 @@ class HomeViewModel : BaseViewModel() {
 
 ## Pre-built Screens
 
-The library includes common screen implementations to speed up development.
+The module includes common screen implementations to speed up development.
 
 ### SplashContent
 
@@ -176,7 +176,7 @@ AboutContent(
 
 ### Lists and Grids
 
-The library provides `LocalList`/`RemoteList` for linear lists and `LocalGridList`/`RemoteGridList` for grid layouts.
+The module provides `LocalList`/`RemoteList` for linear lists and `LocalGridList`/`RemoteGridList` for grid layouts.
 
 #### LocalList / LocalGridList
 
@@ -259,19 +259,11 @@ ProfilePhoto(
 )
 ```
 
-#### DoublePicker & CalculatorPopup
+#### CalculatorPopup
 
-Input controls for numeric values.
+A popup dialog containing an interactive calculator interface.
 
 ```kotlin
-DoublePicker(
-    title = "Amount",
-    value = amountStr,
-    onValueChange = { newValue ->
-        // Update value
-    }
-)
-
 CalculatorPopup(
     visible = showCalculator,
     onDismissRequest = { showCalculator = false },
@@ -280,6 +272,29 @@ CalculatorPopup(
         showCalculator = false
     }
 )
+```
+
+#### MoreControl
+
+A standard three-dot vertical action dropdown menu component.
+
+```kotlin
+import com.sweetmesoft.kmpbase.controls.MoreControl
+import com.sweetmesoft.kmpbase.objects.IconAction
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.Delete
+
+val options = listOf(
+    IconAction(icon = Icons.Default.Edit, text = "Edit") {
+        // Edit clicked
+    },
+    IconAction(icon = Icons.Default.Delete, text = "Delete") {
+        // Delete clicked
+    }
+)
+
+MoreControl(options = options)
 ```
 
 ### Popups and Alerts
@@ -321,6 +336,22 @@ val job = scope.launch {
 }
 ```
 
+**LoadingView**
+
+A fullscreen semi-transparent progress indicator overlay bound directly to the global loading state of `PopupHandler.isLoading`.
+
+```kotlin
+import com.sweetmesoft.kmpbase.controls.LoadingView
+
+Box(modifier = Modifier.fillMaxSize()) {
+    // Screen contents...
+    MyScreenContent()
+    
+    // Automatically overlays and blocks interaction when PopupHandler.setLoading(true) is called
+    LoadingView()
+}
+```
+
 ## Network Utilities
 
 `NetworkUtils` provides simplified HTTP methods that integrate with the global loading state.
@@ -352,12 +383,91 @@ val result = NetworkUtils.post<MyResponseData>(
 
 ### PlatformUtils
 
-Helper functions to interact with the platform.
+Helper functions to interact with the target platform.
 
 ```kotlin
 val platform = getPlatform() // Returns PlatformType.ANDROID or PlatformType.IOS
 val version = getAppVersion()
-openAppStore("com.example.app") // Opens the store page
+openAppStore("com.sweetmesoft.kmptestapp") // Opens the platform-specific store page
+```
+
+### DateUtils
+
+Extends KotlinX DateTime functionalities with localized parsing, formatting, and arithmetic helpers.
+
+```kotlin
+// Get current system LocalDateTime
+val current = getCurrentDateTime()
+
+// Calendar calculations
+val days = daysInMonth(year = 2026, month = 6)
+val daysAlt = myLocalDate.daysInMonth()
+
+// Localized string formatting
+val dateStr = myLocalDate.toLocalString(DateFormats.WWW_MMM_DD)
+val timeStr = myLocalTime.toLocalString(showSeconds = true)
+
+// Date arithmetic
+val nextWeek = myLocalDateTime.plus(1, DateTimeUnit.WEEK)
+val pastMonth = myLocalDateTime.minus(1, DateTimeUnit.MONTH)
+```
+
+### ImageUtils
+
+Provides platform-specific image processing operations for rotation, resizing, and base64 conversions.
+
+```kotlin
+// Resize images to a maximum dimension
+val resizedBitmap = resizeImage(originalImageBitmap, maxSize = 800)
+val resizedBytes = resizeImage(originalByteArray, maxSize = 800)
+
+// Rotate images by a given angle
+val rotatedBytes = rotateImage(originalByteArray, angle = 90)
+
+// Conversions
+val base64Str = myImageBitmap.toBase64()
+val bitmapFromBytes = myByteArray.toImageBitmap()
+val bytesFromBitmap = myImageBitmap.toByteArray()
+```
+
+### FileUtils
+
+Provides native file sharing mechanics.
+
+```kotlin
+// Trigger system share sheet with bytes payload
+shareFile(fileBytes, fileName = "report.pdf")
+```
+
+### NumberUtils
+
+Converts numbers to currencies and handles mathematical angle conversions.
+
+```kotlin
+val currency = 1250.75.toCurrency() // Returns formatted local currency string (e.g. "$1,250.75")
+val rads = 180.0.toRadians()
+val degs = 3.14159.toDegrees()
+```
+
+### StringUtils
+
+Validates formatting structures.
+
+```kotlin
+val isGuid = "f81d4fae-7dec-11d0-a765-00a0c91e6bf6".isGuid()
+val isNotGuid = "invalid-id".isNotGuid()
+```
+
+### Visual Styling
+
+Allows dynamic modification of System UI navigation and status bar elements directly from Compose.
+
+```kotlin
+@Composable
+fun ScreenContent() {
+    SetStatusBarColor(color = MaterialTheme.colorScheme.primary, darkIcons = false)
+    SetNavigationBarColor(color = Color.Black, darkIcons = false)
+}
 ```
 
 ### General Utils
@@ -365,15 +475,51 @@ openAppStore("com.example.app") // Opens the store page
 ```kotlin
 // String extensions
 val isValid = "test@example.com".isEmail()
+val isNotEmail = "invalid".isNotEmail()
 val passwordValid = isValidPassword("StrongPass1!")
+
+// Uuid extensions
+val uuidEmpty = myUuid.isEmpty()
+val uuidNotEmpty = myUuid.isNotEmpty()
+
+// Base64
+val base64 = myByteArray.toBase64()
 
 // Browser
 openUrl("https://www.google.com")
 ```
 
+## Serializers
+
+`KMPBase` provides pre-configured Kotlinx Serialization serializers for core data structures (like `Uuid` and date types) to ensure correct conversion across platform layers.
+
+- `InstantSerializer`
+- `LocalDateSerializer`
+- `LocalDateTimeSerializer`
+- `LocalDateTimeTimestampSerializer`
+- `LocalTimeSerializer`
+- `UuidSerializer`
+
+```kotlin
+@Serializable
+data class UserSession(
+    @Serializable(with = UuidSerializer::class)
+    val id: Uuid,
+    @Serializable(with = LocalDateTimeSerializer::class)
+    val createdAt: LocalDateTime
+)
+```
+
+## Theme and Styling
+
+The module exposes unified Material Design 3 theme configurations, custom shapes, and color palettes.
+
+- **AppTheme**: Setup wrapping Composable that dynamically configures the color scheme based on user preference, system dark mode state, and Android 12+ dynamic color parameters.
+- **CustomShapes**: Exposes extra shapes definitions like circular, rounded, or custom-cut borders for cards and pickers.
+
 ## Requirements
 
-- **Android**: Min SDK 28, Target SDK 36
-- **iOS**: iOS 14.0+
-- **Kotlin**: 2.2.0+
-- **Compose Multiplatform**: 1.9.0+
+- **Android**: Min SDK 24, Target SDK 37
+- **iOS**: iOS 12.0+
+- **Kotlin**: 2.4.0
+- **Compose Multiplatform**: 1.11.1
