@@ -1,373 +1,120 @@
-# SweetMeSoft KMP Library
-
-A complete cross-platform library for Kotlin that provides advanced UI components, maps integration, and essential utilities for developing native applications on Android, iOS, and Desktop.
-
-[![GitHub release](https://img.shields.io/github/release/SweetMeSoft/KmpLibrary.svg)](https://github.com/SweetMeSoft/KmpLibrary/releases)
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF.svg)](https://kotlinlang.org/docs/multiplatform.html)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose-Multiplatform-4285F4.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Android](https://img.shields.io/badge/Android-Platform-3DDC84.svg)](https://developer.android.com)
+[![iOS](https://img.shields.io/badge/iOS-Platform-000000.svg)](https://developer.apple.com/ios/)
+[![Gradle](https://img.shields.io/badge/Gradle-Build-02303A.svg)](https://gradle.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-blue.svg)](https://kotlinlang.org)
-[![Compose](https://img.shields.io/badge/Compose-1.7.0%2B-green.svg)](https://developer.android.com/jetpack/compose)
-[![Documentation](https://img.shields.io/badge/docs-GitHub%20Pages-blue)](https://sweetmesoft.github.io/KmpLibrary)
+
+# SweetMeSoft KMP Library
 
 ## Table of Contents
 
-- [Features](#features)
-- [Modules](#modules)
-- [Quick Start](#quick-start)
-- [Documentation](#documentation)
-- [Installation](#installation)
-- [Examples](#examples)
-- [Contributing](#contributing)
-- [License](#license)
-- [Authors](#authors)
-- [Links](#links)
+- [Project Summary](#project-summary)
+- [Functionalities](#functionalities)
+- [Libraries and Dependencies](#libraries-and-dependencies)
+- [Core Implementation](#core-implementation)
+- [Versions](#versions)
+- [Folder Structure](#folder-structure)
+- [Design Patterns Implemented](#design-patterns-implemented)
+- [Configurations](#configurations)
+- [Integrations](#integrations)
 
-## Features
+## Project Summary
 
-- **Modern UI Components**: Custom controls with Material Design 3
-- **Maps Integration**: Cross-platform map components with Google Maps
-- **Complete KMP Support**: Compatible with Android and iOS
-- **Integrated Utilities**: Tools for dates, numbers, images, and more
-- **Easy Integration**: Simple and well-documented APIs
-- **High Performance**: Optimized for production applications
+SweetMeSoft KMP Library is a unified, multi-module Kotlin Multiplatform SDK designed to streamline cross-platform application development across Android, iOS, and Desktop platforms. The project provides basic UI components, forms inputs, native map visualizations, device-level location helpers, and standardized architectures for application screens and ViewModels. It abstracts platform-specific APIs and boilerplates into a common set of APIs.
 
-## Modules
+## Functionalities
 
-The library is divided into three main modules:
+- Architecture Foundations: Implements standardized screen wrappers and lifecycle-aware view models for handling asynchronous operations.
+- UI Controls: Provides custom interactive elements including password fields, search inputs, and standalone picker dialogs.
+- Maps and Geolocation: Embeds native map views, manages overlay elements such as markers and polylines, and facilitates location acquisition services.
+- Theme System: Generates color schemes dynamically utilizing base branding metrics conforming to Material Design specifications.
+- Network Client Wrapper: Standardizes HTTP calls with support for dynamic loading states, headers, and authentication.
+- Demonstration Application: Contains a showcase application for verifying and exercising all library modules on target platforms.
 
-### KMPControls
-Basic UI components and fundamental utilities.
-- Custom input controls
-- Date and time pickers
-- Dialogs and alerts
-- Validation utilities
+## Libraries and Dependencies
 
-### KMPMaps
-Specialized components for maps integration.
-- Cross-platform map components
-- Custom markers and overlays
-- Location management
-- Google Maps integration
+| Module / Dependency | Category | Purpose |
+|:---|:---|:---|
+| Compose Multiplatform | UI Framework | Native UI layout construction across target platforms |
+| Kotlinx DateTime | Utility | Date and time calculations and conversions |
+| Kotlinx Serialization | Utility | JSON serialization and deserialization |
+| Voyager | Navigation | Navigation flow control, transitions, and state preservation |
+| Material Kolor | Theme Utility | Color palette generation from primary key colors |
+| Ktor Client | Network | Engine for standard HTTP transactions across Android and iOS |
+| Moko Permissions | System Service | Unified system permission requests for location and device features |
+| Play Services Location | System Service | Geolocation provider integration on Android devices |
 
-### Library (Main)
-Main library with advanced components and tools.
-- Complex UI components
-- State management
-- Network utilities
-- Navigation tools
+## Core Implementation
 
-### KMPTestApp
-Example application that demonstrates the use of all libraries.
+The workspace compiles common Kotlin codebase into platform-specific targets. Android artifacts compile into Java Virtual Machine bytecode compatible with Dalvik/ART runtimes. iOS compilation utilizes the Kotlin/Native LLVM-based compiler to generate Apple Frameworks (xcframework binaries) consumed directly by Swift or Objective-C runtime environments. The application utilizes Compose Multiplatform to draw layouts directly onto native canvas targets, bypassing heavy native view hierarchies while maintaining natural platform responsiveness.
 
-## Installation
+## Versions
 
-### Gradle (Kotlin DSL)
+- Kotlin Compiler: 2.4.0
+- Compose Multiplatform: 1.11.1
+- Android Compile SDK: 37
+- Android Target SDK: 37
+- Android Minimum SDK: 24
+- iOS Deployment Target: 12.0 or higher
+- Android Gradle Plugin: 9.2.1
 
-Add the dependencies in your `build.gradle.kts` file:
+## Folder Structure
 
-```kotlin
-commonMain.dependencies {
-    // Main library
-    implementation("com.sweetmesoft.kmpbase:kmpbase:2.0.1")
-    
-    // Basic controls
-    implementation("com.sweetmesoft.kmpcontrols:kmpcontrols:2.0.1")
-    
-    // Map components
-    implementation("com.sweetmesoft.kmpmaps:kmpmaps:2.0.1")
-}
+```
+.
+├── kmpbase
+│   └── src
+│       └── commonMain
+│           └── kotlin
+│               └── com/sweetmesoft/kmpbase
+│                   ├── base         - Screen model, viewModel, and navigation definitions
+│                   ├── controls     - Custom lists, grids, dropdowns, and alert components
+│                   ├── objects      - Data models and core platform structures
+│                   ├── screens      - Pre-built splash and about screens
+│                   ├── serializers  - Custom serialization formats
+│                   ├── theme        - Color scheme and theme generation engines
+│                   └── tools        - Platform utility wrappers and helper functions
+├── kmpcontrols
+│   └── src
+│       └── commonMain
+│           └── kotlin
+│               └── com/sweetmesoft/kmpcontrols
+│                   ├── controls     - Password and search text field controls
+│                   ├── dialogs      - Date and time selection dialogs
+│                   ├── pickers      - Text-input date and time picker wrappers
+│                   └── tools        - Native vibration feedback tools
+├── kmpmaps
+│   └── src
+│       └── commonMain
+│           └── kotlin
+│               └── com/sweetmesoft/kmpmaps
+│                   └── controls     - Coordinates, geo-position, routes, and map components
+└── kmptestapp
+    └── src
+        └── commonMain
+            └── kotlin
+                └── com/sweetmesoft/kmptestapp
+                    ├── components   - Custom application widgets and viewcards
+                    ├── screens      - Demonstration screens and ViewModels
+                    └── tabs         - Navigation tab definitions
 ```
 
-### Version Configuration
+## Design Patterns Implemented
 
-In your `libs.versions.toml` file:
+- Model-View-ViewModel: Architecture separating state declarations inside ViewModels from structural UI declarations in Compose screens.
+- Adapter Pattern: Unified maps component wraps the platform-specific Google Maps API on Android and MapKit API on iOS behind a single common interface.
+- Bridge Pattern: Declares platform-specific APIs inside the common main layer and connects them to actual implementations inside the androidMain and iosMain folders.
+- Service Locator: Used within the navigation engine to lookup active screens, viewmodels, and navigator states.
+- Observer Pattern: Employs Kotlin StateFlow and SharedFlow to push state updates asynchronously from ViewModels to Compose layouts.
 
-```toml
-[versions]
-sweetmesoft = "2.0.1"
+## Configurations
 
-[libraries]
-sweetmesoft-library = { module = "com.sweetmesoft.kmpbase:kmpbase", version.ref = "sweetmesoft" }
-sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
-sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
-```
+The build configuration uses standard Kotlin Multiplatform Gradle configurations. Settings files define the modules in scope. The version catalog defines standard third-party library versions, plugins, and group names. Common source sets handle standard multiplatform business logic and layout scripts, while platform-specific source sets (androidMain, iosMain) configure platform-dependent libraries.
 
-## Requirements
+## Integrations
 
-- **Kotlin**: 2.1.0+
-- **Compose Multiplatform**: 1.7.0+
-- **Android**: API 28+ (Android 9.0)
-- **iOS**: iOS 12.0+
-- **Gradle**: 8.0.0+
-
-### Required Dependencies
-
-```kotlin
-// In your build.gradle.kts
-commonMain.dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
-    implementation("dev.icerock.moko:permissions:0.18.0")
-    implementation("dev.icerock.moko:permissions-compose:0.18.0")
-}
-```
-
-## Quick Start
-
-### 1. Add Dependencies
-
-In your `libs.versions.toml` file:
-
-```toml
-[versions]
-sweetmesoft = "2.0.1"
-
-[libraries]
-sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
-sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
-sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
-```
-
-In your `build.gradle.kts`:
-
-```kotlin
-commonMain.dependencies {
-    implementation(libs.sweetmesoft.kmpcontrols)
-    implementation(libs.sweetmesoft.kmpmaps)
-    implementation(libs.sweetmesoft.library)
-}
-```
-
-### 2. Use Components
-
-```kotlin
-import androidx.compose.runtime.*
-import com.sweetmesoft.kmpcontrols.pickers.DatePicker
-import com.sweetmesoft.kmpbase.controls.PasswordControl
-import com.sweetmesoft.kmpmaps.MapComponent
-import com.sweetmesoft.kmpmaps.controls.Coordinates
-
-@Composable
-fun MyApp() {
-    var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
-    var password by remember { mutableStateOf("") }
-    
-    Column {
-        // Password control
-        PasswordControl(
-            value = password,
-            onValueChange = { password = it },
-            label = "Password"
-        )
-        
-        // Date picker
-        DatePicker(
-            value = selectedDate,
-            title = "Select Date",
-            onSelectedDate = { selectedDate = it }
-        )
-        
-        // Map component
-        MapComponent(
-            modifier = Modifier.fillMaxSize(),
-            coordinates = Coordinates(40.7128, -74.0060)
-        )
-    }
-}
-```
-
-## Documentation
-
-### Complete Documentation
-
-**[Visit our complete documentation on GitHub Pages](https://sweetmesoft.github.io/KmpLibrary)**
-
-The documentation includes:
-
-- **Quick start guides** for each module
-- **Detailed API** with code examples
-- **Customization guides** and themes
-- **Practical examples** and use cases
-- **Advanced configuration** for each platform
-- **Common troubleshooting** solutions
-
-### Documentation by Module
-
-| Module | Description | Documentation |
-|--------|-------------|---------------|
-| **KMPControls** | Basic UI components and utilities | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpcontrols) |
-| **KMPMaps** | Cross-platform maps integration | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmpmaps) |
-| **Library** | Advanced components and tools | [View Docs](https://sweetmesoft.github.io/KmpLibrary/library) |
-| **KMPTestApp** | Example application and guides | [View Docs](https://sweetmesoft.github.io/KmpLibrary/kmptestapp) |
-
-### Local Documentation
-
-You can also access the documentation locally:
-
-- **[KMPControls](docs/kmpcontrols.md)** - Basic UI components
-- **[KMPMaps](docs/kmpmaps.md)** - Maps integration
-- **[Library](docs/library.md)** - Main module
-- **[KMPTestApp](docs/kmptestapp.md)** - Usage examples
-
-## Project Configuration
-
-### Android
-
-In your Android `build.gradle.kts`:
-
-```kotlin
-android {
-    compileSdk = 36
-    defaultConfig {
-        minSdk = 28
-        targetSdk = 36
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-}
-```
-
-### iOS
-
-Make sure you have the minimum deployment target configured:
-
-```kotlin
-iosX64()
-iosArm64()
-iosSimulatorArm64()
-```
-
-## Customization
-
-### Custom Themes
-
-```kotlin
-@Composable
-fun MyCustomTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = lightColorScheme(
-            primary = Color(0xFF6200EE),
-            secondary = Color(0xFF03DAC6)
-        )
-    ) {
-        content()
-    }
-}
-```
-
-## Examples
-
-The project includes a complete example application in the `kmptestapp` module that demonstrates:
-
-- Use of all UI components
-- Maps integration
-- Navigation between screens
-- State management
-- Development best practices
-
-To run the example application:
-
-```bash
-./gradlew :kmptestapp:run
-```
-
-## Contributing
-
-Contributions are welcome! We have a complete guide for contributors.
-
-**[Read our Contributing Guide](CONTRIBUTING.md)**
-
-### Ways to Contribute
-
-- **Report bugs** - Help us improve by reporting issues
-- **Suggest features** - Share your ideas for new functionalities
-- **Improve documentation** - Help make documentation clearer
-- **Contribute code** - Implement new features or fix bugs
-- **Write tests** - Improve test coverage
-- **Translate** - Help make the library more accessible
-
-### Quick Start for Contributors
-
-```bash
-# 1. Fork and clone the repository
-git clone https://github.com/YOUR_USERNAME/KmpLibrary.git
-cd KmpLibrary
-
-# 2. Create a branch for your feature
-git checkout -b feature/my-new-feature
-
-# 3. Install dependencies and build
-./gradlew build
-
-# 4. Run tests
-./gradlew test
-
-# 5. Test the example app
-./gradlew :kmptestapp:installDebug
-```
-
-### Code of Conduct
-
-This project adheres to a code of conduct. By participating, you are expected to maintain a respectful and welcoming environment for everyone.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Authors
-
-- **Erick Velasco** - *Main Development* - [erick.velasco@sweetmesoft.com](mailto:erick.velasco@sweetmesoft.com)
-
-## Links
-
-### Documentation and Resources
-- **[Complete Documentation](https://sweetmesoft.github.io/KmpLibrary)** - GitHub Pages
-- **[Contributing Guide](CONTRIBUTING.md)** - How to contribute to the project
-- **[Example Application](kmptestapp/)** - Example source code
-- **[Changelog](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Change history
-
-### Development
-- **[Main Repository](https://github.com/SweetMeSoft/KmpLibrary)** - Source code
-- **[Issues and Bug Reports](https://github.com/SweetMeSoft/KmpLibrary/issues)** - Report problems
-- **[Releases](https://github.com/SweetMeSoft/KmpLibrary/releases)** - Published versions
-- **[Maven Central](https://search.maven.org/search?q=g:com.sweetmesoft)** - Published packages
-
-### Community
-- **[Discussions](https://github.com/SweetMeSoft/KmpLibrary/discussions)** - Questions and discussions
-- **[Contact](mailto:team@sweetmesoft.com)** - Direct contact
-- **[Twitter](https://twitter.com/sweetmesoft)** - Updates and news
-
-## Project Status
-
-| Aspect | Status |
-|---------|--------|
-| **Current Version** | ![Version](https://img.shields.io/badge/version-2.0.1-blue) |
-| **Status** | ![Status](https://img.shields.io/badge/status-Active%20development-green) |
-| **Kotlin** | ![Kotlin](https://img.shields.io/badge/Kotlin-2.1.0-purple) |
-| **Compose** | ![Compose](https://img.shields.io/badge/Compose-1.7.0%2B-orange) |
-| **Platforms** | ![Platforms](https://img.shields.io/badge/platforms-Android%20%7C%20iOS%20%7C%20Desktop-lightgrey) |
-| **License** | ![License](https://img.shields.io/badge/license-MIT-yellow) |
-| **Tests** | ![Tests](https://img.shields.io/badge/tests-passing-brightgreen) |
-| **Documentation** | ![Docs](https://img.shields.io/badge/docs-complete-blue) |
-
-### Roadmap
-
-- **v1.6.x** - Basic components and maps (Completed)
-- **v1.7.x** - Performance improvements and new components (In Progress)
-- **v1.8.x** - Support for more platforms (Planned)
-- **v2.0.x** - Renewed API and advanced features (Future)
-
----
-
-<div align="center">
-
-**Do you like SweetMeSoft KMP Library?**
-
-**[Give it a star on GitHub](https://github.com/SweetMeSoft/KmpLibrary)** • **[Explore Documentation](https://sweetmesoft.github.io/KmpLibrary)** • **[Get Started Now](#quick-start)** • **[Contribute](CONTRIBUTING.md)**
-
-</div>
-
----
-
-**Need help?** Open an [issue](https://github.com/SweetMeSoft/KmpLibrary/issues) or contact the development team.
+- Android Google Maps SDK: Integrates Android map layouts and native marker structures.
+- Apple MapKit: Renders map layouts and overlays on iOS targets.
+- Android Location Services: Accesses system location providers for GPS reading.
+- iOS Core Location Framework: Hooks into iOS native location providers.

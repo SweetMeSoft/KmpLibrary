@@ -1,422 +1,93 @@
-# KMP Library
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF.svg)](https://kotlinlang.org/docs/multiplatform.html)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose-Multiplatform-4285F4.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Android](https://img.shields.io/badge/Android-Platform-3DDC84.svg)](https://developer.android.com)
+[![iOS](https://img.shields.io/badge/iOS-Platform-000000.svg)](https://developer.apple.com/ios/)
 
-The `library` module is the core component of the SweetMeSoft KMP Library. It provides a robust architectural foundation and a comprehensive set of UI components, utilities, and network helpers for Kotlin Multiplatform development. It is designed to accelerate cross-platform application development by abstracting common patterns and boilerplate code.
+# KmpBase
 
-## Installation
+## Table of Contents
 
-Add the dependency to your version catalog or build file.
+- [Project Summary](#project-summary)
+- [Functionalities](#functionalities)
+- [Libraries and Dependencies](#libraries-and-dependencies)
+- [Core Implementation](#core-implementation)
+- [Versions](#versions)
+- [Folder Structure](#folder-structure)
+- [Design Patterns Implemented](#design-patterns-implemented)
+- [Configurations](#configurations)
+- [Integrations](#integrations)
 
-### Version Catalog
+## Project Summary
 
-```toml
-[versions]
-sweetmesoft = "2.0.1"
+The KmpBase module represents the core architectural library for the SweetMeSoft KMP project. It provides base visual templates, view model abstractions, dynamic material theming utilities, a centralized popup dialog manager, HTTP client helpers, and localized platform tools. By wrapping low-level system permissions and network responses in a uniform interface, KmpBase serves as the foundation for the other UI and business logic submodules.
 
-[libraries]
-sweetmesoft-library = { module = "com.sweetmesoft:library", version.ref = "sweetmesoft" }
+## Functionalities
+
+- Base UI Screen Templates: Standardizes layout containers including basic screen types, navigation drawer interfaces, bottom tab navigation layouts, and modal bottom sheet controllers.
+- Base Screen ViewModel: Manages coroutine scopes, processes permission requests, and integrates navigation commands directly into the screen lifecycle.
+- Pre-built Screens: Deliver ready-to-use splash sequences and about application views.
+- Dynamic Color Generation: Produces a fully custom Material Design 3 color palette given primary, secondary, or tonal style configuration variables.
+- Popup and Alert Dispatcher: Broadcasters messages, confirmation inputs, prompt dialogs, and progress dialogs globally.
+- Network Request Interceptors: Standardizes client GET, POST, PUT, PATCH, and DELETE calls while automatically managing loading states and security tokens.
+- Platform Utilities: Interacts with host system properties, retrieves current app bundle details, and manages deep link browser navigation.
+
+## Libraries and Dependencies
+
+| Dependency | Purpose |
+|:---|:---|
+| Compose Multiplatform | Base drawing canvas, layout rendering, and material color system |
+| Voyager | Unified navigation stack and screen model lifecycle handlers |
+| Material Kolor | Generates dynamic tonal palettes and color schemes |
+| Ktor Client | Multiplatform HTTP networking core and platform engines |
+| Moko Permissions | System-level permission managers for location, camera, and gallery access |
+| Kotlinx DateTime | Date and time manipulation engines |
+| Kotlinx Serialization | Type-safe JSON serialization wrappers |
+
+## Core Implementation
+
+KmpBase builds a shared layer compile-compatible across Android and iOS environments. Networking relies on a shared Ktor client instance with platform-specific execution engines (OkHttp on Android, Darwin on iOS). Navigation hooks into the Voyager ScreenModel container to preserve states across device rotations and transitions. Custom alerts publish states to a central handler that triggers Jetpack Compose overlays.
+
+## Versions
+
+- Kotlin Version: 2.4.0
+- Compose Multiplatform: 1.11.1
+- Android Compile SDK: 37
+- Android Target SDK: 37
+- Android Minimum SDK: 24
+- iOS Deployment Target: 12.0 or higher
+- Android Gradle Plugin: 9.2.1
+
+## Folder Structure
+
+```
+kmpbase
+└── src
+    └── commonMain
+        └── kotlin
+            └── com/sweetmesoft/kmpbase
+                ├── base         - Screen models, BaseViewModel class, and navigation contracts
+                ├── controls     - Custom List, Grid, Dropdown UI elements, and dialog templates
+                ├── objects      - Shareable state representations and custom platform structures
+                ├── screens      - Ready-made application views (SplashContent, AboutContent)
+                ├── serializers  - Custom serial parsing algorithms
+                ├── theme        - Theme wrappers and material-kolor scheme engines
+                └── tools        - Platform property accessors, browser links, and string utils
 ```
 
-### Gradle (Kotlin DSL)
+## Design Patterns Implemented
 
-```kotlin
-implementation(libs.sweetmesoft.library)
-```
+- Model-View-ViewModel (MVVM): Imposed by coupling Voyager Screen models to Composable declarations.
+- Singleton Pattern: Configured on the PopupHandler object to allow global dialog dispatching.
+- Factory Pattern: Utilized in theme engines to build specialized color schemes based on branding styles.
+- Adapter Pattern: Connects native device property APIs to common multiplatform utilities.
+- Observable Pattern: Dispatches state flow outputs from ViewModels to keep Compose interfaces updated.
 
-## Theming
+## Configurations
 
-The library supports easy theme customization using Material 3 dynamic color schemes. You can generate a full color palette from just a primary color (and optionally secondary/tertiary colors).
+The core library module is configured via multi-module build dependencies. Consumers of the module specify KmpBase as an implementation dependency in their Gradle builds. System styles require an entry theme provider wrapper around root layouts.
 
-### Basic Theme Customization
+## Integrations
 
-```kotlin
-CustomTheme(
-    primaryColor = Color(0xFF003b61), // Only primary color is required
-    secondaryColor = Color(0xFF4D7690), // Optional
-    darkTheme = isSystemInDarkTheme(),
-    isAmoled = false, // True for pitch black background in dark mode
-    content = {
-        // Your app content
-    }
-)
-```
-
-### Advanced Color Scheme Generation
-
-You can also use the `CustomColors.fromPrimarySecondary` helper to generate a `ColorScheme` object directly:
-
-```kotlin
-val myScheme = CustomColors.fromPrimarySecondary(
-    primary = Color(0xFF6200EE),
-    secondary = Color(0xFF03DAC6),
-    style = PaletteStyle.Vibrant // Choose from TonalSpot, Neutral, Vibrant, Expressive, etc.
-)
-```
-
-## Architecture
-
-This library promotes a consistent architecture using a suite of `BaseScreen` composables and `BaseViewModel`.
-
-### BaseScreen
-
-`BaseScreen` provides a standardized screen structure with built-in support for:
-- Navigation integration (Voyager)
-- Top app bar customization
-- Global loading state handling
-- Global alert dialogs (Info, Confirm, Prompt, Progress)
-- Floating Action Button (FAB) support
-
-```kotlin
-@Composable
-fun HomeScreen() {
-    BaseScreen(
-        title = "Home",
-        showTop = true,
-        fabAction = { /* Handle FAB click */ }
-    ) { paddingValues ->
-        // Screen content
-        Column(modifier = Modifier.padding(paddingValues)) {
-            Text("Welcome to the Home Screen")
-        }
-    }
-}
-```
-
-### Advanced Screen Types
-
-In addition to `BaseScreen`, the library offers specialized screen layouts:
-
-#### BaseBottomBarScreen
-
-Manages a screen with a bottom navigation bar. It requires a list of `BaseTab` items.
-
-```kotlin
-@Composable
-fun MainScreen() {
-    val homeTab = object : BaseTab {
-        override val baseOptions = defaultBaseTabOptions(
-            title = "Home",
-            icon = rememberVectorPainter(Icons.Default.Home),
-            showTop = true
-        )
-        
-        @Composable
-        override fun Content() {
-            // Tab content
-        }
-    }
-
-    BaseBottomBarScreen(
-        tabs = listOf(homeTab, profileTab)
-    )
-}
-```
-
-#### BaseDrawerScreen
-
-Manages a screen with a side navigation drawer. Similar to `BaseBottomBarScreen`, it uses `BaseTab` for navigation items.
-
-```kotlin
-@Composable
-fun MainScreen() {
-    BaseDrawerScreen(
-        tabs = listOf(homeTab, settingsTab),
-        headerView = {
-            // Drawer header content
-        },
-        logoutAction = {
-            // Handle logout
-        }
-    )
-}
-```
-
-#### BaseBottomSheetScreen
-
-A wrapper for screens displayed within a bottom sheet. It includes a standard top bar with a close button.
-
-```kotlin
-BaseBottomSheetScreen(
-    title = "Details",
-    showTop = true
-) {
-    // Bottom sheet content
-}
-```
-
-### BaseViewModel
-
-`BaseViewModel` serves as the base class for ViewModels, offering:
-- Coroutine scope management
-- Permission handling helpers
-- Navigation integration
-
-```kotlin
-class HomeViewModel : BaseViewModel() {
-    
-    fun checkCameraPermission() {
-        screenModelScope.launch {
-            val granted = requestPermission(Permission.CAMERA)
-            if (granted) {
-                // Permission granted
-            }
-        }
-    }
-}
-```
-
-## Pre-built Screens
-
-The library includes common screen implementations to speed up development.
-
-### SplashContent
-
-A configurable splash screen with logo animation and automatic navigation after a delay.
-
-```kotlin
-SplashContent(
-    logo = painterResource(Res.drawable.logo),
-    waitMillis = 2000,
-    title = "My App",
-    action = {
-        // Navigate to next screen
-        navigator.replace(HomeScreen())
-    }
-)
-```
-
-### AboutContent
-
-An "About" screen displaying app version, logo, and links.
-
-```kotlin
-AboutContent(
-    logo = painterResource(Res.drawable.logo),
-    appName = "My App",
-    appId = "com.example.myapp"
-)
-```
-
-## UI Components
-
-### Lists and Grids
-
-The library provides `LocalList`/`RemoteList` for linear lists and `LocalGridList`/`RemoteGridList` for grid layouts.
-
-#### LocalList / LocalGridList
-
-For displaying static or locally available data.
-
-```kotlin
-LocalList(
-    list = myDataList,
-    title = "My Items",
-    addClick = { /* Handle add */ }
-) { index, item ->
-    Text(text = item.name)
-}
-
-LocalGridList(
-    list = myDataList,
-    columns = 2
-) { index, item ->
-    MyGridItem(item)
-}
-```
-
-#### RemoteList / RemoteGridList
-
-Automatically handles data fetching, loading states, and pull-to-refresh from a URL.
-
-```kotlin
-RemoteList<MyDataItem>(
-    url = "https://api.example.com/items",
-    title = "Remote Items",
-    bearer = "token",
-    refresh = shouldRefresh
-) { item ->
-    Text(text = item.name)
-}
-```
-
-### Dropdowns
-
-`LocalDropDown` and `RemoteDropDown` simplify selection interfaces.
-
-```kotlin
-RemoteDropDown<MyDataItem>(
-    url = "https://api.example.com/options",
-    title = "Select Option",
-    value = selectedOptionName,
-    selectValue = { item -> 
-        // Handle selection
-    }
-) { item ->
-    Text(text = item.name)
-}
-```
-
-### Other Components
-
-#### SettingsItem
-
-A standard row for settings screens with an icon, title, and description.
-
-```kotlin
-SettingsItem(
-    icon = Icons.Default.Settings,
-    title = "General",
-    description = "App preferences"
-) {
-    // Handle click
-}
-```
-
-#### ProfilePhoto
-
-A circular image component that handles loading from a URL and caching.
-
-```kotlin
-ProfilePhoto(
-    urlImage = "https://example.com/avatar.jpg",
-    radius = 100.dp,
-    onClick = { /* Handle click */ }
-)
-```
-
-#### DoublePicker & CalculatorPopup
-
-Input controls for numeric values.
-
-```kotlin
-DoublePicker(
-    title = "Amount",
-    value = amountStr,
-    onValueChange = { newValue ->
-        // Update value
-    }
-)
-
-CalculatorPopup(
-    visible = showCalculator,
-    onDismissRequest = { showCalculator = false },
-    onResult = { result ->
-        amount = result
-        showCalculator = false
-    }
-)
-```
-
-### Popups and Alerts
-
-The `PopupHandler` allows displaying global alerts from anywhere in your code (e.g., ViewModels).
-
-```kotlin
-// Display a simple alert
-PopupHandler.displayAlert(
-    title = "Success",
-    message = "Operation completed successfully"
-)
-
-// Display a confirmation dialog
-PopupHandler.displayConfirm(
-    title = "Delete Item",
-    message = "Are you sure?",
-    onConfirm = { 
-        // Handle confirmation
-    }
-)
-
-// Display a progress dialog with updates
-val job = scope.launch {
-    PopupHandler.displayProgress(
-        title = "Downloading",
-        cancelText = "Cancel",
-        progress = 0f
-    ) {
-        // Handle cancellation
-    }
-    
-    for (i in 1..100) {
-        delay(50)
-        PopupHandler.updateProgress(i / 100f)
-    }
-    
-    PopupHandler.hideProgress()
-}
-```
-
-## Network Utilities
-
-`NetworkUtils` provides simplified HTTP methods that integrate with the global loading state.
-
-```kotlin
-// GET request
-val result = NetworkUtils.get<MyResponseData>(
-    url = "https://api.example.com/data",
-    showLoading = true, // specific loading indicator control
-    bearer = "token",
-    contentType = ApiContentType.Json // Optional, default is Json
-)
-
-result.onSuccess { response ->
-    // Handle success
-}
-
-result.onFailure { error ->
-    // Handle error
-}
-
-// POST request with custom content type
-val result = NetworkUtils.post<MyResponseData>(
-    url = "https://api.example.com/data",
-    body = myRequestObject,
-    contentType = ApiContentType.FormUrlEncoded // Example of changing content type
-)
-
-// PUT request
-val result = NetworkUtils.put<MyResponseData>(
-    url = "https://api.example.com/data/1",
-    body = myRequestObject
-)
-
-// PATCH request
-val result = NetworkUtils.patch<MyResponseData>(
-    url = "https://api.example.com/data/1",
-    body = mapOf("name" to "New Name")
-)
-
-// DELETE request
-val result = NetworkUtils.delete<MyResponseData>(
-    url = "https://api.example.com/data/1"
-)
-```
-
-## Utilities
-
-### PlatformUtils
-
-Helper functions to interact with the platform.
-
-```kotlin
-val platform = getPlatform() // Returns PlatformType.ANDROID or PlatformType.IOS
-val version = getAppVersion()
-openAppStore("com.example.app") // Opens the store page
-```
-
-### General Utils
-
-```kotlin
-// String extensions
-val isValid = "test@example.com".isEmail()
-val passwordValid = isValidPassword("StrongPass1!")
-
-// Browser
-openUrl("https://www.google.com")
-```
-
-## Requirements
-
-- **Android**: Min SDK 28, Target SDK 36
-- **iOS**: iOS 14.0+
-- **Kotlin**: 2.2.0+
-- **Compose Multiplatform**: 1.9.0+
+- System Permission APIs: Bridges Android runtime permissions and iOS Info.plist declarations.
+- Host Web Browser: Launches device-level Safari or Chrome pages via platform deep links.
+- Remote Web APIs: Transacts with JSON REST endpoints through Ktor.

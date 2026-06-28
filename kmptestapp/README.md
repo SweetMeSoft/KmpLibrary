@@ -1,420 +1,95 @@
-# KMPTestApp - Demo Application
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF.svg)](https://kotlinlang.org/docs/multiplatform.html)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose-Multiplatform-4285F4.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Android](https://img.shields.io/badge/Android-Platform-3DDC84.svg)](https://developer.android.com)
+[![iOS](https://img.shields.io/badge/iOS-Platform-000000.svg)](https://developer.apple.com/ios/)
 
-KMPTestApp is a comprehensive demonstration application that showcases all the features and capabilities of the SweetMeSoft KMP Library. It serves as both a testing ground and a practical example of how to implement the library components in a real-world application.
+# KmpTestApp
 
-## Overview
+## Table of Contents
 
-This application demonstrates:
+- [Project Summary](#project-summary)
+- [Functionalities](#functionalities)
+- [Libraries and Dependencies](#libraries-and-dependencies)
+- [Core Implementation](#core-implementation)
+- [Versions](#versions)
+- [Folder Structure](#folder-structure)
+- [Design Patterns Implemented](#design-patterns-implemented)
+- [Configurations](#configurations)
+- [Integrations](#integrations)
 
-- Complete integration of all library modules (Library, KMPControls, KMPMaps)
-- Best practices for Kotlin Multiplatform development
-- Modern UI/UX patterns with Compose Multiplatform
-- Navigation patterns with Voyager
-- State management and architecture patterns
-- Network operations and data handling
-- Custom theming and styling
+## Project Summary
 
-## Features Demonstrated
+KmpTestApp is the demonstration and test application module for the SweetMeSoft KMP Library project. It exercises and verifies all library modules (KmpBase, KmpControls, and KmpMaps) under a unified codebase. The app serves as a reference implementation for engineers to understand component integrations, theming setups, navigation flows, and state handling across target environments.
 
-### UI Components
-- Date and time pickers from KMPControls
-- Form validation and input controls
-- Lists with local and remote data
-- Dropdown components with search
-- Alert and dialog systems
-- Image loading and caching
-- Navigation patterns
+## Functionalities
 
-### Maps Integration
-- Basic map display
-- Marker management
-- Location services
-- Custom map styles
-- Real-time location tracking
+- Input Controls Screen: Exercises the PasswordControl, SearchControl, and custom form validators.
+- Date and Time Pickers Screen: Exercises DatePicker, TimePicker, and DateTimePicker inputs alongside their respective clock/calendar overlay dialogs.
+- Alerts and Dialogue Screen: Showcases loading panels, confirmation popups, notifications, and progress dialogues managed via the global PopupHandler.
+- Maps Screen: Exercises the MapComponent layout, showing dynamic pin placements, polyline rendering, circles, and user location tracking features.
+- Dynamic Theme Showcase: Allows real-time transitions between light and dark visual themes, custom colors, and AMOLED modes.
+- Profile photo loading and caching display: Pulls and renders images in circular layouts.
 
-### Utilities
-- Network requests and API integration
-- String validation and formatting
-- Number and currency formatting
-- Date manipulation
-- Image processing
-- Haptic feedback
+## Libraries and Dependencies
 
-## Project Structure
+| Dependency | Category | Purpose |
+|:---|:---|:---|
+| KmpBase | Local Module | Integrates foundational screens, viewmodels, themes, and network helpers |
+| KmpControls | Local Module | Integrates forms text fields and selection picker dialogs |
+| KmpMaps | Local Module | Integrates Google Maps and MapKit map components |
+| Voyager | Navigation | Manages the tab and transition navigation stack |
+| Compose Material 3 | UI Components | Renders the primary material design guidelines |
+| AndroidX Lifecycle | System | Couples viewmodel execution scopes with composable screens |
+
+## Core Implementation
+
+KmpTestApp uses common main resources to structure its views and logic. Navigation is powered by the Voyager navigation framework using a slide-transition engine. ViewModels extend the core BaseViewModel to run async tasks on a controlled dispatcher, pushing state flows back to compose components. Platform-specific entry points (MainActivity on Android and MainViewController on iOS) bootstrap the root compose screen.
+
+## Versions
+
+- Kotlin Version: 2.4.0
+- Compose Multiplatform: 1.11.1
+- Android Compile SDK: 37
+- Android Target SDK: 37
+- Android Minimum SDK: 24
+- iOS Deployment Target: 12.0 or higher
+- Android Gradle Plugin: 9.2.1
+
+## Folder Structure
 
 ```
-kmptestapp/
-├── src/
-│   ├── androidMain/
-│   │   └── kotlin/
-│   │       └── com/sweetmesoft/kmptestapp/
-│   │           └── MainActivity.kt
-│   ├── commonMain/
-│   │   └── kotlin/
-│   │       └── com/sweetmesoft/kmptestapp/
-│   │           ├── App.kt                    # Main entry point
-│   │           ├── PhotoProfileRequest.kt    # Data model
-│   │           ├── screens/
-│   │           │   ├── about/
-│   │           │   │   └── AboutScreen.kt    # About screen
-│   │           │   ├── main/
-│           │   │   ├── MainScreen.kt     # Main screen (Grid menu)
-│           │   │   └── MainViewModel.kt  # Main ViewModel
-│           │   ├── maps/
-│           │   │   └── MapScreen.kt      # Maps demonstration
-│           │   ├── dialogs/
-│           │   │   └── DialogsScreen.kt  # Dialogs & Alerts
-│           │   ├── pickers/
-│           │   │   └── PickersScreen.kt  # Date/Time Pickers
-│           │   ├── controls/
-│           │   │   └── ControlsScreen.kt # UI Controls
-│           │   └── splash/
-│   │           │       └── SplashScreen.kt   # Splash screen
-│   │           └── theme/
-│   │               ├── Color.kt              # Theme colors
-│   │               └── Theme.kt              # Theme configuration
-│   └── iosMain/
-│       └── kotlin/
-│           └── com/sweetmesoft/kmptestapp/
-│               └── MainViewController.kt
+kmptestapp
+├── src
+│   ├── androidMain  - Android bootstrap (MainActivity)
+│   ├── commonMain   - Shared source sets and screens
+│   │   ├── composeResources - Static assets (drawable)
+│   │   └── kotlin/com/sweetmesoft/kmptestapp
+│   │       ├── components   - Custom application widgets and viewcards
+│   │       ├── screens      - Screen implementations and ViewModels
+│   │       │   ├── about    - About screen layout
+│   │       │   ├── controls - Password and search text field screen
+│   │       │   ├── dialogs  - Global popups and alerts showcase screen
+│   │       │   ├── main     - Menu interface screen
+│   │       │   ├── map      - Native MapComponent layout screen
+│   │       │   └── pickers  - Pickers and dialogue wrappers screen
+│   │       └── tabs         - Bottom bar tab layout declarations
+│   └── iosMain      - iOS UIViewController bootstrap
 └── build.gradle.kts
 ```
 
-## Getting Started
+## Design Patterns Implemented
 
-### Prerequisites
+- Model-View-ViewModel: Segregates screen structures from business logic ViewModels.
+- State Hoisting: Elevates state variables from basic components to ViewModel scopes.
+- Strategy Pattern: Employs different navigation approaches (drawers vs bottom navigation bars).
+- Observer Pattern: Binds StateFlow properties to the UI layout.
 
-1. **Android Studio** (latest stable version)
-2. **Xcode** (for iOS development)
-3. **JDK 17** or higher
-4. **Kotlin Multiplatform Mobile plugin**
+## Configurations
 
-### Installation
+Deploying the demonstration application requires setting up API credentials. Developers must configure the Google Maps API Key in the Android resource file values and configure location description permissions in the iOS Info.plist configuration. Build commands are executed using Gradle tasks to build and install the debug APK on Android devices or simulate Xcode frameworks on iOS configurations.
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/erickvelasco11/KmpLibrary.git
-   cd KmpLibrary
-   ```
+## Integrations
 
-2. **Open in Android Studio**:
-   - Open Android Studio
-   - Select "Open an existing project"
-   - Navigate to the cloned repository
-   - Select the root directory
-
-3. **Sync the project**:
-   ```bash
-   ./gradlew build
-   ```
-
-### Running the Application
-
-#### Android
-
-```bash
-# Run on Android device/emulator
-./gradlew :kmptestapp:installDebug
-
-# Or from Android Studio:
-# 1. Select 'kmptestapp' configuration
-# 2. Choose your target device
-# 3. Click Run
-```
-
-#### iOS
-
-```bash
-# Generate Xcode project
-./gradlew :kmptestapp:embedAndSignAppleFrameworkForXcode
-
-# Open in Xcode
-open iosApp/iosApp.xcodeproj
-
-# Or from Android Studio with KMP plugin:
-# 1. Select iOS configuration
-# 2. Choose your target simulator/device
-# 3. Click Run
-```
-
-#### Desktop (Experimental)
-
-```bash
-# Run desktop version
-./gradlew :kmptestapp:run
-```
-
-## Configuration
-
-### API Keys Setup
-
-To use maps functionality, configure the required API keys:
-
-#### Android
-
-Add your Google Maps API key to `android/src/main/res/values/strings.xml`:
-
-```xml
-<resources>
-    <string name="google_maps_key">YOUR_API_KEY_HERE</string>
-</resources>
-```
-
-#### iOS
-
-Add location permissions to `iosApp/iosApp/Info.plist`:
-
-```xml
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>This app needs location access to show maps</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>This app needs location access to show maps</string>
-```
-
-### Dependencies
-
-The app uses the following main dependencies:
-
-```kotlin
-commonMain.dependencies {
-    implementation(projects.library)
-    implementation(projects.kmpcontrols)
-    implementation(projects.kmpmaps)
-    
-    // Navigation
-    implementation(libs.voyager.navigator)
-    implementation(libs.voyager.bottom.sheet.navigator)
-    implementation(libs.voyager.tab.navigator)
-    implementation(libs.voyager.transitions)
-    
-    // UI and Compose
-    implementation(compose.runtime)
-    implementation(compose.foundation)
-    implementation(compose.material3)
-    implementation(compose.ui)
-    implementation(compose.components.resources)
-    implementation(compose.components.uiToolingPreview)
-    
-    // Lifecycle
-    implementation(libs.androidx.lifecycle.viewmodel)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    
-    // Utilities
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.serialization.json)
-}
-```
-
-## Key Examples
-
-### 1. Main Screen Implementation
-
-The main screen demonstrates the use of `LocalGridList` to navigate to different feature modules:
-
-```kotlin
-class MainScreen : BaseBottomBarScreen() {
-    @Composable
-    override fun ScreenContent() {
-        val navigator = LocalNavigator.currentOrThrow
-        
-        val menuItems = listOf(
-            MainMenuItem("Controls", "Input controls", TablerIcons.Forms) { 
-                navigator.push(ControlsScreen()) 
-            },
-            MainMenuItem("Maps", "Map integration", TablerIcons.Map) { 
-                navigator.push(MapScreen()) 
-            },
-            MainMenuItem("Dialogs", "Alerts & Dialogs", TablerIcons.Message) { 
-                navigator.push(DialogsScreen()) 
-            },
-            // ... other items
-        )
-        
-        LocalGridList(
-            list = menuItems,
-            columns = 2,
-            contentPadding = PaddingValues(16.dp)
-        ) { _, item ->
-            MenuCard(item)
-        }
-    }
-}
-```
-
-### 2. Form Validation Example
-
-```kotlin
-@Composable
-fun UserFormExample() {
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    
-    val isFormValid = remember(name, email, password) {
-        name.isNotBlank() && 
-        StringUtils.isValidEmail(email) && 
-        password.length >= 6
-    }
-    
-    Column(
-        modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        OutlinedTextField(
-            value = name,
-            onValueChange = { name = it },
-            label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Email") },
-            isError = email.isNotBlank() && !StringUtils.isValidEmail(email),
-            modifier = Modifier.fillMaxWidth()
-        )
-        
-        PasswordControl(
-            value = password,
-            onValueChange = { password = it },
-            label = "Password",
-            supportingText = if (password.isNotBlank() && password.length < 6) {
-                "Password must be at least 6 characters"
-            } else null
-        )
-        
-        Button(
-            onClick = { /* Submit form */ },
-            enabled = isFormValid,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Register")
-        }
-    }
-}
-```
-
-### 3. Network Integration
-
-```kotlin
-class MainViewModel : BaseViewModel() {
-    fun testNetworkCall() {
-        viewModelScope.launch {
-            setLoading(true)
-            try {
-                val result = NetworkUtils.get<String>("https://api.example.com/test")
-                PopupHandler.showAlert(
-                    title = "Success",
-                    message = "Response: $result"
-                )
-            } catch (e: Exception) {
-                setError(e.message)
-            } finally {
-                setLoading(false)
-            }
-        }
-    }
-}
-```
-
-## Architecture Patterns
-
-### MVVM Pattern
-
-The app follows the Model-View-ViewModel pattern:
-
-- **Model**: Data classes and repository patterns
-- **View**: Composable functions for UI
-- **ViewModel**: Business logic and state management
-
-### Navigation
-
-Uses Voyager for type-safe navigation:
-
-```kotlin
-@Composable
-fun App() {
-    AppTheme {
-        Navigator(screen = SplashScreen()) { navigator ->
-            BaseViewModel.navigator = navigator
-            SlideTransition(navigator)
-        }
-    }
-}
-```
-
-### State Management
-
-Utilizes StateFlow for reactive state management:
-
-```kotlin
-class MainViewModel : BaseViewModel() {
-    private val _uiState = MutableStateFlow(MainUiState())
-    val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
-}
-```
-
-## Testing
-
-The app includes examples of:
-
-- Unit testing with Kotlin Test
-- UI testing with Compose Testing
-- Integration testing across platforms
-
-## Customization
-
-### Themes
-
-Custom themes are defined in the `theme` package:
-
-```kotlin
-@Composable
-fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colorScheme = if (darkTheme) {
-        DarkColorScheme
-    } else {
-        LightColorScheme
-    }
-    
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
-```
-
-### Adding New Features
-
-1. Create new screen in `screens` package
-2. Add navigation logic
-3. Implement ViewModel if needed
-4. Add to main navigation
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Build errors**: Ensure all dependencies are properly synced
-2. **iOS build issues**: Check Xcode version compatibility
-3. **Maps not showing**: Verify API keys are correctly configured
-4. **Network errors**: Check internet connectivity and API endpoints
-
-### Getting Help
-
-- [Main Documentation](../docs/)
-- [GitHub Issues](https://github.com/erickvelasco11/KmpLibrary/issues)
-- [Contributing Guide](../CONTRIBUTING.md)
-
-## Contributing
-
-Contributions are welcome! Please read the [Contributing Guide](../CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
-
-## License
-
-This project is part of the SweetMeSoft KMP Library suite. See the [LICENSE](../LICENSE) file for details.
+- Google Maps API: Displays local geographic details on Android systems.
+- Apple MapKit Framework: Renders location maps on iOS platforms.
+- Core Geolocation Services: Queries active device position properties.

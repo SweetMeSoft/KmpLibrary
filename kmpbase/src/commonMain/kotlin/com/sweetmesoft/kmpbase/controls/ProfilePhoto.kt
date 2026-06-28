@@ -29,10 +29,16 @@ import androidx.compose.ui.unit.dp
 import com.sweetmesoft.kmpbase.controls.alerts.BaseDialog
 import com.sweetmesoft.kmpbase.tools.createHttpClient
 import com.sweetmesoft.kmpbase.tools.toImageBitmap
-import io.github.ismoy.imagepickerkmp.domain.config.ImagePickerConfig
+import androidx.compose.runtime.LaunchedEffect
+import io.github.ismoy.imagepickerkmp.features.imagepicker.ui.rememberImagePickerKMP
+import io.github.ismoy.imagepickerkmp.features.imagepicker.config.ImagePickerKMPConfig
+import io.github.ismoy.imagepickerkmp.features.imagepicker.model.ImagePickerResult
+import io.github.ismoy.imagepickerkmp.domain.config.CropConfig
+import io.github.ismoy.imagepickerkmp.domain.config.CameraCaptureConfig
+import io.github.ismoy.imagepickerkmp.domain.config.GalleryConfig
+import io.github.ismoy.imagepickerkmp.domain.config.PermissionAndConfirmationConfig
+import io.github.ismoy.imagepickerkmp.domain.models.MimeType
 import io.github.ismoy.imagepickerkmp.domain.extensions.loadBytes
-import io.github.ismoy.imagepickerkmp.presentation.ui.components.GalleryPickerLauncher
-import io.github.ismoy.imagepickerkmp.presentation.ui.components.ImagePickerLauncher
 import io.kamel.core.config.KamelConfig
 import io.kamel.core.config.httpUrlFetcher
 import io.kamel.core.config.takeFrom
@@ -62,11 +68,36 @@ fun ProfilePhoto(
     onPhotoSelected: (ByteArray) -> Unit = {},
     onClick: () -> Unit = {}
 ) {
-    val scope = rememberCoroutineScope()
-    var showCamera by remember { mutableStateOf(false) }
-    var showGallery by remember { mutableStateOf(false) }
+    val picker = rememberImagePickerKMP(
+        config = ImagePickerKMPConfig(
+            cropConfig = CropConfig(enabled = true),
+            cameraCaptureConfig = CameraCaptureConfig(
+                includeExif = false,
+                permissionAndConfirmationConfig = PermissionAndConfirmationConfig(
+                    cancelButtonTextIOS = "Dismiss"
+                )
+            ),
+            galleryConfig = GalleryConfig(
+                allowMultiple = false,
+                selectionLimit = 1,
+                mimeTypes = listOf(MimeType.IMAGE_ALL)
+            )
+        )
+    )
+
     var showSelectionDialog by remember { mutableStateOf(false) }
     var localImageBytes by remember { mutableStateOf<ByteArray?>(null) }
+
+    LaunchedEffect(picker.result) {
+        val result = picker.result
+        if (result is ImagePickerResult.Success) {
+            result.photos.firstOrNull()?.let {
+                val bytes = it.loadBytes()
+                localImageBytes = bytes
+                onPhotoSelected(bytes)
+            }
+        }
+    }
 
     val customKamelConfig = KamelConfig {
         takeFrom(KamelConfig.Default)
@@ -89,9 +120,9 @@ fun ProfilePhoto(
                                 if (allowCamera && allowGallery) {
                                     showSelectionDialog = true
                                 } else if (allowCamera) {
-                                    showCamera = true
+                                    picker.launchCamera()
                                 } else if (allowGallery) {
-                                    showGallery = true
+                                    picker.launchGallery()
                                 } else {
                                     onClick()
                                 }
@@ -109,9 +140,9 @@ fun ProfilePhoto(
                             if (allowCamera && allowGallery) {
                                 showSelectionDialog = true
                             } else if (allowCamera) {
-                                showCamera = true
+                                picker.launchCamera()
                             } else if (allowGallery) {
-                                showGallery = true
+                                picker.launchGallery()
                             } else {
                                 onClick()
                             }
@@ -125,9 +156,9 @@ fun ProfilePhoto(
                                 if (allowCamera && allowGallery) {
                                     showSelectionDialog = true
                                 } else if (allowCamera) {
-                                    showCamera = true
+                                    picker.launchCamera()
                                 } else if (allowGallery) {
-                                    showGallery = true
+                                    picker.launchGallery()
                                 } else {
                                     onClick()
                                 }
@@ -144,44 +175,6 @@ fun ProfilePhoto(
                     })
             }
 
-            if (showCamera) {
-                ImagePickerLauncher(
-                    config = ImagePickerConfig(
-                        onPhotoCaptured = { result ->
-                            showCamera = false
-                            result.let {
-                                scope.launch {
-                                    val bytes = it.loadBytes()
-                                    localImageBytes = bytes
-                                    onPhotoSelected(bytes)
-                                }
-                            }
-                        },
-                        onError = { showCamera = false },
-                        onDismiss = { showCamera = false },
-                        enableCrop = true
-                    )
-                )
-            }
-
-            if (showGallery) {
-                GalleryPickerLauncher(
-                    enableCrop = true,
-                    allowMultiple = false,
-                    onPhotosSelected = { photos ->
-                        showGallery = false
-                        photos.firstOrNull()?.let {
-                            scope.launch {
-                                val bytes = it.loadBytes()
-                                localImageBytes = bytes
-                                onPhotoSelected(bytes)
-                            }
-                        }
-                    },
-                    onError = { showGallery = false },
-                    onDismiss = { showGallery = false })
-            }
-
             if (showSelectionDialog) {
                 BaseDialog(
                     acceptText = stringResource(Res.string.Camera),
@@ -189,11 +182,11 @@ fun ProfilePhoto(
                     color = MaterialTheme.colorScheme.primary,
                     onAccept = {
                         showSelectionDialog = false
-                        showCamera = true
+                        picker.launchCamera()
                     },
                     onDismiss = {
                         showSelectionDialog = false
-                        showGallery = true
+                        picker.launchGallery()
                     }) {
                     Column(
                         modifier = Modifier.fillMaxWidth().padding(16.dp)

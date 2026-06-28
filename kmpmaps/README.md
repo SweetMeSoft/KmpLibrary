@@ -1,261 +1,82 @@
-# KMPMaps
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF.svg)](https://kotlinlang.org/docs/multiplatform.html)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose-Multiplatform-4285F4.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Android](https://img.shields.io/badge/Android-Platform-3DDC84.svg)](https://developer.android.com)
+[![iOS](https://img.shields.io/badge/iOS-Platform-000000.svg)](https://developer.apple.com/ios/)
 
-KMPMaps is a Kotlin Multiplatform library that provides unified map functionality across Android and iOS platforms, leveraging native map implementations (Google Maps on Android and MapKit on iOS) with a simple, composable API.
+# KmpMaps
 
-## Features
+## Table of Contents
 
-- **Cross-platform Map Component**: A unified `MapComponent` for Android and iOS.
-- **Markers**: Easily add markers with custom titles, snippets, and colors.
-- **Routes (Polylines)**: Draw routes on the map with customizable colors and widths.
-- **Shapes**: Draw circles on the map.
-- **Location Services**: Integrated user location display and retrieval.
-- **Map Controls**: Toggle zoom, scroll, rotation, traffic, buildings, and more.
-- **Utilities**: Helper functions for distance calculation and zoom level estimation.
+- [Project Summary](#project-summary)
+- [Functionalities](#functionalities)
+- [Libraries and Dependencies](#libraries-and-dependencies)
+- [Core Implementation](#core-implementation)
+- [Versions](#versions)
+- [Folder Structure](#folder-structure)
+- [Design Patterns Implemented](#design-patterns-implemented)
+- [Configurations](#configurations)
+- [Integrations](#integrations)
 
-## Installation
+## Project Summary
 
-Add the dependency to your project.
+KmpMaps is a Kotlin Multiplatform library that establishes a unified MapComponent container. By encapsulating platform-specific map providers (Google Maps SDK on Android and MapKit on iOS), the module offers a single, composable API for rendering map canvases, tracking positions, drawing routes, and overlays.
 
-### Using Version Catalog
+## Functionalities
 
-If you are using a version catalog (e.g., `libs.versions.toml`), add the following:
+- Unified Map View: Renders maps across target systems, maintaining natural scroll, zoom, rotation, and gesture responsiveness.
+- Marker Manager: Renders pins on the map with customizable descriptions, titles, and boundary colors.
+- Route Polyline Drawer: Connects list arrays of coordinate points into paths, displaying custom route lines on the canvas.
+- Circle Overlays: Draws geometric circles centered at target coordinates with adjustable boundary stroke and background fill parameters.
+- User Geolocation Service: Displays user location indicators and retrieves active latitude/longitude details.
+- Navigation Helper Utilities: Calculates geographic distances between points and computes center-zoom layouts automatically.
 
-```toml
-[versions]
-sweetmesoft = "2.0.1"
+## Libraries and Dependencies
 
-[libraries]
-sweetmesoft-kmpmaps = { module = "com.sweetmesoft.kmpmaps:kmpmaps", version.ref = "sweetmesoft" }
+| Dependency | Category | Purpose |
+|:---|:---|:---|
+| Compose Multiplatform | UI Canvas | Renders the map container within active layouts |
+| Google Maps Compose | Android Map Provider | Powers Google Maps rendering on Android platforms |
+| Play Services Location | Geolocation Provider | Retrieves GPS data on Android devices |
+| Moko Permissions | System Permissions | Manages runtime GPS permissions across platforms |
+
+## Core Implementation
+
+The KmpMaps module uses standard expect/actual constructs to abstract native platform maps. On Android, the module instantiates a standard Android Compose MapView wrapping the Google Play Services maps engine. On iOS, the module uses a UIViewControllerRepresentable component to embed an Apple MapKit MKMapView. Geolocation coordinates are modeled as common data objects and passed directly down to the platform adapter levels.
+
+## Versions
+
+- Kotlin Version: 2.4.0
+- Compose Multiplatform: 1.11.1
+- Android Compile SDK: 37
+- Android Target SDK: 37
+- Android Minimum SDK: 24
+- iOS Deployment Target: 12.0 or higher
+- Android Gradle Plugin: 9.2.1
+
+## Folder Structure
+
+```
+kmpmaps
+└── src
+    └── commonMain
+        └── kotlin
+            └── com/sweetmesoft/kmpmaps
+                └── controls - Map component definitions, Routes, Circles, and Coordinates
 ```
 
-### Build Gradle
+## Design Patterns Implemented
 
-In your `build.gradle.kts` (commonMain source set):
+- Adapter Pattern: Wraps the distinct iOS MapKit API and Android Google Maps API under a single common MapComponent API.
+- Bridge Pattern: Connects common declarations of the map canvas to platform-specific views.
+- Observer Pattern: Listens to location changes to reposition map views dynamically.
 
-```kotlin
-implementation(libs.sweetmesoft.kmpmaps)
-```
+## Configurations
 
-## Platform Configuration
+Deploying maps functionality requires platform-specific credential configurations. Developers must declare a Google Maps API Key in their Android project properties or manifest files and register location permission keys in the Android manifest structure. For iOS, developers must configure location description keys in their Info.plist file to justify background and foreground location retrieval.
 
-### Android
+## Integrations
 
-1.  **API Key**: Add your Google Maps API key to your `local.properties` or directly in `AndroidManifest.xml` (though `local.properties` is safer, for this guide we show the manifest meta-data).
-
-    In `AndroidManifest.xml`:
-    ```xml
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="YOUR_GOOGLE_MAPS_API_KEY" />
-    ```
-
-2.  **Permissions**: Add location permissions if you intend to use location features.
-    ```xml
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    ```
-
-### iOS
-
-1.  **Permissions**: Add location usage descriptions to your `Info.plist` if you use location features.
-
-    ```xml
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>We need your location to show it on the map.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>We need your location to show it on the map.</string>
-    ```
-
-## Usage
-
-### Basic Map
-
-Display a simple map centered at a specific location.
-
-```kotlin
-import com.sweetmesoft.kmpmaps.MapComponent
-import com.sweetmesoft.kmpmaps.controls.Coordinates
-
-@Composable
-fun SimpleMap() {
-    val center = Coordinates(37.7749, -122.4194) // San Francisco
-    
-    MapComponent(
-        coordinates = center,
-        zoom = 12f
-    )
-}
-```
-
-### Adding Markers
-
-Markers are added via the `markers` parameter, which takes a list of `GeoPosition` objects. Each `GeoPosition` can have a `MarkerMap` configuration.
-
-```kotlin
-import com.sweetmesoft.kmpmaps.controls.GeoPosition
-import com.sweetmesoft.kmpmaps.controls.MarkerMap
-import androidx.compose.ui.graphics.Color
-
-val markers = listOf(
-    GeoPosition(
-        coordinates = Coordinates(37.7749, -122.4194),
-        markerMap = MarkerMap(
-            isVisible = true,
-            title = "San Francisco",
-            snippet = "A beautiful city",
-            iconColor = Color.Red,
-            onClick = { position ->
-                println("Clicked: ${position.markerMap.title}")
-                true // Return true to consume the event
-            }
-        )
-    )
-)
-
-MapComponent(
-    coordinates = Coordinates(37.7749, -122.4194),
-    markers = markers
-)
-```
-
-### Drawing Routes (Polylines)
-
-Draw lines on the map using `RouteMap`.
-
-```kotlin
-import com.sweetmesoft.kmpmaps.controls.RouteMap
-
-val route = RouteMap(
-    points = listOf(
-        Coordinates(37.7749, -122.4194),
-        Coordinates(34.0522, -118.2437) // LA
-    ),
-    color = Color.Blue,
-    width = 5f
-)
-
-MapComponent(
-    coordinates = Coordinates(36.0, -120.0),
-    zoom = 6f,
-    routes = listOf(route)
-)
-```
-
-### Drawing Circles
-
-Circles are also attached to a `GeoPosition` via the `CircleMap` property.
-
-```kotlin
-import com.sweetmesoft.kmpmaps.controls.CircleMap
-
-val circlePosition = GeoPosition(
-    coordinates = Coordinates(37.7749, -122.4194),
-    circleMap = CircleMap(
-        radius = 1000.0, // meters
-        fillColor = Color.Blue.copy(alpha = 0.3f),
-        strokeColor = Color.Blue,
-        strokeWidth = 2f
-    )
-)
-
-MapComponent(
-    coordinates = Coordinates(37.7749, -122.4194),
-    markers = listOf(circlePosition)
-)
-```
-
-### User Location
-
-Enable the user's location display on the map.
-
-```kotlin
-MapComponent(
-    coordinates = center,
-    locationEnabled = true, // Shows the user location dot
-    // ...
-)
-```
-
-To get the current location programmatically:
-
-```kotlin
-import com.sweetmesoft.kmpmaps.getLocation
-
-LaunchedEffect(Unit) {
-    try {
-        val location = getLocation(updateLocation = true)
-        println("User location: ${location.latitude}, ${location.longitude}")
-    } catch (e: Exception) {
-        println("Error getting location: ${e.message}")
-    }
-}
-```
-
-## API Reference
-
-### MapComponent
-
-| Parameter | Type | Description | Default |
-| :--- | :--- | :--- | :--- |
-| `coordinates` | `Coordinates` | Center coordinates of the map. | Required |
-| `zoom` | `Float` | Initial zoom level. | `1f` |
-| `zoomEnabled` | `Boolean` | Enable zoom gestures. | `true` |
-| `scrollEnabled` | `Boolean` | Enable scroll gestures. | `true` |
-| `rotateEnabled` | `Boolean` | Enable rotation gestures. | `false` |
-| `locationEnabled` | `Boolean` | Show user location (requires permissions). | `false` |
-| `markers` | `List<GeoPosition>` | List of positions to display markers or circles. | `emptyList()` |
-| `routes` | `List<RouteMap>` | List of polylines to draw. | `emptyList()` |
-| `showTraffic` | `Boolean` | Show traffic layer. | `false` |
-| `showBuildings` | `Boolean` | Show 3D buildings. | `false` |
-| `showCompass` | `Boolean` | Show compass. | `false` |
-| `onMapClick` | `(Coordinates) -> Unit` | Callback for map click. | `{}` |
-| `onMapLongClick` | `(Coordinates) -> Unit` | Callback for map long click. | `{}` |
-
-### Data Classes
-
-**Coordinates**
-- `latitude`: `Double`
-- `longitude`: `Double`
-
-**GeoPosition**
-- `coordinates`: `Coordinates`
-- `address`: `String`
-- `markerMap`: `MarkerMap`
-- `circleMap`: `CircleMap`
-
-**MarkerMap**
-- `isVisible`: `Boolean`
-- `title`: `String`
-- `snippet`: `String`
-- `iconColor`: `Color`
-- `onClick`: `(GeoPosition) -> Boolean`
-- `onInfoWindowClick`: `(GeoPosition) -> Unit`
-
-**RouteMap**
-- `points`: `List<Coordinates>`
-- `color`: `Color`
-- `width`: `Float`
-
-**CircleMap**
-- `radius`: `Double` (in meters)
-- `fillColor`: `Color`
-- `strokeColor`: `Color`
-- `strokeWidth`: `Float`
-
-## Utilities
-
-- `getLocation(updateLocation: Boolean)`: Suspend function to get current user location.
-- `calculateDistance(from: Coordinates, to: Coordinates)`: Returns distance in meters.
-- `calculateZoomByRadius(radiusInMeters: Double)`: Returns appropriate zoom level for a given radius.
-- `calculateZoomAndCenter(positions: List<Coordinates>)`: Returns a pair of `Float` (zoom) and `Coordinates` (center) to fit all positions.
-
-## Requirements
-
-- **Android**: Min SDK 28, Target SDK 36
-- **iOS**: 12.0+
-- **Kotlin**: 2.2.21+
-- **Compose Multiplatform**: 1.9.0+
-
-## License
-
-This project is licensed under the MIT License.
+- Google Maps API: Integrates Android map layouts and marker assets.
+- Apple MapKit: Renders map visuals on iOS systems.
+- Android Location Providers: Hooks into Google Play Services for location information.
+- iOS Core Location Manager: Requests location telemetry from Apple devices.

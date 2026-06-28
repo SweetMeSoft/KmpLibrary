@@ -20,13 +20,13 @@ kotlin {
         }
         publishLibraryVariants("release")
     }
-    iosX64()
+    // iosX64()
     iosArm64()
     iosSimulatorArm64()
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.androidx.lifecycle.viewmodel)
+            api(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
             implementation(libs.androidx.material3)
             implementation(libs.components.resources)

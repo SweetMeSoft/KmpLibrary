@@ -1,242 +1,85 @@
-# KMPControls
+[![Kotlin Multiplatform](https://img.shields.io/badge/Kotlin-Multiplatform-7F52FF.svg)](https://kotlinlang.org/docs/multiplatform.html)
+[![Compose Multiplatform](https://img.shields.io/badge/Compose-Multiplatform-4285F4.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
+[![Android](https://img.shields.io/badge/Android-Platform-3DDC84.svg)](https://developer.android.com)
+[![iOS](https://img.shields.io/badge/iOS-Platform-000000.svg)](https://developer.apple.com/ios/)
 
-KMPControls is a Kotlin Multiplatform library that provides advanced date and time picker components, along with other useful UI controls, offering a native look and feel across Android and iOS platforms.
+# KmpControls
 
-## Features
+## Table of Contents
 
-- **Cross-platform Pickers**: Fully functional Date, Time, and DateTime pickers.
-- **Dialogs**: Customizable standalone Calendar and Clock dialogs.
-- **Additional Controls**:
-  - `PasswordControl`: Password input with visibility toggle.
-  - `SearchControl`: Search bar component.
-- **Material Design 3**: Built using Jetpack Compose Material 3.
-- **Kotlin Multiplatform**: Seamless support for Android and iOS.
+- [Project Summary](#project-summary)
+- [Functionalities](#functionalities)
+- [Libraries and Dependencies](#libraries-and-dependencies)
+- [Core Implementation](#core-implementation)
+- [Versions](#versions)
+- [Folder Structure](#folder-structure)
+- [Design Patterns Implemented](#design-patterns-implemented)
+- [Configurations](#configurations)
+- [Integrations](#integrations)
 
-## Installation
+## Project Summary
 
-Add the dependency to your project.
+KmpControls is a Kotlin Multiplatform library focused on providing advanced Date, Time, and DateTime pickers, custom dialog dialogs, and essential input controls. The module ensures a natural, platform-specific input flow across Android and iOS by complying with Material Design 3 guidelines and integrating platform haptic vibration mechanics.
 
-### Using Version Catalog
+## Functionalities
 
-If you are using a version catalog (e.g., `libs.versions.toml`), add the following:
+- Date Selection Picker: Text input layout displaying calendar views for simple day selections.
+- Time Selection Picker: Text input layout displaying clock selection graphics.
+- DateTime Sequence Picker: Chained picker flow presenting a calendar dialog immediately followed by a clock dialog.
+- Calendar Overlay Dialog: Standalone modal component rendering month grid views.
+- Clock Overlay Dialog: Standalone modal component rendering interactive clock dial interfaces.
+- Password Control: Specialized text field rendering input characters masked, featuring a secure visibility toggling action.
+- Search Control: High-visibility search field with clear triggers and custom action callbacks.
+- Haptic Vibration Feedback: Emits micro-vibration cues during picker rotations and selection confirmations.
 
-```toml
-[versions]
-sweetmesoft = "2.0.1"
+## Libraries and Dependencies
 
-[libraries]
-sweetmesoft-kmpcontrols = { module = "com.sweetmesoft.kmpcontrols:kmpcontrols", version.ref = "sweetmesoft" }
+| Dependency | Category | Purpose |
+|:---|:---|:---|
+| Compose Multiplatform | UI Design | Implements Material Design 3 inputs, text fields, and overlays |
+| Kotlinx DateTime | Date Logic | Models, formats, and validates calendar dates and times |
+| Android Activity Compose | Platform UI | Integrates application context with Compose on Android devices |
+
+## Core Implementation
+
+KmpControls builds on top of the shared Compose Multiplatform canvas. Pickers are designed as wrapper elements around standard OutlinedTextField controls. When users focus or tap the target area, the module intercepts the event and pops open custom modal dialog surfaces. Haptic responses run on a common adapter interface, directing calls to Android-specific vibration services or iOS UIKit haptic engines.
+
+## Versions
+
+- Kotlin Version: 2.4.0
+- Compose Multiplatform: 1.11.1
+- Android Compile SDK: 37
+- Android Target SDK: 37
+- Android Minimum SDK: 24
+- iOS Deployment Target: 12.0 or higher
+- Android Gradle Plugin: 9.2.1
+
+## Folder Structure
+
+```
+kmpcontrols
+└── src
+    └── commonMain
+        └── kotlin
+            └── com/sweetmesoft/kmpcontrols
+                ├── controls  - Input text layouts (PasswordControl, SearchControl)
+                ├── dialogs   - Overlay dialogue layers (CalendarDialog, ClockDialog)
+                ├── pickers   - Combination field-picker widgets (DatePicker, TimePicker)
+                └── tools     - Common vibration service abstractions
 ```
 
-### Build Gradle
+## Design Patterns Implemented
 
-In your `build.gradle.kts` (commonMain source set):
+- Compound Component Pattern: Combines text fields, icons, and dialog overlays into cohesive UI units.
+- Adapter Pattern: Wraps the Android Vibrator API and iOS UIFeedbackGenerator behind a single platform-independent vibration interface.
+- State Hoisting: Delegates picker selections up to owner states via selection callback triggers.
 
-```kotlin
-implementation(libs.sweetmesoft.kmpcontrols)
-```
+## Configurations
 
-## Android Initialization
+Using KmpControls requires initializing the Android helper utility inside the Android host MainActivity. This setup connects the shared library to the application context necessary for accessing system vibrator resources. Android applications must also declare haptic vibration permissions in their target manifest settings.
 
-For Android, you need to initialize the library in your `MainActivity` to support features like vibration feedback.
+## Integrations
 
-```kotlin
-// In your Android MainActivity.kt
-import com.sweetmesoft.kmpcontrols.tools.BaseAndroid
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        
-        // Initialize KMPControls
-        BaseAndroid.initSweetMeSoft(this)
-        
-        setContent {
-            // Your content
-        }
-    }
-}
-```
-
-### Permissions (Android)
-
-For haptic feedback (vibration) in pickers, add the following permission to your `AndroidManifest.xml`:
-
-```xml
-<uses-permission android:name="android.permission.VIBRATE" />
-```
-
-## Usage
-
-### DatePicker
-
-A text field that opens a calendar dialog when clicked.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.pickers.DatePicker
-import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
-
-// ... inside your Composable
-var selectedDate by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date) }
-
-DatePicker(
-    value = selectedDate,
-    title = "Select Date",
-    onSelectedDate = { date ->
-        selectedDate = date
-    }
-)
-```
-
-### TimePicker
-
-A text field that opens a clock dialog when clicked.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.pickers.TimePicker
-
-var selectedTime by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).time) }
-
-TimePicker(
-    value = selectedTime,
-    title = "Select Time",
-    onSelectedTime = { time ->
-        selectedTime = time
-    }
-)
-```
-
-### DateTimePicker
-
-A text field that opens a calendar dialog followed by a clock dialog.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.pickers.DateTimePicker
-
-var selectedDateTime by remember { mutableStateOf(Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault())) }
-
-DateTimePicker(
-    value = selectedDateTime,
-    title = "Select Date & Time",
-    onSelectedDateTime = { dateTime ->
-        selectedDateTime = dateTime
-    }
-)
-```
-
-### CalendarDialog
-
-Use the calendar dialog directly.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
-
-CalendarDialog(
-    isVisible = showCalendar,
-    value = selectedDate,
-    onDismiss = { showCalendar = false },
-    onDateSelected = { date ->
-        selectedDate = date
-        showCalendar = false
-    }
-)
-```
-
-### ClockDialog
-
-Use the clock dialog directly.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
-
-ClockDialog(
-    isVisible = showClock,
-    value = selectedTime,
-    onDismiss = { showClock = false },
-    onTimeSelected = { time ->
-        selectedTime = time
-        showClock = false
-    }
-)
-```
-
-### PasswordControl
-
-A password input field with a visibility toggle icon.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.controls.PasswordControl
-
-var password by remember { mutableStateOf("") }
-
-PasswordControl(
-    value = password,
-    label = "Password",
-    onValueChange = { password = it }
-)
-```
-
-### SearchControl
-
-A search bar component.
-
-```kotlin
-import com.sweetmesoft.kmpcontrols.controls.SearchControl
-
-var query by remember { mutableStateOf("") }
-
-SearchControl(
-    value = query,
-    placeholder = "Search...",
-    onValueChange = { query = it },
-    onSearch = { 
-        // Perform search
-    }
-)
-```
-
-## API Reference
-
-### Pickers
-
-**DatePicker**
-- `value`: `LocalDate` - The currently selected date.
-- `onSelectedDate`: `(LocalDate) -> Unit` - Callback when a date is selected.
-- `title`: `String` - Label for the text field.
-- `minDate`, `maxDate`: `LocalDate` - Date range constraints.
-- `color`: `Color` - Primary color for the picker.
-
-**TimePicker**
-- `value`: `LocalTime` - The currently selected time.
-- `onSelectedTime`: `(LocalTime) -> Unit` - Callback when a time is selected.
-- `title`: `String` - Label for the text field.
-
-**DateTimePicker**
-- `value`: `LocalDateTime` - The currently selected date and time.
-- `onSelectedDateTime`: `(LocalDateTime) -> Unit` - Callback when date and time are selected.
-
-### Controls
-
-**PasswordControl**
-- `value`: `String` - Current password text.
-- `onValueChange`: `(String) -> Unit` - Callback for text changes.
-- `label`: `String` - Label text.
-- `isError`: `Boolean` - Whether to show error state.
-
-**SearchControl**
-- `value`: `String` - Current search query.
-- `onValueChange`: `(String) -> Unit` - Callback for text changes.
-- `onSearch`: `(String) -> Unit` - Callback when search action is triggered (e.g., keyboard enter).
-
-## Requirements
-
-- **Android**: Min SDK 28, Target SDK 36
-- **iOS**: 12.0+
-- **Kotlin**: 2.2.21+
-- **Compose Multiplatform**: 1.9.0+
-
-## License
-
-This project is licensed under the MIT License.
+- Android System Vibrator: Translates picker scroll gestures into physical device haptics.
+- iOS UIKit Haptic Feedback: Operates UIKit-level micro-vibrations on Apple devices.
+- System Calendar Provider: Uses system locale defaults to structure month matrices and date-time layouts.
