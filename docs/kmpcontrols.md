@@ -48,13 +48,13 @@ For Android, you need to initialize the library in your `MainActivity` to suppor
 
 ```kotlin
 // In your Android MainActivity.kt
-import com.sweetmesoft.kmpcontrols.tools.BaseAndroid
+import com.sweetmesoft.kmpbase.BaseAndroid
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        // Initialize KMPControls
+        // Initialize SweetMeSoft KMP Library
         BaseAndroid.initSweetMeSoft(this)
         
         setContent {

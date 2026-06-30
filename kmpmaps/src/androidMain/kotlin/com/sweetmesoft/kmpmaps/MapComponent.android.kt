@@ -16,6 +16,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
+import android.graphics.Paint
+import android.graphics.Path
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationAvailability
@@ -163,7 +165,7 @@ actual fun MapComponent(
                         ),
                         title = marker.markerMap.title,
                         snippet = marker.markerMap.snippet,
-                        icon = createCustomMarkerIcon(
+                        icon = getOrCreateMarkerIcon(
                             color = marker.markerMap.iconColor.toArgb()
                         ),
                         onClick = { marker.markerMap.onClick(marker) },
@@ -231,17 +233,38 @@ actual suspend fun getLocation(updateLocation: Boolean): Coordinates =
         }
     }
 
-private fun createCustomMarkerIcon(
-    color: Int
-): BitmapDescriptor {
-    val drawable = ContextCompat.getDrawable(getContext(), R.drawable.pin)?.mutate()
-    drawable?.setTint(color)
-    val bitmap = Bitmap.createBitmap(
-        drawable!!.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-    )
+private val markerIconCache = mutableMapOf<Int, BitmapDescriptor>()
+
+private fun getOrCreateMarkerIcon(color: Int): BitmapDescriptor {
+    return markerIconCache.getOrPut(color) {
+        createVectorMarkerIcon(color)
+    }
+}
+
+private fun createVectorMarkerIcon(color: Int): BitmapDescriptor {
+    val width = 80
+    val height = 120
+    val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
     val canvas = Canvas(bitmap)
-    drawable.setBounds(0, 0, canvas.width, canvas.height)
-    drawable.draw(canvas)
+
+    val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.color = color
+        style = Paint.Style.FILL
+    }
+
+    val path = Path().apply {
+        moveTo(width / 2f, 0f)
+        cubicTo(width.toFloat(), 0f, width.toFloat(), height * 0.4f, width / 2f, height.toFloat())
+        cubicTo(0f, height * 0.4f, 0f, 0f, width / 2f, 0f)
+        close()
+    }
+    canvas.drawPath(path, paint)
+
+    val dotPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        this.color = android.graphics.Color.WHITE
+        style = Paint.Style.FILL
+    }
+    canvas.drawCircle(width / 2f, height * 0.35f, width * 0.18f, dotPaint)
 
     return BitmapDescriptorFactory.fromBitmap(bitmap)
 }

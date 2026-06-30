@@ -63,7 +63,33 @@ kotlin {
 
 ---
 
-## 3. Voyager Navigation Integration
+## 3. Android Initialization
+
+For Android applications, you must initialize the library in your `MainActivity` inside the `onCreate` method. This sets up edge-to-edge styling and caches the activity context for platform-specific library APIs (like map rendering, vibration feedback, files sharing, and image scaling).
+
+```kotlin
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.sweetmesoft.kmpbase.BaseAndroid.Companion.initSweetMeSoft
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // Initialize the SweetMeSoft KMP Library
+        initSweetMeSoft(this)
+        
+        setContent {
+            App()
+        }
+    }
+}
+```
+
+---
+
+## 4. Voyager Navigation Integration
 
 The architecture utilizes Voyager for type-safe multiplatform navigation. Connect Voyager's `Navigator` to the core libraries inside your main shared application entry point:
 
@@ -90,7 +116,7 @@ fun App() {
 
 ---
 
-## 4. Implementing Screens & ViewModels
+## 5. Implementing Screens & ViewModels
 
 Ensure all presentation screens and business logic models inherit from `BaseScreen` and `BaseViewModel` respectively.
 
@@ -169,7 +195,7 @@ class MainDashboardScreen : BaseScreen(
 
 ---
 
-## 5. Usage of Shared Core Components
+## 6. Usage of Shared Core Components
 
 ### A. List Configurations (`RemoteList`)
 

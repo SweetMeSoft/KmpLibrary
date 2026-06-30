@@ -28,6 +28,35 @@ sweetmesoft-kmpbase = { module = "com.sweetmesoft.kmpbase:kmpbase", version.ref 
 implementation(libs.sweetmesoft.kmpbase)
 ```
 
+## Android Initialization
+
+For Android applications, you must initialize the library in your `MainActivity` within the `onCreate` method. This sets up edge-to-edge styling and caches the activity context for platform-specific library APIs.
+
+```kotlin
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import com.sweetmesoft.kmpbase.BaseAndroid.Companion.initSweetMeSoft
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        
+        // Initialize SweetMeSoft KMP Library core Android features
+        initSweetMeSoft(this)
+        
+        setContent {
+            App()
+        }
+    }
+}
+```
+
+### Why initSweetMeSoft is Used
+
+1. **Platform Context Caching**: Stores a static reference to the `ComponentActivity`. This allows platform-specific services in other components/utilities (like maps integration, vibrator feedback, files sharing, image transformations, and app version checks) to retrieve a valid context without requiring developers to pass `Context` parameters through common/shared Compose logic.
+2. **Edge-to-Edge display**: Automatically triggers `enableEdgeToEdge()` on the activity, enabling modern, immersive, borderless Compose layouts.
+
 ## Architecture
 
 This module promotes a consistent architecture using a suite of `BaseScreen` composables and `BaseViewModel`.
