@@ -4,9 +4,10 @@ import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.fragment.app.FragmentActivity
 import com.sweetmesoft.kmpbase.BaseAndroid.Companion.initSweetMeSoft
 
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
     init {
         instance = this
     }

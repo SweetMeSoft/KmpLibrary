@@ -56,6 +56,7 @@ kotlin {
         androidMain.dependencies {
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.okhttp)
+            implementation(libs.androidx.biometric)
         }
 
         iosMain.dependencies {

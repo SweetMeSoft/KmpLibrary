@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +24,7 @@ import com.sweetmesoft.kmpcontrols.controls.ClickableOutlinedTextField
 import com.sweetmesoft.kmpcontrols.controls.PasswordControl
 import com.sweetmesoft.kmpcontrols.controls.SearchControl
 import com.sweetmesoft.kmpcontrols.controls.TermsAndConditions
+import com.sweetmesoft.kmpcontrols.controls.OtpControl
 import dev.seyfarth.tablericons.TablerIcons
 import dev.seyfarth.tablericons.outlined.Edit
 import dev.seyfarth.tablericons.outlined.Trash
@@ -34,7 +38,10 @@ class ControlsScreen : Screen {
             title = "Controls Test"
         ) {
             Column(
-                modifier = Modifier.fillMaxSize().padding(16.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+                    .padding(16.dp),
                 verticalArrangement = Arrangement.spacedBy(24.dp)
             ) {
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -54,6 +61,26 @@ class ControlsScreen : Screen {
                         onValueChange = { viewModel.password = it },
                         modifier = Modifier.fillMaxWidth()
                     )
+                }
+
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("OTP / PIN Input Control", style = MaterialTheme.typography.titleMedium)
+                    OtpControl(
+                        value = viewModel.otpValue,
+                        onValueChange = { viewModel.otpValue = it },
+                        length = 6,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text("Biometric Authentication", style = MaterialTheme.typography.titleMedium)
+                    Button(
+                        onClick = { viewModel.testBiometrics() },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Test Biometric Prompt")
+                    }
                 }
 
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {

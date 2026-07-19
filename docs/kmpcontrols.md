@@ -274,6 +274,23 @@ AutoCompleteTextField(
         true
     }
 )
+
+### OtpControl
+
+A premium custom OTP / PIN text field control with parameterized length, numeric validation, and custom character masking.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.OtpControl
+
+var otpValue by remember { mutableStateOf("") }
+
+OtpControl(
+    value = otpValue,
+    onValueChange = { otpValue = it },
+    length = 6,
+    isMasked = false // Set to true to mask digits (like a PIN)
+)
+```
 ```
 
 ## API Reference
@@ -316,6 +333,13 @@ AutoCompleteTextField(
 - `onValueChange`: `(String) -> Unit` - Callback for text changes.
 - `label`: `String` - Label text.
 - `isError`: `Boolean` - Whether to show error state.
+
+**OtpControl**
+- `value`: `String` - Current OTP/PIN text.
+- `onValueChange`: `(String) -> Unit` - Callback triggered when code changes.
+- `length`: `Int` - Total number of digits/cells (default is 6).
+- `isMasked`: `Boolean` - Mask characters as dots (default is false).
+- `isError`: `Boolean` - Show error state (default is false).
 
 **SearchControl**
 - `value`: `String` - Current search query.
