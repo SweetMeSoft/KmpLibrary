@@ -87,7 +87,7 @@ jobs:
           
       - name: Build with Jekyll
         run: |
-          bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+          bundle exec jekyll build --source docs --destination _site --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
           GITHUB_PAGES: true
           JEKYLL_ENV: production
