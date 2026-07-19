@@ -1,47 +1,47 @@
 ---
-trigger: always
+trigger: always_on
 ---
 
-# Project Documentation Synchronization Guidelines
+# Documentation Sync Rules
 
-This document defines the structural, versioning, and content maintenance standards for all documentation files located under the `docs/` directory. These rules are always applied to ensure documentation remains accurate whenever project configurations or API signatures change.
-
----
-
-## 1. Required Version Alignment
-
-Whenever build parameters, target SDK platforms, or toolchain configurations are updated in the build files (`gradle/libs.versions.toml`, `build.gradle.kts`, or `settings.gradle.kts`), they must be instantly updated in all relevant documentation pages:
-
-- **Kotlin Compiler**: Sync all `Kotlin` references in documentation (`index.md`, `kmpcontrols.md`, `kmpmaps.md`, `library.md`) with the `kotlin` version declared in `libs.versions.toml`.
-- **Compose Multiplatform**: Sync `Compose Multiplatform` versions in documentation with the `compose-plugin` version in the catalog.
-- **Android SDK Levels**: Align the Android `Min SDK` and `Target SDK` parameters in documentation with the `android-minSdk` and `android-targetSdk` references.
-- **iOS Support Target**: Align iOS deployment targets with the active platform configuration settings.
+Keep docs/ (including `SKILL.md`) sync with config, capabilities, and API signatures.
 
 ---
 
-## 2. API Reference & Signature Integrity
+## 1. Version Catalog Alignment
 
-- **Accurate Code Blocks**: All code examples in documentation illustrating component declarations (such as `DatePicker`, `PasswordControl`, `MapComponent`) must match the actual function signatures, imports, and parameters in the code.
-- **Reference Parameters**: Verify that parameters and return types detailed in the API Reference sections are fully synchronized with active class declarations.
+Build configs update → sync docs (`index.md`, `kmpcontrols.md`, `kmpmaps.md`, `library.md`, `getting-started.md`):
+- **Kotlin**: Sync `Kotlin` refs with `kotlin` in `libs.versions.toml`.
+- **Compose**: Sync `Compose Multiplatform` with `compose-plugin` catalog version.
+- **Android**: Align `Min SDK` and `Target SDK` with catalog variables.
+- **iOS**: Sync iOS target versions with project configs.
 
 ---
 
-## 3. Structural Frontmatter Specifications
+## 2. API Signature & Capability Integrity
 
-Every documentation page in the `docs/` folder must preserve Jekyll header definitions at the very beginning of the file:
+- **Exact Code Blocks**: Examples (`DatePicker`, `PasswordControl`, `MapComponent`, `AutoCompleteTextField`) must match actual signatures, parameters, imports.
+- **Params**: Sync API reference types/returns with active classes.
+- **SKILL.md Sync**: Keep `SKILL.md` synchronized with current module capabilities, architectural rules, and documentation indexes.
+
+---
+
+## 3. Structural Frontmatter
+
+All pages in `docs/` must keep Jekyll headers:
 ```markdown
 ---
 layout: default
-title: [Page Title]
-nav_order: [Order Number]
+title: [Title]
+nav_order: [Order]
 ---
 ```
-Do not modify or remove Jekyll layout settings unless restructuring site navigation.
+Do not delete layouts. Exception: `SKILL.md` uses custom YAML frontmatter header.
 
 ---
 
 ## 4. Tone and Formatting
 
-- **Technical Tone**: Maintain professional, clear, and objective English across all files.
-- **Emoji-free**: The use of emojis is strictly prohibited in any documentation page.
-- **Anchor Verification**: Verify that all Table of Contents anchors map directly to existing, correct headings.
+- **Tone**: Technical, clear English.
+- **No Emojis**: Emojis forbidden.
+- **Anchors**: Table of Contents links must map to correct headings.

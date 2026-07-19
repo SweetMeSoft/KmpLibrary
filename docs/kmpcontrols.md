@@ -254,6 +254,28 @@ DoublePicker(
 )
 ```
 
+### AutoCompleteTextField
+
+A text field component that displays a dropdown list of filtered suggestions as the user types.
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.AutoCompleteTextField
+
+var query by remember { mutableStateOf("") }
+val suggestions = listOf("Apple", "Banana", "Cherry")
+
+AutoCompleteTextField(
+    value = query,
+    title = "Select Fruit",
+    suggestions = suggestions.filter { it.contains(query, ignoreCase = true) },
+    onValueChange = { query = it },
+    onSuggestionSelected = { selected ->
+        query = selected
+        true
+    }
+)
+```
+
 ## API Reference
 
 ### Pickers
@@ -281,6 +303,13 @@ DoublePicker(
 - `enabled`: `Boolean` - Controls the enabled state of the input.
 
 ### Controls
+
+**AutoCompleteTextField**
+- `value`: `String` - Current text value.
+- `onValueChange`: `(String) -> Unit` - Callback when text changes.
+- `title`: `String` - Label for the input text field.
+- `suggestions`: `List<String>` - List of strings to display in the dropdown.
+- `onSuggestionSelected`: `(String) -> Boolean` - Callback triggered when a suggestion is clicked.
 
 **PasswordControl**
 - `value`: `String` - Current password text.

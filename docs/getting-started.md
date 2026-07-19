@@ -14,9 +14,9 @@ This guide walks you through integrating and using the SweetMeSoft KMP Library i
 
 Ensure your KMP project aligns with the library's target environment versions:
 
-- **Kotlin Version**: `2.4.0`
+- **Kotlin Version**: `2.4.10`
 - **Compose Multiplatform**: `1.11.1`
-- **Android Gradle Plugin (AGP)**: `9.2.1`
+- **Android Gradle Plugin (AGP)**: `9.3.0`
 - **Android Target SDK**: `37` (Compile SDK: `37`, Min SDK: `24`)
 - **iOS Target**: iOS `12.0` or higher
 
@@ -30,7 +30,7 @@ Open your `libs.versions.toml` file and add the SweetMeSoft library declarations
 
 ```toml
 [versions]
-sweetmesoft = "2.0.1"
+sweetmesoft = "2.2.0"
 androidx-lifecycle = "2.11.0"
 compose-multiplatform = "1.9.0"
 compose-plugin = "1.11.1"
@@ -250,6 +250,26 @@ DatePicker(
     title = "Select Date",
     onSelectedDate = { date ->
         selectedDate = date
+    }
+)
+```
+
+### D. Autocomplete Controls (`AutoCompleteTextField`)
+
+```kotlin
+import com.sweetmesoft.kmpcontrols.controls.AutoCompleteTextField
+
+var selectedFruit by remember { mutableStateOf("") }
+val fruits = listOf("Apple", "Banana", "Cherry")
+
+AutoCompleteTextField(
+    value = selectedFruit,
+    title = "Select Fruit",
+    suggestions = fruits.filter { it.contains(selectedFruit, ignoreCase = true) },
+    onValueChange = { selectedFruit = it },
+    onSuggestionSelected = { suggestion ->
+        selectedFruit = suggestion
+        true
     }
 )
 ```
