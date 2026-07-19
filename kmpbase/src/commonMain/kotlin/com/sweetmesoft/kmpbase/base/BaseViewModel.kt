@@ -51,6 +51,7 @@ open class BaseViewModel : ViewModel() {
 
     fun updateTab(index: Int) {
         BaseDrawerScreen.currentTab.value = index
+        BaseDrawerScreen.selectedTab.value = null
     }
 
     fun updateBottomTab(index: Int) {

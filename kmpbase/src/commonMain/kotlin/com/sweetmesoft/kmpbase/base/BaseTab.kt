@@ -69,4 +69,9 @@ interface BaseTab : Tab {
                 index = 0u, title = baseOptions.title, icon = baseOptions.icon
             )
         }
+    val subTabs: List<BaseTab>
+        get() = emptyList()
+
+    @Composable
+    override fun Content() {}
 }

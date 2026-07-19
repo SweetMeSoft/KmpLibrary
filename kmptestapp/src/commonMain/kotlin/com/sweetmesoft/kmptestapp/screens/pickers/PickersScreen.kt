@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -24,6 +26,7 @@ import com.sweetmesoft.kmpcontrols.dialogs.CalendarDialog
 import com.sweetmesoft.kmpcontrols.dialogs.ClockDialog
 import com.sweetmesoft.kmpcontrols.pickers.DatePicker
 import com.sweetmesoft.kmpcontrols.pickers.DateTimePicker
+import com.sweetmesoft.kmpcontrols.controls.AutoCompleteTextField
 import com.sweetmesoft.kmpcontrols.pickers.TimePicker
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
@@ -40,13 +43,18 @@ class PickersScreen : Screen {
             var date: LocalDate by remember { mutableStateOf(getCurrentDateTime().date) }
             var time: LocalTime by remember { mutableStateOf(getCurrentDateTime().time) }
             var dateTime: LocalDateTime by remember { mutableStateOf(getCurrentDateTime()) }
+            var autocompleteValue by remember { mutableStateOf("") }
+            val autocompleteSuggestions = remember { listOf("Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig", "Grape") }
             var showDatePicker by remember { mutableStateOf(false) }
             var showTimePicker by remember { mutableStateOf(false) }
             var showCalculator by remember { mutableStateOf(false) }
             val scope = androidx.compose.runtime.rememberCoroutineScope()
 
             Column(
-                modifier = Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier
+                    .padding(16.dp)
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center
@@ -70,6 +78,18 @@ class PickersScreen : Screen {
                 DatePicker(value = date) { date = it }
                 TimePicker(value = time) { time = it }
                 DateTimePicker(value = dateTime) { dateTime = it }
+                
+                AutoCompleteTextField(
+                    modifier = Modifier.fillMaxWidth(),
+                    value = autocompleteValue,
+                    title = "Autocomplete Fruits",
+                    suggestions = autocompleteSuggestions.filter { it.contains(autocompleteValue, ignoreCase = true) },
+                    onValueChange = { autocompleteValue = it },
+                    onSuggestionSelected = {
+                        autocompleteValue = it
+                        true
+                    }
+                )
 
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Button(
