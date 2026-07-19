@@ -14,7 +14,7 @@ theme: jekyll-theme-primer
 remote_theme: just-the-docs/just-the-docs
 
 # Color Scheme & Customization
-color_scheme: dark # default is light, dark mode is premium and stylized
+color_scheme: dark
 search_enabled: true
 search:
   tokenizer: 'default'
@@ -29,11 +29,12 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-# Plugins
+# Plugins (jekyll-remote-theme is required for remote_theme on GitHub Pages)
 plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jekyll-remote-theme
 
 # Navigation & Layout Defaults
 defaults:

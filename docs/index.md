@@ -3,7 +3,6 @@ layout: default
 title: Home
 nav_order: 1
 description: "Official documentation for the SweetMeSoft KMP Library. Build responsive, native, cross-platform Android and iOS applications with Compose Multiplatform."
-permalink: /
 ---
 
 # SweetMeSoft Kotlin Multiplatform Library
@@ -26,19 +25,19 @@ The library is split into three core modules:
   <div class="module-card" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 24px; background: #1f242e; color: #f8f9fa; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
     <h3 style="color: #61afef; margin-top: 0;">KMPBase</h3>
     <p style="font-size: 0.95rem; color: #abb2bf; min-height: 72px;">Core architecture foundation including base ViewModel and Screen setups, loading overlays, network clients, dialog utilities, and platforms helpers.</p>
-    <a href="{{ site.baseurl }}/docs/kmpbase/" class="btn" style="display: inline-block; padding: 8px 16px; background: #61afef; color: #1e1e1e; font-weight: 600; text-decoration: none; border-radius: 4px;">Explore KMPBase</a>
+    <a href="{{ site.baseurl }}/kmpbase.html" class="btn" style="display: inline-block; padding: 8px 16px; background: #61afef; color: #1e1e1e; font-weight: 600; text-decoration: none; border-radius: 4px;">Explore KMPBase</a>
   </div>
   
   <div class="module-card" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 24px; background: #1f242e; color: #f8f9fa; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
     <h3 style="color: #98c379; margin-top: 0;">KMPControls</h3>
     <p style="font-size: 0.95rem; color: #abb2bf; min-height: 72px;">Premium UI pickers (Date, Time, DateTime), password fields, autocomplete widgets, terms and conditions screens, and customizable OTP/PIN inputs.</p>
-    <a href="{{ site.baseurl }}/docs/kmpcontrols/" class="btn" style="display: inline-block; padding: 8px 16px; background: #98c379; color: #1e1e1e; font-weight: 600; text-decoration: none; border-radius: 4px;">Explore KMPControls</a>
+    <a href="{{ site.baseurl }}/kmpcontrols.html" class="btn" style="display: inline-block; padding: 8px 16px; background: #98c379; color: #1e1e1e; font-weight: 600; text-decoration: none; border-radius: 4px;">Explore KMPControls</a>
   </div>
   
   <div class="module-card" style="border: 1px solid #e1e4e8; border-radius: 8px; padding: 24px; background: #1f242e; color: #f8f9fa; transition: transform 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
     <h3 style="color: #e5c07b; margin-top: 0;">KMPMaps</h3>
     <p style="font-size: 0.95rem; color: #abb2bf; min-height: 72px;">Unified mapping component wrapping Google Maps (Android) and MapKit (iOS) supporting markers, path routing, geometric overlays, and GPS location tracking.</p>
-    <a href="{{ site.baseurl }}/docs/kmpmaps/" class="btn" style="display: inline-block; padding: 8px 16px; background: #e5c07b; color: #1e1e1e; font-weight: 600; text-decoration: none; border-radius: 4px;">Explore KMPMaps</a>
+    <a href="{{ site.baseurl }}/kmpmaps.html" class="btn" style="display: inline-block; padding: 8px 16px; background: #e5c07b; color: #1e1e1e; font-weight: 600; text-decoration: none; border-radius: 4px;">Explore KMPMaps</a>
   </div>
 </div>
 
@@ -120,6 +119,6 @@ fun App() {
 
 ## Need Help?
 
-- Read the [Getting Started Guide]({{ site.baseurl }}/docs/getting-started/) to configure your first application.
-- Explore [KMPTestApp Guide]({{ site.baseurl }}/docs/kmptestapp/) to see real-world implementation samples.
+- Read the [Getting Started Guide]({{ site.baseurl }}/getting-started.html) to configure your first application.
+- Explore [KMPTestApp Guide]({{ site.baseurl }}/kmptestapp.html) to see real-world implementation samples.
 - Visit our [GitHub Repository](https://github.com/erickvelasco11/KmpLibrary) to report bugs or request features.
