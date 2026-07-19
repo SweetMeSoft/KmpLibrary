@@ -1,17 +1,4 @@
----
----
-
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap');
 
-// Variable Overrides
 $body-font-family: "Nunito", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif;
 $header-font-family: "Nunito", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, helvetica, arial, sans-serif;
-
-@import "just-the-docs";
-
-// Styles Overrides
-code, pre, .highlight, .highlighter-rouge, div.highlighter-rouge, .code-example {
-  border: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-}
