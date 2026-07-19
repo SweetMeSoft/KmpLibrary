@@ -18,7 +18,7 @@ To maintain architectural consistency across projects using this library, you mu
 3.  **Screens Layout**: All screens must inherit from one of the core screen wrappers: `BaseScreen` (standard pages), `BaseBottomBarScreen` (tab layouts), `BaseDrawerScreen` (drawer layouts), or `BaseBottomSheetScreen` (bottom sheets).
 4.  **Business Logic**: All ViewModels must inherit from `BaseViewModel` to utilize integrated permissions handlers and global loading state bindings.
 5.  **Android Initialization**: Initialize the library in Android `MainActivity` inside `onCreate` by calling `initSweetMeSoft(this)` before setting Compose content.
-6.  **Network Calls**: All HTTP requests must use `NetworkUtils` (`get` / `post`) to support global progress overlays and status dialog bindings.
+6.  **Network Calls**: All HTTP requests must use `NetworkUtils` (`get` / `post` / etc) to support global progress overlays and status dialog bindings.
 
 ---
 
