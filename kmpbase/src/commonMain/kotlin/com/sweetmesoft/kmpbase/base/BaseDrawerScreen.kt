@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -52,6 +53,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sweetmesoft.kmpbase.controls.LoadingView
@@ -70,8 +72,12 @@ import dev.seyfarth.tablericons.outlined.Logout
 import dev.seyfarth.tablericons.outlined.Menu2
 import kmplibrary.kmpbase.generated.resources.Logout
 import kmplibrary.kmpbase.generated.resources.Res
+import kmplibrary.kmpbase.generated.resources.header_drawer
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import androidx.compose.foundation.Image
+import androidx.compose.ui.layout.ContentScale
+import org.jetbrains.compose.resources.painterResource
 
 class BaseDrawerScreen {
     companion object {
@@ -86,6 +92,15 @@ fun BaseDrawerScreen(
     modifier: Modifier = Modifier,
     vm: BaseViewModel = BaseViewModel(),
     logoutAction: () -> Unit = {},
+    headerHeight: Dp = 150.dp,
+    headerBackground: @Composable (() -> Unit)? = {
+        Image(
+            painter = painterResource(Res.drawable.header_drawer),
+            contentDescription = "Header Background",
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop
+        )
+    },
     headerView: @Composable () -> Unit = {}
 ) {
     val firstSelectable = remember(tabs) {
@@ -108,7 +123,7 @@ fun BaseDrawerScreen(
             drawerTonalElevation = 0.dp,
             windowInsets = WindowInsets(0, 0, 0, 0),
         ) {
-            DrawerContent(tabs, vm, logoutAction, headerView)
+            DrawerContent(tabs, vm, logoutAction, headerView, headerBackground, headerHeight)
         }
     }, content = {
         val activeTab = BaseDrawerScreen.selectedTab.value ?: firstSelectable
@@ -155,7 +170,9 @@ private fun DrawerContent(
     list: List<BaseTab>,
     vm: BaseViewModel,
     logoutAction: () -> Unit,
-    headerView: @Composable () -> Unit
+    headerView: @Composable () -> Unit,
+    headerBackground: @Composable (() -> Unit)?,
+    headerHeight: Dp
 ) {
     val scope = rememberCoroutineScope()
     val expandedStates = remember { mutableStateMapOf<Int, Boolean>() }
@@ -173,10 +190,35 @@ private fun DrawerContent(
             .fillMaxHeight()
             .fillMaxWidth(0.78f)
             .background(MaterialTheme.colorScheme.surface)
-            .padding(top = 16.dp, bottom = 8.dp)
+            .padding(bottom = 8.dp)
     ) {
-        Box(modifier = Modifier.padding(horizontal = 16.dp)) {
-            headerView()
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .then(
+                    if (headerBackground != null) Modifier.height(headerHeight) else Modifier
+                )
+        ) {
+            if (headerBackground != null) {
+                Box(modifier = Modifier.matchParentSize()) {
+                    headerBackground()
+                }
+            }
+            
+            Box(
+                modifier = Modifier
+                    .then(
+                        if (headerBackground != null) Modifier.fillMaxSize() else Modifier.fillMaxWidth()
+                    )
+                    .padding(
+                        top = if (headerBackground != null) 24.dp else 16.dp,
+                        bottom = 16.dp,
+                        start = 16.dp,
+                        end = 16.dp
+                    )
+            ) {
+                headerView()
+            }
         }
         
         HorizontalDivider(

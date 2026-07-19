@@ -120,13 +120,24 @@ fun MainScreen() {
 
 Manages a screen with a side navigation drawer. Similar to `BaseBottomBarScreen`, it uses `BaseTab` for navigation items.
 
+Supports a customizable `headerHeight` and a full-bleed `headerBackground` (such as a banner image) behind the padded `headerView` content overlay.
+
 ```kotlin
 @Composable
 fun MainScreen() {
     BaseDrawerScreen(
         tabs = listOf(homeTab, settingsTab),
+        headerHeight = 150.dp,
+        headerBackground = {
+            Image(
+                painter = painterResource(Res.drawable.header_drawer),
+                contentDescription = "Header Background",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
+        },
         headerView = {
-            // Drawer header content
+            // Content overlayed on top of the background with padding
         },
         logoutAction = {
             // Handle logout
@@ -418,6 +429,33 @@ Helper functions to interact with the target platform.
 val platform = getPlatform() // Returns PlatformType.ANDROID or PlatformType.IOS
 val version = getAppVersion()
 openAppStore("com.sweetmesoft.kmptestapp") // Opens the platform-specific store page
+```
+
+### BiometricUtils
+
+Unified API to determine biometric status (face scanner / fingerprint / passcode availability) and trigger authentication prompts on both Android and iOS targets.
+
+```kotlin
+// Check biometric support availability
+val status = isBiometricAvailable() // Returns BiometricStatus.AVAILABLE, NOT_AVAILABLE, NOT_ENROLLED, etc.
+
+if (status == BiometricStatus.AVAILABLE) {
+    // Trigger biometric authentication prompt
+    val result = authenticateBiometric(
+        title = "Verify Identity",
+        subtitle = "Please scan your face or fingerprint to log in",
+        negativeButtonText = "Cancel"
+    )
+    result.onSuccess { authenticated ->
+        if (authenticated) {
+            // User authenticated successfully
+        } else {
+            // User cancelled the prompt
+        }
+    }.onFailure { error ->
+        // Handle authentication failure/error
+    }
+}
 ```
 
 ### DateUtils
