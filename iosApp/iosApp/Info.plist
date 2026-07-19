@@ -30,6 +30,8 @@
 	<string>This app needs access to your location to show it on the map.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>This app needs access to your location to show it on the map.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This app needs access to Face ID for secure authentication.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -69,7 +69,8 @@ class ControlsScreen : Screen {
                         value = viewModel.otpValue,
                         onValueChange = { viewModel.otpValue = it },
                         length = 6,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
+                        onComplete = { viewModel.onOtpComplete(it) }
                     )
                 }
 

@@ -37,7 +37,8 @@ fun OtpControl(
     isMasked: Boolean = false,
     colorLight: Color = MaterialTheme.colorScheme.primary,
     colorDark: Color = MaterialTheme.colorScheme.secondary,
-    isError: Boolean = false
+    isError: Boolean = false,
+    onComplete: ((String) -> Unit)? = null
 ) {
     val focusRequester = remember { FocusRequester() }
     val activeColor = if (!isSystemInDarkTheme()) colorLight else colorDark
@@ -50,6 +51,9 @@ fun OtpControl(
             onValueChange = { newValue ->
                 if (newValue.length <= length && newValue.all { it.isDigit() }) {
                     onValueChange(newValue)
+                    if (newValue.length == length) {
+                        onComplete?.invoke(newValue)
+                    }
                 }
             },
             keyboardOptions = KeyboardOptions(

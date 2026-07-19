@@ -288,7 +288,10 @@ OtpControl(
     value = otpValue,
     onValueChange = { otpValue = it },
     length = 6,
-    isMasked = false // Set to true to mask digits (like a PIN)
+    isMasked = false, // Set to true to mask digits (like a PIN)
+    onComplete = { completedOtp ->
+        // Callback triggered when all digits are entered
+    }
 )
 ```
 ```
@@ -340,6 +343,7 @@ OtpControl(
 - `length`: `Int` - Total number of digits/cells (default is 6).
 - `isMasked`: `Boolean` - Mask characters as dots (default is false).
 - `isError`: `Boolean` - Show error state (default is false).
+- `onComplete`: `((String) -> Unit)?` - Callback triggered when code matches the target length (default is null).
 
 **SearchControl**
 - `value`: `String` - Current search query.

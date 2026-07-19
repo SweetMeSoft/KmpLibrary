@@ -17,6 +17,15 @@ class ControlsViewModel : BaseViewModel() {
     var clickableText by mutableStateOf("Click Me!")
     var otpValue by mutableStateOf("")
 
+    fun onOtpComplete(otp: String) {
+        viewModelScope.launch {
+            PopupHandler.displayAlert(
+                title = "OTP Completed",
+                message = "Entered OTP code: $otp"
+            )
+        }
+    }
+
     fun testBiometrics() {
         viewModelScope.launch {
             val status = isBiometricAvailable()
