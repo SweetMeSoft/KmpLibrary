@@ -23,13 +23,13 @@ KMPTestApp is the test application that demonstrates the use of all modules of t
 
 KMPTestApp is a complete application that demonstrates:
 
-- ✅ Use of all `KMPControls` components
-- ✅ Maps implementation with `KMPMaps`
-- ✅ Utilization of advanced `KMPBase` controls
-- ✅ Navigation with Voyager
-- ✅ State and ViewModels management
-- ✅ Custom themes
-- ✅ Architecture best practices
+- Use of all `KMPControls` components
+- Maps implementation with `KMPMaps`
+- Utilization of advanced `KMPBase` controls
+- Navigation with Voyager
+- State and ViewModels management
+- Custom themes
+- Architecture best practices
 
 ## Project Structure
 

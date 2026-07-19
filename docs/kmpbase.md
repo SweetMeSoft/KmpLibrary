@@ -435,6 +435,8 @@ openAppStore("com.sweetmesoft.kmptestapp") // Opens the platform-specific store 
 
 Unified API to determine biometric status (face scanner / fingerprint / passcode availability) and trigger authentication prompts on both Android and iOS targets.
 
+![Biometric Prompt Preview]({{ site.baseurl }}/assets/images/biometric_prompt_preview.png)
+
 ```kotlin
 // Check biometric support availability
 val status = isBiometricAvailable() // Returns BiometricStatus.AVAILABLE, NOT_AVAILABLE, NOT_ENROLLED, etc.

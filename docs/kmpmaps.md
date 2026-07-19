@@ -6,6 +6,8 @@ nav_order: 4
 
 # KMPMaps
 
+![Map Component Preview]({{ site.baseurl }}/assets/images/map_component_preview.png)
+
 KMPMaps is a Kotlin Multiplatform library that provides unified map functionality across Android and iOS platforms, leveraging native map implementations (Google Maps on Android and MapKit on iOS) with a simple, composable API.
 
 ## Features

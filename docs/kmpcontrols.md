@@ -279,6 +279,8 @@ AutoCompleteTextField(
 
 A premium custom OTP / PIN text field control with parameterized length, numeric validation, and custom character masking.
 
+![OtpControl Preview]({{ site.baseurl }}/assets/images/otp_control_preview.png)
+
 ```kotlin
 import com.sweetmesoft.kmpcontrols.controls.OtpControl
 
@@ -293,7 +295,6 @@ OtpControl(
         // Callback triggered when all digits are entered
     }
 )
-```
 ```
 
 ## API Reference
