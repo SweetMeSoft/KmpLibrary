@@ -2,6 +2,7 @@
 layout: default
 title: Getting Started
 nav_order: 2
+description: "Step-by-step guide to installing and configuring the SweetMeSoft KMP Library in your Kotlin Multiplatform projects."
 ---
 
 # Getting Started Guide
@@ -12,7 +13,8 @@ This guide walks you through integrating and using the SweetMeSoft KMP Library i
 
 ## 1. Prerequisites and Versions
 
-Ensure your KMP project aligns with the library's target environment versions:
+> **Compatibility Warning**
+> Ensure your KMP project aligns with the library's target environment versions before adding the dependencies.
 
 - **Kotlin Version**: `2.4.10`
 - **Compose Multiplatform**: `1.11.1`
@@ -30,7 +32,7 @@ Open your `libs.versions.toml` file and add the SweetMeSoft library declarations
 
 ```toml
 [versions]
-sweetmesoft = "2.2.0"
+sweetmesoft = "2.2.1"
 androidx-lifecycle = "2.11.0"
 compose-multiplatform = "1.9.0"
 compose-plugin = "1.11.1"
@@ -135,14 +137,14 @@ class LoginViewModel : BaseViewModel() {
     fun executeLogin(credentials: UserCredentials) {
         viewModelScope.launch {
             // Trigger global loading spinner overlay
-            setLoading(true)
+            showLoading()
             
             val result = NetworkUtils.post<LoginResponse>(
                 url = "https://api.example.com/login",
                 body = credentials
             )
             
-            setLoading(false)
+            hideLoading()
             
             result.onSuccess { response ->
                 // Navigate to home screen
@@ -186,7 +188,7 @@ class MainDashboardScreen : BaseScreen(
                 Text("Welcome to KMP dashboard!")
             }
             
-            // Required overlay to show global loader triggered by setLoading(true)
+            // Required overlay to show global loader triggered by showLoading()
             LoadingView()
         }
     }

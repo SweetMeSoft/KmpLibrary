@@ -9,8 +9,19 @@ baseurl: "/KmpLibrary"
 url: "https://sweetmesoft.github.io"
 repository: SweetMeSoft/KmpLibrary
 
-# Theme
-theme: minima
+# Theme Settings
+theme: jekyll-theme-primer
+remote_theme: just-the-docs/just-the-docs
+
+# Color Scheme & Customization
+color_scheme: dark # default is light, dark mode is premium and stylized
+search_enabled: true
+search:
+  tokenizer: 'default'
+  heading_level: 4
+
+# Header / Logo
+logo: "/assets/images/logo.png"
 
 # Markdown processor
 markdown: kramdown
@@ -24,19 +35,15 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
-# Navigation
-header_pages:
-  - README.md
-  - docs/getting-started.md
-  - docs/kmpcontrols.md
-  - docs/kmpmaps.md
-  - docs/kmpbase.md
-  - docs/kmptestapp.md
+# Navigation & Layout Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
 
-# Social links
-github_username: erickvelasco11
-
-# Build settings
+# Exclusions
 exclude:
   - .gradle/
   - build/
@@ -47,34 +54,23 @@ exclude:
   - "*.iml"
   - .idea/
   - local.properties
+  - secret_key.gpg
+  - Gemfile
+  - Gemfile.lock
 
-# Collections
-collections:
-  docs:
-    output: true
-    permalink: /:collection/:name/
-
-# Defaults
-defaults:
-  - scope:
-      path: "docs"
-      type: "docs"
-    values:
-      layout: "page"
-      nav_order: 1
-
-# Custom variables
+# Social & Author Variables
+github_username: erickvelasco11
 author:
   name: SweetMeSoft Team
   email: team@sweetmesoft.com
 
-version: "2.0.1"
-kotlin_version: "2.1.0"
-compose_version: "1.7.5"
+# Project Versions
+version: "2.2.1"
+kotlin_version: "2.4.10"
+compose_version: "1.11.1"
 
-# SEO
+# SEO Settings
 lang: en
-logo: /assets/images/logo.png
-
-# Analytics (optional)
-# google_analytics: UA-XXXXXXXX-X
+seo:
+  name: SweetMeSoft KMP Library
+  type: WebSite
